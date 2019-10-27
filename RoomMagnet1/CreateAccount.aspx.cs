@@ -56,11 +56,11 @@ public partial class CreateAccount : System.Web.UI.Page
 
                         insert.ExecuteNonQuery();
 
-                        Response.Redirect("Dashboard.aspx", false);
+                        Response.Redirect("AccountConfirmation.aspx", false);
                     }
                     catch
                     {
-                            OutputLabel.Text = "An error occured.";
+                            OutputLabel.Text = "An error occured inserting user information into the database.";
                     }
                 
             }
@@ -100,14 +100,7 @@ public partial class CreateAccount : System.Web.UI.Page
                         {
                             OutputLabel.Text = "An account with this email already exists.";
                         }
-                    }
-                
-               
-            }
-
-            else
-            {
-                OutputLabel.Text = "An error occured.";
+                    }           
             }
         
     }

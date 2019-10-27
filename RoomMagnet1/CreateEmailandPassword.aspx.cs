@@ -14,6 +14,7 @@ public partial class CreateEmailandPassword : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         OutputLabel.Text = "" + Convert.ToString(Session["userType"]);
+        //Session["userType"]
     }
 
     protected void nextButton_Click(object sender, EventArgs e)
@@ -47,7 +48,7 @@ public partial class CreateEmailandPassword : System.Web.UI.Page
 
                     Session["userType"] = Convert.ToString(Session["userType"]);
 
-                    Response.Redirect("CreateAccount.aspx", false);
+                    Response.Redirect("CreateAccount.aspx");
                 }
 
                 else

@@ -15,12 +15,12 @@ public partial class CreateHostorTenant : System.Web.UI.Page
     protected void hostButton_Click(object sender, EventArgs e)
     {
         Session["userType"] = "H";
-        Response.Redirect("CreateEmailandPassword.aspx", false);
+        Response.Redirect("CreateEmailandPassword.aspx");
     }
 
     protected void tenantButton_Click(object sender, EventArgs e)
     {
         Session["userType"] = "T";
-        Response.Redirect("CreateEmailandPassword.aspx", false);
+        Response.Redirect("CreateEmailandPassword.aspx");
     }
 }

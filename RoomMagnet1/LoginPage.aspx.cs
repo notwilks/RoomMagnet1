@@ -58,7 +58,7 @@ public partial class LoginPage : System.Web.UI.Page
                         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email3", EmailBox.Text));
                         Session["userEmail"] = Convert.ToString(select.ExecuteScalar());
 
-                        Response.Redirect("Dashboard.aspx");
+                        Response.Redirect("AccountConfirmation.aspx");
                         sc.Close();
                     }
                     else
