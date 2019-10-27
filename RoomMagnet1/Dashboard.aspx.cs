@@ -35,7 +35,7 @@ public partial class HostDashboard : System.Web.UI.Page
             select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
             String hostName = Convert.ToString(select.ExecuteScalar());
-            welcome.Text = "Welcome " + hostName;
+            ProfileHeader.Text = "Welcome " + hostName;
         }
         else
         {
@@ -49,7 +49,7 @@ public partial class HostDashboard : System.Web.UI.Page
             select.CommandText = "Select (firstName + ' ' + lastName) from tenant where email = @email3";
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email3", Session["userEmail"]));
             String userName1 = Convert.ToString(select.ExecuteScalar());
-            welcome.Text = "Welcome " + userName1;
+            ProfileHeader.Text = "Welcome " + userName1;
 
         }
 
@@ -62,5 +62,10 @@ public partial class HostDashboard : System.Web.UI.Page
         Session["userType"] = "";
         Session["userEmail"] = "";
         Response.Redirect("HomePage.aspx");
+    }
+
+    protected void EditProfileBtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("EditAccountInformation.aspx");
     }
 }

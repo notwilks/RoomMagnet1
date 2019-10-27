@@ -1,55 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="CreateAccount.aspx.cs" Inherits="CreateAccount" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="EditAccountInformation.aspx.cs" Inherits="EditAccountInformation" %>
 
-
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <!DOCTYPE html>
-
-<html>
-
-    <title>RoomMagnet - Create Account</title>
-    <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-        }
-        .auto-style6 {
-            width: 138px;
-        }
-        .auto-style8 {
-            width: 240px;
-        }
-        .auto-style9 {
-            width: 123px;
-        }
-        .auto-style10 {
-            width: 232px;
-        }
-        .auto-style11 {
-            width: 138px;
-            height: 26px;
-        }
-        .auto-style12 {
-            width: 240px;
-            height: 26px;
-        }
-        .auto-style13 {
-            width: 123px;
-            height: 26px;
-        }
-        .auto-style14 {
-            width: 232px;
-            height: 26px;
-        }
-        .auto-style15 {
-            height: 26px;
-        }
-    </style>
-    <br />
-    <h1 class="container">Tell us about yourself.</h1>
-    <h3 class="container">Let us find you the perfect space.</h3>
-    <br />
-
-<body>
-
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <h2>Edit Personal Information</h2>
     <form id="form1" runat="server">
         <div class="container">
             <table class="auto-style1">
@@ -119,7 +71,7 @@
                         <asp:Label ID="Label10" runat="server" Text="Phone Number: "></asp:Label>
                     </td>
                     <td class="auto-style10">
-                        <asp:TextBox ID="phoneNumberBox" runat="server" Width="212px" placeholder ="xxx-xxx-xxxx" CssClass="form-control" OnTextChanged="phoneNumberBox_TextChanged"></asp:TextBox>
+                        <asp:TextBox ID="phoneNumberBox" runat="server" Width="212px" placeholder ="xxx-xxx-xxxx" CssClass="form-control"></asp:TextBox>
                     </td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -165,7 +117,7 @@
                 <tr>
                     <td class="auto-style6">&nbsp;</td>
                     <td class="auto-style8">
-                        <asp:Button ID="Button1" runat="server" Text="Create Account" OnClick="Button1_Click" CausesValidation="True" CssClass="form-control btn btn-outline-success my-2 my-sm-0 form-inline"/>
+                        <asp:Button ID="Button1" runat="server" Text="Update Information" OnClick="Button1_Click" CausesValidation="False" CssClass="form-control btn btn-outline-success my-2 my-sm-0 form-inline"/>
                     </td>
                     <td class="auto-style9">&nbsp;</td>
                     <td class="auto-style10">&nbsp;</td>
@@ -199,6 +151,6 @@
             </table>
         </div>
     </form>
-</body>
-</html>
+    <h2></h2>
 </asp:Content>
+
