@@ -19,15 +19,11 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style6">
-                        
-                        <asp:Label ID="Label8" runat="server" Text="First Name: "></asp:Label>
-                        
+                    <td class="auto-style6">                        
+                        <asp:Label ID="Label8" runat="server" Text="First Name: "></asp:Label>                       
                     </td>
-                    <td class="auto-style8">
-                
-                <asp:TextBox ID="FirstNameBox" runat="server" Width="223px" MaxLength ="25" CssClass="form-control"></asp:TextBox>
-           
+                    <td class="auto-style8">               
+                        <asp:TextBox ID="FirstNameBox" runat="server" Width="223px" MaxLength ="25" CssClass="form-control"></asp:TextBox>       
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="FirstNameBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="FirstNameBox" Font-Size="Small" Operator="DataTypeCheck" ForeColor="Red" Type="String" Text ="Invalid characters" />
                     </td>

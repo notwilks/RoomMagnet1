@@ -18,12 +18,14 @@ public partial class LoginPage : System.Web.UI.Page
     {
         try
         {
-            sc.Open();
+            
             System.Data.SqlClient.SqlCommand findPass = new System.Data.SqlClient.SqlCommand();
             findPass.Connection = sc;
 
             System.Data.SqlClient.SqlCommand select = new System.Data.SqlClient.SqlCommand();
             select.Connection = sc;
+
+            sc.Open();
             // SELECT PASSWORD STRING WHERE THE ENTERED USERNAME MATCHES
             findPass.CommandText = "select password from Passwords where email = @email";
             findPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", HttpUtility.HtmlEncode(EmailBox.Text)));
@@ -80,6 +82,6 @@ public partial class LoginPage : System.Web.UI.Page
 
     protected void PasswordBox_TextChanged(object sender, EventArgs e)
     {
-
+        
     }
 }
