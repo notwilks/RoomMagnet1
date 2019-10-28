@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="AccountConfirmation.aspx.cs" Inherits="AccountConfirmation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <form id ="form1" runat="server">
+    <form id ="form1" style="margin-top: 7rem;" runat="server">
     <h1>Your safety is crucial to us.</h1>
     <h3>Let us find your the perfect space.</h3>
     <p>

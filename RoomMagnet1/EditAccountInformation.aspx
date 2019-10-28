@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="EditAccountInformation.aspx.cs" Inherits="EditAccountInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <h2>Edit Personal Information</h2>
-    <form id="form1" runat="server">
+    
+    <form id="form1" style="margin-top: 7rem;" runat="server">
+        <h2>Edit Personal Information</h2>
         <div class="container">
             <table class="auto-style1">
                 <tr>

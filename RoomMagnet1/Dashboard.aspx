@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="Dashboard.aspx.cs" Inherits="HostDashboard" %>
 
 <asp:Content ID="HostDashboard" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <form id="form2" runat="server">
+    <form id="form2" style="margin-top: 7rem;" runat="server">
         <div class="" style="float:right;">
             <asp:label ID = "navBarName" runat="server" text="" CssClass=""></asp:label>
         &ensp;

@@ -43,14 +43,15 @@
             height: 26px;
         }
     </style>
-    <br />
-    <h1 class="container">Tell us about yourself.</h1>
-    <h3 class="container">Let us find you the perfect space.</h3>
-    <br />
+   
 
 <body>
 
-    <form id="form1" runat="server">
+    <form id="form1" style="margin-top: 8rem;" runat="server">
+         <br />
+    <h1 class="container">Tell us about yourself.</h1>
+    <h3 class="container">Let us find you the perfect space.</h3>
+    <br />
         <div class="container">
             <table class="auto-style1">
                 <tr>

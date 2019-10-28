@@ -14,7 +14,7 @@ public partial class LoginPage : System.Web.UI.Page
         
     }
 
-    protected void LoginButton_Click(object sender, EventArgs e)
+    protected void NextButton_Click(object sender, EventArgs e)
     {
         try
         {
@@ -39,7 +39,7 @@ public partial class LoginPage : System.Web.UI.Page
                     if (PasswordHash.ValidatePassword(PasswordBox.Text, storedHash)) // if the entered password matches what is stored, it will show success
                     {
                         OutputLabel.Text = "Success!";
-                        LoginButton.Enabled = false;
+                        NextButton.Enabled = false;
                         EmailBox.Enabled = false;
                         PasswordBox.Enabled = false;
 
