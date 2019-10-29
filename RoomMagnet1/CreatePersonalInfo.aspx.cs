@@ -14,7 +14,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        OutputLabel.Text = "" + Convert.ToString(Session["userType"]);
+        OutputLabel.Text = "" + Convert.ToString(Session["userType"]) + Convert.ToString(Session["userEmail"]);
     }
     protected void Button1_Click1(object sender, EventArgs e)
     {
@@ -91,7 +91,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
                 insert.ExecuteNonQuery();
 
-                Response.Redirect("CreateHostProperty.aspx");
+                Response.Redirect("CreateProperty.aspx");
             }
             catch
             {

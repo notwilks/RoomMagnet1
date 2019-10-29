@@ -12,5 +12,6 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+
     }
 }

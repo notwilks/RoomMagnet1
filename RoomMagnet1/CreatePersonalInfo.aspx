@@ -25,30 +25,28 @@
         <h1>Tell us about yourself.</h1>
         <p>Let us find you the perfect space.</p>
       </div>
-       
-       <div class="row">
-           <div class="col-md-6 promar" >
-                <div class="progress" >
-                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%; " aria-valuenow="25" ></div>
-               </div>
-           </div>
-       </div>
-       
-       
+
     </header>
 
-    <section id="creation" style="margin-top: 4rem;">
+    <section id="creation"">
       <div class="container">
         <form>
           <div class="row">
             <div class="col">
-              <label for="formGroupExampleInput">First Name</label>
+               <div class="row">
+                    <div class="col promar" >
+                        <div class="progress" >
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%; background-color: #CC6559" aria-valuenow="25" ></div>
+                        </div>
+                    </div>
+               </div>
+              <label for="formGroupExampleInput"  style="margin-top: 4rem;">First Name</label>
                 <asp:TextBox ID="FirstNameBox" runat="server" MaxLength ="25" CssClass="form-control" placeholder="First Name"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="FirstNameBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="FirstNameBox" Font-Size="Small" Operator="DataTypeCheck" ForeColor="Red" Type="String" Text ="Invalid characters" />
             </div>
             <div class="col">
-              <label for="formGroupExampleInput">Last Name</label>
+              <label for="formGroupExampleInput" style="margin-top: 5rem;">Last Name</label>
               <asp:TextBox ID="LastNameBox" runat="server" MaxLength ="25" CssClass="form-control" placeholder="Last Name"></asp:TextBox>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="LastNameBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
               <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="LastNameBox" Text="Invalid characters" Font-Size="Small" Operator="DataTypeCheck" ForeColor="Red">Invalid characters</asp:CompareValidator>

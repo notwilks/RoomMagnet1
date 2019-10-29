@@ -20,6 +20,7 @@
     <h1 class="container">Login</h1>
 
 <body>
+<header style="margin-top: 8rem;">
     <form id="form1" runat="server">
         <header style="margin-top: 8rem;">
       <div class="container">
@@ -128,7 +129,5 @@
 </body>
 </html>
     </header>
-</body>
-</html>
 </asp:Content>
 

@@ -63,7 +63,6 @@ public partial class HostDashboard : System.Web.UI.Page
         Session["userEmail"] = "";
         Response.Redirect("HomePage.aspx");
     }
-
     protected void EditProfileBtn_Click(object sender, EventArgs e)
     {
         Response.Redirect("EditAccountInformation.aspx");

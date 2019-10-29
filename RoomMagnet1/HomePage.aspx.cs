@@ -11,4 +11,19 @@ public partial class HomePage : System.Web.UI.Page
     {
 
     }
+
+    protected void SearchButton_Click(object sender, EventArgs e)
+    {
+        if (CitySearchBox.Text.Length > 0)
+        {
+            Session["CitySearch"] = CitySearchBox.Text;
+            Session["StateSearch"] = stateBox.SelectedValue;
+            Response.Redirect("SearchResultPage.aspx");
+        }
+        else
+        {
+            Session["StateSearch"] = stateBox.SelectedValue;
+            Response.Redirect("SearchResultPage.aspx");
+        }
+    }
 }

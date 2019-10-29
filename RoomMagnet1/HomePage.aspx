@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="HomePage.aspx.cs" Inherits="HomePage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -19,10 +19,77 @@
 </head>
 
 <body>
-    <header style="margin-top: 6rem;">
-  <div class="row" style="background-image: url(images/foldimg_A0_Rectangle_2_pattern.png); background-repeat: no-repeat; background-size:cover; margin-top: 6rem;">
+<form id="form1" runat="server">
+
+<header>
+    <h5 class="nav justify-content-center" style="margin-top: 7rem;">Find a property</h5>
+<ul class="nav justify-content-center" style="margin-top: 1rem;">
+  <li class="nav-item">
+        <asp:TextBox ID="CitySearchBox" runat="server" CssClass="form-control" style="" placeholder="Search By City"></asp:TextBox>
+  </li>
+  <li class="nav-item">
+        <asp:DropDownList ID="stateBox" runat="server" CssClass="form-control" style="">
+                    <asp:ListItem>Select a state</asp:ListItem>
+                    <asp:ListItem Value="AL">Alabama</asp:ListItem>
+                    <asp:ListItem Value="AK">Alaska</asp:ListItem>
+                    <asp:ListItem Value="AZ">Arizona</asp:ListItem>
+                    <asp:ListItem Value="AR">Arkansas</asp:ListItem>
+                    <asp:ListItem Value="CA">California</asp:ListItem>
+                    <asp:ListItem Value="CO">Colorado</asp:ListItem>
+                    <asp:ListItem Value="CT">Connecticut</asp:ListItem>
+                    <asp:ListItem Value="DE">Delaware</asp:ListItem>
+                    <asp:ListItem Value="FL">Florida</asp:ListItem>
+                    <asp:ListItem Value="GA">Georgia</asp:ListItem>
+                    <asp:ListItem Value="HI">Hawaii</asp:ListItem>
+                    <asp:ListItem Value="ID">Idaho</asp:ListItem>
+                    <asp:ListItem Value="IL">Illinois</asp:ListItem>
+                    <asp:ListItem Value="IN">Indiana</asp:ListItem>
+                    <asp:ListItem Value="IA">Iowa</asp:ListItem>
+                    <asp:ListItem Value="KS">Kansas</asp:ListItem>
+                    <asp:ListItem Value="KY">Kentucky</asp:ListItem>
+                    <asp:ListItem Value="LA">Louisiana</asp:ListItem>
+                    <asp:ListItem Value="ME">Maine</asp:ListItem>
+                    <asp:ListItem Value="MD">Maryland</asp:ListItem>
+                    <asp:ListItem Value="MA">Massachusetts</asp:ListItem>
+                    <asp:ListItem Value="MI">Michigan</asp:ListItem>
+                    <asp:ListItem Value="MN">Minnesota</asp:ListItem>
+                    <asp:ListItem Value="MS">Mississippi</asp:ListItem>
+                    <asp:ListItem Value="MO">Missouri</asp:ListItem>
+                    <asp:ListItem Value="MT">Montana</asp:ListItem>
+                    <asp:ListItem Value="NE">Nebraska</asp:ListItem>
+                    <asp:ListItem Value="NV">Nevada</asp:ListItem>
+                    <asp:ListItem Value="NH">New Hampshire</asp:ListItem>
+                    <asp:ListItem Value="NJ">New Jersey</asp:ListItem>
+                    <asp:ListItem Value="NM">New Mexico</asp:ListItem>
+                    <asp:ListItem Value="NY">New York</asp:ListItem>
+                    <asp:ListItem Value="NC">North Carolina</asp:ListItem>
+                    <asp:ListItem Value="ND">North Dakota</asp:ListItem>
+                    <asp:ListItem Value="OH">Ohio</asp:ListItem>
+                    <asp:ListItem Value="OK">Oklahoma</asp:ListItem>
+                    <asp:ListItem Value="OR">Oregon</asp:ListItem>
+                    <asp:ListItem Value="PA">Pennsylvania</asp:ListItem>
+                    <asp:ListItem Value="RI">Rhode Island</asp:ListItem>
+                    <asp:ListItem Value="SC">South Carolina</asp:ListItem>
+                    <asp:ListItem Value="SD">South Dakota</asp:ListItem>
+                    <asp:ListItem Value="TN">Tennessee</asp:ListItem>
+                    <asp:ListItem Value="TX">Texas</asp:ListItem>
+                    <asp:ListItem Value="UT">Utah</asp:ListItem>
+                    <asp:ListItem Value="VT">Vermont</asp:ListItem>
+                    <asp:ListItem Value="VA">Virginia</asp:ListItem>
+                    <asp:ListItem Value="WA">Washington</asp:ListItem>
+                    <asp:ListItem Value="WV">West Virginia</asp:ListItem>
+                    <asp:ListItem Value="WI">Wisconsin</asp:ListItem>
+                    <asp:ListItem Value="WY">Wyoming</asp:ListItem>
+                </asp:DropDownList>
+  </li>
+  <li class="nav-item">
+      <asp:Button ID="SearchButton" runat="server" Text="Search" CssClass="form-control" style="background-color: #B23325; color: white;" OnClick="SearchButton_Click"/>
+  </li>
+</ul>
+
+  <div class="row" style="background-image: url(images/foldimg_A0_Rectangle_2_pattern.png); background-repeat: no-repeat; background-size:cover; margin-top: 1rem;">
    
-      <div class="col-md-4  ctahome" style="margin-top: 8rem; margin-bottom: 8rem; ">
+      <div class="col-md-4  ctahome" style="margin-top: 8rem; margin-bottom: 8rem;">
        <div class="card card-inverse" style="width: 25rem; margin-top: 2rem; margin-bottom: 2rem; margin-right: 1rem; padding-top: 1rem;">
               <div class="card-body">
                 <h3 class="card-title tan" style="text-align: center;">Room Magnet</h3>
@@ -34,9 +101,9 @@
               </div>
             </div>
     </div><!-- end div col! -->
-      
-      
-    </div><!-- end div row! -->
+      </div><!-- end div row! -->
+      </header>
+
     
    <div class="row" style="margin-top: 5rem;">
     
@@ -187,7 +254,7 @@
     
 
     
-
+</form>
 </body>
 </html>
 

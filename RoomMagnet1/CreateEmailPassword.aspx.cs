@@ -8,16 +8,15 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Security.Cryptography;
 
-public partial class CreateEmailandPassword : System.Web.UI.Page
+public partial class CreateEmailPassword : System.Web.UI.Page
 {
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
         OutputLabel.Text = "" + Convert.ToString(Session["userType"]);
-        //Session["userType"]
     }
 
-    protected void nextButton_Click(object sender, EventArgs e)
+    protected void NextButton_Click(object sender, EventArgs e)
     {
         sc.Open();
 
@@ -48,7 +47,8 @@ public partial class CreateEmailandPassword : System.Web.UI.Page
 
                     Session["userType"] = Convert.ToString(Session["userType"]);
 
-                    Response.Redirect("CreatePersonalInfo.aspx");
+                    Response.Redirect("CreatePersonalInfo.aspx", false);
+                    
                 }
 
                 else
@@ -63,12 +63,7 @@ public partial class CreateEmailandPassword : System.Web.UI.Page
         }
         catch
         {
-                OutputLabel.Text = "An account with this email already exists.";
+            OutputLabel.Text = "An account with this email already exists.";
         }
-    }
-
-    protected void ConfirmPasswordBox_TextChanged(object sender, EventArgs e)
-    {
-
     }
 }
