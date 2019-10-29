@@ -44,22 +44,24 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             try
             {
                 //Insert user info into tenant table
-                insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, birthDate, gender) VALUES " +
-                    "(@firstName, @lastName, @email, @dob, @gender)";
+                insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, birthDate, gender, lastUpdated, lastUpdatedBy) VALUES " +
+                    "(@firstName, @lastName, @email, @dob, @gender, @lastUpdated, @lastUpdatedBy)";
 
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@firstName", tempTenant.GetFirstName()));
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", tempTenant.GetLastName()));
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Convert.ToString(Session["userEmail"])));
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@dob", tempTenant.GetBirthDate()));
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@gender", DropDownList1.SelectedValue));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdatedBy", Environment.UserName));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdated", DateTime.Now));
 
                 insert.ExecuteNonQuery();
 
                 Response.Redirect("Dashboard.aspx");
             }
-            catch
+            catch(Exception ex)
             {
-                OutputLabel.Text = "An error occured.";
+                OutputLabel.Text = "An error occured." + ex;
             }
 
         }
@@ -79,8 +81,8 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             try
             {
                 //Insert user info into host table
-                insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber) VALUES " +
-                    "(@firstName, @lastName, @email, @dob, @gender, @phoneNumber)";
+                insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber, lastUpdated, lastUpdatedBy) VALUES " +
+                    "(@firstName, @lastName, @email, @dob, @gender, @phoneNumber, @lastUpdated, @lastUpdatedBy)";
 
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@firstName", tempHost.GetFistName()));
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", tempHost.GetLastName()));
@@ -88,6 +90,8 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@dob", tempHost.GetBirthDate()));
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@gender", DropDownList1.SelectedValue));
                 insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@phoneNumber", tempHost.GetPhoneNumber()));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdatedBy", Environment.UserName));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdated", DateTime.Now));
 
                 insert.ExecuteNonQuery();
 

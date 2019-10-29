@@ -15,9 +15,9 @@ public partial class EditAccountInformation : System.Web.UI.Page
     {
         //Grab userType to ensure the db query is selecting/updating the proper table.
         if (Convert.ToString(Session["userType"]).Equals("T"))
-            table = "Tenant";
+            table = "[dbo].[Tenant]";
         else
-            table = "Host";
+            table = "[dbo].[Host]";
 
         if (!IsPostBack)
         {
@@ -53,16 +53,23 @@ public partial class EditAccountInformation : System.Web.UI.Page
         update.Connection = sc;
 
         //Create and execute query
-        update.CommandText = "UPDATE " + table + " SET firstName = @f, lastName = @l, phoneNumber = @phone, birthDate = @dob, gender = @sex WHERE email = @email";
+        update.CommandText = "UPDATE " + table + " SET firstName = @f, lastName = @l, phoneNumber = @phone, birthDate = @bday, gender = @sex, lastUpdated = @lU, lastUpdatedBy = @lUB WHERE email = @email";
         update.Parameters.Add(new SqlParameter("@f", HttpUtility.HtmlEncode(FirstNameBox.Text)));
         update.Parameters.Add(new SqlParameter("@l", HttpUtility.HtmlEncode(LastNameBox.Text)));
         if (phoneNumberBox.Text.Length == 0)
-            update.Parameters.Add(new SqlParameter("@dob", DBNull.Value));
+        {
+            update.Parameters.Add(new SqlParameter("@phone", DBNull.Value));
+        }
         else
+        {
             update.Parameters.Add(new SqlParameter("@phone", HttpUtility.HtmlEncode(phoneNumberBox.Text)));
-        update.Parameters.Add(new SqlParameter("@dob", HttpUtility.HtmlEncode(dobBox.Text)));
+            
+        }
+        update.Parameters.Add(new SqlParameter("@bday", HttpUtility.HtmlEncode(dobBox.Text)));
         update.Parameters.Add(new SqlParameter("@sex", DropDownList1.SelectedItem.Value));
         update.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
+        update.Parameters.Add(new SqlParameter("@lUB", Environment.UserName));
+        update.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
 
         update.ExecuteNonQuery();
         sc.Close();

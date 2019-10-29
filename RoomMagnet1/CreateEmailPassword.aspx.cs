@@ -34,12 +34,14 @@ public partial class CreateEmailPassword : System.Web.UI.Page
             {
                 if (PasswordBox.Text.Length >= 8)
                 {
-                    setPass.CommandText = "INSERT INTO [dbo].[Passwords] (email, password, userType) VALUES " +
-                                        "(@email, @password, @userType)";
+                    setPass.CommandText = "INSERT INTO [dbo].[Passwords] (email, password, userType, lastUpdated, lastUpdatedBy) VALUES " +
+                                        "(@email, @password, @userType, @lastUpdated, @lastUpdatedBy)";
 
                     setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", EmailBox.Text));
                     setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@password", PasswordHash.HashPassword(PasswordBox.Text)));
                     setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@userType", Convert.ToString(Session["userType"])));
+                    setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdatedBy",Environment.UserName));
+                    setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdated", DateTime.Now));
 
                     setPass.ExecuteNonQuery();
 
@@ -61,9 +63,9 @@ public partial class CreateEmailPassword : System.Web.UI.Page
                 OutputLabel.Text = "Passwords do not match.";
             }
         }
-        catch
+        catch(Exception ex)
         {
-            OutputLabel.Text = "An account with this email already exists.";
+            OutputLabel.Text = "An account with this email already exists." + ex;
         }
     }
 }
