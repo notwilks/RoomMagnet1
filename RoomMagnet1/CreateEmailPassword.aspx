@@ -31,16 +31,27 @@
       <div class="container">
         <form>
           <div class="row">
-            <div class="col">
-                <div class="row">
                     <div class="col promar" >
                         <div class="progress" >
                             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; background-color: #CC6559" aria-valuenow="25" ></div>
                         </div>
                     </div>
                </div>
+            <div class="row">
+            <div class="col">
               <label for="formGroupExampleInput" style="margin-top: 4rem;">Email</label>
                 <asp:TextBox ID="EmailBox" runat="server" CssClass="form-control" placeholder="Email"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="EmailBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
+            </div>
+            <div class="col">
+              
+            </div> <!--end col-->
+          </div> <!--end row class-->
+
+          <div class="row">
+            <div class="col">
+              <label for="formGroupExampleInput">Confirm Email</label>
+                <asp:TextBox ID="ConfirmEmailBox" runat="server" CssClass="form-control" placeholder="Confirm Email"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="EmailBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
             <div class="col">
@@ -50,7 +61,7 @@
           
           <div class="row">
             <div class="col">
-                <label for="formGroupExampleInput">Password</label>
+                <label for="formGroupExampleInput" style="margin-top: 2rem;">Password</label>
               <asp:TextBox ID="PasswordBox" runat="server" TextMode ="Password" CssClass="form-control" placeholder="Password"></asp:TextBox>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="PasswordBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
