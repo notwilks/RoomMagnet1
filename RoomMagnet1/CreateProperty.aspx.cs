@@ -44,7 +44,7 @@ public partial class CreateProperty : System.Web.UI.Page
             int accommodationID;
             int hostID;
 
-            
+
             insert.CommandText = "SELECT MAX(AccommodationID) FROM HOST";
             insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
             accommodationID = Convert.ToInt32(insert.ExecuteScalar()) + 1;
@@ -173,6 +173,7 @@ public partial class CreateProperty : System.Web.UI.Page
                 insert.ExecuteNonQuery();
 
                 Response.Redirect("Dashboard.aspx");
+
             }
         }
         catch (Exception)
@@ -180,7 +181,6 @@ public partial class CreateProperty : System.Web.UI.Page
 
         }
     }
-
     protected void SkipButton_Click(object sender, EventArgs e)
     {
         Response.Redirect("Dashboard.aspx");
