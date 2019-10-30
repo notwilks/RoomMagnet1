@@ -17,4 +17,9 @@ public partial class AccountConfirmation : System.Web.UI.Page
     {
         Response.Redirect("Dashboard.aspx");
     }
+
+    protected void IUnderstand_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TenantDashboard.aspx");
+    }
 }

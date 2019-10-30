@@ -49,7 +49,7 @@ public partial class CreateEmailPassword : System.Web.UI.Page
 
                     Session["userType"] = Convert.ToString(Session["userType"]);
 
-                    Response.Redirect("CreatePersonalInfo.aspx", false);
+                    Response.Redirect("CreatePersonalInfo.aspx");
                     
                 }
 

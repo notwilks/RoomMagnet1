@@ -31,15 +31,17 @@
     <section id="creation"">
       <div class="container">
         <form>
-          <div class="row">
-            <div class="col">
-               <div class="row">
+
+            <div class="row">
                     <div class="col promar" >
                         <div class="progress" >
                             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%; background-color: #CC6559" aria-valuenow="25" ></div>
                         </div>
-                    </div>
-               </div>
+                    </div><!--end col-->
+               </div><!--end row class-->
+
+          <div class="row">
+            <div class="col">
               <label for="formGroupExampleInput"  style="margin-top: 4rem;">First Name</label>
                 <asp:TextBox ID="FirstNameBox" runat="server" MaxLength ="25" CssClass="form-control" placeholder="First Name"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="FirstNameBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>

@@ -19,23 +19,24 @@
     <section id="creation">
       <div class="container">
         <form>
-          <div class="row">
-            <div class="col">
-                <div class="row">
+            <div class="row">
                     <div class="col promar" >
                         <div class="progress" >
                             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%; background-color: #CC6559" aria-valuenow="25" ></div>
                         </div>
-                    </div>
-               </div>
-              <label for="formGroupExampleInput" style="margin-top: 4rem;"></label>
-                <br />
+                    </div><!--end col-->
+               </div><!--end row class-->
+
+          <div class="row" style="margin-top: 4rem;">
+            <div class="col align-content-center">
               <asp:ImageButton ID="hostButton" ImageURL="images/rent-my-room.png" runat="server" Text="Host my room" cssclass=""  OnClick="hostButton_Click"/>
-            </div>
-            <div class="col">
-                <label for="formGroupExampleInput" style="margin-top: 6rem;"></label>
                 <br />
-                <asp:ImageButton ID="tenantButton" ImageURL="images/find-a-room.png" runat="server" Text="Find a place to live" cssclass="" style="width: 50%; background-color: #CC6559" OnClick="tenantButton_Click"/>
+                <label for="formGroupExampleInput" style="">Rent My Room</label>
+            </div>
+            <div class="col align-content-center">
+                <asp:ImageButton ID="tenantButton" ImageURL="images/find-a-room.png" runat="server" Text="Find a place to live" cssclass="" style="" OnClick="tenantButton_Click"/>
+                <br />
+                <label for="formGroupExampleInput" style="">Find A Room</label>
             </div> <!--end col-->
           </div> <!--end row class-->
           

@@ -67,7 +67,9 @@
             </div>
 
             <div class="col">
-              <label for="formGroupExampleInput"class="alert-light">*Password must be at least 8 characters long</label>
+              <label for="formGroupExampleInput"class="alert-light" style="margin-top: 2rem;">*Password must be at least 8 characters long</label>
+              <label for="formGroupExampleInput"class="alert-light">*Password must conatain at least 1 number.</label>
+                <label for="formGroupExampleInput"class="alert-light">*Password must conatain at least 1 special character (!@#$%^&*()-_+=).</label>
             </div> <!--end col-->
           </div> <!--end row class-->
 

@@ -183,7 +183,7 @@ public partial class CreateProperty : System.Web.UI.Page
 
                 insert.ExecuteNonQuery();
 
-                Response.Redirect("Dashboard.aspx");
+                Response.Redirect("HostAccountConfirmation.aspx");
 
             }
         

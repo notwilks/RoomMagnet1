@@ -3,40 +3,41 @@ qww222@charset "UTF-8";
 
 
 
+
 /* nav stuff  */
  .nav-link.active, .show >  .nav-link {
-    
+    background-color: #514AA7;	
     color: white;
-    font-family: avenir next;
+    font-family: font-family: 'Raleway', sans-serif;
     font-size: 14px;
 }
 .nav-link a:active{
-   	
+    background-color: #514AA7;	
     color: white;
     font-size: 14px;
 }
 .nav-item a{
-   
-    font-family: avenir next;
+    color: #514AA7;
+    font-family: font-family: 'Raleway', sans-serif;
     font-size: 14px;
 }
 
 .nav-item:hover {
 	background-color: white;
-    
+    color: #514AA7;
     font-size: 14px;
 }
 
 
 .show>.nav-link {
     color: white;
-    
+    background-color: #514AA7;
     font-size: 14px;
 }
 
  .nav-link.active,  .show>.nav-link {
     color: #fff;
-    
+    background-color: #514AA7;
     font-size: 14px;
 }
 
@@ -47,7 +48,7 @@ qww222@charset "UTF-8";
     z-index:999;
 }
 .nav-link{
-    font-family: 'DIN Alternate Bold'; 
+    font-family: 'Oswald', sans-serif; 
     color: #756664;
 }
 
@@ -55,6 +56,40 @@ qww222@charset "UTF-8";
 
 
 /* media queries for CTA on home  */
+
+@media only screen and (max-width: 1600px) {
+    .ctahome{
+        position: relative;
+        left: 50rem;
+    }
+
+    .arrowd {
+        display: none;
+    }
+
+    .promar {
+        padding-left: 10rem;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .ctahome  position: relative;
+        left: 50rem;
+    }
+
+    .arrowd {
+        display: none;
+    }
+
+    .promar {
+        padding-left: 8rem;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+  .ctahome 6rem;
+    }
+}
 
 @media only screen and (max-width: 1400px) {
   .ctahome {
@@ -294,33 +329,37 @@ qww222@charset "UTF-8";
  }
 
 
+
 /* buttons   */
 .btn{
     color: white;
     background-color: #B23325;
     border-color: #B23325;
     border: 0px;
-    font-family: 'DIN Alternate Bold';
+    font-family: 'Oswald', sans-serif;
 }
 
 .btn a:hover{
     background-color: #B23325;
     border-color: #B23325;
+    font-family: 'Oswald', sans-serif;
 }
 
 button{
-    
+    font-family: 'Oswald', sans-serif;
     border: 0px;
 }
 
 .btnb{   
     color: white;
     background-color: #B23325;
+    font-family: 'Oswald', sans-serif;
 }
 
 .btnb a:hover{   
     color: black;
     background-color: #B23325;
+    font-family: 'Oswald', sans-serif;
 }
 
 a:hover {
@@ -328,28 +367,19 @@ a:hover {
     text-decoration: underline;
 }
 
-.prog {
-    color: #B23325
-}
-
 
 
 /* fonts   */
-@font-face {
-font-family: 'DIN Alternate Bold';
-font-style: normal;
-font-weight: normal;
-src: local('DIN Alternate Bold'), url('DINAlternate-Bold.woff') format('woff');
+@import url('https://fonts.googleapis.com/css?family=Oswald:500|Raleway:300&display=swap');
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Oswald', sans-serif;
 }
 
-
-.din{   
-   font-family: 'DIN Alternate Bold'; 
-}
-
-
-h1, h2, h3, h4, h5{
-    font-family: 'DIN Alternate Bold';
+p{
+    font-family: 'Raleway', sans-serif;
+     line-height: 1.2;
+    font-size: 16px;
 }
 
 .tan{
@@ -360,11 +390,12 @@ h1, h2, h3, h4, h5{
 /* form stuff  */
 
 form{
-    font-family: avenir;
+    font-family: font-family: 'Raleway', sans-serif;
 }
 
 .progress-bar-striped{
-    background-color: #CC6559;   
+    background-color: #CC6559;
+    
 }
 
 
