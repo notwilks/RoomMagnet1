@@ -23,12 +23,11 @@
 <form runat="server">     
 <div  class="container">
 
-  <div class="row " style="margin-top: 7rem; ">
+  <div class="row " style="margin-top: 7rem;">
     <div class="col-md-9">
-        <h1 >John Smith's Dashboard</h1>
+        <h1><asp:Label ID="FirstNameLastNameHeader" runat="server" Text="John Smith's Dashboard"></asp:Label></h1><!-- += 's Dashboard -->
       </div>
     <div class="col-md-3">
-        <a href="#" class="btn " style="margin-top: 1rem;">Search Properties</a>
         <asp:Button ID="SearchProperties" runat="server" Text="Search Properties" cssclass="btn" OnClick="SearchProperties_Click"/>
       </div>
     </div><!-- end div row -->  
@@ -45,23 +44,26 @@
             </div>
         </div>
         
-        <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+        <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <img src="images/johnsmith1.jpeg" class="img-fluid" >
+                <asp:Image ID="TenantPrimaryImage" ImageURl="images/johnsmith1.jpeg" runat="server" CssClass="img-fluid"/>
                 <div class="row" style="margin-top: 1rem;">
                     <div class="col-md-6">
-                        <img src="images/johnsmith3.jpeg" class="img-fluid">
+                        <asp:Image ID="TenantImage2" ImageURl="images/johnsmith2.jpeg" runat="server" CssClass="img-fluid"/>
                     </div>
                     <div class="col-md-6">
-                        <img src="images/johnsmith3.jpeg" class="img-fluid">
+                        <asp:Image ID="TenantImage3" ImageURl="images/johnsmith3.jpeg" runat="server" CssClass="img-fluid"/>
                     </div>
                 </div>
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
-                <h3>John Smith</h3>
-                 <h5>John Smith's title here.</h5>
-                 <p>The brief bio of this tenant would go here. This person is cool and also nice. They need a place to live, just like anyone alive. House them please.</p>
-                 <img src="images/badges-01.png" style="max-width: 150px;">
+                 <h3><asp:Label ID="FirstNameLastName2" runat="server" Text="First Last"></asp:Label></h3>
+                    <p><asp:Label ID="BioLabel" runat="server" Text="This is a brief bio of the tenant."></asp:Label></p>
+                    <p><asp:Image ID="Badge1" runat="server" ImageUrl="images/non-smoker-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
+                    <p><asp:Image ID="Badge2" runat="server" ImageUrl="images/undergrad-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
+                    <p><asp:Image ID="Badge3" runat="server" ImageUrl="" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
+                    <p><asp:Image ID="Badge4" runat="server" ImageUrl="" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
+                    <p><asp:Image ID="Badge5" runat="server" ImageUrl="" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
             </div>
         </div>
       </div>
@@ -74,43 +76,43 @@
            
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <h3>Host Name</h3>
-                <h5>Title of space goes here</h5>
+                <h3><asp:Label ID="HostName1" runat="server" Text="Host Name"></asp:Label></h3>
+                <h5><asp:Label ID="PropertyName1" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
-                <img src="images/icons-07.png" style="max-width: 50px;">
-                 <a href="#" class="btn  " style="margin-left: 1rem;">View Profile</a>
+                <asp:Image ID="HostBackgroundStatus1" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
+                 <asp:Button ID="ViewProperty1" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
             </div>
         </div>
         <div class="row" style="background-color: #ebebeb; solid; border-bottom: solid; border-bottom-width: 1px" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <h3>Host Name</h3>
-                <h5>Title of space goes here</h5>
+                <h3><asp:Label ID="HostName2" runat="server" Text="Host Name"></asp:Label></h3>
+                <h5><asp:Label ID="PropertyName2" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
-                <img src="images/icons-07.png" style="max-width: 50px;">
-                 <a href="#" class="btn  " style="margin-left: 1rem;">View Profile</a>
+                <asp:Image ID="HostBackgroundStatus2" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
+                <asp:Button ID="ViewProperty2" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
             </div>
         </div> 
         <div class="row" style="background-color: #ebebeb; solid; border-bottom: solid; border-bottom-width: 1px" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <h3>Host Name</h3>
-                <h5>Title of space goes here</h5>
+                <h3><asp:Label ID="HostName3" runat="server" Text="Host Name"></asp:Label></h3>
+                <h5><asp:Label ID="PropertyName3" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
-                <img src="images/icons-07.png" style="max-width: 50px;">
-                 <a href="#" class="btn  " style="margin-left: 1rem;">View Profile</a>
+                <asp:Image ID="HostBackgroundStatus3" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
+                <asp:Button ID="ViewProperty3" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
             </div>
         </div>  
         
            <div class="row" style="background-color: #ebebeb; solid; border-bottom: solid; border-bottom-width: 1px" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <h3>Host Name</h3>
-                <h5>Title of space goes here</h5>
+                <h3><asp:Label ID="HostName4" runat="server" Text="Host Name"></asp:Label></h3>
+                <h5><asp:Label ID="PropertyName4" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
-                <img src="images/icons-07.png" style="max-width: 50px;">
-                 <a href="#" class="btn  " style="margin-left: 1rem;">View Profile</a>
+                <asp:Image ID="HostBackgroundStatus4" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
+                <asp:Button ID="ViewProperty4" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
             </div>
         </div>  
         
@@ -151,9 +153,10 @@
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; " >
             <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-               <h3>Status Goes Here</h3>
-                <p style="text-align: center;"><img src="images/icons-07.png" style="max-width: 75px;"></p>
-                <p>The status of your background check will be explained right here. Background checks are important to us, very important. We take your safety seriously.</p>
+                <h3><asp:Label ID="TenantBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
+                <p style="text-align: center;"><asp:Image ID="TenantBackgroundStatusImage" runat="server" ImageURL="images/icons-07.png" style="max-width: 75px;"/></p>
+                <p><asp:Label ID="TenantBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
+                    
             </div>
              
         </div>

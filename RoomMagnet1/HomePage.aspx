@@ -24,10 +24,10 @@
 <header>
     <h5 class="nav justify-content-center" style="margin-top: 7rem;">Find a property</h5>
 <ul class="nav justify-content-center" style="margin-top: 1rem;">
-  <li class="nav-item">
+  <li class="nav-item" style="padding-right: 1rem;">
         <asp:TextBox ID="CitySearchBox" runat="server" CssClass="form-control" style="" placeholder="Search By City"></asp:TextBox>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" style="padding-right: 1rem;">
         <asp:DropDownList ID="stateBox" runat="server" CssClass="form-control" style="">
                     <asp:ListItem>Select a state</asp:ListItem>
                     <asp:ListItem Value="AL">Alabama</asp:ListItem>
