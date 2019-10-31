@@ -18,53 +18,28 @@ public partial class HostDashboard : System.Web.UI.Page
         System.Data.SqlClient.SqlCommand select = new System.Data.SqlClient.SqlCommand();
         select.Connection = sc;
 
-        if (Session["userType"].Equals(""))
+        if (Session["userType"].Equals("H"))
         {
-            logoutButton.Visible = false;
-            navBarName.Text = "";
-        }
-        else if (Session["userType"].Equals("H"))
-        {
-            logoutButton.Visible = true;
+            
             select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
             String userName = Convert.ToString(select.ExecuteScalar());
-            navBarName.Text = "" + userName;
+            FirstNameLastNameHeader.Text = userName + "'s Dashboard";
+            HostName.Text = userName.ToString();
 
-            Header.Text = "Host Dashboard.";
-            select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
-            String hostName = Convert.ToString(select.ExecuteScalar());
-            ProfileHeader.Text = "Welcome " + hostName;
+            //Header.Text = "Host Dashboard.";
+            //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
+            //select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
+            //String hostName = Convert.ToString(select.ExecuteScalar());
+            //ProfileHeader.Text = "Welcome " + hostName;
         }
-        else
-        {
-            logoutButton.Visible = true;
-            select.CommandText = "Select (firstName + ' ' + lastName) from tenant where email = @email2";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Session["userEmail"]));
-            String userName = Convert.ToString(select.ExecuteScalar());
-            navBarName.Text = "" + userName;
-
-            Header.Text = "Tenant Dashboard.";
-            select.CommandText = "Select (firstName + ' ' + lastName) from tenant where email = @email3";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email3", Session["userEmail"]));
-            String userName1 = Convert.ToString(select.ExecuteScalar());
-            ProfileHeader.Text = "Welcome " + userName1;
-
-        }
-
-
-
-    }
-
-    protected void logoutButton_Click(object sender, EventArgs e)
-    {
-        Session["userType"] = "";
-        Session["userEmail"] = "";
-        Response.Redirect("HomePage.aspx");
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
     {
         Response.Redirect("EditAccountInformation.aspx");
+    }
+    protected void SearchProperties_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("SearchResultPage.aspx");
     }
 }

@@ -79,5 +79,13 @@ public partial class EditAccountInformation : System.Web.UI.Page
         LastNameBox.Text = "";
         phoneNumberBox.Text = "";
         dobBox.Text = "";
+
+        if (Session["userType"].Equals("T"))
+        {
+            Response.Redirect("TenantDashboard.aspx");
+        }else if (Session["userType"].Equals("H")) {
+            Response.Redirect("HostDashboard.aspx");
+        }
+             
     }
 }

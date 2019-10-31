@@ -37,7 +37,7 @@
     <div class="row" style="margin-top: 3rem;">
         <div class="col-md-12">
             
-            <p>In order to provide our customers with the best, most secure living and housemate matching experience, we ask that the home-owners and tenants alike go through a background check. This ensures a superior housemate matching matching process. You can read more about our standards on our safety page, once you've completed your profile.</p>
+            <p>In order to provide our customers with the best, most secure living and housemate matching experience, we ask that the home-owners and tenants alike go through a background check. This ensures a superior housemate matching process. You can read more about our standards on our safety page, once you've completed your profile.</p>
             <p>An email with more details will be sent to your inbox shortly.</p>
             <p>Other users will be able to see the state of your background check process, just as you will be able to see theirs.</p>
             <p>The following indicators will appear at the specified steps in the process:</p>
