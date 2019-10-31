@@ -15,12 +15,9 @@ public partial class HostDashboard : System.Web.UI.Page
         
         sc.Open();
 
-        System.Data.SqlClient.SqlCommand select = new System.Data.SqlClient.SqlCommand();
+        SqlCommand select = new SqlCommand();
         select.Connection = sc;
-
-        if (Session["userType"].Equals("H"))
-        {
-            
+ 
             select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
             String userName = Convert.ToString(select.ExecuteScalar());
@@ -32,7 +29,7 @@ public partial class HostDashboard : System.Web.UI.Page
             //select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
             //String hostName = Convert.ToString(select.ExecuteScalar());
             //ProfileHeader.Text = "Welcome " + hostName;
-        }
+        
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
     {
