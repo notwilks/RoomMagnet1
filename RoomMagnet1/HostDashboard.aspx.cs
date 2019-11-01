@@ -17,19 +17,30 @@ public partial class HostDashboard : System.Web.UI.Page
 
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
- 
+            
+            //selecting name info
             select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
-            String userName = Convert.ToString(select.ExecuteScalar());
+            String userName = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
             FirstNameLastNameHeader.Text = userName + "'s Dashboard";
             HostName.Text = userName.ToString();
 
-            //Header.Text = "Host Dashboard.";
-            //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
-            //select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
-            //String hostName = Convert.ToString(select.ExecuteScalar());
-            //ProfileHeader.Text = "Welcome " + hostName;
-        
+            //selecting property name
+            select.CommandText = "Select description from Accommodation where hostID in (select hostID from Host where email = @email1)";
+            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
+            PropertyName.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+
+            //selecting description on the property
+            select.CommandText = "Select extraInfo from Accommodation where hostID in (select hostID from Host where email = @email2)";
+            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Session["userEmail"]));
+            PropertyInfo.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+
+        //Header.Text = "Host Dashboard.";
+        //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
+        //select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
+        //String hostName = Convert.ToString(select.ExecuteScalar());
+        //ProfileHeader.Text = "Welcome " + hostName;
+
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
     {
@@ -38,5 +49,10 @@ public partial class HostDashboard : System.Web.UI.Page
     protected void SearchProperties_Click(object sender, EventArgs e)
     {
         Response.Redirect("SearchResultPage.aspx");
+    }
+
+    protected void EditPropertyButton_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("EditProperty.aspx");
     }
 }

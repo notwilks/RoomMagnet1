@@ -34,19 +34,20 @@
     <div class="col-md-6" style="border: solid; border-color: white;">
         <div class="row">
             <div class="col-md-6">
-               <h2 >Your Property</h2> 
+               <h2 >Your Property</h2><asp:Button ID="EditPropertyButton" runat="server" Text="EditProperty" cssclass="btn" OnClick="EditPropertyButton_Click"/>
+                
             </div>
         </div>
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="TenantPrimaryImage" ImageURl="Images/couple-with-new-home_rtaSl4ABo.jpg" runat="server" CssClass="img-fluid"/>
+                <asp:Image ID="HostPrimaryImage" ImageURl="Images/couple-with-new-home_rtaSl4ABo.jpg" runat="server" CssClass="img-fluid"/>
                 <div class="row" style="margin-top: 1rem;">
                     <div class="col-md-6">
-                        <asp:Image ID="TenantImage2" ImageURl="images/scott-webb-1ddol8rgUH8-unsplash.jpg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="HostImage2" ImageURl="images/scott-webb-1ddol8rgUH8-unsplash.jpg" runat="server" CssClass="img-fluid"/>
                     </div>
                     <div class="col-md-6">
-                        <asp:Image ID="TenantImage3" ImageURl="images/kitchen.jpeg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="HostImage3" ImageURl="images/kitchen.jpeg" runat="server" CssClass="img-fluid"/>
                     </div>
                 </div>
             </div>
@@ -70,7 +71,7 @@
                <h2 >Your Profile</h2> 
             </div>
             <div class="col-md-6">
-                <asp:Button ID="Button1" runat="server" OnClick="EditProfileBtn_Click" Text="Edit Profile" cssclass="btn"/>
+                <asp:Button ID="EditProfileButton" runat="server" OnClick="EditProfileBtn_Click" Text="Edit Profile" cssclass="btn"/>
             </div>
         </div>
         
@@ -134,9 +135,9 @@
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; " >
             <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                <h3><asp:Label ID="TenantBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
+                <h3><asp:Label ID="HostBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
                 <p style="text-align: center;"><asp:Image ID="TenantBackgroundStatusImage" runat="server" ImageURL="images/icons-07.png" style="max-width: 75px;"/></p>
-                <p><asp:Label ID="TenantBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
+                <p><asp:Label ID="HostBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
                     
             </div>
              
