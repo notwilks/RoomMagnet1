@@ -30,10 +30,11 @@ public partial class CreateProperty : System.Web.UI.Page
 
     protected void NextButton_Click(object sender, EventArgs e)
     {
-
+        try
+        {
             SqlCommand insert = new System.Data.SqlClient.SqlCommand();
-        
- 
+
+
             Accommodation tempAccom = new Accommodation();
             string address = "";
             string houseNumber = "";
@@ -120,7 +121,7 @@ public partial class CreateProperty : System.Web.UI.Page
 
                 SqlCommand insertAmenity = new SqlCommand();
                 SqlCommand FindAccomID = new SqlCommand();
-                
+
                 // Pulls the Accommodation ID to insert into the AccommodationAmenity
                 FindAccomID.Connection = sc;
                 sc.Open();
@@ -128,7 +129,7 @@ public partial class CreateProperty : System.Web.UI.Page
                 accommodationID = Convert.ToInt32(FindAccomID.ExecuteScalar());
                 sc.Close();
 
-                String bathroom = "";   
+                String bathroom = "";
                 String entrance = "";
                 String storage = "";
                 String furnished = "";
@@ -194,7 +195,7 @@ public partial class CreateProperty : System.Web.UI.Page
 
                 insertAmenity.CommandText = "INSERT INTO AccommodationAmmenity (accommodationID, bathroom, entrance, storage, furnished, smoker, pets, lastUpdated, lastUpdatedBy) VALUES (@accommodationID," +
                     " @bathroom, @entrance, @storage, @furnished, @smoker, @pets, @lU, @lUB)";
-            
+
                 insertAmenity.Parameters.Add(new SqlParameter("@accommodationID", accommodationID));
                 insertAmenity.Parameters.Add(new SqlParameter("@bathroom", bathroom));
                 insertAmenity.Parameters.Add(new SqlParameter("@entrance", entrance));
@@ -211,7 +212,11 @@ public partial class CreateProperty : System.Web.UI.Page
                 Response.Redirect("HostAccountConfirmation.aspx");
 
             }
-        
+        }
+        catch (System.ArgumentOutOfRangeException)
+        {
+            OutputLabel.Text = "Please provide a house number and street name in the \"Street Address\" textbox.";
+        }
     }
     protected void SkipButton_Click(object sender, EventArgs e)
     {

@@ -34,9 +34,11 @@
     <div class="col-md-6" style="border: solid; border-color: white;">
         <div class="row">
             <div class="col-md-6">
-               <h2 >Your Property</h2><asp:Button ID="EditPropertyButton" runat="server" Text="EditProperty" cssclass="btn" OnClick="EditPropertyButton_Click"/>
-                
+               <h2 >Your Property</h2>                
             </div>
+            <div>
+                <asp:Button ID="EditPropertyButton" runat="server" Text="EditProperty" cssclass="btn" OnClick="EditPropertyButton_Click"/>
+            </div>         
         </div>
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
