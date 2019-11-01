@@ -36,8 +36,10 @@ public partial class TenantDashboard : System.Web.UI.Page
             age = CalculateAge(reader.GetDateTime(3)).ToString(); ;
             bio = reader.GetString(4);
             
+            
 
         }
+        
 
         FirstNameLastNameHeader.Text = HttpUtility.HtmlEncode(name) + "'s Dashboard";
         FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;

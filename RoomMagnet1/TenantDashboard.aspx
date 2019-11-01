@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-             <div class="col-md-6" style="margin-top: 1rem;">
+             <div ID="BadgeDiv" class="col-md-6" style="margin-top: 1rem;">
                  <h3><asp:Label ID="FirstNameLastNameAge" runat="server" Text="First Last"></asp:Label></h3>
                     <p><asp:Label ID="BioLabel" runat="server" Text="This is a brief bio of the tenant."></asp:Label></p>
                     <p><asp:Image ID="Badge1" runat="server" ImageUrl="images/non-smoker-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
