@@ -34,7 +34,7 @@ public partial class EditProperty : System.Web.UI.Page
                         StreetBox.Text = reader.GetString(1);
                         stateBox.SelectedValue = reader.GetString(2);
                         ZipBox.Text = reader.GetString(3);
-                        Price.Text = reader.GetDecimal(4).ToString();
+                        Price.Text = reader.GetDecimal(4).ToString("000.00");
                         NumOfTenantsBox.Text = reader.GetInt32(5).ToString();
                         neighborhoodBox.Text = reader.GetString(6);
                         PropNameBox.Text = reader.GetString(7);
