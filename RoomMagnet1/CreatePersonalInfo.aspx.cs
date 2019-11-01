@@ -44,16 +44,17 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             try
             {
                 //Insert user info into tenant table
-                insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, birthDate, gender, lastUpdated, lastUpdatedBy) VALUES " +
-                    "(@firstName, @lastName, @email, @dob, @gender, @lastUpdated, @lastUpdatedBy)";
+                insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, phoneNumber, birthDate, gender, lastUpdated, lastUpdatedBy) VALUES " +
+                    "(@firstName, @lastName, @email, @phone, @dob, @gender, @lastUpdated, @lastUpdatedBy)";
 
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@firstName", tempTenant.GetFirstName()));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", tempTenant.GetLastName()));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Convert.ToString(Session["userEmail"])));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@dob", tempTenant.GetBirthDate()));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@gender", DropDownList1.SelectedValue));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdatedBy", Environment.UserName));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdated", DateTime.Now));
+                insert.Parameters.AddWithValue("@firstName", tempTenant.GetFirstName());
+                insert.Parameters.AddWithValue("@lastName", tempTenant.GetLastName());
+                insert.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
+                insert.Parameters.AddWithValue("@phone", tempTenant.GetPhoneNumber());
+                insert.Parameters.AddWithValue("@dob", tempTenant.GetBirthDate());
+                insert.Parameters.AddWithValue("@gender", DropDownList1.SelectedValue);
+                insert.Parameters.AddWithValue("@lastUpdatedBy", Environment.UserName);
+                insert.Parameters.AddWithValue("@lastUpdated", DateTime.Now);
 
                 insert.ExecuteNonQuery();
 

@@ -62,7 +62,7 @@ public class Tenant
         for (int i = 1; i < lastName.Length; i++)
         {
             // Keep capitalized letters for last names with a prefix
-            if ((i >= 3) && (char.IsUpper(lastName[i])) && ((lastName.Substring(i - 2, 2) == "Mc") || (lastName.Substring(i - 2, 2) == "Di") || (lastName.Substring(i - 2, 2) == "De")))
+            if ((i >= 2) && (char.IsUpper(lastName[i])) && ((lastName.Substring(i - 2, 2) == "Mc") || (lastName.Substring(i - 2, 2) == "Di") || (lastName.Substring(i - 2, 2) == "De")))
             {
                 name += lastName[i].ToString().ToUpper();
             }

@@ -68,7 +68,7 @@ public class Host
         string name = firstName[0].ToString().ToUpper();
         for (int i = 1; i < firstName.Length; i++)
         {
-            if ((i >= 3) && (char.IsUpper(firstName[i])) && ((firstName.Substring(i - 2, 2) == "La") || (firstName.Substring(i - 2, 2) == "Mc")))
+            if ((i >= 2) && (char.IsUpper(firstName[i])) && ((firstName.Substring(i - 2, 2) == "La") || (firstName.Substring(i - 2, 2) == "Mc")))
             {
                 name += firstName[i].ToString().ToUpper();
             }

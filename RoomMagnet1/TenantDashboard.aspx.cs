@@ -17,6 +17,7 @@ public partial class TenantDashboard : System.Web.UI.Page
         sc.Open();
         SqlCommand select = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
             "phoneNumber, birthDate, biography FROM [Tenant] where email = @email", sc);
+        select.Parameters.AddWithValue("@email", Session["userEmail"]);
         SqlDataReader reader = select.ExecuteReader();
         String name = "";
         String email = "";
