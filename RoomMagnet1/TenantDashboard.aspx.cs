@@ -38,8 +38,9 @@ public partial class TenantDashboard : System.Web.UI.Page
 
         }
 
-        FirstNameLastNameHeader.Text = name + "'s Dashboard";
-
+        FirstNameLastNameHeader.Text = HttpUtility.HtmlEncode(name) + "'s Dashboard";
+        FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;
+        BioLabel.Text = HttpUtility.HtmlEncode(bio);
 
 
 

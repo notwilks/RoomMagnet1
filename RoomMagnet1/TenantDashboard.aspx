@@ -25,7 +25,7 @@
 
   <div class="row " style="margin-top: 7rem;">
     <div class="col-md-9">
-        <h1><asp:Label ID="FirstNameLastNameHeader" runat="server" Text="John Smith's Dashboard"></asp:Label></h1><!-- += 's Dashboard -->
+        <h1><asp:Label ID="FirstNameLastNameHeader" runat="server"></asp:Label></h1><!-- += 's Dashboard -->
       </div>
     <div class="col-md-3">
         <asp:Button ID="SearchProperties" runat="server" Text="Search Properties" cssclass="btn" OnClick="SearchProperties_Click"/>
@@ -57,7 +57,7 @@
                 </div>
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
-                 <h3><asp:Label ID="FirstNameLastName2" runat="server" Text="First Last"></asp:Label></h3>
+                 <h3><asp:Label ID="FirstNameLastNameAge" runat="server" Text="First Last"></asp:Label></h3>
                     <p><asp:Label ID="BioLabel" runat="server" Text="This is a brief bio of the tenant."></asp:Label></p>
                     <p><asp:Image ID="Badge1" runat="server" ImageUrl="images/non-smoker-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
                     <p><asp:Image ID="Badge2" runat="server" ImageUrl="images/undergrad-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
