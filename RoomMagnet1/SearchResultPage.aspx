@@ -147,22 +147,18 @@
  
     
 <section style="margin-left: 8rem" id="ResultList" runat="server">
-
     <div class="row " style="margin-top: 2rem; border-bottom: solid; border-bottom-width: 1px; ">
+            <h5><asp:Label ID="countLabel" runat="server" Text=""></asp:Label></h5>
+        </div>
+    <div class="row " style="margin-top: 1rem; border-bottom-width: 1px; ">
         <div class="col-md-4" >
-            <h2 class="list-group-item-heading">Host(s) Name Here</h2>
-            <h5>Title of space goes here.</h5>
-            <p class="list-group-item-text">The brief bio that a homeowner would write about their home would go here. This is a room in an old home, but it's not haunted I swear.</p>
-            <img src="images/badges-03.png" style="max-width: 130px;">
+            
         </div>
         <div class="col-md-2" style="margin-top: .5rem;">
-            <img src="images/icons-07.png" style="max-width: 30px;">
+            
         </div>
         <div class="col-md-5" style="margin-top: .5rem; float: right; margin-bottom: 1rem;">
-            <a href="#"><img src="images/badges-11.png" style="max-width: 100px;"></a>
-            <a href="#"><img src="images/badges-12.png" style="max-width: 90px;"></a>
-            <a href="#"><img src="images/badges-13.png" style="max-width: 90px;"></a><br><br>
-            <img src="images/kitchen.jpeg" class="img-fluid" style="max-height: 300px">
+           
         </div>
         
     </div><!-- end div row -->

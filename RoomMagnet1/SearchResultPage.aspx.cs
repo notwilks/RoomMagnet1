@@ -40,7 +40,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             };
 
             ResultList.Controls.Add(div1);
-            div1.Style.Add("margin-top", "2rem;");
+            div1.Style.Add("margin-top", "1rem;");
             div1.Style.Add("border-bottom", "solid;");
             div1.Style.Add("border-bottom-width", "1px;");
             div1.Attributes.Add("class", "row");
@@ -91,8 +91,84 @@ public partial class SearchResultPage : System.Web.UI.Page
             insidediv.Controls.Add(PropBio);
             PropBio.Attributes.Add("class", "list-group-item-text");
 
+            var badge1 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            insidediv.Controls.Add(badge1);
+            badge1.Attributes.Add("src", "images/private-entrance.png");
+            badge1.Style.Add("max-width", "130px;");
+
+            var midCol = new HtmlGenericControl("div")
+            {
+
+            };
+
+            div1.Controls.Add(midCol);
+            midCol.Attributes.Add("class", "col-md-2");
+            midCol.Style.Add("margin-top", ".5rem;");
+
+            var approved = new HtmlGenericControl("img")
+            {
+
+            };
+
+            midCol.Controls.Add(approved);
+            approved.Attributes.Add("src", "images/icons-07.png");
+            approved.Style.Add("max-width", "30px;");
+
+            var rightCol = new HtmlGenericControl("div")
+            {
+
+            };
+
+            div1.Controls.Add(rightCol);
+            rightCol.Attributes.Add("class", "col-md-5");
+            rightCol.Style.Add("margin-top", ".5rem;");
+            rightCol.Style.Add("float", "right");
+            rightCol.Style.Add("margin-bottom", "1rem;");
+
+            var messageBadge = new HtmlGenericControl("img")
+            {
+
+            };
+
+            rightCol.Controls.Add(messageBadge);
+            messageBadge.Attributes.Add("src", "images/message-badge.png");
+            messageBadge.Style.Add("max-width", "100px;");
+
+            var favoriteBadge = new HtmlGenericControl("img")
+            {
+
+            };
+
+            rightCol.Controls.Add(favoriteBadge);
+            favoriteBadge.Attributes.Add("src", "images/favorite-badge.png");
+            favoriteBadge.Style.Add("max-width", "90px;");
+
+            var viewProfileBadge = new HtmlGenericControl("img")
+            {
+
+            };
+
+            rightCol.Controls.Add(viewProfileBadge);
+            viewProfileBadge.Attributes.Add("src", "images/favorite-badge.png");
+            viewProfileBadge.Style.Add("max-width", "90px;");
+
+            var mainImage = new HtmlGenericControl("img")
+            {
+                
+            };
+
+            rightCol.Controls.Add(mainImage);
+            mainImage.Attributes.Add("src", "images/kitchen.jpeg");
+            mainImage.Style.Add("max-height", "300px;");
+            mainImage.Style.Add("margin-top", "1rem;");
+
             count++;
         }
         sc.Close();
+        countLabel.Text = "Your search returned " + count + " results";
     }
 }
