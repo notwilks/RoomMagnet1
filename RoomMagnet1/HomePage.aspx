@@ -90,7 +90,7 @@
   <div class="row" style="background-image: url(images/foldimg_A0_Rectangle_2_pattern.png); background-repeat: no-repeat; background-size:cover; margin-top: 1rem;">
    
       <div class="col-md-4  ctahome" style="margin-top: 8rem; margin-bottom: 8rem;">
-       <div class="card card-inverse" style="width: 25rem; margin-top: 2rem; margin-bottom: 2rem; margin-right: 1rem; padding-top: 1rem;">
+       <div class="card card-inverse cardstuff" style="width: 25rem; margin-top: 2rem; margin-bottom: 2rem; margin-right: 1rem; padding-top: 1rem; margin-left: 70rem">
               <div class="card-body">
                 <h3 class="card-title tan" style="text-align: center;">Room Magnet</h3>
                 <p class="card-text tan" style="text-align: center; line-height: 2;">An intergenerational rental matching service that attracts the best option for your needs.</p>
