@@ -45,6 +45,8 @@
             <div class="col">
                <label for="formGroupExampleInput" style="margin-top: 3rem;">Street Address</label>
                 <asp:TextBox ID="AddressBox" runat="server" cssclass="form-control" placeholder="Street Address"></asp:TextBox>
+                <asp:Label ID="AddressErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                <asp:CompareValidator ID="AddressValidator" runat="server" ErrorMessage="" ControlToValidate="AddressBox" ForeColor ="Red" Font-Size="Small" Text="Please enter an address." Operator="DataTypeCheck" Type="String"></asp:CompareValidator>
             </div>
 
             <div class="col">
@@ -63,6 +65,7 @@
             <div class="col">
               <label for="formGroupExampleInput">City</label>
               <asp:TextBox ID="CityBox" runat="server" cssclass="form-control" placeholder="City"></asp:TextBox>
+                <asp:Label ID="CityErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
             <div class="col">
               <label for="formGroupExampleInput">State</label>
@@ -119,11 +122,13 @@
                     <asp:ListItem Value="WI">Wisconsin</asp:ListItem>
                     <asp:ListItem Value="WY">Wyoming</asp:ListItem>
                 </asp:DropDownList>
+                <asp:Label ID="StateErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
 
               <div class="col">
               <label for="formGroupExampleInput">Zip Code</label>
                     <asp:TextBox ID="ZipBox" runat="server" cssclass="form-control" placeholder="Zip Code"></asp:TextBox>
+                  <asp:CompareValidator ID="ZipValidator" runat="server" ErrorMessage="" ControlToValidate="ZipBox" Text="Please enter a zip code." ForeColor="Red" Font-Size="Small" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
               </div> <!--end col-->
           </div> <!--end row class-->
 
@@ -137,17 +142,20 @@
            <div class="row" style="margin-top: 3rem;">
             <div class="col">
               <label for="formGroupExampleInput">Monthly Price</label>
-              <asp:TextBox ID="PriceBox" runat="server" cssclass="form-control" placeholder="$000.00"></asp:TextBox>
+              <asp:TextBox ID="PriceBox" runat="server" cssclass="form-control" placeholder="000.00"></asp:TextBox>
+                <asp:CompareValidator ID="PriceValidator" runat="server" ErrorMessage="" ControlToValidate="PriceBox" Text="Please enter numbers greater than 0 only." Font-Size="Small" Operator="DataTypeCheck" Type="Currency" ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
                
             <div class="col">
                 <label for="formGroupExampleInput" style="margin-top: 0rem;">Number of Tenants</label>
                 <asp:TextBox ID ="TNumBox" runat ="server" CssClass="form-control" placeholder="0"></asp:TextBox>
+                <asp:CompareValidator ID="TNumValidator" runat="server" ErrorMessage="" ControlToValidate="TNumBox" Operator="DataTypeCheck" Type="Integer" Text="Please enter a number." ForeColor="Red" Font-Size="Small"></asp:CompareValidator>
             </div> <!--end col-->
 
             <div class="col">
                 <label for="formGroupExampleInput" style="margin-top: 0rem;">Neighborhood</label>
                 <asp:TextBox ID ="NeighborhoodBox" runat ="server" CssClass="form-control" placeholder="Neighborhood"></asp:TextBox>
+                <asp:Label ID="HoodErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col-->
           </div> <!--end row class-->
 
@@ -155,10 +163,12 @@
             <div class="col">
               <label for="formGroupExampleInput">Effective Date</label>
               <asp:TextBox ID="EffectiveDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
+                <asp:CompareValidator ID="eDateValidator" runat="server" ErrorMessage="" ControlToValidate="EffectiveDateBox" Operator="DataTypeCheck" Type="Date" Font-Size="Small" Text="Date must be in MM/DD/YYYY format." ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
             <div class="col">
               <label for="formGroupExampleInput">Termination Date</label>
               <asp:TextBox ID="TerminationDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
+              <asp:CompareValidator ID="tDateValidator" runat="server" ErrorMessage="" ControlToValidate="TerminationDateBox" Operator="DataTypeCheck" Type="Date" Font-Size="Small" Text="Date must be in MM/DD/YYYY format." ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
 
             <div class="col">
@@ -171,6 +181,7 @@
             <div class="col">
               <label for="formGroupExampleInput">Give your property a name (Example: 1 Bedroom with Private Bathroom in Harrisonburg, VA)</label>
               <asp:TextBox ID="DescriptBox" runat="server" cssclass="form-control" placeholder="Property Name"></asp:TextBox>
+                <asp:Label ID="DescriptErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col-->
           </div> <!--end row class-->
 
@@ -179,8 +190,9 @@
             <div class="col">
                 <label for="formGroupExampleInput">What Best Describes Your Property for Rent?</label>
                 <asp:DropDownList ID="RoomTypeList" runat="server" cssclass="form-control">
-                        <asp:ListItem Value ="Private Room">Private Room</asp:ListItem>
-                        <asp:ListItem Value ="Sep Private Building">Seperate Private Building</asp:ListItem>
+                        <asp:ListItem Value="Select a Room Type">Select a Room Type</asp:ListItem>
+                        <asp:ListItem Value="Private Room">Private Room</asp:ListItem>
+                        <asp:ListItem Value="Sep Private Building">Seperate Private Building</asp:ListItem>
                         <asp:ListItem Value="Other">Other</asp:ListItem>
                     </asp:DropDownList>
             </div>
@@ -203,6 +215,7 @@
                         <asp:ListItem Value="T">Yes</asp:ListItem>
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
+                <asp:Label ID="BathroomErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
 
             <div class="col">
@@ -211,6 +224,7 @@
                         <asp:ListItem Value="T">Yes</asp:ListItem>
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
+                <asp:Label ID="EntranceErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
 
             <div class="col">
@@ -219,6 +233,7 @@
                         <asp:ListItem Value="T">Yes</asp:ListItem>
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
+                <asp:Label ID="StorageErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col-->
 
 
@@ -232,6 +247,7 @@
                         <asp:ListItem Value="T">Yes</asp:ListItem>
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
+                <asp:Label ID="FurnishedErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
 
             <div class="col">
@@ -240,6 +256,7 @@
                         <asp:ListItem Value="T">Yes</asp:ListItem>
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
+                <asp:Label ID="SmokerErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
 
             <div class="col">
@@ -248,6 +265,7 @@
                         <asp:ListItem Value="T">Yes</asp:ListItem>
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
+                <asp:Label ID="PetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 
                
             </div> <!--end col-->
