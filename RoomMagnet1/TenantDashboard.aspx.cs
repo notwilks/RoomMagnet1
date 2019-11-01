@@ -16,7 +16,7 @@ public partial class TenantDashboard : System.Web.UI.Page
         // Load database data into local variables to be displayed on dashboard
         sc.Open();
         SqlCommand select = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
-            "phoneNumber, birthDate, biography FROM [Tenant] where email = @email", sc);
+            "phoneNumber, birthDate, isnull(biography, 'bio goes here') FROM [Tenant] where email = @email", sc);
         select.Parameters.AddWithValue("@email", Session["userEmail"]);
         SqlDataReader reader = select.ExecuteReader();
         String name = "";

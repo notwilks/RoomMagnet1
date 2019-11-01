@@ -20,13 +20,13 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
     {
         sc.Open();
 
-        System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+        SqlCommand insert = new SqlCommand();
         insert.Connection = sc;
 
-        System.Data.SqlClient.SqlCommand setPass = new System.Data.SqlClient.SqlCommand();
+        SqlCommand setPass = new SqlCommand();
         setPass.Connection = sc;
 
-        System.Data.SqlClient.SqlCommand select = new System.Data.SqlClient.SqlCommand();
+        SqlCommand select = new SqlCommand();
         select.Connection = sc;
 
         if (Convert.ToString(Session["userType"]) == "T")
@@ -35,11 +35,13 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
             tempTenant.SetFirstName(FirstNameBox.Text);
             tempTenant.SetLastName(LastNameBox.Text);
+            tempTenant.SetPhoneNumber(phoneNumberBox.Text);
 
             if (dobBox.Text.Length == 10)
             {
                 tempTenant.SetBirthDate(Convert.ToDateTime(dobBox.Text));
             }
+            
 
             try
             {
@@ -85,12 +87,12 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber) VALUES " +
                     "(@firstName, @lastName, @email, @dob, @gender, @phoneNumber)";
 
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@firstName", tempHost.GetFistName()));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", tempHost.GetLastName()));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Convert.ToString(Session["userEmail"])));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@dob", tempHost.GetBirthDate()));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@gender", DropDownList1.SelectedValue));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@phoneNumber", tempHost.GetPhoneNumber()));
+                insert.Parameters.Add(new SqlParameter("@firstName", tempHost.GetFistName()));
+                insert.Parameters.Add(new SqlParameter("@lastName", tempHost.GetLastName()));
+                insert.Parameters.Add(new SqlParameter("@email", Convert.ToString(Session["userEmail"])));
+                insert.Parameters.Add(new SqlParameter("@dob", tempHost.GetBirthDate()));
+                insert.Parameters.Add(new SqlParameter("@gender", DropDownList1.SelectedValue));
+                insert.Parameters.Add(new SqlParameter("@phoneNumber", tempHost.GetPhoneNumber()));
                 //insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdatedBy", Environment.UserName));
                 //insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdated", DateTime.Now));
 
