@@ -14,7 +14,7 @@ public class Accommodation
     private String state;
     private String country;
     private String zipCode;
-    private String price;
+    private double price;
     private int numOfTenants;
     private DateTime effectiveDate;
     private DateTime terminationDate;
@@ -45,7 +45,7 @@ public class Accommodation
     }
 
     public Accommodation(int accommodationID, int hostID, String houseNumber, String street, String city, String state, String country,
-        String zipCode, String price, int numOfTenants, DateTime effectiveDate, DateTime terminationDate, String roomType, String neighborhood, String accomdDescription, String extraInfo)
+        String zipCode, double price, int numOfTenants, DateTime effectiveDate, DateTime terminationDate, String roomType, String neighborhood, String accomdDescription, String extraInfo)
     {
         SetAccommodationID(accommodationID);
         SetHostID(hostID);
@@ -128,11 +128,11 @@ public class Accommodation
     {
         return zipCode;
     }
-    public void SetPrice(String price)
+    public void SetPrice(double price)
     {
         this.price = price;
     }
-    public String GetPrice()
+    public double GetPrice()
     {
         return price;
     }
@@ -166,7 +166,7 @@ public class Accommodation
     }
     public String GetRoomType()
     {
-        return price;
+        return roomType;
     }
     public void SetNeighborhood(String neighborhood)
     {

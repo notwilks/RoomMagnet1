@@ -30,10 +30,9 @@ public partial class CreateProperty : System.Web.UI.Page
 
     protected void NextButton_Click(object sender, EventArgs e)
     {
-        sc.Open();
 
-        System.Data.SqlClient.SqlCommand insert = new System.Data.SqlClient.SqlCommand();
-        insert.Connection = sc;
+            SqlCommand insert = new System.Data.SqlClient.SqlCommand();
+        
  
             Accommodation tempAccom = new Accommodation();
             string address = "";
@@ -43,15 +42,15 @@ public partial class CreateProperty : System.Web.UI.Page
             int accommodationID;
             int hostID;
 
+            SqlCommand FindHostID = new SqlCommand();
+            FindHostID.Connection = sc;
+            sc.Open();
 
-            insert.CommandText = "SELECT MAX(AccommodationID) FROM HOST";
-            insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
-            accommodationID = Convert.ToInt32(insert.ExecuteScalar()) + 1;
+            FindHostID.CommandText = "SELECT hostID FROM HOST WHERE email = @email";
+            FindHostID.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
+            hostID = Convert.ToInt32(FindHostID.ExecuteScalar());
 
-            insert.CommandText = "SELECT hostID FROM HOST WHERE email = @email2";
-            insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Session["userEmail"]));
-            hostID = Convert.ToInt32(insert.ExecuteScalar());
-
+            sc.Close();
 
             if (apartment == "")
             {
@@ -62,16 +61,21 @@ public partial class CreateProperty : System.Web.UI.Page
                 address = address + " " + apartment;
             }
 
-            if (AddressBox.Text == "" || CityBox.Text == "" || ZipBox.Text == "" || stateBox.SelectedIndex == 0)
+            if (AddressBox.Text == "" || CityBox.Text == "" || ZipBox.Text == "" || stateBox.SelectedIndex == 0 || PriceBox.Text == "" || Convert.ToDouble(PriceBox.Text) < 0 || TNumBox.Text == ""
+                || NeighborhoodBox.Text == "" || DescriptBox.Text == "" || EffectiveDateBox.Text == "" || TerminationDateBox.Text == "")
             {
-                // Please fill out all valid datafields
+                // alert window displaying error message "Please fill out all valid datafields"
+            }
+            else if (EffectiveDateBox.Text == "This Validation will ensure it is a date")
+            {
+                // alert window displaying error message to ensure eDate and tDate are actual dates
             }
             else if (AddressBox.Text != "")
             {
                 address = AddressBox.Text;
                 int space = address.IndexOf(" ");
-                houseNumber = address.Substring(0, space);
-                street = address.Substring(space, address.Length);
+                houseNumber = address.Substring(0, address.IndexOf(' '));
+                street = address.Substring(address.IndexOf(' ') + 1, address.Length - address.IndexOf(' ') - 1);
 
                 tempAccom.SetHostID(hostID);
                 tempAccom.SetHouseNumber(houseNumber);
@@ -79,35 +83,52 @@ public partial class CreateProperty : System.Web.UI.Page
                 tempAccom.SetStreet(street);
                 tempAccom.SetState(stateBox.SelectedValue);
                 tempAccom.SetZip(ZipBox.Text);
+                tempAccom.SetPrice(Convert.ToDouble(PriceBox.Text));
+                tempAccom.SetTenants(Convert.ToInt32(TNumBox.Text));
+                tempAccom.SetNeighborhood(NeighborhoodBox.Text);
                 tempAccom.SetDescription(DescriptBox.Text);
-                tempAccom.SetRoomType(RoomTypeList.SelectedItem.Text);
+                tempAccom.SetRoomType(RoomTypeList.SelectedValue);
+                tempAccom.SetEffectiveDate(Convert.ToDateTime(EffectiveDateBox.Text));
+                tempAccom.SetTerminationDate(Convert.ToDateTime(EffectiveDateBox.Text));
                 tempAccom.SetExtraInfo(ExtraInfoBox.Text);
 
-                insert.CommandText = "INSERT INTO Accommodation (hostID, houseNumber, street, state, country, zipCode, price, numOfTenants, neighborhood, description, roomType, lastUpdated, lastUpdatedBy, extraInfo) " +
-                    "VALUES (@hostID, @houseNumber, @street, @state, @country, @zipCode, @price, @tNum, @hood, @description, @roomType, @lastU, @lastUB, @extraInfo)";
+                insert.Connection = sc;
+                sc.Open();
 
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostID", tempAccom.GetHostID()));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@houseNumber", HttpUtility.HtmlEncode(tempAccom.GetHouseNumber())));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@street", HttpUtility.HtmlEncode(tempAccom.GetStreet())));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@state", HttpUtility.HtmlEncode(tempAccom.GetState())));
-                insert.Parameters.Add(new SqlParameter("@lastU", Environment.UserName));
-                insert.Parameters.Add(new SqlParameter("@lastUB", DateTime.Now));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@extraInfo", HttpUtility.HtmlEncode(tempAccom.GetExtraInfo())));
-                //Temp Parameter to satisfy new Accomodation table columns
+                insert.CommandText = "INSERT INTO Accommodation (hostID, houseNumber, street, state, country, zipCode, price, numOfTenants, neighborhood, description, roomType, effectiveDate, terminationDate, lastUpdated, lastUpdateBy, extraInfo) " +
+                    "VALUES (@hostID, @houseNumber, @street, @state, @country, @zipCode, @price, @tNum, @hood, @description, @roomType, @eDate, @tDate, @lastU, @lastUB, @extraInfo)";
+
+                insert.Parameters.Add(new SqlParameter("@hostID", tempAccom.GetHostID()));
+                insert.Parameters.Add(new SqlParameter("@houseNumber", HttpUtility.HtmlEncode(tempAccom.GetHouseNumber())));
+                insert.Parameters.Add(new SqlParameter("@street", HttpUtility.HtmlEncode(tempAccom.GetStreet())));
+                insert.Parameters.Add(new SqlParameter("@state", tempAccom.GetState()));
                 insert.Parameters.Add(new SqlParameter("@country", "US"));
-                insert.Parameters.Add(new SqlParameter("@price", 1000));
-                insert.Parameters.Add(new SqlParameter("@tNum", 4));
-                insert.Parameters.Add(new SqlParameter("@hood", "Compton"));
-
-
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@zipCode", HttpUtility.HtmlEncode(tempAccom.GetZip())));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@description", HttpUtility.HtmlEncode(tempAccom.GetDescription())));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@roomType", HttpUtility.HtmlEncode(tempAccom.GetRoomType())));
-                //NOT YET A DB COLUMN --> insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@extraInfo", HttpUtility.HtmlEncode(tempAccom.GetExtraInfo())));
+                insert.Parameters.Add(new SqlParameter("@zipCode", HttpUtility.HtmlEncode(tempAccom.GetZip())));
+                insert.Parameters.Add(new SqlParameter("@price", HttpUtility.HtmlEncode(tempAccom.GetPrice())));
+                insert.Parameters.Add(new SqlParameter("@tNum", HttpUtility.HtmlEncode(tempAccom.GetGuests())));
+                insert.Parameters.Add(new SqlParameter("@hood", HttpUtility.HtmlEncode(tempAccom.GetNeighborhood())));
+                insert.Parameters.Add(new SqlParameter("@description", HttpUtility.HtmlEncode(tempAccom.GetDescription())));
+                insert.Parameters.Add(new SqlParameter("@roomType", tempAccom.GetRoomType()));
+                insert.Parameters.Add(new SqlParameter("@eDate", tempAccom.GetEffectiveDate()));
+                insert.Parameters.Add(new SqlParameter("@tDate", tempAccom.GetTerminationDate()));
+                insert.Parameters.Add(new SqlParameter("@lastU", DateTime.Now));
+                insert.Parameters.Add(new SqlParameter("@lastUB", "Joe Muia"));
+                insert.Parameters.Add(new SqlParameter("@extraInfo", HttpUtility.HtmlEncode(tempAccom.GetExtraInfo())));
 
                 insert.ExecuteNonQuery();
+                sc.Close();
 
-                String bathroom = "";
+                SqlCommand insertAmenity = new SqlCommand();
+                SqlCommand FindAccomID = new SqlCommand();
+                
+                // Pulls the Accommodation ID to insert into the AccommodationAmenity
+                FindAccomID.Connection = sc;
+                sc.Open();
+                FindAccomID.CommandText = "SELECT MAX(AccommodationID) FROM Accommodation";
+                accommodationID = Convert.ToInt32(FindAccomID.ExecuteScalar());
+                sc.Close();
+
+                String bathroom = "";   
                 String entrance = "";
                 String storage = "";
                 String furnished = "";
@@ -168,20 +189,24 @@ public partial class CreateProperty : System.Web.UI.Page
                     pets = "F";
                 }
 
-                insert.CommandText = "INSERT INTO AccommodationAmmenity (accommodationID, bathroom, entrance, storage, furnished, smoker, pets, lastUpdated, lastUpdatedBy) VALUES (@accommodationID," +
+                insertAmenity.Connection = sc;
+                sc.Open();
+
+                insertAmenity.CommandText = "INSERT INTO AccommodationAmmenity (accommodationID, bathroom, entrance, storage, furnished, smoker, pets, lastUpdated, lastUpdatedBy) VALUES (@accommodationID," +
                     " @bathroom, @entrance, @storage, @furnished, @smoker, @pets, @lU, @lUB)";
+            
+                insertAmenity.Parameters.Add(new SqlParameter("@accommodationID", accommodationID));
+                insertAmenity.Parameters.Add(new SqlParameter("@bathroom", bathroom));
+                insertAmenity.Parameters.Add(new SqlParameter("@entrance", entrance));
+                insertAmenity.Parameters.Add(new SqlParameter("@storage", storage));
+                insertAmenity.Parameters.Add(new SqlParameter("@furnished", furnished));
+                insertAmenity.Parameters.Add(new SqlParameter("@smoker", smoker));
+                insertAmenity.Parameters.Add(new SqlParameter("@pets", pets));
+                insertAmenity.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
+                insertAmenity.Parameters.Add(new SqlParameter("@lUB", "Joe Muia"));
 
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@accommodationID", accommodationID));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@bathroom", bathroom));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@entrance", entrance));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@storage", storage));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@furnished", furnished));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@smoker", smoker));
-                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@pets", pets));
-                insert.Parameters.Add(new SqlParameter("@lU", Environment.UserName));
-                insert.Parameters.Add(new SqlParameter("@lUB", DateTime.Now));
-
-                insert.ExecuteNonQuery();
+                insertAmenity.ExecuteNonQuery();
+                sc.Close();
 
                 Response.Redirect("HostAccountConfirmation.aspx");
 

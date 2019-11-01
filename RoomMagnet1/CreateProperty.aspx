@@ -39,9 +39,6 @@
                         </div>
                     </div>
             </div>
-            <div class="col">
-              
-            </div> <!--end col-->
           </div> <!--end row class-->
 
           <div class="row">
@@ -136,6 +133,40 @@
             </div><!--end col-->
           </div> <!--end row class-->
 
+
+           <div class="row" style="margin-top: 3rem;">
+            <div class="col">
+              <label for="formGroupExampleInput">Monthly Price</label>
+              <asp:TextBox ID="PriceBox" runat="server" cssclass="form-control" placeholder="$000.00"></asp:TextBox>
+            </div> <!--end col-->
+               
+            <div class="col">
+                <label for="formGroupExampleInput" style="margin-top: 0rem;">Number of Tenants</label>
+                <asp:TextBox ID ="TNumBox" runat ="server" CssClass="form-control" placeholder="0"></asp:TextBox>
+            </div> <!--end col-->
+
+            <div class="col">
+                <label for="formGroupExampleInput" style="margin-top: 0rem;">Neighborhood</label>
+                <asp:TextBox ID ="NeighborhoodBox" runat ="server" CssClass="form-control" placeholder="Neighborhood"></asp:TextBox>
+            </div> <!--end col-->
+          </div> <!--end row class-->
+
+            <div class="row" style="margin-top: 3rem;">
+            <div class="col">
+              <label for="formGroupExampleInput">Effective Date</label>
+              <asp:TextBox ID="EffectiveDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
+            </div> <!--end col-->
+            <div class="col">
+              <label for="formGroupExampleInput">Termination Date</label>
+              <asp:TextBox ID="TerminationDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
+            </div> <!--end col-->
+
+            <div class="col">
+
+            </div> <!--end col-->
+          </div> <!--end row class-->
+
+
           <div class="row" style="margin-top: 3rem;">
             <div class="col">
               <label for="formGroupExampleInput">Give your property a name (Example: 1 Bedroom with Private Bathroom in Harrisonburg, VA)</label>
@@ -148,8 +179,8 @@
             <div class="col">
                 <label for="formGroupExampleInput">What Best Describes Your Property for Rent?</label>
                 <asp:DropDownList ID="RoomTypeList" runat="server" cssclass="form-control">
-                        <asp:ListItem>Private Room</asp:ListItem>
-                        <asp:ListItem>Seperate Private Building</asp:ListItem>
+                        <asp:ListItem Value ="Private Room">Private Room</asp:ListItem>
+                        <asp:ListItem Value ="Sep Private Building">Seperate Private Building</asp:ListItem>
                         <asp:ListItem Value="Other">Other</asp:ListItem>
                     </asp:DropDownList>
             </div>
@@ -162,8 +193,6 @@
             <div class="col">
 
             </div> <!--end col-->
-
-
           </div> <!--end row class-->
 
             <div class="row" style="margin-top: 3rem;">
@@ -229,7 +258,7 @@
             <div class="row" style="margin-top: 3rem;">
             <div class="col">
                 <label for="formGroupExampleInput">Please describe your property in detail (this can be edited later)</label>
-                <asp:TextBox ID="ExtraInfoBox" runat="server" CssClass="form-control" Height = "200px"></asp:TextBox>
+                <asp:TextBox ID="ExtraInfoBox" runat="server" CssClass="form-control" Height = "200px" TextMode ="MultiLine"></asp:TextBox>
             </div> <!--end col-->
           </div> <!--end row class-->
 
@@ -241,9 +270,9 @@
             
              <div class="col-md-6">
                  
-                 <asp:Button ID="NextButton" runat="server" Text="Next" CausesValidation="True" CssClass="btn" style="float: right; margin-right: 2rem"/>
+                 <asp:Button ID="NextButton" runat="server" Text="Next" CausesValidation="True" OnClick="NextButton_Click" CssClass="btn" style="float: right; margin-right: 2rem"/>
                  &nbsp;&nbsp;
-                 <asp:Button ID="SkipButton" runat="server" Text="Skip For Now" CausesValidation="True" OnClick="SkipButton_Click" CssClass="btn btn-secondary" style="float: right;"/>
+                 <asp:Button ID="SkipButton" runat="server" Text="Skip & Continue" CausesValidation="True" OnClick="SkipButton_Click" CssClass="btn btn-secondary" style="float: right;"/>
              </div>
                 <asp:Label ID="OutputLabel" runat="server" Text=""></asp:Label>
             
