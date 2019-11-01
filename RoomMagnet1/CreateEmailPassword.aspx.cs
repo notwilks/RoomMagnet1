@@ -32,30 +32,40 @@ public partial class CreateEmailPassword : System.Web.UI.Page
         {
             if (PasswordBox.Text == ConfirmPasswordBox.Text)
             {
-                if (PasswordBox.Text.Length >= 8)
+                if (EmailBox.Text == ConfirmEmailBox.Text)
                 {
-                    setPass.CommandText = "INSERT INTO [dbo].[Passwords] (email, password, userType, lastUpdated, lastUpdatedBy) VALUES " +
-                                        "(@email, @password, @userType, @lastUpdated, @lastUpdatedBy)";
 
-                    setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", EmailBox.Text));
-                    setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@password", PasswordHash.HashPassword(PasswordBox.Text)));
-                    setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@userType", Convert.ToString(Session["userType"])));
-                    setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdatedBy",Environment.UserName));
-                    setPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpdated", DateTime.Now));
 
-                    setPass.ExecuteNonQuery();
+                    if (PasswordBox.Text.Length >= 8)
+                    {
+                        setPass.CommandText = "INSERT INTO [dbo].[Passwords] (email, password, userType, lastUpdated, lastUpdatedBy) VALUES " +
+                                            "(@email, @password, @userType, @lastUpdated, @lastUpdatedBy)";
 
-                    Session["userEmail"] = EmailBox.Text;
+                        setPass.Parameters.Add(new SqlParameter("@email", EmailBox.Text));
+                        setPass.Parameters.Add(new SqlParameter("@password", PasswordHash.HashPassword(PasswordBox.Text)));
+                        setPass.Parameters.Add(new SqlParameter("@userType", Convert.ToString(Session["userType"])));
+                        setPass.Parameters.Add(new SqlParameter("@lastUpdatedBy", Environment.UserName));
+                        setPass.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
 
-                    Session["userType"] = Convert.ToString(Session["userType"]);
+                        setPass.ExecuteNonQuery();
 
-                    Response.Redirect("CreatePersonalInfo.aspx");
-                    
+                        Session["userEmail"] = EmailBox.Text;
+
+                        Session["userType"] = Convert.ToString(Session["userType"]);
+
+                        Response.Redirect("CreatePersonalInfo.aspx");
+
+                    }
+
+                    else
+                    {
+                        OutputLabel.Text = "Password must be at least 8 characters long.";
+                    }
                 }
-
                 else
                 {
-                    OutputLabel.Text = "Password must be at least 8 characters long.";
+                    OutputLabel.Text = "Emails do not match.";
+
                 }
             }
             else
