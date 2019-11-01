@@ -95,8 +95,8 @@
                 <h3 class="card-title tan" style="text-align: center;">Room Magnet</h3>
                 <p class="card-text tan" style="text-align: center; line-height: 2;">An intergenerational rental matching service that attracts the best option for your needs.</p>
                <p style="text-align: center;">
-                   <a href="#" class="btn " style="margin-right: 1rem;">Rent My Room</a>
-                   <a href="#" class="btn " style="margin-left: 1rem;">Find a Room</a>
+                   <asp:Button ID="RentMyRoomBtn" runat="server" Text="Rent My Room" OnClick="RentMyRoomBtn_Clicked" CssClass="btn" />
+                   <asp:Button ID ="FindARoomBtn" runat="server" Text ="Find a Room" OnClick="FindARoomBtn_Clicked" CssClass ="btn" />
                   </p>
               </div>
             </div>
@@ -217,7 +217,7 @@
             <p style="text-align: center; font-size: 50px;" class="din">1,203</p>
             <p style="text-align: center; font-size: 20px;">housing matches made this year.<br>Be the next one.</p>
             <p style="text-align: center;">
-                <a href="#" class="btn " style="margin-right: 1rem; margin: 0 auto; font-size: 22px;">Get Started</a>
+                <asp:Button ID="GetStartedBtn" runat="server" Text="Get Started" OnClick ="GetStartedBtn_Clicked" ccsClass ="btn" />
             </p> 
         </div>    
     </div><!-- end div row! --> 

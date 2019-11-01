@@ -27,4 +27,21 @@ public partial class HomePage : System.Web.UI.Page
             Response.Redirect("SearchResultPage.aspx");
         }
     }
+
+    protected void RentMyRoomBtn_Clicked(object sender, EventArgs e)
+    {
+        Session["userType"] = "H";
+        Response.Redirect("CreateEmailPassword.aspx");
+    }
+
+    protected void FindARoomBtn_Clicked(object sender, EventArgs e)
+    {
+        Session["userType"] = "T";
+        Response.Redirect("CreateEmailPassword.aspx");
+    }
+
+    protected void GetStartedBtn_Clicked(object sender, EventArgs e)
+    {
+        Response.Redirect("CreateHostorTenant.aspx");
+    }
 }

@@ -15,34 +15,39 @@ public partial class TenantDashboard : System.Web.UI.Page
 
         // Load database data into local variables to be displayed on dashboard
         sc.Open();
-        SqlCommand select = new SqlCommand("SELECT concat(firstName, ' ', lastName, 'Name goes here'), email," +
-            "NULLIF(phoneNumber, 'Phone number goes here'), birthDate FROM [Tenant] where email = @email", sc);
+        SqlCommand select = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
+            "phoneNumber, birthDate, isnull(biography, 'bio goes here') FROM [Tenant] where email = @email", sc);
+        select.Parameters.AddWithValue("@email", Session["userEmail"]);
         SqlDataReader reader = select.ExecuteReader();
+        String name = "";
+        String email = "";
+        String phoneNumber = "";
+        DateTime DOB = DateTime.Now;
+        DateTime today = DateTime.Now;
+        String age = "";
+        String bio = "";
         while (reader.Read())
         {
-            String name = reader.GetString(0);
-            String email = reader.GetString(1);
-            String phoneNumber = reader.GetString(2);
-            DateTime DOB = Convert.ToDateTime(reader.GetDateTime(3));
-            DateTime today = DateTime.Now;
-            String age;
-            if (reader.IsDBNull(3))
-            {
-                age = "Age goes here";
-            }
-            else
-            {
-                age = CalculateAge(reader.GetDateTime(3)).ToString();
-            }
+            name = reader.GetString(0);
+            email = reader.GetString(1);
+            phoneNumber = reader.GetString(2);
+            DOB = Convert.ToDateTime(reader.GetDateTime(3));
+            today = DateTime.Now;
+            age = CalculateAge(reader.GetDateTime(3)).ToString(); ;
+            bio = reader.GetString(4);
             
             
-        }
 
-        select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
-        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
-        String userName = Convert.ToString(select.ExecuteScalar());
-        FirstNameLastNameHeader.Text = userName + "'s Dashboard";
+        }
         
+
+        FirstNameLastNameHeader.Text = HttpUtility.HtmlEncode(name) + "'s Dashboard";
+        FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;
+        BioLabel.Text = HttpUtility.HtmlEncode(bio);
+
+
+
+
 
         //Header.Text = "Host Dashboard.";
         //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
