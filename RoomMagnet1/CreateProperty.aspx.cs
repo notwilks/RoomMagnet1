@@ -235,7 +235,29 @@ public partial class CreateProperty : System.Web.UI.Page
                 if (TNumBox.Text == "")
                 {
                     TNumErrorLbl.Text = "Please enter the number of tenants in this residence.";
-                } // had to push
+                }
+                else
+                {
+                    TNumErrorLbl.Text = "";
+                }
+
+                if (EffectiveDateBox.Text == "")
+                {
+                    eDateErrorLbl.Text = "Please enter a date.";
+                }
+                else
+                {
+                    eDateErrorLbl.Text = "";
+                }
+
+                if (TerminationDateBox.Text == "")
+                {
+                    tDateErrorLbl.Text = "Please enter a date.";
+                }
+                else
+                {
+                    tDateErrorLbl.Text = "";
+                }
 
                 if (NeighborhoodBox.Text == "")
                 {

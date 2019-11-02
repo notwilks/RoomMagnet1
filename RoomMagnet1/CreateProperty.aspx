@@ -128,6 +128,7 @@
               <div class="col">
               <label for="formGroupExampleInput">Zip Code</label>
                     <asp:TextBox ID="ZipBox" runat="server" cssclass="form-control" placeholder="Zip Code"></asp:TextBox>
+                  <asp:Label ID="ZipErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                   <asp:CompareValidator ID="ZipValidator" runat="server" ErrorMessage="" ControlToValidate="ZipBox" Text="Please enter a zip code." ForeColor="Red" Font-Size="Small" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
               </div> <!--end col-->
           </div> <!--end row class-->
@@ -143,12 +144,14 @@
             <div class="col">
               <label for="formGroupExampleInput">Monthly Price</label>
               <asp:TextBox ID="PriceBox" runat="server" cssclass="form-control" placeholder="000.00"></asp:TextBox>
+                <asp:Label ID="PriceErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:CompareValidator ID="PriceValidator" runat="server" ErrorMessage="" ControlToValidate="PriceBox" Text="Please enter numbers greater than 0 only." Font-Size="Small" Operator="DataTypeCheck" Type="Currency" ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
                
             <div class="col">
                 <label for="formGroupExampleInput" style="margin-top: 0rem;">Number of Tenants</label>
                 <asp:TextBox ID ="TNumBox" runat ="server" CssClass="form-control" placeholder="0"></asp:TextBox>
+                <asp:Label ID="TNumErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:CompareValidator ID="TNumValidator" runat="server" ErrorMessage="" ControlToValidate="TNumBox" Operator="DataTypeCheck" Type="Integer" Text="Please enter a number." ForeColor="Red" Font-Size="Small"></asp:CompareValidator>
             </div> <!--end col-->
 
@@ -163,11 +166,13 @@
             <div class="col">
               <label for="formGroupExampleInput">Effective Date</label>
               <asp:TextBox ID="EffectiveDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
+                <asp:Label ID="eDateErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:CompareValidator ID="eDateValidator" runat="server" ErrorMessage="" ControlToValidate="EffectiveDateBox" Operator="DataTypeCheck" Type="Date" Font-Size="Small" Text="Date must be in MM/DD/YYYY format." ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
             <div class="col">
               <label for="formGroupExampleInput">Termination Date</label>
               <asp:TextBox ID="TerminationDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
+                <asp:Label ID="tDateErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
               <asp:CompareValidator ID="tDateValidator" runat="server" ErrorMessage="" ControlToValidate="TerminationDateBox" Operator="DataTypeCheck" Type="Date" Font-Size="Small" Text="Date must be in MM/DD/YYYY format." ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
 
