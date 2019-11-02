@@ -18,15 +18,167 @@ public partial class SearchResultPage : System.Web.UI.Page
 
     protected void SearchButton_Click(object sender, EventArgs e)
     {
+        String bathroom = "%";
+        String entrance = "%";
+        String storage = "%";
+        String furnished = "%";
+        String pets = "%";
+        String smoker = "%";
+        String wifi = "%";
+        String parking = "%";
+        String kitchen = "%";
+        String laundry = "%";
+        String cable = "%";
+        String allowsPets = "%";
+
+        if (PrivateEntranceBox.Checked)
+        {
+            entrance = "T";
+        }
+        else
+        {
+            entrance = "%";
+        }
+
+        if(PrivateBathroomBox.Checked)
+        {
+            bathroom = "T";
+        }
+        else
+        {
+            bathroom = "%";
+        }
+
+        if(StorageSpaceBox.Checked)
+        {
+            storage = "T";
+        }
+        else
+        {
+            storage = "%";
+        }
+
+        if(FurnishedBox.Checked)
+        {
+            furnished = "T";
+        }
+        else
+        {
+            furnished = "%";
+        }
+
+        if(HasPetsBox.Checked)
+        {
+            pets = "F";
+        }
+        else
+        {
+            pets = "%";
+        }
+
+        if(AllowsSmokingBox.Checked)
+        {
+            smoker = "T";
+        }
+        else
+        {
+            smoker = "%";
+        }
+
+        if(WifiBox.Checked)
+        {
+            wifi = "T";
+        }
+        else
+        {
+            wifi = "%";
+        }
+
+        if(ParkingBox.Checked)
+        {
+            parking = "T";
+        }
+        else
+        {
+            parking = "%";
+        }
+
+        if(KitchenBox.Checked)
+        {
+            kitchen = "T";
+        }
+        else
+        {
+            kitchen = "%";
+        }
+
+        if(LaundryBox.Checked)
+        {
+            laundry = "T";
+        }
+        else
+        {
+            laundry = "%";
+        }
+
+        if(CableBox.Checked)
+        {
+            cable = "T";
+        }
+        else
+        {
+            cable = "%";
+        }
+
+        if(AllowsPetsBox.Checked)
+        {
+            allowsPets = "T";
+        }
+        else
+        {
+            allowsPets = "%";
+        }
+
         int count = 0;
         sc.Open();
         SqlCommand counter = new SqlCommand();
         counter.Connection = sc;
 
-        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo from Host h inner join Accommodation a on a.hostID = h.HostID where UPPER(a.city) = @city and a.state = 'VA'";
+        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo from Host h " +
+            "inner join Accommodation a on a.hostID = h.HostID " +
+            "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
+            "where UPPER(a.city) = @city " +
+            "and a.state = @state " +
+            "and aa.bathroom like @bathroom " +
+            "and aa.entrance like @entrance " +
+            "and aa.furnished like @furnished " +
+            "and aa.storage like @storage " +
+            "and aa.pets like @pets " +
+            "and aa.smoker like @smoker " +
+            "and aa.wifi like @wifi " +
+            "and aa.parking like @parking " +
+            "and aa.kitchen like @kitchen " +
+            "and aa.laundry like @laundry " +
+            "and aa.cable like @cable " +
+            "and aa.allowPets like @allowsPets " + 
+            "and a.listed = 'T'";
+
+        //Select h.firstName, h.lastName, a.description, a.extraInfo from Host h inner join Accommodation a on a.hostID = h.HostID inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID where UPPER(a.city) = @city and a.state = @state and aa.bathroom like @bathroom and aa.entrance like @entrance and aa.furnished like @furnished and aa.storage like @storage and aa.pets like @pets and aa.smoker like @smoker and aa.wifi like @wifi and aa.parking like @parking and aa.kitchen like @kitchen and aa.laundry like @laundry and aa.cable like @cable and aa.allowPets like @allowsPets
 
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@city", CitySearchBox.Text.ToUpper()));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@state", stateBox.SelectedValue));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@bathroom", bathroom));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@entrance", entrance));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@furnished", furnished));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@storage", storage));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@pets", pets));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@smoker", smoker));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@wifi", wifi));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@parking", parking));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@kitchen", kitchen));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@laundry", laundry));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@cable", cable));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@allowsPets", allowsPets));
 
         SqlDataReader reader = counter.ExecuteReader();
 
@@ -137,6 +289,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             rightCol.Controls.Add(messageBadge);
             messageBadge.Attributes.Add("src", "images/message-badge.png");
             messageBadge.Style.Add("max-width", "100px;");
+            messageBadge.Style.Add("margin-right", "1rem;");
 
             var favoriteBadge = new HtmlGenericControl("img")
             {
@@ -146,6 +299,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             rightCol.Controls.Add(favoriteBadge);
             favoriteBadge.Attributes.Add("src", "images/favorite-badge.png");
             favoriteBadge.Style.Add("max-width", "90px;");
+            favoriteBadge.Style.Add("margin-right", "1rem;");
 
             var viewProfileBadge = new HtmlGenericControl("img")
             {
@@ -153,8 +307,9 @@ public partial class SearchResultPage : System.Web.UI.Page
             };
 
             rightCol.Controls.Add(viewProfileBadge);
-            viewProfileBadge.Attributes.Add("src", "images/favorite-badge.png");
+            viewProfileBadge.Attributes.Add("src", "images/view-profile-badge.png");
             viewProfileBadge.Style.Add("max-width", "90px;");
+            viewProfileBadge.Style.Add("margin-right", "1rem;");
 
             var mainImage = new HtmlGenericControl("img")
             {
@@ -169,6 +324,66 @@ public partial class SearchResultPage : System.Web.UI.Page
             count++;
         }
         sc.Close();
-        countLabel.Text = "Your search returned " + count + " results";
+        countLabel.Text = "Your search returned " + count + " result(s) for " + CitySearchBox.Text + ", " + stateBox.SelectedValue.ToString() + " " + bathroom;
+    }
+
+    protected void PrivateEntranceBox_CheckedChanged(object sender, EventArgs e)
+    {
+        
+    }
+
+    protected void PrivateBathroomBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void FurnishedBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void StorageSpaceBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void HasPetsBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void AllowsSmokingBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void WifiBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void ParkingBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void KitchenBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void CableBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void AllowsPetsBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void LaundryBox_CheckedChanged(object sender, EventArgs e)
+    {
+
     }
 }

@@ -95,27 +95,55 @@
     <label class="container">Filter By:</label>
 <ul class="nav container">
   <li class="nav-item" style="padding-right: 1rem;">
-        <asp:CheckBox ID="PrivateEntranceBox" runat="server" Text="Private Entrance" cssclass="form-control" style="background-color: white; color: #B23325"/>
+        <asp:CheckBox ID="PrivateEntranceBox" runat="server" Text="Private Entrance" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="PrivateEntranceBox_CheckedChanged"/>
   </li>
 
   <li class="nav-item" style="padding-right: 1rem;">
-        <asp:CheckBox ID="PrivateBathroomBox" runat="server" Text="Private Bathroom" cssclass="form-control" style="background-color: white; color: #B23325"/>
+        <asp:CheckBox ID="PrivateBathroomBox" runat="server" Text="Private Bathroom" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="PrivateBathroomBox_CheckedChanged"/>
   </li>
 
   <li class="nav-item" style="padding-right: 1rem;">
-        <asp:CheckBox ID="FurnishedBox" runat="server" Text="Furnished" cssclass="form-control" style="background-color: white; color: #B23325"/>
+        <asp:CheckBox ID="FurnishedBox" runat="server" Text="Furnished" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="FurnishedBox_CheckedChanged"/>
   </li>
 
   <li class="nav-item" style="padding-right: 1rem;">
-        <asp:CheckBox ID="StorageSpaceBox" runat="server" Text="Storage Space" cssclass="form-control" style="background-color: white; color: #B23325"/>
+        <asp:CheckBox ID="StorageSpaceBox" runat="server" Text="Storage Space" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="StorageSpaceBox_CheckedChanged"/>
   </li>
 
   <li class="nav-item" style="padding-right: 1rem;">
-        <asp:CheckBox ID="AllowsPetsBox" runat="server" Text="Allows Pets" cssclass="form-control" style="background-color: white; color: #B23325"/>
+        <asp:CheckBox ID="HasPetsBox" runat="server" Text="Does not have Pets" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="HasPetsBox_CheckedChanged"/>
   </li>
 
   <li class="nav-item" style="padding-right: 1rem;">
-        <asp:CheckBox ID="AllowPetsBox" runat="server" Text="Allows Pets" cssclass="form-control" style="background-color: white; color: #B23325"/>
+        <asp:CheckBox ID="AllowsSmokingBox" runat="server" Text="Allows Smoking" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="AllowsSmokingBox_CheckedChanged"/>
+  </li>
+</ul><!-- end nav -->
+</div><!-- end row -->
+
+<div class="row" style="margin-top: 1rem;">
+<ul class="nav container">
+  <li class="nav-item" style="padding-right: 1rem;">
+        <asp:CheckBox ID="WifiBox" runat="server" Text="WiFi" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="WifiBox_CheckedChanged"/>
+  </li>
+
+  <li class="nav-item" style="padding-right: 1rem;">
+        <asp:CheckBox ID="ParkingBox" runat="server" Text="Private Parking" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="ParkingBox_CheckedChanged"/>
+  </li>
+
+  <li class="nav-item" style="padding-right: 1rem;">
+        <asp:CheckBox ID="KitchenBox" runat="server" Text="Private Kitchen" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="KitchenBox_CheckedChanged"/>
+  </li>
+
+  <li class="nav-item" style="padding-right: 1rem;">
+        <asp:CheckBox ID="CableBox" runat="server" Text="Cable TV" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="CableBox_CheckedChanged"/>
+  </li>
+
+  <li class="nav-item" style="padding-right: 1rem;">
+        <asp:CheckBox ID="AllowsPetsBox" runat="server" Text="Allows Pets" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="AllowsPetsBox_CheckedChanged"/>
+  </li>
+
+  <li class="nav-item" style="padding-right: 1rem;">
+        <asp:CheckBox ID="LaundryBox" runat="server" Text="Laundry Access" cssclass="form-control" style="background-color: white; color: #B23325" OnCheckedChanged="LaundryBox_CheckedChanged"/>
   </li>
 </ul><!-- end nav -->
 </div><!-- end row -->

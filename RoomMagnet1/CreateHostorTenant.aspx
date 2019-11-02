@@ -29,14 +29,14 @@
 
           <div class="row" style="margin-top: 4rem;">
             <div class="col align-content-center">
-              <asp:ImageButton ID="hostButton" ImageURL="images/rent-my-room.png" runat="server" Text="Host my room" cssclass=""  OnClick="hostButton_Click"/>
+              <asp:ImageButton ID="hostButton" ImageURL="images/rent-my-room.png" runat="server" Text="Host my room" cssclass="" OnClick="hostButton_Click" Height="200px"/>
                 <br />
-                <label for="formGroupExampleInput" style="">Rent My Room</label>
+                <h4><label for="formGroupExampleInput" style="" class="justify-content-center">Rent My Room</label></h4>
             </div>
             <div class="col align-content-center">
-                <asp:ImageButton ID="tenantButton" ImageURL="images/find-a-room.png" runat="server" Text="Find a place to live" cssclass="" style="" OnClick="tenantButton_Click"/>
+                <asp:ImageButton ID="tenantButton" ImageURL="images/find-a-room.png" runat="server" Text="Find a place to live" cssclass="" style="" OnClick="tenantButton_Click" Height="200px"/>
                 <br />
-                <label for="formGroupExampleInput" style="">Find A Room</label>
+                <h4><label for="formGroupExampleInput" style="">Find A Room</label></h4>
             </div> <!--end col-->
           </div> <!--end row class-->
           
