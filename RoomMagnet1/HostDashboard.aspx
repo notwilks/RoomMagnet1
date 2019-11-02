@@ -39,7 +39,11 @@
             <div>
                 <asp:Button ID="EditPropertyButton" runat="server" Text="EditProperty" cssclass="btn" OnClick="EditPropertyButton_Click"/>
             </div>         
-        </div>
+            <div class ="col">
+                <asp:Button ID="ListPropertyButton" runat="server" Text="List Property" CssClass="btn" OnClick ="ListPropertyButton_Clicked" AutoPostBack="true"/>
+                <asp:Button ID="UnlistPropertyButton" runat="server" Text="Unlist Property" CssClass="btn" OnClick="UnlistPropertyButton_Clicked" AutoPostBack="true"/>
+            </div>
+        </div> <!--end Row Class -->
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
             <div class="col-md-6" style="margin-top: 1rem;">
