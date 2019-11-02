@@ -34,7 +34,7 @@ public partial class EditProperty : System.Web.UI.Page
                         StreetBox.Text = reader.GetString(1);
                         stateBox.SelectedValue = reader.GetString(2);
                         ZipBox.Text = reader.GetString(3);
-                        Price.Text = reader.GetDecimal(4).ToString();
+                        Price.Text = "$" + reader.GetDecimal(4).ToString("000.00");
                         NumOfTenantsBox.Text = reader.GetInt32(5).ToString();
                         neighborhoodBox.Text = reader.GetString(6);
                         PropNameBox.Text = reader.GetString(7);
@@ -87,17 +87,26 @@ public partial class EditProperty : System.Web.UI.Page
             "roomType = @roomType, " +
             "extraInfo = @bio where hostID = @tempID";
 
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@houseNumber", HouseNumBox.Text));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@street", StreetBox.Text));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@state", stateBox.SelectedValue));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@zip", ZipBox.Text));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@price", Convert.ToDouble(Price.Text)));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@numTen", Convert.ToInt32(NumOfTenantsBox.Text)));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@neighborhood", neighborhoodBox.Text));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@propName", PropNameBox.Text));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@roomType", RoomTypeList.SelectedIndex.ToString()));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@bio", PropDescriptionBox.Text));
-        update.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tempID", ViewState["tempID"]));
+        update.Parameters.Add(new SqlParameter("@houseNumber", HouseNumBox.Text));
+        update.Parameters.Add(new SqlParameter("@street", StreetBox.Text));
+        update.Parameters.Add(new SqlParameter("@state", stateBox.SelectedValue));
+        update.Parameters.Add(new SqlParameter("@zip", ZipBox.Text));
+        // Remove dollar sign if present to insert into database properly
+        if (Price.Text.Substring(0,1) == "$")
+        {
+            update.Parameters.Add(new SqlParameter("@price", Convert.ToDouble(Price.Text.Substring(1))));
+        }
+        else
+        {
+            update.Parameters.Add(new SqlParameter("@price", Convert.ToDouble(Price.Text)));
+        }
+        update.Parameters.Add(new SqlParameter("@price", Convert.ToDouble(Price.Text)));
+        update.Parameters.Add(new SqlParameter("@numTen", Convert.ToInt32(NumOfTenantsBox.Text)));
+        update.Parameters.Add(new SqlParameter("@neighborhood", neighborhoodBox.Text));
+        update.Parameters.Add(new SqlParameter("@propName", PropNameBox.Text));
+        update.Parameters.Add(new SqlParameter("@roomType", RoomTypeList.SelectedIndex.ToString()));
+        update.Parameters.Add(new SqlParameter("@bio", PropDescriptionBox.Text));
+        update.Parameters.Add(new SqlParameter("@tempID", ViewState["tempID"]));
 
         update.ExecuteNonQuery();
 

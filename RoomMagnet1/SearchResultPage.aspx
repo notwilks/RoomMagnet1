@@ -23,8 +23,8 @@
 
 <header><!-- start header -->
     </header><!-- end header -->
-<h5 class="nav container" style="margin-top: 7rem;">Find a property</h5>
-<div class="row" style="margin-top: 1rem;">
+<h1 style="margin-top: 8rem;" class="container">Search for your perfect space.</h1>
+<div class="row" style="margin-top: 3rem;">
 <ul class="nav container">
   
   <li class="nav-item" style="padding-right: 2rem;">
@@ -143,10 +143,27 @@
     </ul>
 </div>
 
+      
+ 
+    
+<section style="margin-left: 8rem" id="ResultList" runat="server">
+    <div class="row " style="margin-top: 2rem; border-bottom: solid; border-bottom-width: 1px; ">
+            <h5><asp:Label ID="countLabel" runat="server" Text=""></asp:Label></h5>
+        </div>
+    <div class="row " style="margin-top: 1rem; border-bottom-width: 1px; ">
+        <div class="col-md-4" >
+            
+        </div>
+        <div class="col-md-2" style="margin-top: .5rem;">
+            
+        </div>
+        <div class="col-md-5" style="margin-top: .5rem; float: right; margin-bottom: 1rem;">
+           
+        </div>
+        
+    </div><!-- end div row -->
 
-
-
-
+</section>
 
    <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
    <div class="row" style="padding-left: 3rem;">

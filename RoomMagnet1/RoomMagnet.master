@@ -29,7 +29,7 @@
 
         <div class="col-md-9 navhome" style="text-align: right;"><!-- start nav header right -->   	
            
-               <a href="SearchResultpage.aspx" class="btn btn-outline-dark">Find a Home</a>
+               <a href="SearchResultpage.aspx" class="btn btn-outline-dark">Find a Property</a>
 
                <a href="CreateHostorTenant.aspx" class="btn " style="margin-left: 3rem">Create Account</a>
            
