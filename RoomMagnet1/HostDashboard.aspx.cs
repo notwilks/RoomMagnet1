@@ -17,6 +17,8 @@ public partial class HostDashboard : System.Web.UI.Page
     char cBadge4;
     char cBadge5;
     char cBadge6;
+
+    String listing = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         
@@ -24,9 +26,11 @@ public partial class HostDashboard : System.Web.UI.Page
 
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
-            
-            //selecting name info
-            select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
+        SqlCommand findListing = new SqlCommand();
+        findListing.Connection = sc;
+
+        //selecting name info
+        select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
             String userName = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
             FirstNameLastNameHeader.Text = userName + "'s Dashboard";
@@ -82,6 +86,24 @@ public partial class HostDashboard : System.Web.UI.Page
         addBadge(image6);
 
 
+        // This code decides whether the List or Unlist Property Button should display within the webpage
+
+        findListing.CommandText = "SELECT Listed FROM Accommodation WHERE HostID in (SELECT HostID FROM HOST WHERE Email = @email)";
+        findListing.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
+        listing = Convert.ToString(findListing.ExecuteScalar());
+
+        if (listing == "F")
+        {
+            ListPropertyButton.Visible = true;
+            UnlistPropertyButton.Visible = false;
+        }
+        else
+        {
+            ListPropertyButton.Visible = false;
+            UnlistPropertyButton.Visible = true;
+        }
+
+        sc.Close();
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
     {
@@ -95,6 +117,56 @@ public partial class HostDashboard : System.Web.UI.Page
     protected void EditPropertyButton_Click(object sender, EventArgs e)
     {
         Response.Redirect("EditProperty.aspx");
+    }
+
+    protected void ListPropertyButton_Clicked(object sender, EventArgs e)
+    {
+        SqlCommand setList = new SqlCommand();
+        setList.Connection = sc;
+        SqlCommand findHID = new SqlCommand();
+        findHID.Connection = sc;
+        int hID;
+
+        sc.Open();
+
+        findHID.CommandText = "SELECT HostID FROM HOST WHERE Email = @email";
+        findHID.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
+        hID = Convert.ToInt32(findHID.ExecuteScalar());
+
+        listing = "T";
+
+        setList.CommandText = "UPDATE Accommodation SET Listed = @listed WHERE HostID = @hostID";
+        setList.Parameters.Add(new SqlParameter("@hostID", hID));
+        setList.Parameters.Add(new SqlParameter("@listed", listing));
+
+        setList.ExecuteNonQuery();
+
+        Response.Redirect("HostDashboard.aspx");
+    }
+
+    protected void UnlistPropertyButton_Clicked(object sender, EventArgs e)
+    {
+        SqlCommand unsetList = new SqlCommand();
+        unsetList.Connection = sc;
+        SqlCommand findHID = new SqlCommand();
+        findHID.Connection = sc;
+        int hID;
+
+        sc.Open();
+
+        findHID.CommandText = "SELECT HostID FROM HOST WHERE Email = @email";
+        findHID.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
+        hID = Convert.ToInt32(findHID.ExecuteScalar());
+
+        listing = "F";
+
+        unsetList.CommandText = "UPDATE Accommodation SET Listed = @listed WHERE HostID = @hostID";
+        unsetList.Parameters.Add(new SqlParameter("@listed", listing));
+        unsetList.Parameters.Add(new SqlParameter("@hostID", hID));
+
+        unsetList.ExecuteNonQuery();
+
+        Response.Redirect("HostDashboard.aspx");
     }
 
     protected string checkBadge(char badge, string img)
