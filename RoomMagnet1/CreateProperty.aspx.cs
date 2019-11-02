@@ -53,21 +53,18 @@ public partial class CreateProperty : System.Web.UI.Page
 
             sc.Close();
 
-            if (apartment == "")
-            {
-                // do nothing
-            }
-            else
-            {
-                address = address + " " + apartment;
-            }
-
             String bathroom = " ";
             String entrance = " ";
             String storage = " ";
             String furnished = " ";
             String smoker = " ";
             String pets = " ";
+            String wifi = " ";
+            String parking = " ";
+            String kitchen = " ";
+            String laundry = " ";
+            String cable = " ";
+            String allowPets = " ";
 
             // RadioButton Value Declaration If Statements
             if (PrivateBathroom.SelectedValue == "T")
@@ -123,12 +120,67 @@ public partial class CreateProperty : System.Web.UI.Page
             {
                 pets = "F";
             }
+
+            if (Parking.SelectedValue == "T")
+            {
+                parking = "T";
+            }
+            else if (Parking.SelectedValue == "F")
+            {
+                parking = "F";
+            }
+
+            if (PrivateKitchen.SelectedValue == "T")
+            {
+                kitchen = "T";
+            }
+            else if (PrivateKitchen.SelectedValue == "F")
+            {
+                kitchen = "F";
+            }
+
+            if (PrivateLaundry.SelectedValue == "T")
+            {
+                laundry = "T";
+            }
+            else if (PrivateLaundry.SelectedValue == "F")
+            {
+                laundry = "F";
+            }
+
+            if (Wifi.SelectedValue == "T")
+            {
+                wifi = "T";
+            }
+            else if (Wifi.SelectedValue == "F")
+            {
+                wifi = "F";
+            }
+
+            if (Cable.SelectedValue == "T")
+            {
+                cable = "T";
+            }
+            else if (Cable.SelectedValue == "F")
+            {
+                cable = "F";
+            }
+
+            if (AllowPets.SelectedValue == "T")
+            {
+                allowPets = "T";
+            }
+            else if (AllowPets.SelectedValue == "F")
+            {
+                allowPets = "F";
+            }
             // End of RadioButton Declarations If Statements
 
             // Radio Button If Statements that display errors if an option is not selected
-            if (bathroom == "" || entrance == "" || storage == "" || furnished == "" || smoker == "" || pets == "")
+            if (bathroom == " " || entrance == " " || storage == " " || furnished == " " || smoker == " " || pets == " " || parking == " " || kitchen == " "
+                || laundry == " " || wifi == " " || cable == " " && allowPets == " ")
             {
-                if (bathroom == "")
+                if (bathroom == " ")
                 {
                     BathroomErrorLbl.Text = "Please select an option.";
                 }
@@ -137,7 +189,7 @@ public partial class CreateProperty : System.Web.UI.Page
                     BathroomErrorLbl.Text = "";
                 }
 
-                if (entrance == "")
+                if (entrance == " ")
                 {
                     EntranceErrorLbl.Text = "Please select an option.";
                 }
@@ -146,7 +198,7 @@ public partial class CreateProperty : System.Web.UI.Page
                     EntranceErrorLbl.Text = "";
                 }
 
-                if (storage == "")
+                if (storage == " ")
                 {
                     StorageErrorLbl.Text = "Please select an option.";
                 }
@@ -155,7 +207,7 @@ public partial class CreateProperty : System.Web.UI.Page
                     StorageErrorLbl.Text = "";
                 }
 
-                if (furnished == "")
+                if (furnished == " ")
                 {
                     FurnishedErrorLbl.Text = "Please select an option.";
                 }
@@ -164,7 +216,7 @@ public partial class CreateProperty : System.Web.UI.Page
                     FurnishedErrorLbl.Text = "";
                 }
 
-                if (smoker == "")
+                if (smoker == " ")
                 {
                     SmokerErrorLbl.Text = "Please select an option.";
                 }
@@ -173,13 +225,67 @@ public partial class CreateProperty : System.Web.UI.Page
                     SmokerErrorLbl.Text = "";
                 }
 
-                if (pets == "")
+                if (pets == " ")
                 {
-                    PetsErrorLbl.Text = "Please select an option";
+                    PetsErrorLbl.Text = "Please select an option.";
                 }
                 else
                 {
                     PetsErrorLbl.Text = "";
+                }
+
+                if (parking == " ")
+                {
+                    ParkingErrorLbl.Text = "Please select an option.";
+                }
+                else
+                {
+                    ParkingErrorLbl.Text = "";
+                }
+
+                if (kitchen == " ")
+                {
+                    KitchenErrorLbl.Text = "Please select an option.";
+                }
+                else
+                {
+                    KitchenErrorLbl.Text = "";
+                }
+
+                if (laundry == " ")
+                {
+                    LaundryErrorLbl.Text = "Please select an option";
+                }
+                else
+                {
+                    LaundryErrorLbl.Text = "";
+                }
+
+                if (wifi == " ")
+                {
+                    WifiErrorLbl.Text = "Please select an option.";
+                }
+                else
+                {
+                    WifiErrorLbl.Text = "";
+                }
+
+                if (cable == " ")
+                {
+                    CableErrorLbl.Text = "Please select an option.";
+                }
+                else
+                {
+                    CableErrorLbl.Text = "";
+                }
+
+                if (allowPets == " ")
+                {
+                    AllowPetsErrorLbl.Text = "Please select an option.";
+                }
+                else
+                {
+                    AllowPetsErrorLbl.Text = "";
                 }
             } // End of Radio Button If Statements
 
@@ -274,88 +380,140 @@ public partial class CreateProperty : System.Web.UI.Page
                 }
                 else
                 {
-                    DescriptErrorLbl.Text =  "";
+                    DescriptErrorLbl.Text = "";
+                }
+
+                if (RoomTypeList.SelectedValue == "Select a Room Type")
+                {
+                    RoomTypeErrorLbl.Text = "Please select an option";
+                }
+                else
+                {
+                    RoomTypeErrorLbl.Text = "";
                 }
             } // End of Textbox If Statement.
+
+            // If Statement that validates the "Other" field for RoomType if "Other" is the selected value
+            String roomTypeOther = "";
+            if (RoomTypeList.SelectedValue == "Other")
+            {
+                if (OtherBox.Text == "")
+                {
+                    OtherErrorLbl.Text = "Please enter a description.";
+                    RoomTypeErrorLbl.Text = "";
+                }
+                else
+                {
+                    roomTypeOther = OtherBox.Text;
+                    OtherErrorLbl.Text = "";
+                    RoomTypeErrorLbl.Text = "";
+                }
+            } // End of RoomType validator If Statement
 
             // If Statement that allows the create statements to be sent through
             if (PriceBox.Text != "" && AddressBox.Text != "" && CityBox.Text != "" && ZipBox.Text != "" && stateBox.SelectedIndex != 0 && PriceBox.Text != "" && Convert.ToDouble(PriceBox.Text) > 0 &&
                   TNumBox.Text != "" && NeighborhoodBox.Text != "" && DescriptBox.Text != "" && EffectiveDateBox.Text != "" && TerminationDateBox.Text != "" && RoomTypeList.SelectedValue != "Select a Room Type"
-                  && bathroom != "" && entrance != "" && storage != "" && furnished != "" && smoker != "" && pets != "")
+                  && bathroom != " " && entrance != " " && storage != " " && furnished != " " && smoker != " " && pets != " " && parking != " " && kitchen != " " && laundry != " " && wifi != " " && cable != " " && allowPets != " ")
             {
-                 address = AddressBox.Text;
-                 int space = address.IndexOf(" ");
-                 houseNumber = address.Substring(0, address.IndexOf(' '));
-                 street = address.Substring(address.IndexOf(' ') + 1, address.Length - address.IndexOf(' ') - 1);
+                // Code that parses the address string and converts it to house number and street
+                address = AddressBox.Text;
+                int space = address.IndexOf(" ");
+                houseNumber = address.Substring(0, address.IndexOf(' '));
+                street = address.Substring(address.IndexOf(' ') + 1, address.Length - address.IndexOf(' ') - 1);
 
-                 tempAccom.SetHostID(hostID);
-                 tempAccom.SetHouseNumber(houseNumber);
-                 street = street + " " + apartment;
-                 tempAccom.SetStreet(street);
-                 tempAccom.SetCity(CityBox.Text);
-                 tempAccom.SetState(stateBox.SelectedValue);
-                 tempAccom.SetZip(ZipBox.Text);
-                 tempAccom.SetPrice(Convert.ToDouble(PriceBox.Text));
-                 tempAccom.SetTenants(Convert.ToInt32(TNumBox.Text));
-                 tempAccom.SetNeighborhood(NeighborhoodBox.Text);
-                 tempAccom.SetDescription(DescriptBox.Text);
-                 tempAccom.SetRoomType(RoomTypeList.SelectedValue);
-                 tempAccom.SetEffectiveDate(Convert.ToDateTime(EffectiveDateBox.Text));
-                 tempAccom.SetTerminationDate(Convert.ToDateTime(EffectiveDateBox.Text));
-                 tempAccom.SetExtraInfo(ExtraInfoBox.Text);
+                // If Statement that adds apartment to the street column 
+                if (ApartmentBox.Text != "")
+                {
+                    street = street + " " + ApartmentBox.Text;
+                }
+                else
+                {
+                    //do nothing
+                } // End of Apartment If Statement 
+                          
+                tempAccom.SetHostID(hostID);
+                tempAccom.SetHouseNumber(houseNumber);
+                street = street + " " + apartment;
+                tempAccom.SetStreet(street);
+                tempAccom.SetCity(CityBox.Text);
+                tempAccom.SetState(stateBox.SelectedValue);
+                tempAccom.SetZip(ZipBox.Text);
+                tempAccom.SetPrice(Convert.ToDouble(PriceBox.Text));
+                tempAccom.SetTenants(Convert.ToInt32(TNumBox.Text));
+                tempAccom.SetNeighborhood(NeighborhoodBox.Text);
+                tempAccom.SetDescription(DescriptBox.Text);
+                // If Statement that changes the "Other" value to the text entered in the OtherBox for the SetRoomType method
+                if (roomTypeOther == "")
+                {
+                   tempAccom.SetRoomType(RoomTypeList.SelectedValue);
+                }
+                else
+                {
+                   tempAccom.SetRoomType(roomTypeOther);
+                }
+                tempAccom.SetEffectiveDate(Convert.ToDateTime(EffectiveDateBox.Text));
+                tempAccom.SetTerminationDate(Convert.ToDateTime(EffectiveDateBox.Text));
+                tempAccom.SetExtraInfo(ExtraInfoBox.Text);
 
-                 insert.Connection = sc;
-                 sc.Open();
+                insert.Connection = sc;
+                sc.Open();
 
-                 insert.CommandText = "INSERT INTO Accommodation (hostID, houseNumber, street, city, state, country, zipCode, price, numOfTenants, neighborhood, description, roomType, effectiveDate, terminationDate, lastUpdated, lastUpdatedBy, extraInfo) " +
-                     "VALUES (@hostID, @houseNumber, @street, @city, @state, @country, @zipCode, @price, @tNum, @hood, @description, @roomType, @eDate, @tDate, @lastU, @lastUB, @extraInfo)";
+                insert.CommandText = "INSERT INTO Accommodation (hostID, houseNumber, street, city, state, country, zipCode, price, numOfTenants, neighborhood, description, roomType, effectiveDate, terminationDate, lastUpdated, lastUpdatedBy, extraInfo, listed) " +
+                    "VALUES (@hostID, @houseNumber, @street, @city, @state, @country, @zipCode, @price, @tNum, @hood, @description, @roomType, @eDate, @tDate, @lastU, @lastUB, @extraInfo, @listed)";
 
-                 insert.Parameters.Add(new SqlParameter("@hostID", tempAccom.GetHostID()));
-                 insert.Parameters.Add(new SqlParameter("@houseNumber", HttpUtility.HtmlEncode(tempAccom.GetHouseNumber())));
-                 insert.Parameters.Add(new SqlParameter("@street", HttpUtility.HtmlEncode(tempAccom.GetStreet())));
-                 insert.Parameters.Add(new SqlParameter("@city", HttpUtility.HtmlEncode(tempAccom.GetCity())));
-                 insert.Parameters.Add(new SqlParameter("@state", tempAccom.GetState()));
-                 insert.Parameters.Add(new SqlParameter("@country", "US"));
-                 insert.Parameters.Add(new SqlParameter("@zipCode", HttpUtility.HtmlEncode(tempAccom.GetZip())));
-                 insert.Parameters.Add(new SqlParameter("@price", HttpUtility.HtmlEncode(tempAccom.GetPrice())));
-                 insert.Parameters.Add(new SqlParameter("@tNum", HttpUtility.HtmlEncode(tempAccom.GetGuests())));
-                 insert.Parameters.Add(new SqlParameter("@hood", HttpUtility.HtmlEncode(tempAccom.GetNeighborhood())));
-                 insert.Parameters.Add(new SqlParameter("@description", HttpUtility.HtmlEncode(tempAccom.GetDescription())));
-                 insert.Parameters.Add(new SqlParameter("@roomType", tempAccom.GetRoomType()));
-                 insert.Parameters.Add(new SqlParameter("@eDate", tempAccom.GetEffectiveDate()));
-                 insert.Parameters.Add(new SqlParameter("@tDate", tempAccom.GetTerminationDate()));
-                 insert.Parameters.Add(new SqlParameter("@lastU", DateTime.Now));
-                 insert.Parameters.Add(new SqlParameter("@lastUB", "Joe Muia"));
-                 insert.Parameters.Add(new SqlParameter("@extraInfo", HttpUtility.HtmlEncode(tempAccom.GetExtraInfo())));
+                insert.Parameters.Add(new SqlParameter("@hostID", tempAccom.GetHostID()));
+                insert.Parameters.Add(new SqlParameter("@houseNumber", HttpUtility.HtmlEncode(tempAccom.GetHouseNumber())));
+                insert.Parameters.Add(new SqlParameter("@street", HttpUtility.HtmlEncode(tempAccom.GetStreet())));
+                insert.Parameters.Add(new SqlParameter("@city", HttpUtility.HtmlEncode(tempAccom.GetCity())));
+                insert.Parameters.Add(new SqlParameter("@state", tempAccom.GetState()));
+                insert.Parameters.Add(new SqlParameter("@country", "US"));
+                insert.Parameters.Add(new SqlParameter("@zipCode", HttpUtility.HtmlEncode(tempAccom.GetZip())));
+                insert.Parameters.Add(new SqlParameter("@price", HttpUtility.HtmlEncode(tempAccom.GetPrice())));
+                insert.Parameters.Add(new SqlParameter("@tNum", HttpUtility.HtmlEncode(tempAccom.GetGuests())));
+                insert.Parameters.Add(new SqlParameter("@hood", HttpUtility.HtmlEncode(tempAccom.GetNeighborhood())));
+                insert.Parameters.Add(new SqlParameter("@description", HttpUtility.HtmlEncode(tempAccom.GetDescription())));
+                insert.Parameters.Add(new SqlParameter("@roomType", tempAccom.GetRoomType()));
+                insert.Parameters.Add(new SqlParameter("@eDate", tempAccom.GetEffectiveDate()));
+                insert.Parameters.Add(new SqlParameter("@tDate", tempAccom.GetTerminationDate()));
+                insert.Parameters.Add(new SqlParameter("@lastU", DateTime.Now));
+                insert.Parameters.Add(new SqlParameter("@lastUB", "Joe Muia"));
+                insert.Parameters.Add(new SqlParameter("@extraInfo", HttpUtility.HtmlEncode(tempAccom.GetExtraInfo())));
+                insert.Parameters.Add(new SqlParameter("@listed", "F"));
 
-                 insert.ExecuteNonQuery();
-                 sc.Close();
+                insert.ExecuteNonQuery();
+                sc.Close();
 
-                 SqlCommand insertAmenity = new SqlCommand();
-                 SqlCommand FindAccomID = new SqlCommand();
+                SqlCommand insertAmenity = new SqlCommand();
+                SqlCommand FindAccomID = new SqlCommand();
 
-                 // Pulls the Accommodation ID to insert into the AccommodationAmenity
-                 FindAccomID.Connection = sc;
-                 sc.Open();
-                 FindAccomID.CommandText = "SELECT MAX(AccommodationID) FROM Accommodation";
-                 accommodationID = Convert.ToInt32(FindAccomID.ExecuteScalar());
-                 sc.Close();
+                // Pulls the Accommodation ID to insert into the AccommodationAmenity
+                FindAccomID.Connection = sc;
+                sc.Open();
+                FindAccomID.CommandText = "SELECT MAX(AccommodationID) FROM Accommodation";
+                accommodationID = Convert.ToInt32(FindAccomID.ExecuteScalar());
+                sc.Close();
+            
+                insertAmenity.Connection = sc;
+                sc.Open();
 
-                 insertAmenity.Connection = sc;
-                 sc.Open();
+                insertAmenity.CommandText = "INSERT INTO AccommodationAmmenity (accommodationID, bathroom, entrance, storage, furnished, smoker, pets, lastUpdated, lastUpdatedBy, parking, kitchen, laundry, wifi, cable, allowPets) " +
+                   "VALUES (@accommodationID," + " @bathroom, @entrance, @storage, @furnished, @smoker, @pets, @lU, @lUB, @parking, @kitchen, @laundry, @wifi, @cable, @allowPets)";
 
-                 insertAmenity.CommandText = "INSERT INTO AccommodationAmmenity (accommodationID, bathroom, entrance, storage, furnished, smoker, pets, lastUpdated, lastUpdatedBy) VALUES (@accommodationID," +
-                     " @bathroom, @entrance, @storage, @furnished, @smoker, @pets, @lU, @lUB)";
-
-                 insertAmenity.Parameters.Add(new SqlParameter("@accommodationID", accommodationID));
-                 insertAmenity.Parameters.Add(new SqlParameter("@bathroom", bathroom));
-                 insertAmenity.Parameters.Add(new SqlParameter("@entrance", entrance));
-                 insertAmenity.Parameters.Add(new SqlParameter("@storage", storage));
-                 insertAmenity.Parameters.Add(new SqlParameter("@furnished", furnished));
-                 insertAmenity.Parameters.Add(new SqlParameter("@smoker", smoker));
-                 insertAmenity.Parameters.Add(new SqlParameter("@pets", pets));
-                 insertAmenity.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
-                 insertAmenity.Parameters.Add(new SqlParameter("@lUB", "Joe Muia"));
+                insertAmenity.Parameters.Add(new SqlParameter("@accommodationID", accommodationID));
+                insertAmenity.Parameters.Add(new SqlParameter("@bathroom", bathroom));
+                insertAmenity.Parameters.Add(new SqlParameter("@entrance", entrance));
+                insertAmenity.Parameters.Add(new SqlParameter("@storage", storage));
+                insertAmenity.Parameters.Add(new SqlParameter("@furnished", furnished));
+                insertAmenity.Parameters.Add(new SqlParameter("@smoker", smoker));
+                insertAmenity.Parameters.Add(new SqlParameter("@pets", pets));
+                insertAmenity.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
+                insertAmenity.Parameters.Add(new SqlParameter("@lUB", "Joe Muia"));
+                insertAmenity.Parameters.Add(new SqlParameter("@parking", parking));
+                insertAmenity.Parameters.Add(new SqlParameter("@kitchen", kitchen));
+                insertAmenity.Parameters.Add(new SqlParameter("@laundry", laundry));
+                insertAmenity.Parameters.Add(new SqlParameter("@wifi", wifi));
+                insertAmenity.Parameters.Add(new SqlParameter("@cable", cable));
+                insertAmenity.Parameters.Add(new SqlParameter("@allowPets", allowPets));
                  
                  insertAmenity.ExecuteNonQuery();
                  sc.Close();

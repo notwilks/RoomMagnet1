@@ -200,11 +200,13 @@
                         <asp:ListItem Value="Sep Private Building">Seperate Private Building</asp:ListItem>
                         <asp:ListItem Value="Other">Other</asp:ListItem>
                     </asp:DropDownList>
+                <asp:Label ID="RoomTypeErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
 
             <div class="col">
                 <label for="formGroupExampleInput">If 'Other' please explain</label>
                 <asp:TextBox ID="OtherBox" runat="server" cssclass="form-control"></asp:TextBox>
+                <asp:Label ID="OtherErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div>
 
             <div class="col">
@@ -247,6 +249,15 @@
             <div class="row" style="margin-top: 3rem;">
 
             <div class="col">
+                <label for="formGroupExampleInput">Does the space have private parking?</label>
+                <asp:RadioButtonList ID="Parking" runat="server" RepeatDirection="Horizontal" Width="200px">
+                        <asp:ListItem Value="T">Yes</asp:ListItem>
+                        <asp:ListItem Value="F">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                <asp:Label ID="ParkingErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+            </div>
+
+            <div class="col">
                 <label for="formGroupExampleInput">Is the space furnished?</label>
                 <asp:RadioButtonList ID="Furnished" runat="server" RepeatDirection="Horizontal" Width="200px">
                         <asp:ListItem Value="T">Yes</asp:ListItem>
@@ -262,21 +273,75 @@
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
                 <asp:Label ID="SmokerErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
+            </div> <!-- end col class-->
 
-            <div class="col">
+          </div> <!--end row class-->             
+
+            <div class="row" style="margin-top: 3rem;">
+
+             <div class="col">
                 <label for="formGroupExampleInput">Do you have pets?</label>
                 <asp:RadioButtonList ID="Pets" runat="server" RepeatDirection="Horizontal" Width="200px">
                         <asp:ListItem Value="T">Yes</asp:ListItem>
                         <asp:ListItem Value="F">No</asp:ListItem>
                     </asp:RadioButtonList>
                 <asp:Label ID="PetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+             </div> <!-- end col class-->
+
+            <div class="col">
+                <label for="formGroupExampleInput">Do you allow pets?</label>
+                <asp:RadioButtonList ID="AllowPets" runat="server" RepeatDirection="Horizontal" Width="200px">
+                        <asp:ListItem Value="T">Yes</asp:ListItem>
+                        <asp:ListItem Value="F">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                <asp:Label ID="AllowPetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 
                
             </div> <!--end col-->
 
+            <div class="col">
+                <label for="formGroupExampleInput">Does the space have a private kitchen?</label>
+                <asp:RadioButtonList ID="PrivateKitchen" runat="server" RepeatDirection="Horizontal" Width="200px">
+                        <asp:ListItem Value="T">Yes</asp:ListItem>
+                        <asp:ListItem Value="F">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                <asp:Label ID="KitchenErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+            </div>
+          </div> <!--end row class-->
+
+            <div class="row" style="margin-top: 3rem;">
+
+            <div class="col">
+                <label for="formGroupExampleInput">Does the space have private laundry access?</label>
+                <asp:RadioButtonList ID="PrivateLaundry" runat="server" RepeatDirection="Horizontal" Width="200px">
+                        <asp:ListItem Value="T">Yes</asp:ListItem>
+                        <asp:ListItem Value="F">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                <asp:Label ID="LaundryErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                
+               
+            </div> <!--end col-->
+
+            <div class="col">
+                <label for="formGroupExampleInput">Can you provide wifi?</label>
+                <asp:RadioButtonList ID="Wifi" runat="server" RepeatDirection="Horizontal" Width="200px">
+                        <asp:ListItem Value="T">Yes</asp:ListItem>
+                        <asp:ListItem Value="F">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                <asp:Label ID="WifiErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+            </div>
+
+            <div class="col">
+                <label for="formGroupExampleInput">Can you provide cable TV?</label>
+                <asp:RadioButtonList ID="Cable" runat="server" RepeatDirection="Horizontal" Width="200px">
+                        <asp:ListItem Value="T">Yes</asp:ListItem>
+                        <asp:ListItem Value="F">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                <asp:Label ID="CableErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+            </div>
 
           </div> <!--end row class-->
+
 
             <div class="row" style="margin-top: 3rem;">
             <div class="col">
