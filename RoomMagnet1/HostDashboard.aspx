@@ -21,7 +21,7 @@
 
 <body>
 <form runat="server">     
-<div  class="container">
+<div id="containerDiv" class="container">
 
   <div class="row " style="margin-top: 7rem;">
     <div class="col-md-9">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-             <div class="col-md-6" style="margin-top: 1rem;">
+             <div id="badgeDiv " class="col-md-6" style="margin-top: 1rem;">
                  <h3><asp:Label ID="PropertyName" runat="server" Text="Example Property in Harrisonburg 22801"></asp:Label></h3>
                     <p><asp:Label ID="PropertyInfo" runat="server" Text="This is a brief description of the property"></asp:Label></p>
                     <p><asp:Image ID="Badge1" runat="server" ImageUrl="images/kitchen-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
@@ -159,11 +159,17 @@
         <div class="col-md-12"  style=" margin-top: 1rem;">
             <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
           </div>
+        <div class="col-md-6">
+                <asp:DropDownList ID ="translateList" runat="server" CssClass="form-control" style="">
+
+                </asp:DropDownList>
+            </div>
     </div><!-- end div big row -->  
     
     
     
 </div> <!-- end div container! -->    
+
 <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
    <div class="row" style="padding-left: 3rem;">
     <div class="col-md-4" style="padding-left: 3rem;">   

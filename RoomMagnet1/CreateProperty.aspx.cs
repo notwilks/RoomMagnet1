@@ -220,6 +220,6 @@ public partial class CreateProperty : System.Web.UI.Page
     }
     protected void SkipButton_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Dashboard.aspx");
+        Response.Redirect("HostDashboard.aspx");
     }
 }
