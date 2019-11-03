@@ -12,13 +12,20 @@ public partial class HomePage : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        sc.Open();
+        try
+        {
+            sc.Open();
 
-        SqlCommand select = new SqlCommand();
-        select.Connection = sc;
+            SqlCommand select = new SqlCommand();
+            select.Connection = sc;
 
-        select.CommandText = "Select COUNT(accommodationID) from Accommodation WHERE listed = 'T'";
-        listedProperties.InnerText = Convert.ToString(select.ExecuteScalar());
+            select.CommandText = "Select COUNT(accommodationID) from Accommodation WHERE listed = 'T'";
+            listedProperties.InnerText = Convert.ToString(select.ExecuteScalar());
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)
