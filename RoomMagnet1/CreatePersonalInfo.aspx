@@ -78,8 +78,7 @@
                 <asp:Label ID="pNumBoxErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:RequiredFieldValidator ID="PhoneNumberValidator" runat="server" ControlToValidate="phoneNumberBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
-            <div class="col">
-              
+            
             </div> <!--end col-->
           </div> <!--end row class-->
 

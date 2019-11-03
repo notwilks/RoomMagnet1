@@ -20,7 +20,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
     protected void Button1_Click1(object sender, EventArgs e)
     {
         sc.Open();
-
+        
         SqlCommand insert = new SqlCommand();
         insert.Connection = sc;
 
@@ -42,7 +42,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
             try
             {
-                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
+                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length == 12)
                 {
                     pNumBoxErrorLbl.Text = "";
                     phoneNumberBox.Text.ToUpper();
