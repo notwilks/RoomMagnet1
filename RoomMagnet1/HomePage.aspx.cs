@@ -11,6 +11,14 @@ public partial class HomePage : System.Web.UI.Page
     {
         //I really hope this works
         //
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)

@@ -28,49 +28,130 @@ public partial class CreateEmailPassword : System.Web.UI.Page
 
         System.Data.SqlClient.SqlCommand select = new System.Data.SqlClient.SqlCommand();
         select.Connection = sc;
+
         try
         {
-            if (PasswordBox.Text == ConfirmPasswordBox.Text)
+            if (EmailBox.Text.Contains("@") && EmailBox.Text.Length > 0 && ConfirmEmailBox.Text.Length > 0)
             {
+                EmailErrorLbl.Text = "";
+
                 if (EmailBox.Text == ConfirmEmailBox.Text)
                 {
+                    EmailErrorLbl.Text = "";
+                    ConfirmEmailErrorLbl.Text = "";
+                    PasswordErrorLbl.Text = "";
+                    ConfirmPasswordErrorLbl.Text = "";
 
-
-                    if (PasswordBox.Text.Length >= 8)
+                    if (PasswordBox.Text.Length >= 8 && ConfirmPasswordBox.Text.Length >= 8)
                     {
-                        setPass.CommandText = "INSERT INTO [dbo].[Passwords] (email, password, userType, lastUpdated, lastUpdatedBy) VALUES " +
-                                            "(@email, @password, @userType, @lastUpdated, @lastUpdatedBy)";
+                        PasswordErrorLbl.Text = "";
+                        ConfirmPasswordErrorLbl.Text = "";
 
-                        setPass.Parameters.Add(new SqlParameter("@email", EmailBox.Text));
-                        setPass.Parameters.Add(new SqlParameter("@password", PasswordHash.HashPassword(PasswordBox.Text)));
-                        setPass.Parameters.Add(new SqlParameter("@userType", Convert.ToString(Session["userType"])));
-                        setPass.Parameters.Add(new SqlParameter("@lastUpdatedBy", Environment.UserName));
-                        setPass.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
+                        if (PasswordBox.Text.Contains("!") || PasswordBox.Text.Contains("@") || PasswordBox.Text.Contains("#") || PasswordBox.Text.Contains("$") || PasswordBox.Text.Contains("%")
+                            || PasswordBox.Text.Contains("^") || PasswordBox.Text.Contains("&") || PasswordBox.Text.Contains("*") || PasswordBox.Text.Contains("(") || PasswordBox.Text.Contains(")")
+                            || PasswordBox.Text.Contains("-") || PasswordBox.Text.Contains("_") || PasswordBox.Text.Contains("+") || PasswordBox.Text.Contains("="))
+                        {
+                            PasswordErrorLbl.Text = "";
+                            ConfirmPasswordErrorLbl.Text = "";
 
-                        setPass.ExecuteNonQuery();
+                            if (PasswordBox.Text.Contains("0") || PasswordBox.Text.Contains("1") || PasswordBox.Text.Contains("2") || PasswordBox.Text.Contains("3") || PasswordBox.Text.Contains("4")
+                                || PasswordBox.Text.Contains("5") || PasswordBox.Text.Contains("6") || PasswordBox.Text.Contains("7") || PasswordBox.Text.Contains("8") || PasswordBox.Text.Contains("9"))
+                            {
+                                PasswordErrorLbl.Text = "";
+                                ConfirmPasswordErrorLbl.Text = "";
 
-                        Session["userEmail"] = EmailBox.Text;
+                                if (PasswordBox.Text == ConfirmPasswordBox.Text)
+                                {
+                                    PasswordErrorLbl.Text = "";
+                                    ConfirmPasswordErrorLbl.Text = "";
 
-                        Session["userType"] = Convert.ToString(Session["userType"]);
+                                    setPass.CommandText = "INSERT INTO [dbo].[Passwords] (email, password, userType, lastUpdated, lastUpdatedBy) VALUES " +
+                                                    "(@email, @password, @userType, @lastUpdated, @lastUpdatedBy)";
+                              
+                                    setPass.Parameters.Add(new SqlParameter("@email", EmailBox.Text));
+                                    setPass.Parameters.Add(new SqlParameter("@password", PasswordHash.HashPassword(PasswordBox.Text)));
+                                    setPass.Parameters.Add(new SqlParameter("@userType", Convert.ToString(Session["userType"])));
+                                    setPass.Parameters.Add(new SqlParameter("@lastUpdatedBy", Environment.UserName));
+                                    setPass.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
 
-                        Response.Redirect("CreatePersonalInfo.aspx");
+                                    setPass.ExecuteNonQuery();
+                               
+                                    Session["userEmail"] = EmailBox.Text;
 
+                                    Session["userType"] = Convert.ToString(Session["userType"]);
+
+                                    Response.Redirect("CreatePersonalInfo.aspx");
+                                }
+                                else
+                                {
+                                    PasswordErrorLbl.Text = "Please make sure both passwords match.";
+                                    ConfirmPasswordErrorLbl.Text = "Please make sure both passwords match.";
+                                }
+                            }
+                            else
+                            {
+                                PasswordErrorLbl.Text = "Passsword must contain a number.";
+
+                                if (ConfirmPasswordBox.Text != PasswordBox.Text)
+                                {
+                                    ConfirmPasswordErrorLbl.Text = "Please make sure passwords match.";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            PasswordErrorLbl.Text = "Password must contain a special character.";
+
+                            if (ConfirmPasswordBox.Text != PasswordBox.Text)
+                            {
+                                ConfirmPasswordErrorLbl.Text = "Please make sure passwords match.";
+                            }
+                        }
                     }
-
                     else
                     {
-                        OutputLabel.Text = "Password must be at least 8 characters long.";
+                        PasswordErrorLbl.Text = "Password must be at least 8 characters long.";
+
+                        if (ConfirmPasswordBox.Text != PasswordBox.Text)
+                        {
+                            ConfirmPasswordErrorLbl.Text = "Please make sure passwords match.";
+                        }
                     }
                 }
                 else
                 {
-                    OutputLabel.Text = "Emails do not match.";
+                    EmailErrorLbl.Text = "Please make sure both emails match.";
+                    ConfirmEmailErrorLbl.Text = "Please make sure both emails match.";
 
+                    if (PasswordBox.Text == "")
+                    {
+                        PasswordErrorLbl.Text = "Please enter a valid password.";
+                    }
+
+                    if (ConfirmPasswordErrorLbl.Text == "")
+                    {
+                        ConfirmPasswordErrorLbl.Text = "Please enter a valid password.";
+                    }
                 }
             }
             else
             {
-                OutputLabel.Text = "Passwords do not match.";
+                EmailErrorLbl.Text = "Please enter a valid email address.";
+
+                if (ConfirmEmailBox.Text == "")
+                {
+                    ConfirmEmailErrorLbl.Text = "Please enter a valid email address.";
+                }
+
+                if (PasswordBox.Text == "")
+                {
+                    PasswordErrorLbl.Text = "Please enter a valid password.";
+                }
+
+                if (ConfirmPasswordBox.Text == "")
+                {
+                    ConfirmPasswordErrorLbl.Text = "Please enter a valid password.";
+                }
             }
         }
         catch(Exception ex)

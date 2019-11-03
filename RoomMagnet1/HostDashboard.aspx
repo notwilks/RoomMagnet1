@@ -42,6 +42,7 @@
             <div class ="col">
                 <asp:Button ID="ListPropertyButton" runat="server" Text="List Property" CssClass="btn" OnClick ="ListPropertyButton_Clicked" AutoPostBack="true"/>
                 <asp:Button ID="UnlistPropertyButton" runat="server" Text="Unlist Property" CssClass="btn" OnClick="UnlistPropertyButton_Clicked" AutoPostBack="true"/>
+                <asp:Button ID="CreatePropertyButton" runat="server" Text="Create Property" CssClass="btn" OnClick="CreatePropertyButton_Clicked" AutoPostBack="true"/>
             </div>
         </div> <!--end Row Class -->
         

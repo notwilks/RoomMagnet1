@@ -86,8 +86,7 @@ public partial class HostDashboard : System.Web.UI.Page
         addBadge(image6);
 
 
-        // This code decides whether the List or Unlist Property Button should display within the webpage
-
+        // Finds whether the Host's Accommodation is currently being listed or not
         findListing.CommandText = "SELECT Listed FROM Accommodation WHERE HostID in (SELECT HostID FROM HOST WHERE Email = @email)";
         findListing.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
         listing = Convert.ToString(findListing.ExecuteScalar());
@@ -96,11 +95,19 @@ public partial class HostDashboard : System.Web.UI.Page
         {
             ListPropertyButton.Visible = true;
             UnlistPropertyButton.Visible = false;
+            CreatePropertyButton.Visible = false;
+        }
+        else if (listing == "T")
+        {
+            ListPropertyButton.Visible = false;
+            UnlistPropertyButton.Visible = true;
+            CreatePropertyButton.Visible = false;
         }
         else
         {
             ListPropertyButton.Visible = false;
-            UnlistPropertyButton.Visible = true;
+            UnlistPropertyButton.Visible = false;
+            CreatePropertyButton.Visible = true;
         }
 
         sc.Close();
@@ -167,6 +174,11 @@ public partial class HostDashboard : System.Web.UI.Page
         unsetList.ExecuteNonQuery();
 
         Response.Redirect("HostDashboard.aspx");
+    }
+
+    protected void CreatePropertyButton_Clicked(object sender, EventArgs e)
+    {
+        Response.Redirect("CreateProperty.aspx");
     }
 
     protected string checkBadge(char badge, string img)
