@@ -162,8 +162,14 @@
 
           <div class="row" style="margin-top: 3rem">
             <div class="col">
-                <label for="formGroupExampleInput">Upload Images of your property</label>
+                <label for="formGroupExampleInput">Upload the main image for your property</label>
+                <label for="formGroupExampleInput" style="font-size: smaller; color:dimgrey">(This will be the first image tenants see when they search for your property)</label>
                 <asp:FileUpload ID="mainImage" runat="server" CssClass="btn form-control"/>
+            </div> <!--end col-->
+              <div class="col">
+                <label for="formGroupExampleInput">Upload more images of your property</label>
+                <asp:FileUpload ID="image2" runat="server" CssClass="btn form-control"/>
+                  <asp:FileUpload ID="image3" runat="server" CssClass="btn"/>
             </div> <!--end col-->
           </div> <!--end row class-->
 
