@@ -5,28 +5,30 @@ using System.Globalization;
 public class Host
 {
     private int hostID;
-    private string firstName;
-    private string lastName;
-    private string hostEmail;
-    private string houseNumber;
-    private string street;
-    private string city;
-    private string state;
-    private string country;
-    private string zip;
-    private string password;
-    private string phoneNumber;
-    private string lastUpdated;
+    private String firstName;
+    private String lastName;
+    private String hostEmail;
+    private String houseNumber;
+    private String street;
+    private String city;
+    private String state;
+    private String country;
+    private String zip;
+    private String password;
+    private String phoneNumber;
+    private DateTime lastUpdated;
+    private String lastUpdatedBy;
     private DateTime birthDate;
     private int accommodationID;
+    private String biography;
 
     public Host()
     {
 
     }
 
-    public Host(int hostID, string firstName, string lastName, string hostEmail, string streetAddress, string city, string state,
-        string country, string zip, string phoneNumber, string lastUpdated, int accommodationID)
+    public Host(int hostID, String firstName, String lastName, String hostEmail, String streetAddress, String city, String state,
+        String country, String zip, String phoneNumber, DateTime lastUpdated, String lastUpdatedBy, int accommodationID)
     {
         SetHostID(hostID);
         SetFirstName(firstName);
@@ -40,6 +42,7 @@ public class Host
         SetZip(zip);
         SetPhoneNumber(phoneNumber);
         SetLastUpdated(lastUpdated);
+        SetLastUpdatedBy(lastUpdatedBy);
         this.accommodationID = accommodationID;
     }
 
@@ -53,7 +56,7 @@ public class Host
         this.birthDate = dob;
     }
 
-    public void SetPassword(string password)
+    public void SetPassword(String password)
     {
         this.password = password;
     }
@@ -63,9 +66,9 @@ public class Host
         this.hostID = hostID;
     }
 
-    public void SetFirstName(string firstName)
+    public void SetFirstName(String firstName)
     {
-        string name = firstName[0].ToString().ToUpper();
+        String name = firstName[0].ToString().ToUpper();
         for (int i = 1; i < firstName.Length; i++)
         {
             if ((i >= 2) && (char.IsUpper(firstName[i])) && ((firstName.Substring(i - 2, 2) == "La") || (firstName.Substring(i - 2, 2) == "Mc")))
@@ -81,9 +84,9 @@ public class Host
         this.firstName = name;
     }
 
-    public void SetLastName(string lastName)
+    public void SetLastName(String lastName)
     {
-        string name = lastName[0].ToString().ToUpper();
+        String name = lastName[0].ToString().ToUpper();
         for (int i = 1; i < lastName.Length; i++)
         {
             // Keep capitalized letters for last names with a prefix
@@ -105,14 +108,14 @@ public class Host
         this.lastName = name;
     }
 
-    public void SetHostEmail(string email)
+    public void SetHostEmail(String email)
     {
         this.hostEmail = email;
     }
 
-    public void SetHouseNumber(string streetAddress)
+    public void SetHouseNumber(String streetAddress)
     {
-        string houseNumber = "";
+        String houseNumber = "";
         for (int i = 0; i < streetAddress.Length; i++)
         {
             // Grab numbers only
@@ -130,9 +133,9 @@ public class Host
         this.houseNumber = houseNumber;
     }
 
-    public void SetStreet(string streetAddress)
+    public void SetStreet(String streetAddress)
     {
-        string street = "";
+        String street = "";
         for (int i = 0; i < streetAddress.Length; i++)
         {
             // Include spaces in street name
@@ -158,11 +161,11 @@ public class Host
         this.street = street;
     }
 
-    public void SetCity(string city)
+    public void SetCity(String city)
     {
         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
-        string strCity = "";
+        String strCity = "";
         for (int i = 0; i < city.Length; i++)
         {
             if (char.IsLetter(city[i]) || char.IsWhiteSpace(city[i]))
@@ -174,29 +177,34 @@ public class Host
         this.city = strCity;
     }
 
-    public void SetState(string state)
+    public void SetState(String state)
     {
         this.state = state;
     }
 
-    public void SetCountry(string country)
+    public void SetCountry(String country)
     {
         this.country = country;
     }
 
-    public void SetZip(string zip)
+    public void SetZip(String zip)
     {
         this.zip = zip;
     }
 
-    public void SetPhoneNumber(string phoneNum)
+    public void SetPhoneNumber(String phoneNum)
     {
         this.phoneNumber = phoneNum;
     }
 
-    public void SetLastUpdated(string lastUpdated)
+    public void SetLastUpdatedBy(String lub)
     {
-        this.lastUpdated = lastUpdated;
+        this.lastUpdatedBy = lub;
+    }
+
+    public void SetLastUpdated(DateTime lu)
+    {
+        this.lastUpdated = lu;
     }
 
     public void SetAccomodationID(int accomID)
@@ -204,7 +212,7 @@ public class Host
         this.accommodationID = accomID;
     }
 
-    public string GetPassword()
+    public String GetPassword()
     {
         return this.password;
     }
@@ -214,52 +222,52 @@ public class Host
         return this.hostID;
     }
 
-    public string GetFistName()
+    public String GetFistName()
     {
         return this.firstName;
     }
 
-    public string GetLastName()
+    public String GetLastName()
     {
         return this.lastName;
     }
 
-    public string GetHostEmail()
+    public String GetHostEmail()
     {
         return this.hostEmail;
     }
 
-    public string GetHouseNumber()
+    public String GetHouseNumber()
     {
         return this.houseNumber;
     }
 
-    public string GetStreet()
+    public String GetStreet()
     {
         return this.street;
     }
 
-    public string GetCity()
+    public String GetCity()
     {
         return this.city;
     }
 
-    public string GetState()
+    public String GetState()
     {
         return this.state;
     }
 
-    public string GetCountry()
+    public String GetCountry()
     {
         return this.country;
     }
 
-    public string GetZip()
+    public String GetZip()
     {
         return this.zip;
     }
 
-    public string GetPhoneNumber()
+    public String GetPhoneNumber()
     {
         return this.phoneNumber;
     }
@@ -267,5 +275,25 @@ public class Host
     public int GetAccomodationID()
     {
         return this.accommodationID;
+    }
+
+    public String GetLastUpdatedBy()
+    {
+        return this.lastUpdatedBy;
+    }
+
+    public DateTime GetLastUpdated()
+    {
+        return this.lastUpdated;
+    }
+
+    public void SetBiography(String bio)
+    {
+        this.biography = bio;
+    }
+
+    public String GetBiography()
+    {
+        return this.biography;
     }
 }

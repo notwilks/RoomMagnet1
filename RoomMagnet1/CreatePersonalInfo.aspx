@@ -82,6 +82,17 @@
               
             </div> <!--end col-->
           </div> <!--end row class-->
+
+
+        <div class="row">
+            <div class="col">
+              <label for="formGroupExampleInput">Biography</label>
+              <asp:TextBox ID="bioBox" runat="server" placeholder ="Please write a short description about yourself." CssClass="form-control" Height="150px" TextMode="MultiLine"></asp:TextBox>
+                <asp:Label ID="bioBoxErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                <asp:RequiredFieldValidator ID="BioValidator" runat="server" ControlToValidate="bioBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
+            </div>
+          </div> <!--end row class-->
+
         </form> <!--end form-->
         <br>
         
