@@ -149,7 +149,7 @@
             </div> <!--end col-->
                
             <div class="col">
-                <label for="formGroupExampleInput" style="margin-top: 0rem;">Number of Tenants</label>
+                <label for="formGroupExampleInput" style="margin-top: 0rem;">Number of Current Residents</label>
                 <asp:TextBox ID ="TNumBox" runat ="server" CssClass="form-control" placeholder="0"></asp:TextBox>
                 <asp:Label ID="TNumErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:CompareValidator ID="TNumValidator" runat="server" ErrorMessage="" ControlToValidate="TNumBox" Operator="DataTypeCheck" Type="Integer" Text="Please enter a number." ForeColor="Red" Font-Size="Small"></asp:CompareValidator>
@@ -164,13 +164,13 @@
 
             <div class="row" style="margin-top: 3rem;">
             <div class="col">
-              <label for="formGroupExampleInput">Effective Date</label>
+              <label for="formGroupExampleInput">Expected Start Date (earliest potential date for a tenant to move in)</label>
               <asp:TextBox ID="EffectiveDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
                 <asp:Label ID="eDateErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:CompareValidator ID="eDateValidator" runat="server" ErrorMessage="" ControlToValidate="EffectiveDateBox" Operator="DataTypeCheck" Type="Date" Font-Size="Small" Text="Date must be in MM/DD/YYYY format." ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
             <div class="col">
-              <label for="formGroupExampleInput">Termination Date</label>
+              <label for="formGroupExampleInput">Expected Termination Date (latest potential date for a tenant to move out)</label>
               <asp:TextBox ID="TerminationDateBox" runat="server" cssclass="form-control" placeholder="MM/DD/YYYY"></asp:TextBox>
                 <asp:Label ID="tDateErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
               <asp:CompareValidator ID="tDateValidator" runat="server" ErrorMessage="" ControlToValidate="TerminationDateBox" Operator="DataTypeCheck" Type="Date" Font-Size="Small" Text="Date must be in MM/DD/YYYY format." ForeColor="Red"></asp:CompareValidator>
@@ -361,6 +361,7 @@
                  <asp:Button ID="NextButton" runat="server" Text="Next" CausesValidation="True" OnClick="NextButton_Click" CssClass="btn" style="float: right; margin-right: 2rem"/>
                  &nbsp;&nbsp;
                  <asp:Button ID="SkipButton" runat="server" Text="Skip & Continue" CausesValidation="True" OnClick="SkipButton_Click" CssClass="btn btn-secondary" style="float: right;"/>
+                 <asp:Button ID="PopulateButton" runat="server" Text="Populate" CausesValidation="False" OnClick="PopulateButton_Click" CssClass="btn" style="float: right;"/>
              </div>
                 <asp:Label ID="OutputLabel" runat="server" Text=""></asp:Label>
             

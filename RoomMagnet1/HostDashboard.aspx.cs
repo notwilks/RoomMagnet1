@@ -35,6 +35,25 @@ public partial class HostDashboard : System.Web.UI.Page
         SqlCommand findListing = new SqlCommand();
         findListing.Connection = sc;
 
+        select.CommandText = "Select accommodationID from Accommodation where hostID in (Select hostID from Host where email = @hostEmail1)";
+        select.Parameters.Add(new SqlParameter("@hostEmail1", Convert.ToString(Session["userEmail"])));
+
+        int accomID = Convert.ToInt32(select.ExecuteScalar());
+
+        select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM AccommodationImages where accommodationID = " + accomID;
+
+        using (SqlDataReader reader = select.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                HostPrimaryImage.ImageUrl = reader.GetString(0);
+                HostImage2.ImageUrl = reader.GetString(1);
+                HostImage3.ImageUrl = reader.GetString(2);
+            }
+        }
+
+        //HostPrimaryImage.ImageUrl = Convert.ToString(select.ExecuteScalar());
+
         //selecting name info
         select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
