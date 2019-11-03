@@ -103,11 +103,11 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             if (dobBox.Text.Length == 10)
             {
                 tempHost.SetBirthDate(Convert.ToDateTime(dobBox.Text));
-            }
+            } 
 
             try
             {
-                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
+                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length == 12)
                 {
                     pNumBoxErrorLbl.Text = "";
 
@@ -127,6 +127,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         tempHost.SetFirstName(FirstNameBox.Text);
                         tempHost.SetLastName(LastNameBox.Text);
                         tempHost.SetPhoneNumber(phoneNumberBox.Text);
+                        tempHost.SetBiography(bioBox.Text);
                         pNumBoxErrorLbl.Text = "";
                         //Insert user info into host table
                         insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber, lastUpdatedBy, lastUpdated, biography) " +
@@ -136,7 +137,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         insert.Parameters.Add(new SqlParameter("@lastName", tempHost.GetLastName()));
                         insert.Parameters.Add(new SqlParameter("@email", Convert.ToString(Session["userEmail"])));
                         insert.Parameters.Add(new SqlParameter("@dob", tempHost.GetBirthDate()));
-                        insert.Parameters.Add(new SqlParameter("@gender", DropDownList1.SelectedValue));
+                        insert.Parameters.Add(new SqlParameter("@gender", DropDownList1.SelectedItem.Value));
                         insert.Parameters.Add(new SqlParameter("@phoneNumber", tempHost.GetPhoneNumber()));
                         insert.Parameters.Add(new SqlParameter("@lastUpdatedBy", "Joe Muia"));
                         insert.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
@@ -159,12 +160,19 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                     OutputLabel.Text = "An account with this email already exists.";
                 }
             }
-
         }
-
         else
         {
             OutputLabel.Text = "An error occured.";
         }
+    }
+    protected void PopulateBtn_Click(object sender, EventArgs e)
+    {
+        FirstNameBox.Text = "John";
+        LastNameBox.Text = "Doe";
+        dobBox.Text = "01/01/2019";
+        bioBox.Text = "This is an example biography.";
+        phoneNumberBox.Text = "540-111-1111";
+
     }
 }

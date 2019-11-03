@@ -361,6 +361,7 @@
                  <asp:Button ID="NextButton" runat="server" Text="Next" CausesValidation="True" OnClick="NextButton_Click" CssClass="btn" style="float: right; margin-right: 2rem"/>
                  &nbsp;&nbsp;
                  <asp:Button ID="SkipButton" runat="server" Text="Skip & Continue" CausesValidation="True" OnClick="SkipButton_Click" CssClass="btn btn-secondary" style="float: right;"/>
+                 <asp:Button ID="PopulateButton" runat="server" Text="Populate" CausesValidation="False" OnClick="PopulateButton_Click" CssClass="btn" style="float: right;"/>
              </div>
                 <asp:Label ID="OutputLabel" runat="server" Text=""></asp:Label>
             
