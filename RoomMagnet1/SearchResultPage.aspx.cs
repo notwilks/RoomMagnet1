@@ -155,12 +155,35 @@ public partial class SearchResultPage : System.Web.UI.Page
             allowsPets = "%";
         }
 
+        String order = "a.accommodationID";
+        int minPrice = 0;
+        int maxPrice = 50000;
         int count = 0;
         sc.Open();
         SqlCommand counter = new SqlCommand();
         counter.Connection = sc;
 
-        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen from Host h " +
+        if (SortByDropDown.SelectedValue == "PriceAscending")
+        {
+            order = "a.price asc";
+        }
+
+        if (SortByDropDown.SelectedValue == "PriceDescending")
+        {
+            order = "a.price desc";
+        }
+
+        if (SortByDropDown.SelectedValue == "DateNewOld")
+        {
+            order = "a.dateListed desc";
+        }
+
+        if (SortByDropDown.SelectedValue == "DateOldNew")
+        {
+            order = "a.dateListed asc";
+        }
+
+        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode from Host h " +
             "inner join Accommodation a on a.hostID = h.HostID " +
             "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
             "where UPPER(a.city) = @city " +
@@ -177,7 +200,10 @@ public partial class SearchResultPage : System.Web.UI.Page
             "and aa.laundry like @laundry " +
             "and aa.cable like @cable " +
             "and aa.allowPets like @allowsPets " + 
-            "and a.listed = 'T'";
+            "and a.listed = 'T' " +
+            "and a.price > @minPrice " +
+            "and a.price < @maxPrice " +
+            "Order By " + order;
 
         //Select h.firstName, h.lastName, a.description, a.extraInfo from Host h inner join Accommodation a on a.hostID = h.HostID inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID where UPPER(a.city) = @city and a.state = @state and aa.bathroom like @bathroom and aa.entrance like @entrance and aa.furnished like @furnished and aa.storage like @storage and aa.pets like @pets and aa.smoker like @smoker and aa.wifi like @wifi and aa.parking like @parking and aa.kitchen like @kitchen and aa.laundry like @laundry and aa.cable like @cable and aa.allowPets like @allowsPets
 
@@ -195,6 +221,17 @@ public partial class SearchResultPage : System.Web.UI.Page
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@laundry", laundry));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@cable", cable));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@allowsPets", allowsPets));
+        if(MinPriceBox.Text.Length > 0)
+        {
+            minPrice = Convert.ToInt32(MinPriceBox.Text);
+        }
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@minPrice", minPrice));
+
+        if(MaxPriceBox.Text.Length > 0)
+        {
+            maxPrice = Convert.ToInt32(MaxPriceBox.Text);
+        }
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@maxPrice", maxPrice));
 
         SqlDataReader reader = counter.ExecuteReader();
 
@@ -247,6 +284,14 @@ public partial class SearchResultPage : System.Web.UI.Page
             };
 
             insidediv.Controls.Add(PropName);
+
+            String PropZip = "Zip code: " + reader.GetString(13);
+            var propZip = new HtmlGenericControl("h6")
+            {
+                InnerText = PropZip
+            };
+
+            insidediv.Controls.Add(propZip);
 
             //propery description in left column
             String PropTempBio = reader.GetString(3);
@@ -443,7 +488,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             count++;
         }
         sc.Close();
-        countLabel.Text = "Your search returned " + count + " result(s) for " + CitySearchBox.Text + ", " + stateBox.SelectedValue.ToString();
+        countLabel.Text = "Your search returned " + count + " result(s) for '" + CitySearchBox.Text + ", " + stateBox.SelectedValue.ToString() + "'";
     }
 
     protected void PrivateEntranceBox_CheckedChanged(object sender, EventArgs e)

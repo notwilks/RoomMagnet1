@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.IO;
 
 public partial class EditProperty : System.Web.UI.Page
 {
@@ -18,7 +19,7 @@ public partial class EditProperty : System.Web.UI.Page
             SqlCommand select = new SqlCommand();
             select.Connection = sc;
 
-            select.CommandText = "Select houseNumber, street, state, zipCode, price, numOfTenants, neighborhood, description, roomType, extrainfo " +
+            select.CommandText = "Select houseNumber, street, state, zipCode, price, numOfTenants, neighborhood, description, roomType, extrainfo, city " +
                 "from Accommodation where HostId in (Select HostID from Host where email = @email)";
 
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Convert.ToString(Session["userEmail"])));
@@ -40,6 +41,7 @@ public partial class EditProperty : System.Web.UI.Page
                         PropNameBox.Text = reader.GetString(7);
                         RoomTypeList.SelectedValue = Convert.ToString(reader.GetString(8));
                         PropDescriptionBox.Text = reader.GetString(9);
+                        cityBox.Text = reader.GetString(10);
 
                     }
                 }
@@ -52,6 +54,37 @@ public partial class EditProperty : System.Web.UI.Page
     protected void SaveButton_Click(object sender, EventArgs e)
     {
         sc.Open();
+        String path = Server.MapPath("Images/");
+
+        if (mainImage.HasFile)
+        {
+            String ext = Path.GetExtension(mainImage.FileName);
+
+            if (ext == ".jpg" || ext == ".png")
+            {
+                mainImage.SaveAs(path + mainImage.FileName);
+
+                String name = "Images/" + mainImage.FileName;
+
+                SqlCommand updateImages = new SqlCommand();
+                updateImages.Connection = sc;
+
+                updateImages.CommandText = "Select accommodationID from Accommodation where hostID in (Select hostID from Host where email = @hostEmail1)";
+                updateImages.Parameters.Add(new SqlParameter("@hostEmail1", Convert.ToString(Session["userEmail"])));
+
+                int accomID = Convert.ToInt32(updateImages.ExecuteScalar());
+
+                updateImages.CommandText = "INSERT INTO AccommodationImages (AccommodationID, mainImage) VALUES " +
+                    "(" + accomID + ", @imageName)";
+                updateImages.Parameters.Add(new SqlParameter("@imageName", name));
+
+                updateImages.ExecuteNonQuery();
+
+
+            }
+        }
+
+        
 
         SqlCommand update = new SqlCommand();
         update.Connection = sc;
@@ -85,7 +118,9 @@ public partial class EditProperty : System.Web.UI.Page
             "neighborhood = @neighborhood, " +
             "description = @propName, " +
             "roomType = @roomType, " +
-            "extraInfo = @bio where hostID = @tempID";
+            "extraInfo = @bio, " +
+            "city = @city " +
+            "where hostID = @tempID";
 
         update.Parameters.Add(new SqlParameter("@houseNumber", HouseNumBox.Text));
         update.Parameters.Add(new SqlParameter("@street", StreetBox.Text));
@@ -100,12 +135,14 @@ public partial class EditProperty : System.Web.UI.Page
         {
             update.Parameters.Add(new SqlParameter("@price", Convert.ToDouble(Price.Text)));
         }
+
         update.Parameters.Add(new SqlParameter("@numTen", Convert.ToInt32(NumOfTenantsBox.Text)));
         update.Parameters.Add(new SqlParameter("@neighborhood", neighborhoodBox.Text));
         update.Parameters.Add(new SqlParameter("@propName", PropNameBox.Text));
         update.Parameters.Add(new SqlParameter("@roomType", RoomTypeList.SelectedIndex.ToString()));
         update.Parameters.Add(new SqlParameter("@bio", PropDescriptionBox.Text));
         update.Parameters.Add(new SqlParameter("@tempID", ViewState["tempID"]));
+        update.Parameters.Add(new SqlParameter("@city", cityBox.Text));
 
         update.ExecuteNonQuery();
 

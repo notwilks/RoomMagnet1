@@ -54,6 +54,17 @@
 
           <div class="row" style="margin-top: 2rem">
             <div class="col">
+                <label for="formGroupExampleInput">City</label>
+                <asp:TextBox ID="cityBox" runat="server" CssClass="form-control" placeholder="City"></asp:TextBox>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput">Number of Tenants</label>
+                <asp:TextBox ID="NumOfTenantsBox" runat="server" CssClass="form-control" placeholder="Number of Tenants"></asp:TextBox>
+            </div> <!--end col-->
+          </div> <!--end row class-->
+
+          <div class="row" style="margin-top: 2rem">
+            <div class="col">
                 <label for="formGroupExampleInput">State</label>
               <asp:DropDownList ID="stateBox" runat="server" CssClass="form-control" style="">
                     <asp:ListItem>Select a state</asp:ListItem>
@@ -109,17 +120,6 @@
                     <asp:ListItem Value="WY">Wyoming</asp:ListItem>
                 </asp:DropDownList>
             </div>
-            <div class="col">
-                <label for="formGroupExampleInput">Number of Tenants</label>
-                <asp:TextBox ID="NumOfTenantsBox" runat="server" CssClass="form-control" placeholder="Number of Tenants"></asp:TextBox>
-            </div> <!--end col-->
-          </div> <!--end row class-->
-
-          <div class="row" style="margin-top: 2rem">
-            <div class="col">
-                <label for="formGroupExampleInput">Zip Code</label>
-                <asp:TextBox ID="ZipBox" runat="server" CssClass="form-control" placeholder="Zip Code"></asp:TextBox>
-            </div>
 
             <div class="col">
                <label for="formGroupExampleInput">Neighborhood</label>
@@ -129,6 +129,8 @@
 
           <div class="row" style="margin-top: 2rem">
             <div class="col">
+                <label for="formGroupExampleInput">Zip Code</label>
+                <asp:TextBox ID="ZipBox" runat="server" CssClass="form-control" placeholder="Zip Code"></asp:TextBox>
             </div>
 
             <div class="col">
@@ -160,6 +162,13 @@
 
           <div class="row" style="margin-top: 3rem">
             <div class="col">
+                <label for="formGroupExampleInput">Upload Images of your property</label>
+                <asp:FileUpload ID="mainImage" runat="server" CssClass="btn form-control"/>
+            </div> <!--end col-->
+          </div> <!--end row class-->
+
+          <div class="row" style="margin-top: 3rem">
+            <div class="col">
                 <asp:Button ID="SaveButton" runat="server" Text="Save" cssclass="btn" OnClick="SaveButton_Click"/>
             </div> <!--end col-->
           </div> <!--end row class-->
@@ -173,7 +182,8 @@
              </div>
                 <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
             
-        </div>     
+        </div>   
+          
       </div> <!--end container-->
     </section>
     
