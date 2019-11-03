@@ -101,6 +101,7 @@
             
              <div class="col-md-6">
                  <asp:Button ID="Button1" runat="server" Text="Next" CausesValidation="True" CssClass="btn" style="float: right;" OnClick="Button1_Click1"/>
+                 <asp:Button ID="Button2" runat="server" Text="Populate" CausesValidation="False" CssClass="btn" style="float: right;" OnClick="Button2_Click1"/>
              </div>
                 <asp:Label ID="OutputLabel" runat="server" Text=""></asp:Label>
             

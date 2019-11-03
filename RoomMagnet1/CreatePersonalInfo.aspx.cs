@@ -42,13 +42,13 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
             try
             {
-                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
+                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "")
                 {
                     pNumBoxErrorLbl.Text = "";
 
-                    if (phoneNumberBox.Text.Contains("0") && phoneNumberBox.Text.Contains("1") && phoneNumberBox.Text.Contains("2") && phoneNumberBox.Text.Contains("3") && phoneNumberBox.Text.Contains("4")
-                        && phoneNumberBox.Text.Contains("5") && phoneNumberBox.Text.Contains("6") && phoneNumberBox.Text.Contains("7") && phoneNumberBox.Text.Contains("8") && phoneNumberBox.Text.Contains("9")
-                        && phoneNumberBox.Text.Contains("-"))
+                    if (phoneNumberBox.Text.Contains("0") || phoneNumberBox.Text.Contains("1") || phoneNumberBox.Text.Contains("2") || phoneNumberBox.Text.Contains("3") || phoneNumberBox.Text.Contains("4")
+                        || phoneNumberBox.Text.Contains("5") || phoneNumberBox.Text.Contains("6") || phoneNumberBox.Text.Contains("7") || phoneNumberBox.Text.Contains("8") || phoneNumberBox.Text.Contains("9")
+                        || phoneNumberBox.Text.Contains("-"))
                     {
                         tempTenant.SetFirstName(FirstNameBox.Text);
                         tempTenant.SetLastName(LastNameBox.Text);
@@ -86,7 +86,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             }
             catch(Exception ex)
             {
-                OutputLabel.Text = "An error occured." + ex;
+                OutputLabel.Text = "An error occured.";
             }
 
         }
@@ -94,24 +94,24 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
         {
             Host tempHost = new Host();
 
-            if (dobBox.Text.Length == 10)
-            {
-                tempHost.SetBirthDate(Convert.ToDateTime(dobBox.Text));
-            }
-
+            
+            
             try
             {
-                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
+                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length == 12)
                 {
                     pNumBoxErrorLbl.Text = "";
 
-                    if (phoneNumberBox.Text.Contains("0") && phoneNumberBox.Text.Contains("1") && phoneNumberBox.Text.Contains("2") && phoneNumberBox.Text.Contains("3") && phoneNumberBox.Text.Contains("4")
-                        && phoneNumberBox.Text.Contains("5") && phoneNumberBox.Text.Contains("6") && phoneNumberBox.Text.Contains("7") && phoneNumberBox.Text.Contains("8") && phoneNumberBox.Text.Contains("9")
-                        && phoneNumberBox.Text.Contains("-"))
+                    if (phoneNumberBox.Text.Contains("0") || phoneNumberBox.Text.Contains("1") || phoneNumberBox.Text.Contains("2") || phoneNumberBox.Text.Contains("3") || phoneNumberBox.Text.Contains("4")
+                        || phoneNumberBox.Text.Contains("5") || phoneNumberBox.Text.Contains("6") || phoneNumberBox.Text.Contains("7") || phoneNumberBox.Text.Contains("8") || phoneNumberBox.Text.Contains("9")
+                        || phoneNumberBox.Text.Contains("-"))
                     {
                         tempHost.SetFirstName(FirstNameBox.Text);
                         tempHost.SetLastName(LastNameBox.Text);
                         tempHost.SetPhoneNumber(phoneNumberBox.Text);
+                        tempHost.SetBirthDate(Convert.ToDateTime(dobBox.Text));
+                        tempHost.SetBiography(bioBox.Text);
+
                         pNumBoxErrorLbl.Text = "";
                         //Insert user info into host table
                         insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber, lastUpdatedBy, lastUpdated, biography) " +
@@ -138,7 +138,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 }
                 else
                 {
-                     pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                     pNumBoxErrorLbl.Text = "Please fill out all data fields.";
                 }
             }
             catch
@@ -150,10 +150,17 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             }
 
         }
-
         else
         {
             OutputLabel.Text = "An error occured.";
         }
+    }
+    protected void Button2_Click1(object sender, EventArgs e)
+    {
+        FirstNameBox.Text = "John";
+        LastNameBox.Text = "Doe";
+        dobBox.Text = "01/01/1990";
+        phoneNumberBox.Text = "540-123-4567";
+        bioBox.Text = "This is an example biography.";
     }
 }
