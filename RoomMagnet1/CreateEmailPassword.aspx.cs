@@ -13,7 +13,6 @@ public partial class CreateEmailPassword : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        OutputLabel.Text = "" + Convert.ToString(Session["userType"]);
     }
 
     protected void NextButton_Click(object sender, EventArgs e)

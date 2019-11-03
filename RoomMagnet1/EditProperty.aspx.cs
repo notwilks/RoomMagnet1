@@ -100,7 +100,6 @@ public partial class EditProperty : System.Web.UI.Page
         {
             update.Parameters.Add(new SqlParameter("@price", Convert.ToDouble(Price.Text)));
         }
-        update.Parameters.Add(new SqlParameter("@price", Convert.ToDouble(Price.Text)));
         update.Parameters.Add(new SqlParameter("@numTen", Convert.ToInt32(NumOfTenantsBox.Text)));
         update.Parameters.Add(new SqlParameter("@neighborhood", neighborhoodBox.Text));
         update.Parameters.Add(new SqlParameter("@propName", PropNameBox.Text));

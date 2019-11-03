@@ -108,7 +108,6 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 }
             }
 
-
         }
 
         else
