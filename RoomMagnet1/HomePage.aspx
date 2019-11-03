@@ -214,10 +214,10 @@
     
    <div class="row" style="margin-top: 5rem; margin-bottom: 2rem;">
         <div class="col-md-12">
-            <p style="text-align: center; font-size: 50px;" class="din">1,203</p>
-            <p style="text-align: center; font-size: 20px;">housing matches made this year.<br>Be the next one.</p>
+            <p style="text-align: center; font-size: 50px;" class="din" id="listedProperties" runat="server"></p>
+            <p style="text-align: center; font-size: 20px;">Properties are currently listed.<br>Find your perfect fit.</p>
             <p style="text-align: center;">
-                <asp:Button ID="GetStartedBtn" runat="server" Text="Get Started" OnClick ="GetStartedBtn_Clicked" ccsClass ="btn" />
+                <asp:Button ID="GetStartedBtn" runat="server" Text="Get Started" OnClick ="GetStartedBtn_Clicked" CssClass="btn" />
             </p> 
         </div>    
     </div><!-- end div row! --> 

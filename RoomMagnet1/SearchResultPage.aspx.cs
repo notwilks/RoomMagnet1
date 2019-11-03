@@ -13,7 +13,13 @@ public partial class SearchResultPage : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+        CitySearchBox.Text = Convert.ToString(Session["CitySearch"]);
+        stateBox.SelectedValue = Convert.ToString(Session["StateSearch"]);
 
+        if(CitySearchBox.Text.Length > 0 && !IsPostBack)
+        {
+            SearchButton_Click(sender, e);
+        }
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)
@@ -21,9 +27,9 @@ public partial class SearchResultPage : System.Web.UI.Page
         String bathroom = "%";
         String bathroomBadge = "images/private-bath.png";
         String entrance = "%";
-        String entranceBadge = "images/private-entrance";
+        String entranceBadge = "images/private-entrance.png";
         String storage = "%";
-        String storageBadge = "images/closet-space-badge";
+        String storageBadge = "images/closet-space-badge.png";
         String furnished = "%";
         String furnishedBadge = "images/furnished-badge.png";
         String pets = "%";

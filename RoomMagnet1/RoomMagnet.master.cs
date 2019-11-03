@@ -26,6 +26,17 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
             {
                 leftButton.Attributes.Add("href", "HostDashboard.aspx");
             }
+
+            sc.Open();
+
+            SqlCommand select = new SqlCommand();
+            select.Connection = sc;
+
+            select.CommandText = "Select CONCAT(firstName, ' ' , lastName) from host where email = @email";
+            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
+            signedInUser.InnerText = "Hi, " + Convert.ToString(select.ExecuteScalar());
+            
+
         }
         else
         {

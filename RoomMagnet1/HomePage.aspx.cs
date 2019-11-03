@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class HomePage : System.Web.UI.Page
 {
+    SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        //I really hope this works
-        //
+        sc.Open();
+
+        SqlCommand select = new SqlCommand();
+        select.Connection = sc;
+
+        select.CommandText = "Select COUNT(accommodationID) from Accommodation WHERE listed = 'T'";
+        listedProperties.InnerText = Convert.ToString(select.ExecuteScalar());
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)
