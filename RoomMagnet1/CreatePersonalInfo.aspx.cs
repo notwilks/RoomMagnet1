@@ -14,7 +14,8 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        OutputLabel.Text = "" + Convert.ToString(Session["userType"]) + Convert.ToString(Session["userEmail"]);
+        // UserType and UserEmail test code
+        //OutputLabel.Text = "" + Convert.ToString(Session["userType"]) + Convert.ToString(Session["userEmail"]);
     }
     protected void Button1_Click1(object sender, EventArgs e)
     {
@@ -45,22 +46,39 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
             try
             {
-                //Insert user info into tenant table
-                insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, phoneNumber, birthDate, gender, lastUpdated, lastUpdatedBy) VALUES " +
-                    "(@firstName, @lastName, @email, @phone, @dob, @gender, @lastUpdated, @lastUpdatedBy)";
+                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
+                {
+                    if (phoneNumberBox.Text.Contains("0") && phoneNumberBox.Text.Contains("1") && phoneNumberBox.Text.Contains("2") && phoneNumberBox.Text.Contains("3") && phoneNumberBox.Text.Contains("4")
+                        && phoneNumberBox.Text.Contains("5") && phoneNumberBox.Text.Contains("6") && phoneNumberBox.Text.Contains("7") && phoneNumberBox.Text.Contains("8") && phoneNumberBox.Text.Contains("9")
+                        && phoneNumberBox.Text.Contains("-"))
+                    {
+                        //pNumBoxErrorLbl.Text = "";
+                        //Insert user info into tenant table
+                        insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, phoneNumber, birthDate, gender, lastUpdated, lastUpdatedBy) VALUES " +
+                            "(@firstName, @lastName, @email, @phone, @dob, @gender, @lastUpdated, @lastUpdatedBy)";
 
-                insert.Parameters.AddWithValue("@firstName", tempTenant.GetFirstName());
-                insert.Parameters.AddWithValue("@lastName", tempTenant.GetLastName());
-                insert.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
-                insert.Parameters.AddWithValue("@phone", tempTenant.GetPhoneNumber());
-                insert.Parameters.AddWithValue("@dob", tempTenant.GetBirthDate());
-                insert.Parameters.AddWithValue("@gender", DropDownList1.SelectedValue);
-                insert.Parameters.AddWithValue("@lastUpdatedBy", Environment.UserName);
-                insert.Parameters.AddWithValue("@lastUpdated", DateTime.Now);
+                        insert.Parameters.AddWithValue("@firstName", tempTenant.GetFirstName());
+                        insert.Parameters.AddWithValue("@lastName", tempTenant.GetLastName());
+                        insert.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
+                        insert.Parameters.AddWithValue("@phone", tempTenant.GetPhoneNumber());
+                        insert.Parameters.AddWithValue("@dob", tempTenant.GetBirthDate());
+                        insert.Parameters.AddWithValue("@gender", DropDownList1.SelectedValue);
+                        insert.Parameters.AddWithValue("@lastUpdatedBy", Environment.UserName);
+                        insert.Parameters.AddWithValue("@lastUpdated", DateTime.Now);
 
-                insert.ExecuteNonQuery();
+                        insert.ExecuteNonQuery();
 
-                Response.Redirect("TenantAccountConfirmation.aspx");
+                        Response.Redirect("TenantAccountConfirmation.aspx");
+                    }
+                    else
+                    {
+                        //pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                    }
+                }
+                else
+                {
+                    //pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                }
             }
             catch(Exception ex)
             {

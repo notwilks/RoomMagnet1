@@ -48,7 +48,7 @@
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="FirstNameBox" Font-Size="Small" Operator="DataTypeCheck" ForeColor="Red" Type="String" Text ="Invalid characters" />
             </div>
             <div class="col">
-              <label for="formGroupExampleInput" style="margin-top: 5rem;">Last Name</label>
+              <label for="formGroupExampleInput" style="margin-top: 4rem;">Last Name</label>
               <asp:TextBox ID="LastNameBox" runat="server" MaxLength ="25" CssClass="form-control" placeholder="Last Name"></asp:TextBox>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="LastNameBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
               <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="LastNameBox" Text="Invalid characters" Font-Size="Small" Operator="DataTypeCheck" ForeColor="Red">Invalid characters</asp:CompareValidator>
@@ -66,16 +66,17 @@
             <div class="col">
               <label for="formGroupExampleInput">Date of Birth</label>
               <asp:TextBox ID="dobBox" runat="server" placeholder ="MM/DD/YYY" CssClass="form-control"></asp:TextBox>
-              <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="dobBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
-              <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="dobBox" Text="Invalid DOB" Type="Date" Operator="DataTypeCheck" Font-Size="Small" ForeColor="Red" Display="Static"></asp:CompareValidator>
+              <asp:RequiredFieldValidator ID="DoBValidator" runat="server" ControlToValidate="dobBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
+              <asp:CompareValidator ID="DoBCompareValidator" runat="server" ControlToValidate="dobBox" Text="Please enter date in 'MM/DD/YYYY' format." Type="Date" Operator="DataTypeCheck" Font-Size="Small" ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
           </div> <!--end row class-->
 
           <div class="row">
             <div class="col">
               <label for="formGroupExampleInput">Phone Number</label>
-              <asp:TextBox ID="phoneNumberBox" runat="server" placeholder ="xxx-xxx-xxxx" CssClass="form-control"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="phoneNumberBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
+              <asp:TextBox ID="phoneNumberBox" runat="server" placeholder ="###-###-####" CssClass="form-control"></asp:TextBox>
+                <asp:Label ID="pNumBoxErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                <asp:RequiredFieldValidator ID="PhoneNumberValidator" runat="server" ControlToValidate="phoneNumberBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>
             <div class="col">
               
