@@ -17,7 +17,13 @@ public partial class HostDashboard : System.Web.UI.Page
     char cBadge4;
     char cBadge5;
     char cBadge6;
-
+    char cBadge7;
+    char cBadge8;
+    char cBadge9;
+    char cBadge10;
+    char cBadge11;
+    char cBadge12;
+    
     String listing = "";
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -52,7 +58,7 @@ public partial class HostDashboard : System.Web.UI.Page
         //String hostName = Convert.ToString(select.ExecuteScalar());
         //ProfileHeader.Text = "Welcome " + hostName;
 
-        select.CommandText = "Select bathroom, entrance, storage, pets, furnished, smoker from AccommodationAmmenity WHERE accommodationID in (select accommodationID from Accommodation where hostID in " +
+        select.CommandText = "Select bathroom, entrance, storage, pets, furnished, smoker, wifi, parking, kitchen, laundry, cable, allowPets from AccommodationAmmenity WHERE accommodationID in (select accommodationID from Accommodation where hostID in " +
         "(select hostID from Host where email = @email3))";
 
         select.Parameters.Add(new SqlParameter("@email3", Session["userEmail"]));
@@ -66,6 +72,12 @@ public partial class HostDashboard : System.Web.UI.Page
                 cBadge4 = Convert.ToChar(reader["pets"]);
                 cBadge5 = Convert.ToChar(reader["furnished"]);
                 cBadge6 = Convert.ToChar(reader["smoker"]);
+                cBadge7 = Convert.ToChar(reader["wifi"]);
+                cBadge8 = Convert.ToChar(reader["parking"]);
+                cBadge10 = Convert.ToChar(reader["kitchen"]);
+                cBadge9 = Convert.ToChar(reader["laundry"]);
+                cBadge11 = Convert.ToChar(reader["cable"]);
+                cBadge12 = Convert.ToChar(reader["allowPets"]);
               
             }
             reader.Close();
@@ -73,10 +85,16 @@ public partial class HostDashboard : System.Web.UI.Page
 
         string image1 = checkBadge(cBadge1, "images/private-bath.png");
         string image2 = checkBadge(cBadge2, "images/private-entrance.png");
-        string image3 = checkBadge(cBadge3, "iamges/closet-space-badge.png");
+        string image3 = checkBadge(cBadge3, "images/closet-space-badge.png");
         string image4 = checkBadge(cBadge4, "images/add-badges-badge.png");
         string image5 = checkBadge(cBadge5, "images/furnished-badge.png");
         string image6 = checkBadge(cBadge6, "images/non-smoker-badge.png");
+        string image7 = checkBadge(cBadge7, "images/add-badges-badge.png");
+        string image8 = checkBadge(cBadge8, "images/add-badges-badge.png");
+        string image9 = checkBadge(cBadge9, "images/add-badges-badge.png");
+        string image10 = checkBadge(cBadge10, "images/kitchen-badge.png");
+        string image11 = checkBadge(cBadge11, "images/add-badges-badge.png");
+        string image12 = checkBadge(cBadge12, "images/add-badges-badge.png");
 
         addBadge(image1);
         addBadge(image2);
@@ -84,6 +102,12 @@ public partial class HostDashboard : System.Web.UI.Page
         addBadge(image4);
         addBadge(image5);
         addBadge(image6);
+        addBadge(image7);
+        addBadge(image8);
+        addBadge(image9);
+        addBadge(image10);
+        addBadge(image11);
+        addBadge(image12);
 
 
         // Finds whether the Host's Accommodation is currently being listed or not
@@ -208,17 +232,10 @@ public partial class HostDashboard : System.Web.UI.Page
                 ImageUrl = image,
                 
             };
-            newImg.Attributes.Add("style","max-width: 150px; margin-top: 3px");
-
+            newImg.Attributes.Add("style","max-width: 150px; margin-top: 3px; margin-right: 2rem;");
             
-
             newP.Controls.Add(newImg);
-
-            Control newContent = (ContentPlaceHolder)this.Master.FindControl("ContentPlaceHolder1");
-            //Control container = newContent.chi
-            //container.Controls.Add(newP);
-            newContent.Controls.Add(newP);
-            
+            propertyModule.Controls.Add(newImg);
         } 
     }
 }
