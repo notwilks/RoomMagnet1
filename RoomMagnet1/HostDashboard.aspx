@@ -46,7 +46,7 @@
             </div>
         </div> <!--end Row Class -->
         
-        <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
+        <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
             <div class="col-md-6" style="margin-top: 1rem;">
                 <asp:Image ID="HostPrimaryImage" ImageURl="Images/couple-with-new-home_rtaSl4ABo.jpg" runat="server" CssClass="img-fluid"/>
                 <div class="row" style="margin-top: 1rem;">
@@ -58,14 +58,9 @@
                     </div>
                 </div>
             </div>
-             <div id="badgeDiv " class="col-md-6" style="margin-top: 1rem;">
+             <div class="col-md-6" style="margin-top: 1rem;" runat="server">
                  <h3><asp:Label ID="PropertyName" runat="server" Text="Example Property in Harrisonburg 22801"></asp:Label></h3>
                     <p><asp:Label ID="PropertyInfo" runat="server" Text="This is a brief description of the property"></asp:Label></p>
-                    <p><asp:Image ID="Badge1" runat="server" ImageUrl="images/kitchen-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
-                    <p><asp:Image ID="Badge2" runat="server" ImageUrl="images/private-entrance.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
-                    <p><asp:Image ID="Badge3" runat="server" ImageUrl="" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
-                    <p><asp:Image ID="Badge4" runat="server" ImageUrl="" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
-                    <p><asp:Image ID="Badge5" runat="server" ImageUrl="" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
             </div>
         </div>
       </div>
@@ -164,11 +159,13 @@
         <div class="col-md-12"  style=" margin-top: 1rem;">
             <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
           </div>
-        <div class="col-md-6">
+        <!-- Below is the dropdown list for a future google translate API boiii
+            <div class="col-md-6">
                 <asp:DropDownList ID ="translateList" runat="server" CssClass="form-control" style="">
 
                 </asp:DropDownList>
             </div>
+            -->
     </div><!-- end div big row -->  
     
     
