@@ -535,8 +535,27 @@ public partial class CreateProperty : System.Web.UI.Page
     {
         AddressBox.Text = "123 Fake St";
         CityBox.Text = "Harrisonburg";
-        stateBox.SelectedItem.Value = "VA";
+        stateBox.SelectedValue = "VA";
         ZipBox.Text = "22801";
-
+        PriceBox.Text = "650.00";
+        TNumBox.Text = "4";
+        NeighborhoodBox.Text = "Harrisonburg";
+        EffectiveDateBox.Text = "01/01/2019";
+        TerminationDateBox.Text = "01/01/2020";
+        DescriptBox.Text = "Example Property";
+        RoomTypeList.SelectedItem.Value = "Private Room";
+        PrivateBathroom.SelectedValue = "F";
+        PrivateEntrance.SelectedValue = "F";
+        StorageSpace.SelectedValue = "T";
+        Parking.SelectedValue = "T";
+        Furnished.SelectedValue = "T";
+        Smokers.SelectedValue = "F";
+        Pets.SelectedValue = "F";
+        AllowPets.SelectedValue = "T";
+        PrivateKitchen.SelectedValue = "F";
+        PrivateLaundry.SelectedValue = "F";
+        Wifi.SelectedValue = "T";
+        Cable.SelectedValue = "F";
+        ExtraInfoBox.Text = "This is a sample property.";
     }
 }
