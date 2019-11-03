@@ -45,10 +45,20 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
                 {
                     pNumBoxErrorLbl.Text = "";
+                    phoneNumberBox.Text.ToUpper();
 
-                    if (phoneNumberBox.Text.Contains("0") && phoneNumberBox.Text.Contains("1") && phoneNumberBox.Text.Contains("2") && phoneNumberBox.Text.Contains("3") && phoneNumberBox.Text.Contains("4")
-                        && phoneNumberBox.Text.Contains("5") && phoneNumberBox.Text.Contains("6") && phoneNumberBox.Text.Contains("7") && phoneNumberBox.Text.Contains("8") && phoneNumberBox.Text.Contains("9")
-                        && phoneNumberBox.Text.Contains("-"))
+                    if (phoneNumberBox.Text.Contains("A") || phoneNumberBox.Text.Contains("B") || phoneNumberBox.Text.Contains("C") || phoneNumberBox.Text.Contains("D") || phoneNumberBox.Text.Contains("E")
+                        || phoneNumberBox.Text.Contains("F") || phoneNumberBox.Text.Contains("G") || phoneNumberBox.Text.Contains("H") || phoneNumberBox.Text.Contains("I") || phoneNumberBox.Text.Contains("J")
+                        || phoneNumberBox.Text.Contains("K") || phoneNumberBox.Text.Contains("L") || phoneNumberBox.Text.Contains("M") || phoneNumberBox.Text.Contains("N") || phoneNumberBox.Text.Contains("O")
+                        || phoneNumberBox.Text.Contains("P") || phoneNumberBox.Text.Contains("Q") || phoneNumberBox.Text.Contains("R") || phoneNumberBox.Text.Contains("S") || phoneNumberBox.Text.Contains("T")
+                        || phoneNumberBox.Text.Contains("U") || phoneNumberBox.Text.Contains("V") || phoneNumberBox.Text.Contains("W") || phoneNumberBox.Text.Contains("X") || phoneNumberBox.Text.Contains("Y")
+                        || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
+                        || phoneNumberBox.Text.Contains("%") || phoneNumberBox.Text.Contains("^") || phoneNumberBox.Text.Contains("&") || phoneNumberBox.Text.Contains("*") || phoneNumberBox.Text.Contains("(")
+                        || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("="))
+                    {
+                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                    }
+                    else
                     {
                         tempTenant.SetFirstName(FirstNameBox.Text);
                         tempTenant.SetLastName(LastNameBox.Text);
@@ -74,10 +84,6 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
                         Response.Redirect("TenantAccountConfirmation.aspx");
                     }
-                    else
-                    {
-                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
-                    }
                 }
                 else
                 {
@@ -97,21 +103,31 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             if (dobBox.Text.Length == 10)
             {
                 tempHost.SetBirthDate(Convert.ToDateTime(dobBox.Text));
-            }
+            } 
 
             try
             {
-                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
+                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length == 12)
                 {
                     pNumBoxErrorLbl.Text = "";
 
-                    if (phoneNumberBox.Text.Contains("0") && phoneNumberBox.Text.Contains("1") && phoneNumberBox.Text.Contains("2") && phoneNumberBox.Text.Contains("3") && phoneNumberBox.Text.Contains("4")
-                        && phoneNumberBox.Text.Contains("5") && phoneNumberBox.Text.Contains("6") && phoneNumberBox.Text.Contains("7") && phoneNumberBox.Text.Contains("8") && phoneNumberBox.Text.Contains("9")
-                        && phoneNumberBox.Text.Contains("-"))
+                    if (phoneNumberBox.Text.Contains("A") || phoneNumberBox.Text.Contains("B") || phoneNumberBox.Text.Contains("C") || phoneNumberBox.Text.Contains("D") || phoneNumberBox.Text.Contains("E")
+                        || phoneNumberBox.Text.Contains("F") || phoneNumberBox.Text.Contains("G") || phoneNumberBox.Text.Contains("H") || phoneNumberBox.Text.Contains("I") || phoneNumberBox.Text.Contains("J")
+                        || phoneNumberBox.Text.Contains("K") || phoneNumberBox.Text.Contains("L") || phoneNumberBox.Text.Contains("M") || phoneNumberBox.Text.Contains("N") || phoneNumberBox.Text.Contains("O")
+                        || phoneNumberBox.Text.Contains("P") || phoneNumberBox.Text.Contains("Q") || phoneNumberBox.Text.Contains("R") || phoneNumberBox.Text.Contains("S") || phoneNumberBox.Text.Contains("T")
+                        || phoneNumberBox.Text.Contains("U") || phoneNumberBox.Text.Contains("V") || phoneNumberBox.Text.Contains("W") || phoneNumberBox.Text.Contains("X") || phoneNumberBox.Text.Contains("Y")
+                        || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
+                        || phoneNumberBox.Text.Contains("%") || phoneNumberBox.Text.Contains("^") || phoneNumberBox.Text.Contains("&") || phoneNumberBox.Text.Contains("*") || phoneNumberBox.Text.Contains("(")
+                        || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("="))
+                    {
+                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                    }
+                    else
                     {
                         tempHost.SetFirstName(FirstNameBox.Text);
                         tempHost.SetLastName(LastNameBox.Text);
                         tempHost.SetPhoneNumber(phoneNumberBox.Text);
+                        tempHost.SetBiography(bioBox.Text);
                         pNumBoxErrorLbl.Text = "";
                         //Insert user info into host table
                         insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber, lastUpdatedBy, lastUpdated, biography) " +
@@ -121,7 +137,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         insert.Parameters.Add(new SqlParameter("@lastName", tempHost.GetLastName()));
                         insert.Parameters.Add(new SqlParameter("@email", Convert.ToString(Session["userEmail"])));
                         insert.Parameters.Add(new SqlParameter("@dob", tempHost.GetBirthDate()));
-                        insert.Parameters.Add(new SqlParameter("@gender", DropDownList1.SelectedValue));
+                        insert.Parameters.Add(new SqlParameter("@gender", DropDownList1.SelectedItem.Value));
                         insert.Parameters.Add(new SqlParameter("@phoneNumber", tempHost.GetPhoneNumber()));
                         insert.Parameters.Add(new SqlParameter("@lastUpdatedBy", "Joe Muia"));
                         insert.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
@@ -130,10 +146,6 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         insert.ExecuteNonQuery();
 
                         Response.Redirect("CreateProperty.aspx");
-                    }
-                    else
-                    {
-                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
                     }
                 }
                 else
@@ -148,12 +160,19 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                     OutputLabel.Text = "An account with this email already exists.";
                 }
             }
-
         }
-
         else
         {
             OutputLabel.Text = "An error occured.";
         }
+    }
+    protected void PopulateBtn_Click(object sender, EventArgs e)
+    {
+        FirstNameBox.Text = "John";
+        LastNameBox.Text = "Doe";
+        dobBox.Text = "01/01/2019";
+        bioBox.Text = "This is an example biography.";
+        phoneNumberBox.Text = "540-111-1111";
+
     }
 }

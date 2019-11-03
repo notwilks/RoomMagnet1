@@ -155,7 +155,20 @@ public partial class CreateEmailPassword : System.Web.UI.Page
         }
         catch(Exception ex)
         {
-            OutputLabel.Text = "An account with this email already exists." + ex;
+            OutputLabel.Text = "An account with this email already exists.";
         }
+    }
+    protected void PopulateButton_Click(object sender, EventArgs e)
+    {
+        sc.Open();
+        SqlCommand max = new SqlCommand();
+        max.Connection = sc;
+
+        max.CommandText = "Select count(*) from passwords";
+        int count = Convert.ToInt32(max.ExecuteScalar()) + 1;
+        sc.Close();
+
+        EmailBox.Text = "example" + count + "@email.com";
+        ConfirmEmailBox.Text = EmailBox.Text;
     }
 }
