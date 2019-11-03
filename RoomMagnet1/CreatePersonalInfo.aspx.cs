@@ -45,10 +45,20 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
                 {
                     pNumBoxErrorLbl.Text = "";
+                    phoneNumberBox.Text.ToUpper();
 
-                    if (phoneNumberBox.Text.Contains("0") && phoneNumberBox.Text.Contains("1") && phoneNumberBox.Text.Contains("2") && phoneNumberBox.Text.Contains("3") && phoneNumberBox.Text.Contains("4")
-                        && phoneNumberBox.Text.Contains("5") && phoneNumberBox.Text.Contains("6") && phoneNumberBox.Text.Contains("7") && phoneNumberBox.Text.Contains("8") && phoneNumberBox.Text.Contains("9")
-                        && phoneNumberBox.Text.Contains("-"))
+                    if (phoneNumberBox.Text.Contains("A") || phoneNumberBox.Text.Contains("B") || phoneNumberBox.Text.Contains("C") || phoneNumberBox.Text.Contains("D") || phoneNumberBox.Text.Contains("E")
+                        || phoneNumberBox.Text.Contains("F") || phoneNumberBox.Text.Contains("G") || phoneNumberBox.Text.Contains("H") || phoneNumberBox.Text.Contains("I") || phoneNumberBox.Text.Contains("J")
+                        || phoneNumberBox.Text.Contains("K") || phoneNumberBox.Text.Contains("L") || phoneNumberBox.Text.Contains("M") || phoneNumberBox.Text.Contains("N") || phoneNumberBox.Text.Contains("O")
+                        || phoneNumberBox.Text.Contains("P") || phoneNumberBox.Text.Contains("Q") || phoneNumberBox.Text.Contains("R") || phoneNumberBox.Text.Contains("S") || phoneNumberBox.Text.Contains("T")
+                        || phoneNumberBox.Text.Contains("U") || phoneNumberBox.Text.Contains("V") || phoneNumberBox.Text.Contains("W") || phoneNumberBox.Text.Contains("X") || phoneNumberBox.Text.Contains("Y")
+                        || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
+                        || phoneNumberBox.Text.Contains("%") || phoneNumberBox.Text.Contains("^") || phoneNumberBox.Text.Contains("&") || phoneNumberBox.Text.Contains("*") || phoneNumberBox.Text.Contains("(")
+                        || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("="))
+                    {
+                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                    }
+                    else
                     {
                         tempTenant.SetFirstName(FirstNameBox.Text);
                         tempTenant.SetLastName(LastNameBox.Text);
@@ -73,10 +83,6 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         insert.ExecuteNonQuery();
 
                         Response.Redirect("TenantAccountConfirmation.aspx");
-                    }
-                    else
-                    {
-                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
                     }
                 }
                 else
@@ -105,9 +111,18 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 {
                     pNumBoxErrorLbl.Text = "";
 
-                    if (phoneNumberBox.Text.Contains("0") && phoneNumberBox.Text.Contains("1") && phoneNumberBox.Text.Contains("2") && phoneNumberBox.Text.Contains("3") && phoneNumberBox.Text.Contains("4")
-                        && phoneNumberBox.Text.Contains("5") && phoneNumberBox.Text.Contains("6") && phoneNumberBox.Text.Contains("7") && phoneNumberBox.Text.Contains("8") && phoneNumberBox.Text.Contains("9")
-                        && phoneNumberBox.Text.Contains("-"))
+                    if (phoneNumberBox.Text.Contains("A") || phoneNumberBox.Text.Contains("B") || phoneNumberBox.Text.Contains("C") || phoneNumberBox.Text.Contains("D") || phoneNumberBox.Text.Contains("E")
+                        || phoneNumberBox.Text.Contains("F") || phoneNumberBox.Text.Contains("G") || phoneNumberBox.Text.Contains("H") || phoneNumberBox.Text.Contains("I") || phoneNumberBox.Text.Contains("J")
+                        || phoneNumberBox.Text.Contains("K") || phoneNumberBox.Text.Contains("L") || phoneNumberBox.Text.Contains("M") || phoneNumberBox.Text.Contains("N") || phoneNumberBox.Text.Contains("O")
+                        || phoneNumberBox.Text.Contains("P") || phoneNumberBox.Text.Contains("Q") || phoneNumberBox.Text.Contains("R") || phoneNumberBox.Text.Contains("S") || phoneNumberBox.Text.Contains("T")
+                        || phoneNumberBox.Text.Contains("U") || phoneNumberBox.Text.Contains("V") || phoneNumberBox.Text.Contains("W") || phoneNumberBox.Text.Contains("X") || phoneNumberBox.Text.Contains("Y")
+                        || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
+                        || phoneNumberBox.Text.Contains("%") || phoneNumberBox.Text.Contains("^") || phoneNumberBox.Text.Contains("&") || phoneNumberBox.Text.Contains("*") || phoneNumberBox.Text.Contains("(")
+                        || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("="))
+                    {
+                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                    }
+                    else
                     {
                         tempHost.SetFirstName(FirstNameBox.Text);
                         tempHost.SetLastName(LastNameBox.Text);
@@ -130,10 +145,6 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         insert.ExecuteNonQuery();
 
                         Response.Redirect("CreateProperty.aspx");
-                    }
-                    else
-                    {
-                        pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
                     }
                 }
                 else
