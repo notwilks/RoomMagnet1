@@ -54,7 +54,7 @@ public partial class EditProperty : System.Web.UI.Page
     protected void SaveButton_Click(object sender, EventArgs e)
     {
         sc.Open();
-        String path = Server.MapPath("Images/");
+        String path = Server.MapPath("Images2/");
         SqlCommand updateImages = new SqlCommand();
         updateImages.Connection = sc;
 
@@ -69,9 +69,9 @@ public partial class EditProperty : System.Web.UI.Page
 
             if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
             {
-                mainImage.SaveAs(path + mainImage.FileName);
+                mainImage.SaveAs(path + accomID + mainImage.FileName);
 
-                String name = "Images/" + mainImage.FileName;
+                String name = "Images2/" + accomID + mainImage.FileName;
 
                 try
                 {
@@ -98,9 +98,9 @@ public partial class EditProperty : System.Web.UI.Page
 
             if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
             {
-                image2.SaveAs(path + image2.FileName);
+                image2.SaveAs(path + accomID + image2.FileName);
 
-                String name = "Images/" + image2.FileName;
+                String name = "Images2/" + accomID + image2.FileName;
 
                 updateImages.CommandText = "update AccommodationImages set image2 = @image2 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image2", name));
@@ -115,9 +115,9 @@ public partial class EditProperty : System.Web.UI.Page
 
             if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
             {
-                image3.SaveAs(path + image3.FileName);
+                image3.SaveAs(path + accomID + image3.FileName);
 
-                String name = "Images/" + image3.FileName;
+                String name = "Images2/" + accomID + image3.FileName;
 
                 updateImages.CommandText = "update AccommodationImages set image3 = @image3 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image3", name));

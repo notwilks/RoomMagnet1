@@ -482,6 +482,7 @@ public partial class CreateProperty : System.Web.UI.Page
 
                 insert.ExecuteNonQuery();
 
+                //inserting stuff into accommodationImages table upon creation of a property
                 insert.CommandText = "Select accommodationID from Accommodation where hostID in (Select hostID from Host where email = @hostEmail1)";
                 insert.Parameters.Add(new SqlParameter("@hostEmail1", Convert.ToString(Session["userEmail"])));
 

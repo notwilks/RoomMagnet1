@@ -16,7 +16,8 @@ public partial class SearchResultPage : System.Web.UI.Page
         //CitySearchBox.Text = Convert.ToString(Session["CitySearch"]);
         //stateBox.SelectedValue = Convert.ToString(Session["StateSearch"]);
 
-        //if(CitySearchBox.Text.Length > 0 && !IsPostBack)
+        //if (CitySearchBox.Text.Length > 0 && !IsPostBack)
+        ////if(Session["CitySearch"].ToString().Length > 0)
         //{
         //    SearchButton_Click(sender, e);
         //    Session["CitySearch"] = "";
