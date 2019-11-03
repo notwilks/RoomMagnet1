@@ -13,13 +13,17 @@ public partial class SearchResultPage : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        CitySearchBox.Text = Convert.ToString(Session["CitySearch"]);
-        stateBox.SelectedValue = Convert.ToString(Session["StateSearch"]);
+        //CitySearchBox.Text = Convert.ToString(Session["CitySearch"]);
+        //stateBox.SelectedValue = Convert.ToString(Session["StateSearch"]);
 
-        if(CitySearchBox.Text.Length > 0 && !IsPostBack)
-        {
-            SearchButton_Click(sender, e);
-        }
+        //if(CitySearchBox.Text.Length > 0 && !IsPostBack)
+        //{
+        //    SearchButton_Click(sender, e);
+        //    Session["CitySearch"] = "";
+        //    Session["StateSearch"] = "";
+        //}
+        //Session["CitySearch"] = "";
+        //Session["StateSearch"] = "";
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)

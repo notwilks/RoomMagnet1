@@ -165,6 +165,8 @@
               <asp:ListItem Value="">Sort By</asp:ListItem>
               <asp:ListItem Value="PriceAscending">Price: Low - High</asp:ListItem>
               <asp:ListItem Value="PriceDescending">Price: High - Low</asp:ListItem>
+              <asp:ListItem Value="DateNewOld">Date Listed: Newest - Oldest</asp:ListItem>
+              <asp:ListItem Value="DateOldNew">Date Listed: Oldest - Newest</asp:ListItem>
           </asp:DropDownList>
       </li>
 
