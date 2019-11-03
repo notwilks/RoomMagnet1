@@ -183,9 +183,10 @@ public partial class SearchResultPage : System.Web.UI.Page
             order = "a.dateListed asc";
         }
 
-        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode from Host h " +
+        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode, ai.mainImage from Host h " +
             "inner join Accommodation a on a.hostID = h.HostID " +
             "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
+            "inner join AccommodationImages ai on a.accommodationID = ai.accommodationID " +
             "where UPPER(a.city) = @city " +
             "and a.state = @state " +
             "and aa.bathroom like @bathroom " +
@@ -221,7 +222,8 @@ public partial class SearchResultPage : System.Web.UI.Page
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@laundry", laundry));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@cable", cable));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@allowsPets", allowsPets));
-        if(MinPriceBox.Text.Length > 0)
+
+        if (MinPriceBox.Text.Length > 0)
         {
             minPrice = Convert.ToInt32(MinPriceBox.Text);
         }
@@ -475,15 +477,16 @@ public partial class SearchResultPage : System.Web.UI.Page
             viewProfileBadge.Style.Add("margin-right", "1rem;");
 
             //main property image
-            var mainImage = new HtmlGenericControl("img")
+            String propImage = reader.GetString(14);
+            Image newImg = new Image()
             {
-                
+                ImageUrl = propImage,
+
             };
 
-            rightCol.Controls.Add(mainImage);
-            mainImage.Attributes.Add("src", "images/kitchen.jpeg");
-            mainImage.Style.Add("max-height", "300px;");
-            mainImage.Style.Add("margin-top", "1rem;");
+            rightCol.Controls.Add(newImg);
+            newImg.Style.Add("max-height", "300px;");
+            newImg.Style.Add("margin-top", "1rem;");
 
             count++;
         }

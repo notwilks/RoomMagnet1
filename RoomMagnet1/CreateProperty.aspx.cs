@@ -481,6 +481,14 @@ public partial class CreateProperty : System.Web.UI.Page
                 insert.Parameters.Add(new SqlParameter("@listed", "F"));
 
                 insert.ExecuteNonQuery();
+
+                insert.CommandText = "Select accommodationID from Accommodation where hostID in (Select hostID from Host where email = @hostEmail1)";
+                insert.Parameters.Add(new SqlParameter("@hostEmail1", Convert.ToString(Session["userEmail"])));
+
+                int accomID = Convert.ToInt32(insert.ExecuteScalar());
+
+                insert.CommandText = "Insert into AccommodationImages (accommodationID) VALUES (" + accomID + ")";
+
                 sc.Close();
 
                 SqlCommand insertAmenity = new SqlCommand();
