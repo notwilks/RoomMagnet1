@@ -155,7 +155,7 @@ public partial class CreateEmailPassword : System.Web.UI.Page
         }
         catch(Exception ex)
         {
-            OutputLabel.Text = "An account with this email already exists." + ex;
+            OutputLabel.Text = "An account with this email already exists.";
         }
     }
 }
