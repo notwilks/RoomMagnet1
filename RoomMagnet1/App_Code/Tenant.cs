@@ -10,19 +10,20 @@ using System.Web;
 public class Tenant
 {
     private int tenantID;
-    private string firstName;
-    private string lastName;
-    private string houseNumber;
-    private string street;
-    private string city;
-    private string zip;
-    private string state;
-    private string country;
-    private string email;
-    private string phoneNumber;
-    private string password;
+    private String firstName;
+    private String lastName;
+    private String houseNumber;
+    private String street;
+    private String city;
+    private String zip;
+    private String state;
+    private String country;
+    private String email;
+    private String phoneNumber;
+    private String password;
     private DateTime birthDate;
-    private string tenantType;
+    private String tenantType;
+    private String biography;
     public Tenant()
     {
 
@@ -35,7 +36,7 @@ public class Tenant
     {
         return this.tenantID;
     }
-    public void SetFirstName(string firstName)
+    public void SetFirstName(String firstName)
     {
         string name = firstName[0].ToString().ToUpper();
         for (int i = 1; i < firstName.Length; i++)
@@ -52,13 +53,13 @@ public class Tenant
         }
         this.firstName = name;
     }
-    public string GetFirstName()
+    public String GetFirstName()
     {
         return this.firstName;
     }
-    public void SetLastName(string lastName)
+    public void SetLastName(String lastName)
     {
-        string name = lastName[0].ToString().ToUpper();
+        String name = lastName[0].ToString().ToUpper();
         for (int i = 1; i < lastName.Length; i++)
         {
             // Keep capitalized letters for last names with a prefix
@@ -79,13 +80,13 @@ public class Tenant
         }
         this.lastName = name;
     }
-    public string GetLastName()
+    public String GetLastName()
     {
         return this.lastName;
     }
-    public void SetHouseNumber(string streetAddress)
+    public void SetHouseNumber(String streetAddress)
     {
-        string houseNumber = "";
+        String houseNumber = "";
         for (int i = 0; i < streetAddress.Length; i++)
         {
             // Grab numbers only
@@ -103,14 +104,14 @@ public class Tenant
         this.houseNumber = houseNumber;
     }
 
-    public string GetHouseNumber()
+    public String GetHouseNumber()
     {
         return this.houseNumber;
     }
 
-    public void SetStreet(string streetAddress)
+    public void SetStreet(String streetAddress)
     {
-        string street = "";
+        String street = "";
         for (int i = 0; i < streetAddress.Length; i++)
         {
             // Include spaces in street name
@@ -135,65 +136,65 @@ public class Tenant
         }
         this.street = street;
     }
-    public string GetStreet()
+    public String GetStreet()
     {
         return this.street;
     }
-    public void SetCity(string city)
+    public void SetCity(String city)
     {
         this.city = city;
     }
-    public string GetCity()
+    public String GetCity()
     {
         return this.city;
     }
-    public void SetZip(string zip)
+    public void SetZip(String zip)
     {
         this.zip = zip;
     }
-    public string GetZip()
+    public String GetZip()
     {
         return this.zip;
     }
-    public void SetState(string state)
+    public void SetState(String state)
     {
         this.state = state;
     }
-    public string GetState()
+    public String GetState()
     {
         return this.state;
     }
-    public void SetCountry(string country)
+    public void SetCountry(String country)
     {
         this.country = country;
     }
-    public string GetCountry()
+    public String GetCountry()
     {
         return this.country;
     }
 
-    public void SetEmail(string email)
+    public void SetEmail(String email)
     {
         this.email = email;
     }
-    public string GetEmail()
+    public String GetEmail()
     {
         return this.email;
     }
 
-    public void SetPhoneNumber(string phoneNumber)
+    public void SetPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
     }
-    public string GetPhoneNumber()
+    public String GetPhoneNumber()
     {
         return this.phoneNumber;
     }
-    public void SetPassword(string password)
+    public void SetPassword(String password)
     {
         this.password = password;
     }
-    public string GetPassword()
+    public String GetPassword()
     {
         return this.password;
     }
@@ -205,13 +206,22 @@ public class Tenant
     {
         return this.birthDate;
     }
-    public void SetTenantType(string tenantType)
+    public void SetTenantType(String tenantType)
     {
         this.tenantType = tenantType;
     }
-    public string GetTenantType()
+    public String GetTenantType()
     {
         return this.tenantType;
     }
-    
+
+    public void SetBiography(String bio)
+    {
+        this.biography = bio;
+    }
+
+    public String GetBiography()
+    {
+        return this.biography;
+    }
 }

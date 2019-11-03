@@ -50,7 +50,7 @@
 
           <div class="row">
             <div class="col">
-              <label for="formGroupExampleInput">Confirm Email</label>
+              <label for="formGroupExampleInput" style ="margin-top: 2rem;">Confirm Email</label>
                 <asp:TextBox ID="ConfirmEmailBox" runat="server" CssClass="form-control" placeholder="Confirm Email"></asp:TextBox>
                 <asp:Label ID="ConfirmEmailErrorLbl" runat="server" Text="" Font-Size="Small" ForeColor="Red"></asp:Label>
             </div>

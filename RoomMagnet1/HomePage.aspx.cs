@@ -32,9 +32,21 @@ public partial class HomePage : System.Web.UI.Page
     {
         if (CitySearchBox.Text.Length > 0)
         {
-            Session["CitySearch"] = CitySearchBox.Text;
-            Session["StateSearch"] = stateBox.SelectedValue;
-            Response.Redirect("SearchResultPage.aspx");
+            if (CitySearchBox.Text.Contains("0") || CitySearchBox.Text.Contains("1") || CitySearchBox.Text.Contains("2") || CitySearchBox.Text.Contains("3") || CitySearchBox.Text.Contains("4")
+                && CitySearchBox.Text.Contains("5") || CitySearchBox.Text.Contains("6") || CitySearchBox.Text.Contains("7") || CitySearchBox.Text.Contains("8") || CitySearchBox.Text.Contains("9")
+                && CitySearchBox.Text.Contains("!") || CitySearchBox.Text.Contains("@") || CitySearchBox.Text.Contains("#") || CitySearchBox.Text.Contains("$") || CitySearchBox.Text.Contains("%")
+                && CitySearchBox.Text.Contains("^") || CitySearchBox.Text.Contains("&") || CitySearchBox.Text.Contains("*") || CitySearchBox.Text.Contains("(") || CitySearchBox.Text.Contains(")")
+                && CitySearchBox.Text.Contains("-") || CitySearchBox.Text.Contains("_") || CitySearchBox.Text.Contains("+") || CitySearchBox.Text.Contains("="))
+            {
+                Session["StateSearch"] = stateBox.SelectedValue;
+                Response.Redirect("SearchResultPage.aspx");
+            }
+            else
+            {
+                Session["CitySearch"] = CitySearchBox.Text;
+                Session["StateSearch"] = stateBox.SelectedValue;
+                Response.Redirect("SearchResultPage.aspx");
+            }
         }
         else
         {

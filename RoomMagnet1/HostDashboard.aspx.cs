@@ -166,9 +166,10 @@ public partial class HostDashboard : System.Web.UI.Page
 
         listing = "T";
 
-        setList.CommandText = "UPDATE Accommodation SET Listed = @listed WHERE HostID = @hostID";
+        setList.CommandText = "UPDATE Accommodation SET Listed = @listed, dateListed = @dateListed WHERE HostID = @hostID";
         setList.Parameters.Add(new SqlParameter("@hostID", hID));
         setList.Parameters.Add(new SqlParameter("@listed", listing));
+        setList.Parameters.Add(new SqlParameter("@dateListed", DateTime.Now));
 
         setList.ExecuteNonQuery();
 
