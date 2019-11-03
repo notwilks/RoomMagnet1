@@ -531,4 +531,12 @@ public partial class CreateProperty : System.Web.UI.Page
     {
         Response.Redirect("HostDashboard.aspx");
     }
+    protected void PopulateButton_Click(object sender, EventArgs e)
+    {
+        AddressBox.Text = "123 Fake St";
+        CityBox.Text = "Harrisonburg";
+        stateBox.SelectedItem.Value = "VA";
+        ZipBox.Text = "22801";
+
+    }
 }
