@@ -181,7 +181,7 @@ public partial class EditProperty : System.Web.UI.Page
         update.Parameters.Add(new SqlParameter("@numTen", Convert.ToInt32(NumOfTenantsBox.Text)));
         update.Parameters.Add(new SqlParameter("@neighborhood", neighborhoodBox.Text));
         update.Parameters.Add(new SqlParameter("@propName", PropNameBox.Text));
-        update.Parameters.Add(new SqlParameter("@roomType", RoomTypeList.SelectedIndex.ToString()));
+        update.Parameters.Add(new SqlParameter("@roomType", RoomTypeList.SelectedItem.Text));
         update.Parameters.Add(new SqlParameter("@bio", PropDescriptionBox.Text));
         update.Parameters.Add(new SqlParameter("@tempID", ViewState["tempID"]));
         update.Parameters.Add(new SqlParameter("@city", cityBox.Text));
