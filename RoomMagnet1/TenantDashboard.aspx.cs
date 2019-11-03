@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using Google.Cloud.Translation.V2;
+using System.Web.UI.HtmlControls;
 
 public partial class TenantDashboard : System.Web.UI.Page
 {
@@ -35,11 +37,11 @@ public partial class TenantDashboard : System.Web.UI.Page
             today = DateTime.Now;
             age = CalculateAge(reader.GetDateTime(3)).ToString(); ;
             bio = reader.GetString(4);
-            
-            
+
+
 
         }
-        
+
 
         FirstNameLastNameHeader.Text = HttpUtility.HtmlEncode(name) + "'s Dashboard";
         FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;
@@ -77,5 +79,38 @@ public partial class TenantDashboard : System.Web.UI.Page
         }
 
         return age.ToString();
+    }
+
+    protected string checkBadge(char badge, string img)
+    {
+        string image = "";
+
+        if (badge.Equals('T'))
+            image = img;
+
+        return image;
+    }
+
+    protected void addBadge(string image)
+    {
+        if (image != "")
+        {
+
+
+            HtmlGenericControl newP = new HtmlGenericControl("p")
+            {
+
+            };
+
+            Image newImg = new Image()
+            {
+                ImageUrl = image,
+
+            };
+            newImg.Attributes.Add("style", "max-width: 150px; margin-top: 3px; margin-right: 2rem;");
+
+            newP.Controls.Add(newImg);
+            badgeModule.Controls.Add(newImg);
+        }
     }
 }
