@@ -27,7 +27,9 @@
        		<a href="HomePage.aspx"><img src="images/logo-04.png" alt="Room Magnet Logo" class="img-fluid" style="margin-left: 1em; max-width: 100px;"></a> 
         </div> <!-- end div header left - logo -->       
 
-        <div class="col-md-9 navhome" style="text-align: right;"><!-- start nav header right -->   	
+        <div class="col-md-9 navhome" style="text-align: right;"><!-- start nav header right --> 
+            
+               <label id="signedInUser" runat="server" class="" style="margin-right: 2rem;"></label>
            
                <a href="SearchResultpage.aspx" class="btn btn-outline-dark">Find a Property</a>
 
