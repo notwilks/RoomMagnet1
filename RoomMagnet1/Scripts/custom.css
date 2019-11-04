@@ -56,6 +56,24 @@
 
 
 /* media queries for CTA on home  */
+@media only screen and (max-width: 2000px) {
+    .ctahome {
+        position: relative;
+        left: 10rem;
+    }
+
+    .arrowd {
+        display: none;
+    }
+
+    .promar {
+        padding-left: 10rem;
+    }
+
+    .cardstuff {
+        margin-left: 60rem;
+    }
+}
 
 @media only screen and (max-width: 1600px) {
     .ctahome{
@@ -78,7 +96,7 @@
 }
 
 @media only screen and (max-width: 1500px) {
-    .ctahome  position: relative;
+    .ctahome  {position: relative;
         left: 50rem;
     }
 
@@ -89,9 +107,15 @@
     .promar {
         padding-left: 8rem;
     }
+
+.cardstuff {
+    margin-left: 20rem;
+}
+
 }
 
 @media only screen and (max-width: 1400px) {
+
   .ctahome 6rem;
     }
 }

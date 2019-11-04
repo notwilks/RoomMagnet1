@@ -20,7 +20,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             stateBox.SelectedValue = Convert.ToString(Session["StateSearch"]);
             SearchButton_Click(sender, e);         
         }
-
+        
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)
@@ -247,7 +247,7 @@ public partial class SearchResultPage : System.Web.UI.Page
         while (reader.Read())
         {
             //Get acommodationID to be inserted into FavoriteProperty in FavoriteBagdge_Click method
-            //ViewState["AccommodationID"] = Convert.ToString(reader["a.accommodationID"]);
+            
             //Generating the initial div
             var div1 = new HtmlGenericControl("div")
             {
@@ -463,16 +463,15 @@ public partial class SearchResultPage : System.Web.UI.Page
             messageBadge.Style.Add("margin-right", "1rem;");
 
             //favorite badge
-            var favoriteBadge = new HtmlGenericControl("img")
+            var FavoriteBtn = new HtmlGenericControl("img")
             {
 
             };
 
-            rightCol.Controls.Add(favoriteBadge);
-            favoriteBadge.Attributes.Add("src", "images/favorite-badge.png");
-            favoriteBadge.Style.Add("max-width", "90px;");
-            favoriteBadge.Style.Add("margin-right", "1rem;");
-            favoriteBadge.Attributes.Add("OnClick", "FavoriteBadge_Click");
+            rightCol.Controls.Add(FavoriteBtn);
+            FavoriteBtn.Attributes.Add("src", "images/favorite-badge.png");
+            FavoriteBtn.Style.Add("max-width", "90px;");
+            FavoriteBtn.Style.Add("margin-right", "1rem;");
 
             //view profile badge
             var viewProfileBadge = new HtmlGenericControl("img")
@@ -565,7 +564,7 @@ public partial class SearchResultPage : System.Web.UI.Page
 
     }
 
-    protected void FavoriteBadge_Click(object sender, EventArgs e)
+    protected void FavoriteBtn_Click(object sender, EventArgs e)
     {
        
         // Get tenantID to from Tenant to be inserted into FavoriteProperty
