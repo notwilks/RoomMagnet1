@@ -15,12 +15,16 @@ public partial class TenantDashboard : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
+        
+
+        
+
         // Load database data into local variables to be displayed on dashboard
         sc.Open();
-        SqlCommand select = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
+        SqlCommand selectTenantInfo = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
             "phoneNumber, birthDate, isnull(biography, 'bio goes here') FROM [Tenant] where email = @email", sc);
-        select.Parameters.AddWithValue("@email", Session["userEmail"]);
-        SqlDataReader reader = select.ExecuteReader();
+        selectTenantInfo.Parameters.AddWithValue("@email", Session["userEmail"]);
+        SqlDataReader reader = selectTenantInfo.ExecuteReader();
         String name = "";
         String email = "";
         String phoneNumber = "";
@@ -28,6 +32,8 @@ public partial class TenantDashboard : System.Web.UI.Page
         DateTime today = DateTime.Now;
         String age = "";
         String bio = "";
+        char badge1 = 'F';
+        char badge2 = 'F';
         while (reader.Read())
         {
             name = reader.GetString(0);
@@ -42,6 +48,18 @@ public partial class TenantDashboard : System.Web.UI.Page
 
         }
 
+        SqlCommand selectBadge = new SqlCommand("SELECT undergraduateBage, graduateBadge FROM TenantBadges where email = email2", sc);
+        selectBadge.Parameters.AddWithValue("@email", Session["userEmail"]);
+        reader = selectBadge.ExecuteReader();
+        while (reader.Read())
+        {
+            badge1 = Convert.ToChar(reader["undergraduateBadge"]);
+            badge2 = Convert.ToChar(reader["graduateBadge"]);
+        }
+        reader.Close();
+
+        string image1 = checkBadge(badge1, "images/undergrad-badge.png");
+        string image2 = checkBadge(badge2, "images/masters-badge.png");
 
         FirstNameLastNameHeader.Text = HttpUtility.HtmlEncode(name) + "'s Dashboard";
         FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;

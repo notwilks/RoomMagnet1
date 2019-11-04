@@ -16,11 +16,27 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
     {
         // UserType and UserEmail test code
         //OutputLabel.Text = "" + Convert.ToString(Session["userType"]) + Convert.ToString(Session["userEmail"]);
+
+        if (Convert.ToString(Session["userType"]) == "T")
+        {
+            TenantTypeLbl.Text = "Tenant Type";
+            TenantTypeBox.Visible = true;
+            OtherLbl.Text = "Other";
+            OtherBox.Visible = true;
+        }
+        else if (Convert.ToString(Session["userType"]) == "H")
+        {
+            TenantTypeLbl.Text = "";
+            TenantTypeBox.Visible = false;
+            OtherLbl.Text = "";
+            OtherBox.Visible = false;
+        }
     }
     protected void Button1_Click1(object sender, EventArgs e)
     {
+        String tenantType = "";
         sc.Open();
-
+        
         SqlCommand insert = new SqlCommand();
         insert.Connection = sc;
 
@@ -38,15 +54,15 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
             {
                 tempTenant.SetBirthDate(Convert.ToDateTime(dobBox.Text));
             }
-            
 
             try
             {
-                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text.Length != 12)
+                // Validates whether all the textboxes have actual values in them
+                if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text != "" && TenantTypeBox.SelectedValue != "0" && bioBox.Text != "")
                 {
-                    pNumBoxErrorLbl.Text = "";
-                    phoneNumberBox.Text.ToUpper();
+                    TenantTypeErrorLbl.Text = "";
 
+                    // Validates the phone number only contains - and #'s
                     if (phoneNumberBox.Text.Contains("A") || phoneNumberBox.Text.Contains("B") || phoneNumberBox.Text.Contains("C") || phoneNumberBox.Text.Contains("D") || phoneNumberBox.Text.Contains("E")
                         || phoneNumberBox.Text.Contains("F") || phoneNumberBox.Text.Contains("G") || phoneNumberBox.Text.Contains("H") || phoneNumberBox.Text.Contains("I") || phoneNumberBox.Text.Contains("J")
                         || phoneNumberBox.Text.Contains("K") || phoneNumberBox.Text.Contains("L") || phoneNumberBox.Text.Contains("M") || phoneNumberBox.Text.Contains("N") || phoneNumberBox.Text.Contains("O")
@@ -54,21 +70,48 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         || phoneNumberBox.Text.Contains("U") || phoneNumberBox.Text.Contains("V") || phoneNumberBox.Text.Contains("W") || phoneNumberBox.Text.Contains("X") || phoneNumberBox.Text.Contains("Y")
                         || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
                         || phoneNumberBox.Text.Contains("%") || phoneNumberBox.Text.Contains("^") || phoneNumberBox.Text.Contains("&") || phoneNumberBox.Text.Contains("*") || phoneNumberBox.Text.Contains("(")
-                        || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("="))
+                        || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("=") || phoneNumberBox.Text.Length != 12)
                     {
                         pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
                     }
                     else
                     {
+                        pNumBoxErrorLbl.Text = "";
+
+                        // Validates the true value of the TenantTypeBox 
+                        if (TenantTypeBox.SelectedValue == "Other")
+                        {
+                            if (OtherBox.Text == "")
+                            {
+                                OtherErrorLbl.Text = "Please enter a tenant type.";
+                                TenantTypeErrorLbl.Text = "";
+                            }
+                            else
+                            {
+                                tenantType = OtherBox.Text;
+                                OtherErrorLbl.Text = "";
+                                TenantTypeErrorLbl.Text = "";
+                            }
+                        }
+
+                        // Setting all the datafields in tempTenant
                         tempTenant.SetFirstName(FirstNameBox.Text);
                         tempTenant.SetLastName(LastNameBox.Text);
                         tempTenant.SetPhoneNumber(phoneNumberBox.Text);
                         tempTenant.SetBiography(bioBox.Text);
-                        pNumBoxErrorLbl.Text = "";
+
+                        if (tenantType == "")
+                        {
+                            tempTenant.SetTenantType(TenantTypeBox.SelectedValue);
+                        }
+                        else
+                        {
+                            tempTenant.SetTenantType(tenantType);
+                        }
 
                         //Insert user info into tenant table
-                        insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, phoneNumber, birthDate, gender, lastUpdated, lastUpdatedBy, biography) VALUES " +
-                            "(@firstName, @lastName, @email, @phone, @dob, @gender, @lastUpdated, @lastUpdatedBy, @biography)";
+                        insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, phoneNumber, birthDate, gender, lastUpdated, lastUpdatedBy, biography, tenantType) VALUES " +
+                            "(@firstName, @lastName, @email, @phone, @dob, @gender, @lastUpdated, @lastUpdatedBy, @biography, @tenantType)";
 
                         insert.Parameters.AddWithValue("@firstName", tempTenant.GetFirstName());
                         insert.Parameters.AddWithValue("@lastName", tempTenant.GetLastName());
@@ -76,9 +119,10 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         insert.Parameters.AddWithValue("@phone", tempTenant.GetPhoneNumber());
                         insert.Parameters.AddWithValue("@dob", tempTenant.GetBirthDate());
                         insert.Parameters.AddWithValue("@gender", DropDownList1.SelectedValue);
-                        insert.Parameters.AddWithValue("@lastUpdatedBy", Environment.UserName);
+                        insert.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
                         insert.Parameters.AddWithValue("@lastUpdated", DateTime.Now);
                         insert.Parameters.AddWithValue("@biography", tempTenant.GetBiography());
+                        insert.Parameters.AddWithValue("@tenantType", tempTenant.GetTenantType());
 
                         insert.ExecuteNonQuery();
 
@@ -89,12 +133,15 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 }
                 else
                 {
-                    pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
+                    if (TenantTypeBox.SelectedValue == "0")
+                    {
+                        TenantTypeErrorLbl.Text = "Please select an option.";
+                    }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                OutputLabel.Text = "An error occured." + ex;
+                OutputLabel.Text = "" + ex;
             }
 
         }
