@@ -126,6 +126,15 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
                         insert.ExecuteNonQuery();
 
+                        //pulling current tenant ID for inserting images
+                        insert.CommandText = "Select tenantID from Tenant where email = @tenEmail";
+                        insert.Parameters.AddWithValue("@tenEmail", Convert.ToString(Session["userEmail"]));
+
+                        int tenID = Convert.ToInt32(insert.ExecuteScalar());
+
+                        insert.CommandText = "Insert into TenantImages (tenantID) VALUES (" + tenID + ")";
+                        insert.ExecuteNonQuery();
+
                         Response.Redirect("TenantAccountConfirmation.aspx");
                     }
                 }

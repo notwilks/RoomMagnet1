@@ -15,10 +15,6 @@ public partial class TenantDashboard : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        
-
-        
-
         // Load database data into local variables to be displayed on dashboard
         sc.Open();
         SqlCommand selectTenantInfo = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
@@ -44,9 +40,8 @@ public partial class TenantDashboard : System.Web.UI.Page
             age = CalculateAge(reader.GetDateTime(3)).ToString(); ;
             bio = reader.GetString(4);
 
-
-
         }
+        reader.Close();
 
         SqlCommand selectBadge = new SqlCommand("SELECT undergraduateBage, graduateBadge FROM TenantBadges where email = email2", sc);
         selectBadge.Parameters.AddWithValue("@email", Session["userEmail"]);
