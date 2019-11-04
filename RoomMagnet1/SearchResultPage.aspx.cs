@@ -247,7 +247,7 @@ public partial class SearchResultPage : System.Web.UI.Page
         while (reader.Read())
         {
             //Get acommodationID to be inserted into FavoriteProperty in FavoriteBagdge_Click method
-           // ViewState["AccommodationID"] = Convert.ToString(reader["a.accommodationID"]);
+            //ViewState["AccommodationID"] = Convert.ToString(reader["a.accommodationID"]);
             //Generating the initial div
             var div1 = new HtmlGenericControl("div")
             {
@@ -463,7 +463,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             messageBadge.Style.Add("margin-right", "1rem;");
 
             //favorite badge
-            var favoriteBadge = new HtmlGenericControl("img")
+            var favoriteBadge = new HtmlGenericControl("")
             {
 
             };
