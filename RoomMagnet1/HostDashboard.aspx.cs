@@ -107,7 +107,7 @@ public partial class HostDashboard : System.Web.UI.Page
         string image3 = checkBadge(cBadge3, "images/closet-space-badge.png");
         string image4 = checkBadge(cBadge4, "images/add-badges-badge.png");
         string image5 = checkBadge(cBadge5, "images/furnished-badge.png");
-        string image6 = checkBadge(cBadge6, "images/non-smoker-badge.png");
+        string image6 = checkBadge(cBadge6, "images/non-smoker-badge.png"); 
         string image7 = checkBadge(cBadge7, "images/add-badges-badge.png");
         string image8 = checkBadge(cBadge8, "images/add-badges-badge.png");
         string image9 = checkBadge(cBadge9, "images/add-badges-badge.png");
