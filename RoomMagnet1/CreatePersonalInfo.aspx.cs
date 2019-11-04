@@ -82,6 +82,8 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
                         insert.ExecuteNonQuery();
 
+
+
                         Response.Redirect("TenantAccountConfirmation.aspx");
                     }
                 }

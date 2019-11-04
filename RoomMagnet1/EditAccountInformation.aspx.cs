@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.IO;
 
 public partial class EditAccountInformation : System.Web.UI.Page
 {
@@ -51,6 +52,68 @@ public partial class EditAccountInformation : System.Web.UI.Page
         sc.Open();
         SqlCommand update = new SqlCommand();
         update.Connection = sc;
+
+        //inserting images to profile
+        String path = Server.MapPath("Images2/");
+        SqlCommand updateImages = new SqlCommand();
+        updateImages.Connection = sc;
+
+        updateImages.CommandText = "Select tenantID from Tenant where email = @tenantEmail";
+        updateImages.Parameters.Add(new SqlParameter("@tenantEmail", Convert.ToString(Session["userEmail"])));
+
+        int tenID = Convert.ToInt32(updateImages.ExecuteScalar());
+
+        if (mainImage.HasFile)
+        {
+            String ext = Path.GetExtension(mainImage.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                mainImage.SaveAs(path + tenID + mainImage.FileName);
+
+                String name = "Images2/" + tenID + mainImage.FileName;
+
+
+                    updateImages.CommandText = "update TenantImages set mainImage = @image where tenantID = " + tenID;
+                    updateImages.Parameters.Add(new SqlParameter("@image", name));
+
+                    updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image2.HasFile)
+        {
+            String ext = Path.GetExtension(image2.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image2.SaveAs(path + tenID + image2.FileName);
+
+                String name = "Images2/" + tenID + image2.FileName;
+
+                updateImages.CommandText = "update TenantImages set mainImage = @image2 where tenantID = " + tenID;
+                updateImages.Parameters.Add(new SqlParameter("@image2", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image3.HasFile)
+        {
+            String ext = Path.GetExtension(image3.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image3.SaveAs(path + tenID + image3.FileName);
+
+                String name = "Images2/" + tenID + image3.FileName;
+
+                updateImages.CommandText = "update TenantImages set mainImage = @image3 where tenantID = " + tenID;
+                updateImages.Parameters.Add(new SqlParameter("@image3", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
 
         //Create and execute query
         update.CommandText = "UPDATE " + table + " SET firstName = @f, lastName = @l, phoneNumber = @phone, birthDate = @bday, gender = @sex, lastUpdated = @lU, lastUpdatedBy = @lUB WHERE email = @email";
