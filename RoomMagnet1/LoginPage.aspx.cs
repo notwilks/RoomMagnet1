@@ -62,9 +62,18 @@ public partial class LoginPage : System.Web.UI.Page
                         {
                             Response.Redirect("TenantDashboard.aspx");
                         }
-                        else
+                        else if (Convert.ToString(Session["userType"]) == "H")
                         {
                             Response.Redirect("HostDashboard.aspx");
+                        }
+                        else if (Convert.ToString(Session["userType"]) == "A")
+                        {
+                            Response.Redirect("AdminDashboard.aspx");
+                        }
+                        else
+                        {
+                            // ur fucking stupid
+                            // like we're fucked
                         }
                         
                         sc.Close();
