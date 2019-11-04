@@ -209,6 +209,8 @@ public partial class SearchResultPage : System.Web.UI.Page
             "and a.price < @maxPrice " +
             "Order By " + order;
 
+        
+
         //Select h.firstName, h.lastName, a.description, a.extraInfo from Host h inner join Accommodation a on a.hostID = h.HostID inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID where UPPER(a.city) = @city and a.state = @state and aa.bathroom like @bathroom and aa.entrance like @entrance and aa.furnished like @furnished and aa.storage like @storage and aa.pets like @pets and aa.smoker like @smoker and aa.wifi like @wifi and aa.parking like @parking and aa.kitchen like @kitchen and aa.laundry like @laundry and aa.cable like @cable and aa.allowPets like @allowsPets
 
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@city", Convert.ToString(Session["CitySearch"])));
@@ -239,8 +241,10 @@ public partial class SearchResultPage : System.Web.UI.Page
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@maxPrice", maxPrice));
 
         SqlDataReader reader = counter.ExecuteReader();
+        //Get acommodationID to be inserted into FavoriteProperty in FavoriteBagdge_Click method
+        String accomodationId = Convert.ToString(reader["a.accommodationID"]);
 
-        while(reader.Read())
+        while (reader.Read())
         {
             
             //Generating the initial div
@@ -467,6 +471,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             favoriteBadge.Attributes.Add("src", "images/favorite-badge.png");
             favoriteBadge.Style.Add("max-width", "90px;");
             favoriteBadge.Style.Add("margin-right", "1rem;");
+            favoriteBadge.Attributes.Add("OnClick", "FavoriteBadge_Click");
 
             //view profile badge
             var viewProfileBadge = new HtmlGenericControl("img")
@@ -556,6 +561,23 @@ public partial class SearchResultPage : System.Web.UI.Page
 
     protected void LaundryBox_CheckedChanged(object sender, EventArgs e)
     {
+
+    }
+
+    protected void FavoriteBadge_Click(object sender, EventArgs e)
+    {
+        // Get tenantID to from Tenant to be inserted into FavoriteProperty
+        SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
+        selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
+        sc.Open();
+        String tenantID = selectTenantID.ExecuteScalar().ToString();
+        sc.Close();
+        // Get 
+        SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
+        insertFavorite.Parameters.AddWithValue("@tID", tenantID);
+        insertFavorite.Parameters.AddWithValue("@aID", accommodationID);
+        insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
+        insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
 
     }
 }
