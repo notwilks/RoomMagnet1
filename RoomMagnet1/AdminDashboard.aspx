@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <!doctype html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="Room Magnet">
@@ -31,140 +31,59 @@
     
    <!--Start First Module -->
    <div class="row " style="margin-top: 1rem;">
-    <div class="col-md-6" style="border: solid; border-color: white;">
-        <div class="row">
-            <div class="col-md-6">
-               <h2 >Active Hosts</h2>                
-            </div>
-            <div>
-                
-            </div>         
-            <div class ="col">
+        <div class="col" style="border: solid; border-color: white;">
+           <h2 >Active Hosts</h2>                
+        </div>
 
-            </div>
-        </div> <!--end Row Class -->
+        <div class ="col">
+            <h2 >Active Tenants</h2> 
+        </div>
+    </div>
         
         <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
-            <div class="col-md-6" style="margin-top: 1rem;">
-                <div class="row" style="margin-top: 1rem;">
-                    <div class="col-md-6">
-                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="HostGridView">
-                    <Columns>
-                        <asp:BoundField DataField="FirstName" HeaderText="FirstName"/>
-                        <asp:BoundField DataField ="LastName" HeaderText ="LastName" SortExpression="LastName" />
-                        <asp:BoundField DataField="Email" HeaderText="Email"/>
-                    </Columns>
-                </asp:GridView>
-                <asp:SqlDataSource ID="HostGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetAWS %>" SelectCommand="SELECT FirstName, LastName, Email FROM HOST"></asp:SqlDataSource>
+                    <div class="col">
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="HostGridView">
+                            <Columns>
+                                <asp:BoundField DataField="FirstName" HeaderText="FirstName"/>
+                                <asp:BoundField DataField ="LastName" HeaderText ="LastName" SortExpression="LastName" />
+                                <asp:BoundField DataField="Email" HeaderText="Email"/>
+                            </Columns>
+                        </asp:GridView>
+                            <asp:SqlDataSource ID="HostGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetAWS %>" SelectCommand="SELECT FirstName, LastName, Email FROM HOST"></asp:SqlDataSource>
                     </div> <!-- end col class-->
-                </div> <!-- end row class-->
-            </div> <!-- end col class-->
-             <div class="col-md-6" style="margin-top: 1rem;" runat="server">
-            </div> <!-- end col class-->
-        </div> <!--end row class-->
-      </div>
-    <!--End First Module -->   
+                    <div class="col">
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="TenantGridView">
+                            <Columns>
+                                <asp:BoundField DataField="FirstName" HeaderText="FirstName"/>
+                                <asp:BoundField DataField ="LastName" HeaderText ="LastName" SortExpression="LastName" />
+                                <asp:BoundField DataField="Email" HeaderText="Email"/>
+                            </Columns>
+                        </asp:GridView>
+                            <asp:SqlDataSource ID="TenantGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetAWS %>" SelectCommand="SELECT FirstName, LastName, Email FROM TENANT"></asp:SqlDataSource>
+                    </div>
+        </div> 
+    
+        <div class="row " style="margin-top: 1rem;">
+            <div class="col" style="border: solid; border-color: white;">
+                <h2 >Listed Properties</h2>                
+            </div>
 
-    <!--Start Second Module -->
-    <div class="col-md-6" style="border: solid; border-color: white;">
-        <div class="row">
-            <div class="col-md-6">
-               <h2 >Active Tenants</h2> 
-            </div> <!-- end col class-->
-            <div class="col-md-6">
-
-            </div> <!-- end col class-->
-        </div> <!-- end row class-->
-        
-        <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
-            <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="Image1" ImageURl="" runat="server" CssClass="img-fluid"/>
-                <div class="row" style="margin-top: 1rem;">
-                    <div class="col-md-6">
-                        <asp:Image ID="Image2" ImageURl="" runat="server" CssClass="img-fluid"/>
+            <div class ="col">
+                <h2 >Unlisted Properties</h2> 
+            </div>
+        </div>
+    
+        <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="Div1" runat="server" >
+                    <div class="col">
+                         <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="ActivePropGridView">
+                         </asp:GridView>
+                            <asp:SqlDataSource ID="ActivePropGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetConnectionString %>" SelectCommand="SELECT H.firstName + ' ' + H.lastName AS 'Host Name', A.houseNumber + ' ' + A.street AS 'Street Address', A.state, A.country FROM Accommodation AS A INNER JOIN Host AS H ON H.hostID = A.hostID WHERE (A.listed = 'T')"></asp:SqlDataSource>
                     </div> <!-- end col class-->
-                    <div class="col-md-6">
-                        <asp:Image ID="Image3" ImageURl="" runat="server" CssClass="img-fluid"/>
-                    </div> <!-- end col class-->
-                </div> <!-- end row class-->
-            </div> <!-- end col class-->
-             <div class="col-md-6" style="margin-top: 1rem;">
-                 <h3><asp:Label ID="HostName" runat="server" Text="Heading One"></asp:Label></h3>
-            </div> <!-- end col class-->
-        </div> <!-- end row class-->
-      </div> <!-- end col class-->
-       <!--End Second Module -->   
-             
-    </div><!-- end div big row -->
-    
-    
-     <div class="row " style="margin-top: 1rem;">
-        <div class="col-md-6"  style="border: solid; border-color: white;">
-            <div class="row">
-                <div class="col-md-12">
-                   <h2 >GridView Three</h2> 
-                </div>
+                    <div class="col">
 
-            </div> <!-- end row class-->
-
-            <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
-                <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>SubGridView One</h3>
-                    <p>Random Statement In P Tags</p>
-                </div>
-                 <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>SubGridView Two
-                   </h3>
-                    <p>Random Statement in P Tags</p>
-                </div> <!-- end col class-->
-            </div> <!-- end row class-->
-          </div> <!-- end col class-->
-
-
-        <div class="col-md-6" style="border: solid; border-color: white;" >
-        <div class="row">
-            <div class="col-md-12">
-               <h2 >GridView Four</h2> 
-            </div>
-            
-        </div> <!-- end row class-->
-        
-        <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; " >
-            <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                <h3><asp:Label ID="HostBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
-                <p style="text-align: center;"><asp:Image ID="TenantBackgroundStatusImage" runat="server" ImageURL="images/icons-07.png" style="max-width: 75px;"/></p>
-                <p><asp:Label ID="HostBackgroundStatusDescrip" runat="server" Text=""></asp:Label></p>
-                    
-            </div>
-             
-        </div> <!-- end row class-->
-      </div>
-    
-    </div><!-- end div big row -->
-    
-   
-    <div class="row " style="margin-top: 1rem;">
-        <div class="col-md-12"  >
-            <h2>Your Rental Agreements</h2>
-          </div>
-    </div><!-- end div big row -->  
-    
-    <div class="row " style="margin-top: 1rem; background-color: #ebebeb; margin-bottom: 3rem;">
-        <div class="col-md-12"  style=" margin-top: 1rem;">
-            <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
-          </div>
-        <!-- Below is the dropdown list for a future google translate API boiii
-            <div class="col-md-6">
-                <asp:DropDownList ID ="translateList" runat="server" CssClass="form-control" style="">
-
-                </asp:DropDownList>
-            </div>
-            -->
-    </div><!-- end div big row -->  
-    
-    
-    
-</div> <!-- end div container! -->    
+                    </div>
+        </div> 
+</div>
 
 <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
    <div class="row" style="padding-left: 3rem;">
