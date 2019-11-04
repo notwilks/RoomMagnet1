@@ -472,7 +472,6 @@ public partial class SearchResultPage : System.Web.UI.Page
             favoriteBadge.Attributes.Add("src", "images/favorite-badge.png");
             favoriteBadge.Style.Add("max-width", "90px;");
             favoriteBadge.Style.Add("margin-right", "1rem;");
-            favoriteBadge.Attributes.Add("OnClick", "FavoriteBadge_Click");
 
             //view profile badge
             var viewProfileBadge = new HtmlGenericControl("img")
@@ -568,18 +567,18 @@ public partial class SearchResultPage : System.Web.UI.Page
     protected void FavoriteBadge_Click(object sender, EventArgs e)
     {
        
-        // Get tenantID to from Tenant to be inserted into FavoriteProperty
-        SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
-        selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
-        sc.Open();
-        String tenantID = selectTenantID.ExecuteScalar().ToString();
-        sc.Close();
-        // Get 
-        SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
-        insertFavorite.Parameters.AddWithValue("@tID", tenantID);
-        insertFavorite.Parameters.AddWithValue("@aID", ViewState["AccommodationID"]);
-        insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
-        insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
+        //// Get tenantID to from Tenant to be inserted into FavoriteProperty
+        //SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
+        //selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
+        //sc.Open();
+        //String tenantID = selectTenantID.ExecuteScalar().ToString();
+        //sc.Close();
+        //// Get 
+        //SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
+        //insertFavorite.Parameters.AddWithValue("@tID", tenantID);
+        //insertFavorite.Parameters.AddWithValue("@aID", ViewState["AccommodationID"]);
+        //insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
+        //insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
 
     }
 }

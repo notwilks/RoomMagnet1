@@ -28,7 +28,7 @@
             <h1>Your safety is crucial to us.</h1>
             <p>Let us find you the perfect space.</p>
                 <div class="progress " >
-                    <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 75%; " aria-valuenow="75" ></div>
+                    <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 75%; background-color: #CC6559" aria-valuenow="75"></div>
                    </div>
         </div>
 

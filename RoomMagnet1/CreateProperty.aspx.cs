@@ -490,7 +490,10 @@ public partial class CreateProperty : System.Web.UI.Page
                 int accomID = Convert.ToInt32(insert.ExecuteScalar());
 
                 insert.CommandText = "Insert into AccommodationImages (accommodationID) VALUES (" + accomID + ")";
+                insert.ExecuteNonQuery();
 
+                insert.CommandText = "Insert into HostImages (hostID) VALUES (" + hostID + ")";
+                insert.ExecuteNonQuery();
                 sc.Close();
 
                 SqlCommand insertAmenity = new SqlCommand();

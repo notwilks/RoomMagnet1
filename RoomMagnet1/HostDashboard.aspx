@@ -48,13 +48,13 @@
         
         <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="HostPrimaryImage" ImageURl="Images/couple-with-new-home_rtaSl4ABo.jpg" runat="server" CssClass="img-fluid"/>
+                <asp:Image ID="HostPrimaryImage" ImageURl="images/noimageyet420.png" runat="server" CssClass="img-fluid"/>
                 <div class="row" style="margin-top: 1rem;">
                     <div class="col-md-6">
-                        <asp:Image ID="HostImage2" ImageURl="images/scott-webb-1ddol8rgUH8-unsplash.jpg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="HostImage2" ImageURl="" runat="server" CssClass="img-fluid"/>
                     </div>
                     <div class="col-md-6">
-                        <asp:Image ID="HostImage3" ImageURl="images/kitchen.jpeg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="HostImage3" ImageURl="" runat="server" CssClass="img-fluid"/>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="Image1" ImageURl="" runat="server" CssClass="img-fluid"/>
+                <asp:Image ID="Image1" ImageURl="images/noimageyet420.png" runat="server" CssClass="img-fluid"/>
                 <div class="row" style="margin-top: 1rem;">
                     <div class="col-md-6">
                         <asp:Image ID="Image2" ImageURl="" runat="server" CssClass="img-fluid"/>
