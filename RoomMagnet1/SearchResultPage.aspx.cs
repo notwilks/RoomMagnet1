@@ -463,7 +463,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             messageBadge.Style.Add("margin-right", "1rem;");
 
             //favorite badge
-            var favoriteBadge = new HtmlGenericControl("")
+            var favoriteBadge = new HtmlGenericControl("img")
             {
 
             };
