@@ -79,19 +79,19 @@
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="Image1" ImageURl="images/johnsmith1.jpeg" runat="server" CssClass="img-fluid"/>
+                <asp:Image ID="Image1" ImageURl="" runat="server" CssClass="img-fluid"/>
                 <div class="row" style="margin-top: 1rem;">
                     <div class="col-md-6">
-                        <asp:Image ID="Image2" ImageURl="images/johnsmith2.jpeg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="Image2" ImageURl="" runat="server" CssClass="img-fluid"/>
                     </div>
                     <div class="col-md-6">
-                        <asp:Image ID="Image3" ImageURl="images/johnsmith3.jpeg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="Image3" ImageURl="" runat="server" CssClass="img-fluid"/>
                     </div>
                 </div>
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
                  <h3><asp:Label ID="HostName" runat="server" Text="First Last"></asp:Label></h3>
-                    <p><asp:Label ID="HostBio" runat="server" Text="This is a brief bio of the tenant."></asp:Label></p>
+                    <p><asp:Label ID="HostBio" runat="server" Text="This is a brief bio of the host."></asp:Label></p>
                     <p><asp:Image ID="Image4" runat="server" ImageUrl="images/non-smoker-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
                     <p><asp:Image ID="Image5" runat="server" ImageUrl="images/undergrad-badge.png" style="max-width: 150px; margin-top: 3px"></asp:Image></p>
                     <p><asp:Image ID="Image6" runat="server" ImageUrl="" style="max-width: 150px; margin-top: 3px"></asp:Image></p>

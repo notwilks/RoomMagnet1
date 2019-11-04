@@ -56,12 +56,23 @@
 
                 <div class="row" style="margin-top: 2rem">
                     <div class="col">
-                        <label for="formGroupExampleInput">Upload your profile picture</label><br />
+                        <label for="formGroupExampleInput">bio</label>
+                        <asp:TextBox ID="BioBox" runat="server" placeholder ="" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                </div> <!--end row class-->
+
+                <div class="row" style="margin-top: 2rem">
+                    <div class="col">
+                        <label for="formGroupExampleInput">Change/Upload your profile picture</label><br />
+                        <div class="col-md-6">
+                            <asp:Image ID="ProfilePic" runat="server" CssClass="img-fluid"/>
+                        </div>
                         <asp:FileUpload ID="mainImage" runat="server" CssClass="form-control"/>
+                        
                     </div>
                         
                     <div class="col">
-                        <label for="formGroupExampleInput">Upload more images of yourself</label>
+                        <label for="formGroupExampleInput">Change/Upload more images of yourself</label>
                         <asp:FileUpload ID="image2" runat="server" CssClass="form-control"/>
                         <asp:FileUpload ID="image3" runat="server" CssClass="form-control" style="margin-top: 1rem;"/>
                     </div> <!--end col-->

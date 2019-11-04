@@ -12,13 +12,23 @@ public partial class EditAccountInformation : System.Web.UI.Page
 {
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     string table;
+    String imageTable;
+    String userTypeID;
     protected void Page_Load(object sender, EventArgs e)
     {
         //Grab userType to ensure the db query is selecting/updating the proper table.
         if (Convert.ToString(Session["userType"]).Equals("T"))
+        {
             table = "[dbo].[Tenant]";
+            imageTable = "TenantImages";
+            userTypeID = "tenantID";
+        }
         else
+        {
             table = "[dbo].[Host]";
+            imageTable = "HostImages";
+            userTypeID = "hostID";
+        }
 
         if (!IsPostBack)
         {
@@ -27,7 +37,7 @@ public partial class EditAccountInformation : System.Web.UI.Page
             SqlCommand load = new SqlCommand();
             load.Connection = sc;
 
-            load.CommandText = "select firstName, lastName, phoneNumber, birthDate, gender from " + table + " where email = @email";
+            load.CommandText = "select firstName, lastName, phoneNumber, birthDate, gender, biography from " + table + " where email = @email";
             load.Parameters.Add(new SqlParameter("@email", Convert.ToString(Session["userEmail"])));
 
             using (SqlDataReader reader = load.ExecuteReader())
@@ -39,10 +49,21 @@ public partial class EditAccountInformation : System.Web.UI.Page
                     phoneNumberBox.Text = Convert.ToString(reader["phoneNumber"]);
                     dobBox.Text = Convert.ToDateTime(reader["birthDate"]).ToString("MM/dd/yyyy");
                     DropDownList1.SelectedItem.Value = Convert.ToString(reader["gender"]);
+                    BioBox.Text = Convert.ToString(reader["biography"]);
 
                 }
             }
             sc.Close();
+
+            sc.Open();
+
+            load.CommandText = "Select " + userTypeID + " from " + table + " where email = @userEmaill";
+            load.Parameters.Add(new SqlParameter("@userEmaill", Convert.ToString(Session["userEmail"])));
+
+            int userID = Convert.ToInt32(load.ExecuteScalar());
+
+            load.CommandText = "Select ISNULL(mainImage, '') from " + imageTable + " where " + userTypeID + " = " + userID;
+            ProfilePic.ImageUrl = Convert.ToString(load.ExecuteScalar());
         }
     }
 
@@ -58,10 +79,10 @@ public partial class EditAccountInformation : System.Web.UI.Page
         SqlCommand updateImages = new SqlCommand();
         updateImages.Connection = sc;
 
-        updateImages.CommandText = "Select tenantID from Tenant where email = @tenantEmail";
-        updateImages.Parameters.Add(new SqlParameter("@tenantEmail", Convert.ToString(Session["userEmail"])));
+        updateImages.CommandText = "Select " + userTypeID + " from " + table + " where email = @userEmail";
+        updateImages.Parameters.Add(new SqlParameter("@userEmail", Convert.ToString(Session["userEmail"])));
 
-        int tenID = Convert.ToInt32(updateImages.ExecuteScalar());
+        int userID = Convert.ToInt32(updateImages.ExecuteScalar());
 
         if (mainImage.HasFile)
         {
@@ -69,12 +90,12 @@ public partial class EditAccountInformation : System.Web.UI.Page
 
             if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
             {
-                mainImage.SaveAs(path + tenID + mainImage.FileName);
+                mainImage.SaveAs(path + userID + mainImage.FileName);
 
-                String name = "Images2/" + tenID + mainImage.FileName;
+                String name = "Images2/" + userID + mainImage.FileName;
 
 
-                    updateImages.CommandText = "update TenantImages set mainImage = @image where tenantID = " + tenID;
+                    updateImages.CommandText = "update " + imageTable + " set mainImage = @image where " + userTypeID + " = " + userID;
                     updateImages.Parameters.Add(new SqlParameter("@image", name));
 
                     updateImages.ExecuteNonQuery();
@@ -87,11 +108,11 @@ public partial class EditAccountInformation : System.Web.UI.Page
 
             if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
             {
-                image2.SaveAs(path + tenID + image2.FileName);
+                image2.SaveAs(path + userID + image2.FileName);
 
-                String name = "Images2/" + tenID + image2.FileName;
+                String name = "Images2/" + userID + image2.FileName;
 
-                updateImages.CommandText = "update TenantImages set mainImage = @image2 where tenantID = " + tenID;
+                updateImages.CommandText = "update " + imageTable + " set image2 = @image2 where " + userTypeID + " = " + userID;
                 updateImages.Parameters.Add(new SqlParameter("@image2", name));
 
                 updateImages.ExecuteNonQuery();
@@ -104,11 +125,11 @@ public partial class EditAccountInformation : System.Web.UI.Page
 
             if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
             {
-                image3.SaveAs(path + tenID + image3.FileName);
+                image3.SaveAs(path + userID + image3.FileName);
 
-                String name = "Images2/" + tenID + image3.FileName;
+                String name = "Images2/" + userID + image3.FileName;
 
-                updateImages.CommandText = "update TenantImages set mainImage = @image3 where tenantID = " + tenID;
+                updateImages.CommandText = "update " + imageTable + " set image3 = @image3 where " + userTypeID + " = " + userID;
                 updateImages.Parameters.Add(new SqlParameter("@image3", name));
 
                 updateImages.ExecuteNonQuery();
@@ -116,7 +137,7 @@ public partial class EditAccountInformation : System.Web.UI.Page
         }
 
         //Create and execute query
-        update.CommandText = "UPDATE " + table + " SET firstName = @f, lastName = @l, phoneNumber = @phone, birthDate = @bday, gender = @sex, lastUpdated = @lU, lastUpdatedBy = @lUB WHERE email = @email";
+        update.CommandText = "UPDATE " + table + " SET firstName = @f, lastName = @l, phoneNumber = @phone, birthDate = @bday, gender = @sex, lastUpdated = @lU, lastUpdatedBy = @lUB, biography = @bio WHERE email = @email";
         update.Parameters.Add(new SqlParameter("@f", HttpUtility.HtmlEncode(FirstNameBox.Text)));
         update.Parameters.Add(new SqlParameter("@l", HttpUtility.HtmlEncode(LastNameBox.Text)));
         if (phoneNumberBox.Text.Length == 0)
@@ -133,6 +154,7 @@ public partial class EditAccountInformation : System.Web.UI.Page
         update.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
         update.Parameters.Add(new SqlParameter("@lUB", Environment.UserName));
         update.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
+        update.Parameters.Add(new SqlParameter("@bio", BioBox.Text));
 
         update.ExecuteNonQuery();
         sc.Close();

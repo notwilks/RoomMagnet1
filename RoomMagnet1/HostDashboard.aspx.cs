@@ -40,6 +40,11 @@ public partial class HostDashboard : System.Web.UI.Page
 
         int accomID = Convert.ToInt32(select.ExecuteScalar());
 
+        select.CommandText = "Select hostID from Host where email = @hostEmail2";
+        select.Parameters.Add(new SqlParameter("@hostEmail2", Convert.ToString(Session["userEmail"])));
+
+        int hostID = Convert.ToInt32(select.ExecuteScalar());
+
         select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM AccommodationImages where accommodationID = " + accomID;
 
         using (SqlDataReader reader = select.ExecuteReader())
@@ -51,8 +56,26 @@ public partial class HostDashboard : System.Web.UI.Page
                 HostImage3.ImageUrl = reader.GetString(2);
             }
         }
+        sc.Close();
+
+        sc.Open();
+        select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM HostImages where hostID = " + hostID;
+
+        using (SqlDataReader reader = select.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                Image1.ImageUrl = reader.GetString(0);
+                Image2.ImageUrl = reader.GetString(1);
+                Image3.ImageUrl = reader.GetString(2);
+            }
+        }
 
         //HostPrimaryImage.ImageUrl = Convert.ToString(select.ExecuteScalar());
+
+        //select host bio
+        select.CommandText = "Select biography from Host where hostID = " + hostID;
+        HostBio.Text = Convert.ToString(select.ExecuteScalar());
 
         //selecting name info
         select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
