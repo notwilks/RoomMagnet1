@@ -410,6 +410,7 @@ public partial class CreateProperty : System.Web.UI.Page
                 }
             } // End of RoomType validator If Statement
 
+
             // If Statement that allows the create statements to be sent through
             if (PriceBox.Text != "" && AddressBox.Text != "" && CityBox.Text != "" && ZipBox.Text != "" && stateBox.SelectedIndex != 0 && PriceBox.Text != "" && Convert.ToDouble(PriceBox.Text) > 0 &&
                   TNumBox.Text != "" && NeighborhoodBox.Text != "" && DescriptBox.Text != "" && EffectiveDateBox.Text != "" && TerminationDateBox.Text != "" && RoomTypeList.SelectedValue != "Select a Room Type"
@@ -445,7 +446,7 @@ public partial class CreateProperty : System.Web.UI.Page
                 // If Statement that changes the "Other" value to the text entered in the OtherBox for the SetRoomType method
                 if (roomTypeOther == "")
                 {
-                   tempAccom.SetRoomType(RoomTypeList.SelectedValue);
+                   tempAccom.SetRoomType(RoomTypeList.SelectedItem.Value);
                 }
                 else
                 {
