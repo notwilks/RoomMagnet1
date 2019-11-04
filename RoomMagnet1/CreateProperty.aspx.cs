@@ -410,6 +410,7 @@ public partial class CreateProperty : System.Web.UI.Page
                 }
             } // End of RoomType validator If Statement
 
+
             // If Statement that allows the create statements to be sent through
             if (PriceBox.Text != "" && AddressBox.Text != "" && CityBox.Text != "" && ZipBox.Text != "" && stateBox.SelectedIndex != 0 && PriceBox.Text != "" && Convert.ToDouble(PriceBox.Text) > 0 &&
                   TNumBox.Text != "" && NeighborhoodBox.Text != "" && DescriptBox.Text != "" && EffectiveDateBox.Text != "" && TerminationDateBox.Text != "" && RoomTypeList.SelectedValue != "Select a Room Type"
@@ -445,7 +446,7 @@ public partial class CreateProperty : System.Web.UI.Page
                 // If Statement that changes the "Other" value to the text entered in the OtherBox for the SetRoomType method
                 if (roomTypeOther == "")
                 {
-                   tempAccom.SetRoomType(RoomTypeList.SelectedValue);
+                   tempAccom.SetRoomType(RoomTypeList.SelectedItem.Value);
                 }
                 else
                 {
@@ -544,8 +545,27 @@ public partial class CreateProperty : System.Web.UI.Page
     {
         AddressBox.Text = "123 Fake St";
         CityBox.Text = "Harrisonburg";
-        stateBox.SelectedItem.Value = "VA";
+        stateBox.SelectedValue = "VA";
         ZipBox.Text = "22801";
-
+        PriceBox.Text = "650.00";
+        TNumBox.Text = "4";
+        NeighborhoodBox.Text = "Harrisonburg";
+        EffectiveDateBox.Text = "01/01/2019";
+        TerminationDateBox.Text = "01/01/2020";
+        DescriptBox.Text = "Example Property";
+        RoomTypeList.SelectedItem.Value = "Private Room";
+        PrivateBathroom.SelectedValue = "F";
+        PrivateEntrance.SelectedValue = "F";
+        StorageSpace.SelectedValue = "T";
+        Parking.SelectedValue = "T";
+        Furnished.SelectedValue = "T";
+        Smokers.SelectedValue = "F";
+        Pets.SelectedValue = "F";
+        AllowPets.SelectedValue = "T";
+        PrivateKitchen.SelectedValue = "F";
+        PrivateLaundry.SelectedValue = "F";
+        Wifi.SelectedValue = "T";
+        Cable.SelectedValue = "F";
+        ExtraInfoBox.Text = "This is a sample property.";
     }
 }
