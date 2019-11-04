@@ -46,7 +46,8 @@
                 <asp:TextBox ID="FirstNameBox" runat="server" MaxLength ="25" CssClass="form-control" placeholder="First Name"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="FirstNameBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="FirstNameBox" Font-Size="Small" Operator="DataTypeCheck" ForeColor="Red" Type="String" Text ="Invalid characters" />
-            </div>
+            </div> <!-- end col class-->
+
             <div class="col">
               <label for="formGroupExampleInput" style="margin-top: 4rem;">Last Name</label>
               <asp:TextBox ID="LastNameBox" runat="server" MaxLength ="25" CssClass="form-control" placeholder="Last Name"></asp:TextBox>
@@ -62,7 +63,8 @@
                             <asp:ListItem Value="M">Male</asp:ListItem>
                             <asp:ListItem Value="F">Female</asp:ListItem>
                         </asp:DropDownList>
-            </div>
+            </div> <!-- end col class-->
+
             <div class="col">
               <label for="formGroupExampleInput">Date of Birth</label>
               <asp:TextBox ID="dobBox" runat="server" placeholder ="MM/DD/YYY" CssClass="form-control"></asp:TextBox>
@@ -77,15 +79,36 @@
               <asp:TextBox ID="phoneNumberBox" runat="server" placeholder ="###-###-####" CssClass="form-control"></asp:TextBox>
                 <asp:Label ID="pNumBoxErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:RequiredFieldValidator ID="PhoneNumberValidator" runat="server" ControlToValidate="phoneNumberBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
-            </div>
+            </div> <!-- end col class-->
+            <div class="col">
             
             </div> <!--end col-->
           </div> <!--end row class-->
 
+        <div class="row">
+            <div class="col">
+                <asp:Label ID="TenantTypeLbl" runat="server" Text="Tenant Type"></asp:Label>
+                <asp:DropDownList ID="TenantTypeBox" runat="server"  CssClass="form-control btn btn-outline-secondary">
+                    <asp:ListItem Value="0">Select A Tenant Type</asp:ListItem>
+                    <asp:ListItem Value ="Medical">Medical Student</asp:ListItem>
+                    <asp:ListItem Value ="Doctorate">Docorate Student</asp:ListItem>
+                    <asp:ListItem Value ="Undergraduate">Undergraduate Student</asp:ListItem>
+                    <asp:ListItem Value ="Graduate">Graduate Student</asp:ListItem>
+                    <asp:ListItem Value ="Other">Other</asp:ListItem>
+                </asp:DropDownList>
+                <asp:Label ID="TenantTypeErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+             </div> <!-- end col class -->
+            <div class="col">
+                <asp:Label ID="OtherLbl" runat="server" Text="Other"></asp:Label>
+                <asp:TextBox ID="OtherBox" runat="server" cssclass="form-control"></asp:TextBox>
+                <asp:Label ID="OtherErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+            </div>
+        </div> <!--end row class-->
+
 
         <div class="row">
             <div class="col">
-              <label for="formGroupExampleInput">Biography</label>
+              <label for="formGroupExampleInput" style="margin-top:2rem;">Biography</label>
               <asp:TextBox ID="bioBox" runat="server" placeholder ="Please write a short description about yourself." CssClass="form-control" Height="150px" TextMode="MultiLine"></asp:TextBox>
                 <asp:Label ID="bioBoxErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 <asp:RequiredFieldValidator ID="BioValidator" runat="server" ControlToValidate="bioBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
