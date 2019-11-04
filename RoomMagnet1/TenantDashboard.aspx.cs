@@ -43,8 +43,8 @@ public partial class TenantDashboard : System.Web.UI.Page
         }
         reader.Close();
 
-        SqlCommand selectBadge = new SqlCommand("SELECT undergraduateBage, graduateBadge FROM TenantBadges where email = email2", sc);
-        selectBadge.Parameters.AddWithValue("@email", Session["userEmail"]);
+        SqlCommand selectBadge = new SqlCommand("SELECT undergraduate, graduate FROM TenantBadge where tenantID = (select tenantID from Tenant where email = @email2)", sc);
+        selectBadge.Parameters.AddWithValue("@email2", Session["userEmail"]);
         reader = selectBadge.ExecuteReader();
         while (reader.Read())
         {
