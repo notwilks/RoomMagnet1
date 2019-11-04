@@ -29,6 +29,7 @@ public partial class SearchResultPage : System.Web.UI.Page
         {
             Session["CitySearch"] = HttpUtility.HtmlEncode(CitySearchBox.Text);
             Session["StateSearch"] = HttpUtility.HtmlEncode(stateBox.SelectedValue);
+            ViewState["AccommodationID"] = "";
         }
 
         String bathroom = "%";
@@ -241,12 +242,12 @@ public partial class SearchResultPage : System.Web.UI.Page
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@maxPrice", maxPrice));
 
         SqlDataReader reader = counter.ExecuteReader();
-        //Get acommodationID to be inserted into FavoriteProperty in FavoriteBagdge_Click method
-        String accomodationId = Convert.ToString(reader["a.accommodationID"]);
+        
 
         while (reader.Read())
         {
-            
+            //Get acommodationID to be inserted into FavoriteProperty in FavoriteBagdge_Click method
+           // ViewState["AccommodationID"] = Convert.ToString(reader["a.accommodationID"]);
             //Generating the initial div
             var div1 = new HtmlGenericControl("div")
             {
@@ -566,6 +567,7 @@ public partial class SearchResultPage : System.Web.UI.Page
 
     protected void FavoriteBadge_Click(object sender, EventArgs e)
     {
+       
         // Get tenantID to from Tenant to be inserted into FavoriteProperty
         SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
         selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
@@ -575,7 +577,7 @@ public partial class SearchResultPage : System.Web.UI.Page
         // Get 
         SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
         insertFavorite.Parameters.AddWithValue("@tID", tenantID);
-        insertFavorite.Parameters.AddWithValue("@aID", accommodationID);
+        insertFavorite.Parameters.AddWithValue("@aID", ViewState["AccommodationID"]);
         insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
         insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
 
