@@ -77,11 +77,25 @@
         <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="Div1" runat="server" >
                     <div class="col">
                          <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="ActivePropGridView">
+                             <Columns>
+                                 <asp:BoundField DataField="Host Name" HeaderText ="Host Name" />
+                                 <asp:BoundField DataField="Street Address" HeaderText="Street Address" />
+                                 <asp:BoundField DataField="State" HeaderText ="State" />
+                                 <asp:BoundField DataField="Country" HeaderText="Country" />
+                             </Columns>
                          </asp:GridView>
-                            <asp:SqlDataSource ID="ActivePropGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetConnectionString %>" SelectCommand="SELECT H.firstName + ' ' + H.lastName AS 'Host Name', A.houseNumber + ' ' + A.street AS 'Street Address', A.state, A.country FROM Accommodation AS A INNER JOIN Host AS H ON H.hostID = A.hostID WHERE (A.listed = 'T')"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="ActivePropGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetConnectionString %>" SelectCommand="SELECT H.firstName + ' ' + H.lastName AS 'Host Name', A.houseNumber + ' ' + A.street AS 'Street Address', A.state AS 'State', A.country AS 'Country' FROM Accommodation AS A INNER JOIN Host AS H ON H.hostID = A.hostID WHERE (A.listed = 'T')"></asp:SqlDataSource>
                     </div> <!-- end col class-->
                     <div class="col">
-
+                        <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" DataSourceID="InactivePropGridView">
+                             <Columns>
+                                 <asp:BoundField DataField="Host Name" HeaderText ="Host Name" />
+                                 <asp:BoundField DataField="Street Address" HeaderText="Street Address" />
+                                 <asp:BoundField DataField="State" HeaderText ="State" />
+                                 <asp:BoundField DataField="Country" HeaderText="Country" />
+                             </Columns>
+                         </asp:GridView>
+                            <asp:SqlDataSource ID="InactivePropGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetConnectionString %>" SelectCommand="SELECT H.firstName + ' ' + H.lastName AS 'Host Name', A.houseNumber + ' ' + A.street AS 'Street Address', A.state AS 'State', A.country AS 'Country' FROM Accommodation AS A INNER JOIN Host AS H ON H.hostID = A.hostID WHERE (A.listed = 'F')"></asp:SqlDataSource>
                     </div>
         </div> 
 </div>

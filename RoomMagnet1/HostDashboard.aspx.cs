@@ -174,6 +174,7 @@ public partial class HostDashboard : System.Web.UI.Page
             ListPropertyButton.Visible = false;
             UnlistPropertyButton.Visible = false;
             CreatePropertyButton.Visible = true;
+            EditPropertyButton.Visible = false;
         }
 
         sc.Close();
