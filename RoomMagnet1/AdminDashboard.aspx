@@ -23,9 +23,10 @@
 <form runat="server">     
 <div id="containerDiv" class="container">
 
-  <div class="row " style="margin-top: 7rem;">
-    <div class="col-md-9">
-        <h1><asp:Label ID="FirstNameLastNameHeader" runat="server" Text="Admin Dashboard"></asp:Label></h1><!-- += 's Dashboard -->
+  <div class="row " style="margin-top: 7rem; border-bottom: solid;">
+    <div class="col-md-9" style="margin-bottom: 2rem; margin-top: 2rem">
+        <h1><asp:Label ID="FirstNameLastNameHeader" runat="server" Text="Admin Dashboard"></asp:Label></h1>
+        <h3><asp:Label ID="Label1" runat="server" Text="Powered By: "></asp:Label></h3> <asp:Image ID="Image4" runat="server" ImageUrl="images/companylogo-02.png" Height="100px" Width="180px"/>
       </div>
     </div><!-- end div row -->  
     
