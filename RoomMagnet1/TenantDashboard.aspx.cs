@@ -60,8 +60,24 @@ public partial class TenantDashboard : System.Web.UI.Page
         FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;
         BioLabel.Text = HttpUtility.HtmlEncode(bio);
 
+        SqlCommand selectImages = new SqlCommand();
+        selectImages.Connection = sc;
 
+        selectImages.CommandText = "Select tenantID from Tenant where email = @tenEmail";
+        selectImages.Parameters.AddWithValue("@tenEmail", Session["userEmail"]);
 
+        int tenantID = Convert.ToInt32(selectImages.ExecuteScalar());
+
+        selectImages.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM TenantImages where tenantID = " + tenantID;
+        reader = selectImages.ExecuteReader();
+
+            while (reader.Read())
+            {
+                TenantPrimaryImage.ImageUrl = reader.GetString(0);
+                TenantImage2.ImageUrl = reader.GetString(1);
+                TenantImage3.ImageUrl = reader.GetString(2);
+            }
+            reader.Close();
 
 
         //Header.Text = "Host Dashboard.";

@@ -13,6 +13,7 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+        String table = "";
         if(Convert.ToString(Session["userEmail"]) != "")
         {
             leftButton.InnerText = "My Profile";
@@ -21,10 +22,17 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
             if (Convert.ToString(Session["userType"]) == "T")
             {
                 leftButton.Attributes.Add("href", "TenantDashboard.aspx");
+                table = "Tenant";
             }
             else if(Convert.ToString(Session["userType"]) == "H")
             {
                 leftButton.Attributes.Add("href", "HostDashboard.aspx");
+                table = "Host";
+            }
+            else if (Convert.ToString(Session["userType"]) == "A")
+            {
+                leftButton.Attributes.Add("href", "AdminDashboard.aspx");
+
             }
 
             sc.Open();
@@ -32,9 +40,17 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
             SqlCommand select = new SqlCommand();
             select.Connection = sc;
 
-            select.CommandText = "Select CONCAT(firstName, ' ' , lastName) from host where email = @email";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
-            signedInUser.InnerText = "Hi, " + Convert.ToString(select.ExecuteScalar());
+            try
+            {
+                select.CommandText = "Select CONCAT(firstName, ' ' , lastName) from " + table + " where email = @email";
+                select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
+                signedInUser.InnerText = "Hi, " + Convert.ToString(select.ExecuteScalar());
+            }
+            catch
+            {
+                signedInUser.InnerText = "Hi, Admin";
+            }
+            sc.Close();
             
 
         }

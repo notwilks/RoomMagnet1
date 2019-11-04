@@ -46,13 +46,13 @@
         
         <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="badgeModule" runat="server" >
             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="TenantPrimaryImage" ImageURl="images/johnsmith1.jpeg" runat="server" CssClass="img-fluid"/>
+                <asp:Image ID="TenantPrimaryImage" ImageURl="" runat="server" CssClass="img-fluid"/>
                 <div class="row" style="margin-top: 1rem;">
                     <div class="col-md-6">
-                        <asp:Image ID="TenantImage2" ImageURl="images/johnsmith2.jpeg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="TenantImage2" ImageURl="" runat="server" CssClass="img-fluid"/>
                     </div>
                     <div class="col-md-6">
-                        <asp:Image ID="TenantImage3" ImageURl="images/johnsmith3.jpeg" runat="server" CssClass="img-fluid"/>
+                        <asp:Image ID="TenantImage3" ImageURl="" runat="server" CssClass="img-fluid"/>
                     </div>
                 </div>
             </div>
