@@ -13,22 +13,24 @@ public partial class SearchResultPage : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        //CitySearchBox.Text = Convert.ToString(Session["CitySearch"]);
-        //stateBox.SelectedValue = Convert.ToString(Session["StateSearch"]);
+        
+        if (!Convert.ToString(Session["CitySearch"]).Equals("") || !Convert.ToString(Session["StateSearch"]).Equals(""))
+        {
+            CitySearchBox.Text = Convert.ToString(Session["CitySearch"]);
+            stateBox.SelectedValue = Convert.ToString(Session["StateSearch"]);
+            SearchButton_Click(sender, e);         
+        }
 
-        //if (CitySearchBox.Text.Length > 0 && !IsPostBack)
-        ////if(Session["CitySearch"].ToString().Length > 0)
-        //{
-        //    SearchButton_Click(sender, e);
-        //    Session["CitySearch"] = "";
-        //    Session["StateSearch"] = "";
-        //}
-        //Session["CitySearch"] = "";
-        //Session["StateSearch"] = "";
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)
     {
+        if (IsPostBack)
+        {
+            Session["CitySearch"] = HttpUtility.HtmlEncode(CitySearchBox.Text);
+            Session["StateSearch"] = HttpUtility.HtmlEncode(stateBox.SelectedValue);
+        }
+
         String bathroom = "%";
         String bathroomBadge = "images/private-bath.png";
         String entrance = "%";
@@ -209,8 +211,8 @@ public partial class SearchResultPage : System.Web.UI.Page
 
         //Select h.firstName, h.lastName, a.description, a.extraInfo from Host h inner join Accommodation a on a.hostID = h.HostID inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID where UPPER(a.city) = @city and a.state = @state and aa.bathroom like @bathroom and aa.entrance like @entrance and aa.furnished like @furnished and aa.storage like @storage and aa.pets like @pets and aa.smoker like @smoker and aa.wifi like @wifi and aa.parking like @parking and aa.kitchen like @kitchen and aa.laundry like @laundry and aa.cable like @cable and aa.allowPets like @allowsPets
 
-        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@city", CitySearchBox.Text.ToUpper()));
-        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@state", stateBox.SelectedValue));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@city", Convert.ToString(Session["CitySearch"])));
+        counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@state", Convert.ToString(Session["StateSearch"])));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@bathroom", bathroom));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@entrance", entrance));
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@furnished", furnished));
@@ -492,7 +494,9 @@ public partial class SearchResultPage : System.Web.UI.Page
             count++;
         }
         sc.Close();
-        countLabel.Text = "Your search returned " + count + " result(s) for '" + CitySearchBox.Text + ", " + stateBox.SelectedValue.ToString() + "'";
+        countLabel.Text = "Your search returned " + count + " result(s) for '" + Convert.ToString(Session["CitySearch"]) + ", " + Convert.ToString(Session["StateSearch"]) + "'";
+        Session["CitySearch"] = "";
+        Session["StateSearch"] = "";
     }
 
     protected void PrivateEntranceBox_CheckedChanged(object sender, EventArgs e)
