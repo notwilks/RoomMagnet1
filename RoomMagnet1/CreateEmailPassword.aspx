@@ -90,8 +90,8 @@
         <div class="row" style="margin-bottom: 3rem;"> 
           <div class="col-md-6"></div>
              <div class="col-md-6">         
-                 <asp:Button ID="NextButton" runat="server" Text="Next" CausesValidation="True" CssClass="btn" style="float: right;" OnClick="NextButton_Click"/>
-                 <asp:Button ID="PopulateBtn" runat="server" Text="Populate" CausesValidation="True" CssClass="btn" style="float: right;" OnClick="PopulateButton_Click"/>
+                 <asp:Button ID="NextButton" runat="server" Text="Next" CausesValidation="True" CssClass="btn" style="float: right; margin-right: 1rem;" OnClick="NextButton_Click"/>
+                 <asp:Button ID="PopulateBtn" runat="server" Text="Populate" CausesValidation="True" CssClass="btn" style="float: right; margin-right: 1rem;" OnClick="PopulateButton_Click"/>
              </div>
                 <asp:Label ID="OutputLabel" runat="server" Text=""></asp:Label>
             
