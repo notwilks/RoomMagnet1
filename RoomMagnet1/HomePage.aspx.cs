@@ -26,6 +26,8 @@ public partial class HomePage : System.Web.UI.Page
         {
 
         }
+
+        String path = Server.MapPath("Images2/");
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)
