@@ -207,7 +207,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             "and aa.allowPets like @allowsPets " + 
             "and a.listed = 'T' " +
             "and a.price > @minPrice " +
-            "and a.price < @maxPrice " +
+            "and a.price <= @maxPrice " +
             "Order By " + order;
 
         

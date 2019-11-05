@@ -72,8 +72,7 @@ public partial class LoginPage : System.Web.UI.Page
                         }
                         else
                         {
-                            // ur fucking stupid
-                            // like we're fucked
+                            //nothing
                         }
                         
                         sc.Close();
