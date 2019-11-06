@@ -19,17 +19,15 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
         if (Convert.ToString(Session["userType"]) == "T")
         {
-            TenantTypeLbl.Text = "Tenant Type";
-            TenantTypeBox.Visible = true;
-            OtherLbl.Text = "Other";
-            OtherBox.Visible = true;
+            TenantTypeLbl.InnerText = "Tenant Type";
+            OtherTenantLbl.InnerText = "Other";
         }
         else if (Convert.ToString(Session["userType"]) == "H")
         {
-            TenantTypeLbl.Text = "";
+            TenantTypeLbl.InnerText = "";
             TenantTypeBox.Visible = false;
-            OtherLbl.Text = "";
-            OtherBox.Visible = false;
+            OtherTenantLbl.InnerText = "";
+            OtherTBox.Visible = false;
         }
     }
     protected void Button1_Click1(object sender, EventArgs e)
@@ -60,7 +58,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 // Validates whether all the textboxes have actual values in them
                 if (FirstNameBox.Text != "" && LastNameBox.Text != "" && dobBox.Text != "" && phoneNumberBox.Text != "" && TenantTypeBox.SelectedValue != "0" && bioBox.Text != "")
                 {
-                    TenantTypeErrorLbl.Text = "";
+                    //TenantTypeErrorLbl.Text = "";
 
                     // Validates the phone number only contains - and #'s
                     if (phoneNumberBox.Text.Contains("A") || phoneNumberBox.Text.Contains("B") || phoneNumberBox.Text.Contains("C") || phoneNumberBox.Text.Contains("D") || phoneNumberBox.Text.Contains("E")
@@ -81,16 +79,16 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         // Validates the true value of the TenantTypeBox 
                         if (TenantTypeBox.SelectedValue == "Other")
                         {
-                            if (OtherBox.Text == "")
+                            if (OtherTBox.Text == "")
                             {
                                 OtherErrorLbl.Text = "Please enter a tenant type.";
-                                TenantTypeErrorLbl.Text = "";
+                                //TenantTypeErrorLbl.Text = "";
                             }
                             else
                             {
-                                tenantType = OtherBox.Text;
+                                tenantType = OtherTBox.Text;
                                 OtherErrorLbl.Text = "";
-                                TenantTypeErrorLbl.Text = "";
+                                //TenantTypeErrorLbl.Text = "";
                             }
                         }
 
@@ -142,7 +140,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                 {
                     if (TenantTypeBox.SelectedValue == "0")
                     {
-                        TenantTypeErrorLbl.Text = "Please select an option.";
+                        //TenantTypeErrorLbl.Text = "Please select an option.";
                     }
                 }
             }
@@ -230,5 +228,33 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
         bioBox.Text = "This is an example biography.";
         phoneNumberBox.Text = "540-111-1111";
 
+    }
+
+    protected void TenantTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if(TenantTypeBox.SelectedItem.Value.Equals("Other"))
+        {
+            OtherTenantLbl.Visible = true;
+            OtherTBox.Visible = true;
+        }
+        else
+        {
+            OtherTenantLbl.Visible = false;
+            OtherTBox.Visible = false;
+        }
+    }
+
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (DropDownList1.SelectedItem.Value.Equals("O"))
+        {
+            OtherGenderLbl.Visible = true;
+            OtherGenderBox.Visible = true;
+        }
+        else
+        {
+            OtherGenderLbl.Visible = false;
+            OtherGenderBox.Visible = false;
+        }
     }
 }

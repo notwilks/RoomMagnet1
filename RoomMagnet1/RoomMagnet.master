@@ -13,6 +13,7 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <link href="Scripts/custom.css" rel="stylesheet" type="text/css" media="screen">
     <link href="Scripts/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400|Raleway:300&display=swap" rel="stylesheet">    
     <!-- jQuery and Bootstrap links - do not delete! -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
