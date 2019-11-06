@@ -50,7 +50,7 @@
            <h4><img src="images/icons-07.png" alt="approved symbol" style="max-width: 50px;"> Completed</h4>  
             <p style="margin-left: 4rem;">This person has completed the background check process and has been cleared and approved by our standards.</p>
              <h4><img src="images/icons-08.png" alt="not begun symbol" style="max-width: 50px;"> Not Completed</h4>  
-            <p style="margin-left: 4rem;">This person has not yet started the background check process or has started, but not yet been apporved.</p>
+            <p style="margin-left: 4rem;">This person has not yet started the background check process or has started, but not yet been approved.</p>
         </div>
 
     </div><!-- end div row --> 

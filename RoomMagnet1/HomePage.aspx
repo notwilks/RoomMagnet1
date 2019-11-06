@@ -134,7 +134,7 @@
     <div class="row" style="margin-top: 5rem; margin-left: 1rem;">
         <div class="col-md-12">
         <h3>Hear From Some Happy Customers</h3>
-        </div>    
+    </div>    
     </div><!-- end div row! -->
     
     <div class="row">
