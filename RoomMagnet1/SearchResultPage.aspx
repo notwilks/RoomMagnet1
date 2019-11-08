@@ -16,7 +16,7 @@
 <!-- custom css -->
 <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="shortcut icon" href="images/logo-03.png" type="image/x-icon"/>
-</head>
+
 
 <body>
 <form id="form1" runat="server">
@@ -173,8 +173,12 @@
     </ul>
 </div>
 
-      
- 
+<div class="row" style=" margin-top: 1.5rem; margin-bottom: 3rem;">    
+    <label class="container">Location:</label>
+    <ul class="nav container">
+        <li id="map" class ="nav-item" style="height:350px; width:600px"></li>
+    </ul>  
+</div>
     
 <section style="margin-left: 8rem" id="ResultList" runat="server">
     <div class="row " style="margin-top: 2rem; border-bottom: solid; border-bottom-width: 1px; ">
@@ -195,7 +199,7 @@
 
 </section>
 
-   <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
+<footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
    <div class="row" style="padding-left: 3rem;">
     <div class="col-md-4" style="padding-left: 3rem;">   
     <h3 class="din">Room Magnet</h3>
@@ -223,6 +227,20 @@
     </div>
 </footer><!-- end footer! -->    
 </form>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            var uluru = { lat: 38.4496, lng: -78.8689 };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+        }
+    </script>
+    
+    <script async defer src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCvx85j9xjxC4E2uKIjJHaxzFa7j_F0wU4&callback=initMap" type="text/javascript"></script>
 </body>
 </html>
 </asp:Content>
