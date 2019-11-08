@@ -1,18 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="EditAccountInformation.aspx.cs" Inherits="EditAccountInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    
+<!doctype html>
+<meta charset="UTF-8">
+
     <form id="form1" style="margin-top: 7rem;" runat="server">
+
         <header style="margin-top: 8rem;">
-      <div class="container">
-        <h1>Edit Personal Information</h1>
-          <p style="color:dimgrey">*Phone number is not displayed to potential hosts.*</p>
-      </div>
-</header>
+            <div class="container">
+                <h1>Edit Personal Information</h1>
+                <p style="color:dimgrey">*Phone number is not displayed to potential hosts.*</p>
+            </div>
+        </header>
 
         <section id="creation" style="margin-top: 2rem;">
             <div class="container">
-
                 <div class="row" style="margin-top: 2rem">
                     <div class="col">
                         <label for="formGroupExampleInput">First Name</label>
@@ -28,31 +30,47 @@
                     </div> <!--end col-->
                 </div> <!--end row class-->
 
-                <div class="row" style="margin-top: 2rem">
-                    <div class="col">
-                        <label for="formGroupExampleInput">Gender</label>
-                        <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="M">Male</asp:ListItem>
+          <div class="row">          
+            <div class="col">
+              <label for="formGroupExampleInput">Date of Birth</label>
+              <asp:TextBox ID="dobBox" runat="server" placeholder ="MM/DD/YYY" CssClass="form-control"></asp:TextBox>
+              <asp:RequiredFieldValidator ID="DoBValidator" runat="server" ControlToValidate="dobBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
+              <asp:CompareValidator ID="DoBCompareValidator" runat="server" ControlToValidate="dobBox" Text="Please enter date in 'MM/DD/YYYY' format." Type="Date" Operator="DataTypeCheck" Font-Size="Small" ForeColor="Red"></asp:CompareValidator>
+            </div> <!--end col-->
+            <div class="col">
+            
+            </div> <!--end col-->
+          </div> <!--end row class-->
+         <div class="row">
+             <div class="col">
+              <label for="formGroupExampleInput" >Gender</label>
+              <asp:DropDownList ID="DropDownList1" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">                     
+                            <asp:ListItem Value="">Select Option:</asp:ListItem>
                             <asp:ListItem Value="F">Female</asp:ListItem>
+                            <asp:ListItem Value="M">Male</asp:ListItem>
+                            <asp:ListItem Value="O">Other</asp:ListItem>
                         </asp:DropDownList>
-                    </div>
-                    <div class="col">
-                        <label for="formGroupExampleInput">Date of Birth</label>
-                        <asp:TextBox ID="dobBox" runat="server" placeholder ="MM/DD/YYY" CssClass="form-control"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="dobBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="dobBox" Text="Invalid DOB" Type="Date" Operator="DataTypeCheck" Font-Size="Small" ForeColor="Red" Display="Static"></asp:CompareValidator>
-                    </div> <!--end col-->
-                </div> <!--end row class-->
+              <asp:RequiredFieldValidator ID="SelectGender" runat="server" ControlToValidate="DropDownList1" InitialValue="" ErrorMessage="Please Select Gender" Font-Size="Small" ForeColor="Red" />
+             </div><!-- end col class-->
+             <div class="col">
+                <label for="formGroupExampleInput" id="OtherGenderLbl" runat="server" visible="false" >Other</label>
+                <asp:TextBox ID="OtherGenderBox" runat="server" visible="false" cssclass="form-control"></asp:TextBox>
+                <asp:Label ID="GenderErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+            </div><!-- end col class -->
+             
+         </div>
 
-                <div class="row" style="margin-top: 2rem">
-                    <div class="col">
-                        <label for="formGroupExampleInput">Phone Number</label>
-                        <asp:TextBox ID="phoneNumberBox" runat="server" placeholder ="xxx-xxx-xxxx" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col">
-
-                    </div> <!--end col-->
-                </div> <!--end row class-->
+          <div class="row">
+            <div class="col">
+              <label for="formGroupExampleInput">Phone Number</label>
+              <asp:TextBox ID="phoneNumberBox" runat="server" placeholder ="###-###-####" CssClass="form-control"></asp:TextBox>
+                <asp:Label ID="pNumBoxErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                <asp:RequiredFieldValidator ID="PhoneNumberValidator" runat="server" ControlToValidate="phoneNumberBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
+            </div> <!-- end col class-->
+            <div class="col">
+            
+            </div> <!--end col-->
+          </div> <!--end row class-->
 
                 <div class="row" style="margin-top: 2rem">
                     <div class="col">

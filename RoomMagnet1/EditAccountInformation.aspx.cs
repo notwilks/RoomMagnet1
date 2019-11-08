@@ -39,7 +39,7 @@ public partial class EditAccountInformation : System.Web.UI.Page
 
             load.CommandText = "select firstName, lastName, phoneNumber, birthDate, gender, biography from " + table + " where email = @email";
             load.Parameters.Add(new SqlParameter("@email", Convert.ToString(Session["userEmail"])));
-
+            string tempGender = "";
             using (SqlDataReader reader = load.ExecuteReader())
             {
                 if (reader.Read())
@@ -48,10 +48,26 @@ public partial class EditAccountInformation : System.Web.UI.Page
                     LastNameBox.Text = Convert.ToString(reader["lastName"]);
                     phoneNumberBox.Text = Convert.ToString(reader["phoneNumber"]);
                     dobBox.Text = Convert.ToDateTime(reader["birthDate"]).ToString("MM/dd/yyyy");
-                    DropDownList1.SelectedItem.Value = Convert.ToString(reader["gender"]);
+                    tempGender = Convert.ToString(reader["gender"]);
                     BioBox.Text = Convert.ToString(reader["biography"]);
 
                 }
+
+                if(tempGender.Equals("F") || tempGender.Equals("M"))
+                {
+                    DropDownList1.SelectedValue = tempGender;
+                }else if (tempGender.Equals(""))
+                {
+                    DropDownList1.SelectedValue = "";
+                }
+                else
+                {
+                    DropDownList1.SelectedValue = "O";
+                    OtherGenderLbl.Visible = true;
+                    OtherGenderBox.Visible = true;
+                    OtherGenderBox.Text = "Need Other Gender Col in DB";
+                }
+
             }
             sc.Close();
 
@@ -172,5 +188,19 @@ public partial class EditAccountInformation : System.Web.UI.Page
             Response.Redirect("HostDashboard.aspx");
         }
              
+    }
+
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (DropDownList1.SelectedItem.Value.Equals("O"))
+        {
+            OtherGenderLbl.Visible = true;
+            OtherGenderBox.Visible = true;
+        }
+        else
+        {
+            OtherGenderLbl.Visible = false;
+            OtherGenderBox.Visible = false;
+        }
     }
 }
