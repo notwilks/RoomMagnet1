@@ -26,42 +26,30 @@
   <div class="row " style="margin-top: 7rem; border-bottom: solid;">
     <div class="col-md-9" style="margin-bottom: 2rem; margin-top: 2rem">
         <h1><asp:Label ID="FirstNameLastNameHeader" runat="server" Text="Admin Dashboard"></asp:Label></h1>
-        <h3><asp:Label ID="Label1" runat="server" Text="Powered By: "></asp:Label></h3> <asp:Image ID="Image4" runat="server" ImageUrl="images/companylogo-02.png" Height="100px" Width="180px"/>
+        <h3><asp:Label ID="Label1" runat="server" Text="Powered By: "></asp:Label></h3>
+        <asp:Image ID="Image4" runat="server" ImageUrl="images/companylogo-02.png" Height="100px" Width="180px"/>
       </div>
     </div><!-- end div row -->  
     
    <!--Start First Module -->
    <div class="row " style="margin-top: 1rem;">
         <div class="col" style="border: solid; border-color: white;">
-           <h2 >Active Hosts</h2>                
-        </div>
-
-        <div class ="col">
-            <h2 >Active Tenants</h2> 
+            <h5 class="nav justify-content-center" style="margin-top: 1rem;">Search users by last name:</h5>
+            <ul class="nav justify-content-center" style="margin-top: 1rem;">
+                <li class="nav-item" style="padding-right: 1rem;">
+                    <asp:TextBox ID="lastNameSearchBox" runat="server" CssClass="form-control" style="" placeholder="Last Name"></asp:TextBox>
+                </li>
+                <li class="nav-item" style="padding-right: 1rem;">
+                    <asp:Button ID="SearchButton" runat="server" Text="Search" CssClass="btn" OnClick="SearchButton_Click"/>
+                </li>
+            </ul>
         </div>
     </div>
         
         <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
-                    <div class="col">
-                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="HostGridView">
-                            <Columns>
-                                <asp:BoundField DataField="FirstName" HeaderText="FirstName"/>
-                                <asp:BoundField DataField ="LastName" HeaderText ="LastName" SortExpression="LastName" />
-                                <asp:BoundField DataField="Email" HeaderText="Email"/>
-                            </Columns>
-                        </asp:GridView>
-                            <asp:SqlDataSource ID="HostGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetAWS %>" SelectCommand="SELECT FirstName, LastName, Email FROM HOST"></asp:SqlDataSource>
+                    <div class="col" id="userResults" runat="server">
+
                     </div> <!-- end col class-->
-                    <div class="col">
-                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="TenantGridView">
-                            <Columns>
-                                <asp:BoundField DataField="FirstName" HeaderText="FirstName"/>
-                                <asp:BoundField DataField ="LastName" HeaderText ="LastName" SortExpression="LastName" />
-                                <asp:BoundField DataField="Email" HeaderText="Email"/>
-                            </Columns>
-                        </asp:GridView>
-                            <asp:SqlDataSource ID="TenantGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetAWS %>" SelectCommand="SELECT FirstName, LastName, Email FROM TENANT"></asp:SqlDataSource>
-                    </div>
         </div> 
     
         <div class="row " style="margin-top: 1rem;">

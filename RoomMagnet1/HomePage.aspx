@@ -84,7 +84,7 @@
                 </asp:DropDownList>
   </li>
   <li class="nav-item">
-      <asp:Button ID="SearchButton" runat="server" Text="Search" CssClass="form-control" style="background-color: #B23325; color: white;" OnClick="SearchButton_Click"/>
+      <asp:Button ID="SearchButton" runat="server" Text="Search" CssClass="btn" OnClick="SearchButton_Click"/>
   </li>
 </ul>
 
