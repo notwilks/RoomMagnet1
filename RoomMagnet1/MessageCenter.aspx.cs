@@ -46,6 +46,8 @@ public partial class MessageCenter : System.Web.UI.Page
 
 
             sc.Close();
+
+            // Retrieve a Host's existing messages from DB
         }
 
         // Functionality for Tenant Users
@@ -80,6 +82,9 @@ public partial class MessageCenter : System.Web.UI.Page
 
 
             sc.Close();
+
+
+            
 
 
         }

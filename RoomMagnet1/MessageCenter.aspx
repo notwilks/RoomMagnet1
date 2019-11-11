@@ -28,6 +28,11 @@
                 <asp:DropDownList ID="dropdownContacts" runat="server" Width="200px">
                     <asp:ListItem Text="Choose someone to contact" Selected="true"></asp:ListItem>
                 </asp:DropDownList>
+                <br />
+                <asp:Label ID="lblYourMessages" runat="server" Text="Your Messages:"></asp:Label>
+                <br />
+                <asp:Label ID="lblMessageText" runat="server"></asp:Label>
+
               </div>
             
           </div> <!--end row class-->
