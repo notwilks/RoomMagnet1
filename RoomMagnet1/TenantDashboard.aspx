@@ -26,6 +26,7 @@
   <div class="row " style="margin-top: 7rem;">
     <div class="col-md-9">
         <h1><asp:Label ID="FirstNameLastNameHeader" runat="server"></asp:Label></h1><!-- += 's Dashboard -->
+        <a href="MessageCenter.aspx">Message Center Temp Link></a>
       </div>
     <div class="col-md-3">
         <asp:Button ID="SearchProperties" runat="server" Text="Search Properties" cssclass="btn" OnClick="SearchProperties_Click"/>
