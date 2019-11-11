@@ -47,7 +47,36 @@
     </div>
         
         <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
-                    <div class="col" id="userResults" runat="server">
+                    <div class="col" id="HostResults" runat="server">
+                        <h3 style="border-bottom:solid; margin-bottom: 2rem">Host Accounts</h3>
+                        <asp:Button ID="approveButton" runat="server" Text="Button" OnClick="approveButton_Click"/>
+                        <div  class="row" >
+                            <div class="col-md-4">
+                                <h5>Name</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Email</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Actions</h5>
+                            </div>
+                        </div>
+                    </div> <!-- end col class-->
+
+                    <div class="col" id="Div2" runat="server">
+                        <h3 style="border-bottom:solid; margin-bottom: 2rem">Tenant Accounts</h3>
+
+                        <div  class="row">
+                            <div class="col-md-4">
+                                <h5>Name</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Email</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Actions</h5>
+                            </div>
+                        </div>
 
                     </div> <!-- end col class-->
         </div> 
