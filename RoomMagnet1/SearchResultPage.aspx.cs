@@ -13,7 +13,9 @@ public partial class SearchResultPage : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "initMap();", true);
+
+
         if (!Convert.ToString(Session["CitySearch"]).Equals("") || !Convert.ToString(Session["StateSearch"]).Equals(""))
         {
             CitySearchBox.Text = Convert.ToString(Session["CitySearch"]);
@@ -580,5 +582,11 @@ public partial class SearchResultPage : System.Web.UI.Page
         //insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
         //insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
 
+    }
+
+
+    protected void searchMapBtn_Click(object sender, EventArgs e)
+    {
+        Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "addCircle();", true);
     }
 }

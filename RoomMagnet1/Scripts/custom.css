@@ -427,6 +427,8 @@ p a{
     color: black;
 }
 
-
+#map {
+  height: 100%;
+}
 
 
