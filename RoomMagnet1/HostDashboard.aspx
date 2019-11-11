@@ -26,6 +26,7 @@
   <div class="row " style="margin-top: 7rem;">
     <div class="col-md-9">
         <h1><asp:Label ID="FirstNameLastNameHeader" runat="server" Text="Host Dashboard"></asp:Label></h1><!-- += 's Dashboard -->
+        <a href="MessageCenter.aspx">Message Center Temp Link></a>
       </div>
     </div><!-- end div row -->  
     
