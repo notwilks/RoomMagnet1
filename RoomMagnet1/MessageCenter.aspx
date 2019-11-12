@@ -23,17 +23,38 @@
 
           <div class="row" style="margin-top: 10rem;">
             <div class="col align-content-center">
-                <asp:TextBox ID="txtBoxMessage" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtBoxMessage" runat="server" Text="Message Text"></asp:TextBox>
+                <asp:TextBox ID="txtBoxSubject" runat="server" Text="Subject"></asp:TextBox>
                 <asp:Button ID="btnSendMessage" runat="server" Text="Send Message" OnClick="btnSendMessage_click" />
                 <asp:DropDownList ID="dropdownContacts" runat="server" Width="200px">
                     <asp:ListItem Text="Choose someone to contact" Selected="true"></asp:ListItem>
                 </asp:DropDownList>
                 <br />
-                <asp:Label ID="lblYourMessages" runat="server" Text="Your Messages:"></asp:Label>
-                <br />
-                <asp:Label ID="lblMessageText" runat="server"></asp:Label>
+                <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="mesagesModule" runat="server" >
+                    <div class="col" id="messages" runat="server">
+                        <h3 style="border-bottom:solid; margin-bottom: 2rem">Your New Messages</h3>
+                        <asp:Button ID="approveButton" runat="server" Text="Button" OnClick="approveButton_Click"/>
+                        <div  class="row" >
+                            <div class="col-md-4">
+                                <h5>From</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Subject</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Action</h5>
+                            </div>
+                        </div>
+                    </div> <!-- end col class-->
 
-              </div>
+                    
+                </div> 
+
+
+                <asp:SqlDataSource ID="messagesDataSource" runat="server"></asp:SqlDataSource>
+
+
+            </div>
             
           </div> <!--end row class-->
           

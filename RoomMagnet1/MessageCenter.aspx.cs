@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Data;
 using System.Web.Configuration;
 
 public partial class MessageCenter : System.Web.UI.Page
@@ -13,6 +15,48 @@ public partial class MessageCenter : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         String tenantID;
+
+        // Create a data source for populating gridview of messages
+        SqlDataSource messagesDataSource = new SqlDataSource();
+        messagesDataSource.ID = "messagesDataSource";
+        this.Page.Controls.Add(messagesDataSource);
+        messagesDataSource.ConnectionString = WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString;
+
+        // Create divs to display messages
+        // Row div 
+        var div1 = new HtmlGenericControl("div")
+        {
+
+        };
+        messages.Controls.Add(div1);
+        div1.Style.Add("margin-top", "1rem;");
+        div1.Style.Add("border-bottom", "solid;");
+        div1.Style.Add("border-bottom-width", "1px;");
+        div1.Attributes.Add("class", "row");
+
+        // Name div
+        var nameDiv = new HtmlGenericControl("div")
+        {
+
+        };
+        div1.Controls.Add(nameDiv);
+        nameDiv.Attributes.Add("class", "col-md-4");
+
+        // Subject div
+        var subjectDiv = new HtmlGenericControl("div")
+        {
+
+        };
+        div1.Controls.Add(subjectDiv);
+        subjectDiv.Attributes.Add("class", "col-md-4");
+
+        // Button div
+        var btnDiv = new HtmlGenericControl("div")
+        {
+
+        };
+        div1.Controls.Add(btnDiv);
+        btnDiv.Attributes.Add("class", "col-md-4");
 
 
         // Functionality for Host Users 
@@ -45,9 +89,51 @@ public partial class MessageCenter : System.Web.UI.Page
             reader.Close();
 
 
-            sc.Close();
+            
 
             // Retrieve a Host's existing messages from DB
+            SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.subjectLine FROM MessageCenter m "
+                                                        + "INNER JOIN Tenant t ON t.tenantID = m.tenantID " 
+                                                        + "WHERE m.hostID = @hID", sc);
+            selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+            reader = selectMessages.ExecuteReader();
+            while (reader.Read())
+            {
+                
+                // Populate message divs
+                // Sender name
+                String name = reader.GetString(1);
+                var senderName = new HtmlGenericControl("p")
+                {
+                    InnerText = name
+                };
+                nameDiv.Controls.Add(senderName);
+
+                // Subject
+                String subject = reader.GetString(2);
+                var subjectLine = new HtmlGenericControl("p")
+                {
+                    InnerText = subject
+                };
+                subjectDiv.Controls.Add(subjectLine);
+
+
+
+
+
+
+
+
+
+
+
+            }
+            reader.Close();
+
+
+
+
+            sc.Close();
         }
 
         // Functionality for Tenant Users
@@ -78,13 +164,19 @@ public partial class MessageCenter : System.Web.UI.Page
                 int hostID = reader.GetInt32(2);
                 AddToDropdown(contactName, hostID);
             }
-            reader.Close();
 
+            // Retrieve a Host's existing messages from DB
+            /*SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText FROM MessageCenter m "
+                                                        + "INNER JOIN host h ON h.hostID = m.hostID "
+                                                        + "WHERE tenantID = @tID", sc);
+            selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
 
-            sc.Close();
-
-
+            sc.Close();*/
             
+            
+
+
+
 
 
         }
@@ -101,7 +193,7 @@ public partial class MessageCenter : System.Web.UI.Page
     {
         if (Session["userType"].ToString().Equals("H"))
         {
-            SqlCommand insertMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText) VALUES(@tID, @hID, @text)", sc);
+            SqlCommand insertMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText, opened) VALUES(@tID, @hID, @text, 'F')", sc);
             insertMessage.Parameters.AddWithValue("@tID", dropdownContacts.SelectedValue.ToString());
             insertMessage.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
             insertMessage.Parameters.AddWithValue("@text", txtBoxMessage.Text.ToString());
@@ -112,7 +204,7 @@ public partial class MessageCenter : System.Web.UI.Page
 
         if (Session["userType"].ToString().Equals("T"))
         {
-            SqlCommand insertMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText) VALUES(@tID, @hID, @text)", sc);
+            SqlCommand insertMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText, opened) VALUES(@tID, @hID, @text, 'F')", sc);
             insertMessage.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
             insertMessage.Parameters.AddWithValue("@hID", dropdownContacts.SelectedValue.ToString());
             insertMessage.Parameters.AddWithValue("@text", txtBoxMessage.Text.ToString());
