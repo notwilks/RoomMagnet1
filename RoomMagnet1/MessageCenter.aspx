@@ -33,7 +33,7 @@
                 <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="mesagesModule" runat="server" >
                     <div class="col" id="messages" runat="server">
                         <h3 style="border-bottom:solid; margin-bottom: 2rem">Your New Messages</h3>
-                        <asp:Button ID="approveButton" runat="server" Text="Button" OnClick="approveButton_Click"/>
+                        <asp:Button ID="approveButton" runat="server" Text="Button" <!-- classOnClick="approveButton_Click"-->/>
                         <div  class="row" >
                             <div class="col-md-4">
                                 <h5>From</h5>

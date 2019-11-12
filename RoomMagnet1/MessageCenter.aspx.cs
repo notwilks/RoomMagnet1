@@ -117,6 +117,10 @@ public partial class MessageCenter : System.Web.UI.Page
                 };
                 subjectDiv.Controls.Add(subjectLine);
 
+                // View message button
+
+
+
 
 
 
