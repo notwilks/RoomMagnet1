@@ -48,38 +48,39 @@
         </div>
     </div>
         
-        <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; margin-right: 5rem; margin-left: 5rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
+        <div  class="row"  Style="margin-top: 1rem; margin-bottom: 1rem; margin-right: 5rem; margin-left: 5rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
             <div class="col-md-1">
 
             </div>
-                    <div class="col-md-5" id="HostResults" runat="server">
+                    <div class="col-md-5" id="HostResults" runat="server" style="background-color: #ebebeb; border: solid; border-width: 2px;">
                         <h3 style="border-bottom:solid; margin-bottom: 2rem">Host Accounts</h3>
                         <asp:Button ID="approveButton" runat="server" Text="Button" OnClick="approveButton_Click"/>
                         <asp:Button ID="approveTenant" runat="server" Text="Button" OnClick="approveTenant_Click"/>
-                        <div  class="row" >
+                        
+                        <div  class="row" style="border-bottom: solid; border-bottom-width: 1px;">
                             <div class="col-md-3">
                                 <h5>Name</h5>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <h5>Email</h5>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <h5>Actions</h5>
                             </div>
                         </div>
                     </div> <!-- end col class-->
 
-                    <div class="col-md-5" id="TenantResults" runat="server">
+                    <div class="col-md-5" id="TenantResults" runat="server" style="background-color: #ebebeb; margin-left:1rem; border: solid; border-width: 2px;">
                         <h3 style="border-bottom:solid; margin-bottom: 2rem">Tenant Accounts</h3>
 
-                        <div  class="row">
+                        <div  class="row" style="border-bottom: solid; border-bottom-width: 1px;">
                             <div class="col-md-3">
                                 <h5>Name</h5>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <h5>Email</h5>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <h5>Actions</h5>
                             </div>
                         </div>
@@ -89,6 +90,31 @@
 
                 </div>
         </div> 
+
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="launchmodal" runat="server">
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure you would like to delete this user?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" runat="server" id="modalbody">
+              
+          </div>
+          <div class="modal-footer">
+            <asp:Button ID="yesDelete" runat="server" Text="Yes" CssClass="btn btn-primary"/>
+            <asp:Button ID="noDelete" runat="server" Text="No" CssClass="btn btn-secondary"/>
+          </div>
+        </div>
+      </div>
+    </div>
     
 
 

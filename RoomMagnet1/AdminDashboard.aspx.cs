@@ -40,8 +40,6 @@ public partial class AdminDashboard : System.Web.UI.Page
             div1.Style.Add("margin-top", "1rem;");
             div1.Style.Add("border-bottom", "solid;");
             div1.Style.Add("border-bottom-width", "1px;");
-            div1.Style.Add("border-right", "solid;");
-            div1.Style.Add("border-right-width", "1px;");
             div1.Attributes.Add("class", "row");
 
             //Name div
@@ -60,7 +58,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             };
 
             div1.Controls.Add(emailDiv);
-            emailDiv.Attributes.Add("class", "col-md-3");
+            emailDiv.Attributes.Add("class", "col-md-4");
 
             //buttons div
             var butDiv = new HtmlGenericControl("div")
@@ -69,7 +67,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             };
 
             div1.Controls.Add(butDiv);
-            butDiv.Attributes.Add("class", "col-md-6");
+            butDiv.Attributes.Add("class", "col-md-5");
 
             //host last and first name
             String hostLF = reader.GetString(1);
@@ -97,7 +95,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             if (btnText == "T")
             {
                 clear.Text = "Revoke Background Check";
-                clear.Attributes.Add("class", "btn btn-danger btn-sm");
+                clear.Attributes.Add("class", "btn btn-warning btn-sm");
             }
             if (btnText == "F")
             {
@@ -109,17 +107,20 @@ public partial class AdminDashboard : System.Web.UI.Page
             clear.Click += new EventHandler(approveButton_Click);
             butDiv.Controls.Add(clear);
 
-            //Delete account button
+            //delete account button
             Button delete = new Button();
+            delete.Attributes.Add("type", "button");
+            delete.ID = Convert.ToString(reader.GetInt32(0) + "D");
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
-            delete.Attributes.Add("class", "btn btn-warning btn-sm");
+            delete.Attributes.Add("class", "btn btn-danger btn-sm");
             delete.Style.Add("float", "right");
             delete.Text = "Delete Account";
+            clear.Click += new EventHandler(DeleteHostButton_Click);
             butDiv.Controls.Add(delete);
+
         }
         reader.Close();
-
 
         //TENANT SIDE
         SqlCommand selectT = new SqlCommand();
@@ -142,8 +143,6 @@ public partial class AdminDashboard : System.Web.UI.Page
             div2.Style.Add("margin-top", "1rem;");
             div2.Style.Add("border-bottom", "solid;");
             div2.Style.Add("border-bottom-width", "1px;");
-            div2.Style.Add("border-right", "solid;");
-            div2.Style.Add("border-right-width", "1px;");
             div2.Attributes.Add("class", "row");
 
             //Name div
@@ -162,7 +161,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             };
 
             div2.Controls.Add(emailDiv);
-            emailDiv.Attributes.Add("class", "col-md-3");
+            emailDiv.Attributes.Add("class", "col-md-4");
 
             //buttons div
             var butDiv = new HtmlGenericControl("div")
@@ -171,7 +170,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             };
 
             div2.Controls.Add(butDiv);
-            butDiv.Attributes.Add("class", "col-md-6");
+            butDiv.Attributes.Add("class", "col-md-5");
 
             //Tenant last and first name
             String tenantLF = readerT.GetString(1);
@@ -199,7 +198,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             if (btnText == "T")
             {
                 clear.Text = "Revoke Background Check";
-                clear.Attributes.Add("class", "btn btn-danger btn-sm");
+                clear.Attributes.Add("class", "btn btn-warning btn-sm");
             }
             if (btnText == "F")
             {
@@ -211,13 +210,16 @@ public partial class AdminDashboard : System.Web.UI.Page
             clear.Click += new EventHandler(approveTenant_Click);
             butDiv.Controls.Add(clear);
 
-            //Delete account button
+            //delete account button
             Button delete = new Button();
+            delete.Attributes.Add("type", "button");
+            delete.ID = Convert.ToString(readerT.GetInt32(0) + "T");
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
-            delete.Attributes.Add("class", "btn btn-warning btn-sm");
+            delete.Attributes.Add("class", "btn btn-danger btn-sm");
             delete.Style.Add("float", "right");
             delete.Text = "Delete Account";
+            clear.Click += new EventHandler(DeleteHostButton_Click);
             butDiv.Controls.Add(delete);
         }
 
@@ -243,7 +245,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             clear.CommandText = "Update Host SET cleared = 'T' where hostID = " + b.ID;
             clear.ExecuteNonQuery();
             b.Text = "Revoke Background Check";
-            b.Attributes.Add("class", "btn btn-danger btn-sm");
+            b.Attributes.Add("class", "btn btn-warning btn-sm");
         }
         else
         {
@@ -269,7 +271,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             clear.CommandText = "Update Tenant SET cleared = 'T' where tenantID = " + b.ID;
             clear.ExecuteNonQuery();
             b.Text = "Revoke Background Check";
-            b.Attributes.Add("class", "btn btn-danger btn-sm");
+            b.Attributes.Add("class", "btn btn-warning btn-sm");
         }
         else
         {
@@ -280,5 +282,28 @@ public partial class AdminDashboard : System.Web.UI.Page
         }
 
         sc.Close();
+    }
+
+    protected void DeleteHostButton_Click(object sender, EventArgs e)
+    {
+        sc.Open();
+        Button b = sender as Button;
+        SqlCommand select = new SqlCommand();
+        select.Connection = sc;
+
+        select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from Host where hostID = " + 78;
+
+        String hostLFModal = Convert.ToString(select.ExecuteNonQuery());
+
+        //pulling name into the modal
+        var modalName = new HtmlGenericControl("p")
+        {
+            InnerText = "hi"
+        };
+        modalbody.Controls.Add(modalName);
+
+        //google .serverclick
+        launchmodal.ServerClick += new System.EventHandler(DeleteHostButton_Click);
+
     }
 }
