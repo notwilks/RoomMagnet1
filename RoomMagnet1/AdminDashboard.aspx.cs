@@ -15,28 +15,21 @@ public partial class AdminDashboard : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         approveButton.Visible = false;
-        if (IsPostBack)
-        {
-            
-            SearchButton_Click(sender, e);
-        }
-    }
+        approveTenant.Visible = false;
 
-    protected void SearchButton_Click(object sender, EventArgs e)
-    {
-        Session["userLast"] = lastNameSearchBox.Text;
         sc.Open();
 
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
 
         select.CommandText = "select hostID, (lastName + ', ' + firstName) AS 'Host Accounts', email, cleared from Host where lastName = @lastName";
-        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", Session["userLast"]));
+        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", lastNameSearchBox.Text));
 
         SqlDataReader reader = select.ExecuteReader();
 
         while (reader.Read())
         {
+
             //row div creation for hosts
             var div1 = new HtmlGenericControl("div")
             {
@@ -47,6 +40,8 @@ public partial class AdminDashboard : System.Web.UI.Page
             div1.Style.Add("margin-top", "1rem;");
             div1.Style.Add("border-bottom", "solid;");
             div1.Style.Add("border-bottom-width", "1px;");
+            div1.Style.Add("border-right", "solid;");
+            div1.Style.Add("border-right-width", "1px;");
             div1.Attributes.Add("class", "row");
 
             //Name div
@@ -56,7 +51,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             };
 
             div1.Controls.Add(leftDiv);
-            leftDiv.Attributes.Add("class", "col-md-4");
+            leftDiv.Attributes.Add("class", "col-md-3");
 
             //email div
             var emailDiv = new HtmlGenericControl("div")
@@ -65,7 +60,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             };
 
             div1.Controls.Add(emailDiv);
-            emailDiv.Attributes.Add("class", "col-md-4");
+            emailDiv.Attributes.Add("class", "col-md-3");
 
             //buttons div
             var butDiv = new HtmlGenericControl("div")
@@ -74,7 +69,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             };
 
             div1.Controls.Add(butDiv);
-            butDiv.Attributes.Add("class", "col-md-4");
+            butDiv.Attributes.Add("class", "col-md-6");
 
             //host last and first name
             String hostLF = reader.GetString(1);
@@ -94,53 +89,196 @@ public partial class AdminDashboard : System.Web.UI.Page
 
             emailDiv.Controls.Add(hostEmail);
 
+            //adding approve button
+            String btnText = reader.GetString(3);
             Button clear = new Button();
-            clear.ID = Convert.ToString(reader.GetInt32(0));
-            //if (reader.GetString(3) == "T")
-            //{
-                clear.Text = "Approve";
-                clear.Attributes.Add("class", "btn btn-success");
-            //}
-            //else
-            //{
-            //    clear.Text = "Un-Approve";
-            //    clear.Attributes.Add("class", "btn btn-danger");
-            //}
             
+            clear.ID = Convert.ToString(reader.GetInt32(0));
+            if (btnText == "T")
+            {
+                clear.Text = "Revoke Background Check";
+                clear.Attributes.Add("class", "btn btn-danger btn-sm");
+            }
+            if (btnText == "F")
+            {
+                clear.Text = "Complete Background Check";
+                clear.Attributes.Add("class", "btn btn-success btn-sm");
+            }
             clear.Style.Add("margin-bottom", "1rem;");
             clear.Attributes.Add("runat", "server");
-            //clear.Attributes.Add("OnClick", "approveHost");
-            //clear.Click += approveButton_Click;
             clear.Click += new EventHandler(approveButton_Click);
             butDiv.Controls.Add(clear);
-            
+
+            //Delete account button
+            Button delete = new Button();
+            delete.Style.Add("margin-bottom", "1rem;");
+            delete.Attributes.Add("runat", "server");
+            delete.Attributes.Add("class", "btn btn-warning btn-sm");
+            delete.Style.Add("float", "right");
+            delete.Text = "Delete Account";
+            butDiv.Controls.Add(delete);
         }
-        
+        reader.Close();
+
+
+        //TENANT SIDE
+        SqlCommand selectT = new SqlCommand();
+        select.Connection = sc;
+
+        select.CommandText = "select tenantID, (lastName + ', ' + firstName), email, ISNULL(cleared, 'F') from Tenant where lastName = @lastName1";
+        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName1", lastNameSearchBox.Text));
+
+        SqlDataReader readerT = select.ExecuteReader();
+
+        while (readerT.Read())
+        {
+            //creating tenant row div
+            var div2 = new HtmlGenericControl("div")
+            {
+
+            };
+
+            TenantResults.Controls.Add(div2);
+            div2.Style.Add("margin-top", "1rem;");
+            div2.Style.Add("border-bottom", "solid;");
+            div2.Style.Add("border-bottom-width", "1px;");
+            div2.Style.Add("border-right", "solid;");
+            div2.Style.Add("border-right-width", "1px;");
+            div2.Attributes.Add("class", "row");
+
+            //Name div
+            var leftDiv = new HtmlGenericControl("div")
+            {
+
+            };
+
+            div2.Controls.Add(leftDiv);
+            leftDiv.Attributes.Add("class", "col-md-3");
+
+            //email div
+            var emailDiv = new HtmlGenericControl("div")
+            {
+
+            };
+
+            div2.Controls.Add(emailDiv);
+            emailDiv.Attributes.Add("class", "col-md-3");
+
+            //buttons div
+            var butDiv = new HtmlGenericControl("div")
+            {
+
+            };
+
+            div2.Controls.Add(butDiv);
+            butDiv.Attributes.Add("class", "col-md-6");
+
+            //Tenant last and first name
+            String tenantLF = readerT.GetString(1);
+            var tenantName = new HtmlGenericControl("p")
+            {
+                InnerText = tenantLF
+            };
+
+            leftDiv.Controls.Add(tenantName);
+
+            //Tenant email
+            String tenantE = readerT.GetString(2);
+            var tenantEmail = new HtmlGenericControl("p")
+            {
+                InnerText = tenantE
+            };
+
+            emailDiv.Controls.Add(tenantEmail);
+
+            //adding approve button
+            String btnText = readerT.GetString(3);
+            Button clear = new Button();
+
+            clear.ID = Convert.ToString(readerT.GetInt32(0));
+            if (btnText == "T")
+            {
+                clear.Text = "Revoke Background Check";
+                clear.Attributes.Add("class", "btn btn-danger btn-sm");
+            }
+            if (btnText == "F")
+            {
+                clear.Text = "Complete Background Check";
+                clear.Attributes.Add("class", "btn btn-success btn-sm");
+            }
+            clear.Style.Add("margin-bottom", "1rem;");
+            clear.Attributes.Add("runat", "server");
+            clear.Click += new EventHandler(approveTenant_Click);
+            butDiv.Controls.Add(clear);
+
+            //Delete account button
+            Button delete = new Button();
+            delete.Style.Add("margin-bottom", "1rem;");
+            delete.Attributes.Add("runat", "server");
+            delete.Attributes.Add("class", "btn btn-warning btn-sm");
+            delete.Style.Add("float", "right");
+            delete.Text = "Delete Account";
+            butDiv.Controls.Add(delete);
+        }
+
         sc.Close();
+        
     }
 
-    protected void clear_Click(object sender, EventArgs e)
+    protected void SearchButton_Click(object sender, EventArgs e)
     {
 
-        //Button b = sender as Button;
-        //SqlCommand clear = new SqlCommand();
-        //clear.Connection = sc;
-
-        //clear.CommandText = "Update Host SET cleared = 'T' where hostID = " + b.ID;
-
-        Response.Redirect("HomePage.aspx");
     }
 
     protected void approveButton_Click(object sender, EventArgs e)
+    {
+
+        sc.Open();
+        Button b = sender as Button;
+        SqlCommand clear = new SqlCommand();
+        clear.Connection = sc;
+
+        if (b.Text == "Complete Background Check")
+        {
+            clear.CommandText = "Update Host SET cleared = 'T' where hostID = " + b.ID;
+            clear.ExecuteNonQuery();
+            b.Text = "Revoke Background Check";
+            b.Attributes.Add("class", "btn btn-danger btn-sm");
+        }
+        else
+        {
+            clear.CommandText = "Update Host SET cleared = 'F' where hostID = " + b.ID;
+            clear.ExecuteNonQuery();
+            b.Text = "Complete Background Check";
+            b.Attributes.Add("class", "btn btn-success btn-sm");
+        }
+
+        sc.Close();
+        
+    }
+
+    protected void approveTenant_Click(object sender, EventArgs e)
     {
         sc.Open();
         Button b = sender as Button;
         SqlCommand clear = new SqlCommand();
         clear.Connection = sc;
 
-        clear.CommandText = "Update Host SET cleared = 'T' where hostID = " + b.ID;
-        clear.ExecuteNonQuery();
-        //Response.Redirect("HomePage.aspx");
+        if (b.Text == "Complete Background Check")
+        {
+            clear.CommandText = "Update Tenant SET cleared = 'T' where tenantID = " + b.ID;
+            clear.ExecuteNonQuery();
+            b.Text = "Revoke Background Check";
+            b.Attributes.Add("class", "btn btn-danger btn-sm");
+        }
+        else
+        {
+            clear.CommandText = "Update Tenant SET cleared = 'F' where tenantID = " + b.ID;
+            clear.ExecuteNonQuery();
+            b.Text = "Complete Background Check";
+            b.Attributes.Add("class", "btn btn-success btn-sm");
+        }
+
         sc.Close();
     }
 }

@@ -30,7 +30,9 @@
         <asp:Image ID="Image4" runat="server" ImageUrl="images/companylogo-02.png" Height="100px" Width="180px"/>
       </div>
     </div><!-- end div row -->  
-    
+   
+</div>
+
    <!--Start First Module -->
    <div class="row " style="margin-top: 1rem;">
         <div class="col" style="border: solid; border-color: white;">
@@ -46,76 +48,49 @@
         </div>
     </div>
         
-        <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
-                    <div class="col" id="HostResults" runat="server">
+        <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; margin-right: 5rem; margin-left: 5rem; padding-bottom: 1rem;" id="propertyModule" runat="server" >
+            <div class="col-md-1">
+
+            </div>
+                    <div class="col-md-5" id="HostResults" runat="server">
                         <h3 style="border-bottom:solid; margin-bottom: 2rem">Host Accounts</h3>
                         <asp:Button ID="approveButton" runat="server" Text="Button" OnClick="approveButton_Click"/>
+                        <asp:Button ID="approveTenant" runat="server" Text="Button" OnClick="approveTenant_Click"/>
                         <div  class="row" >
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5>Name</h5>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5>Email</h5>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <h5>Actions</h5>
                             </div>
                         </div>
                     </div> <!-- end col class-->
 
-                    <div class="col" id="Div2" runat="server">
+                    <div class="col-md-5" id="TenantResults" runat="server">
                         <h3 style="border-bottom:solid; margin-bottom: 2rem">Tenant Accounts</h3>
 
                         <div  class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5>Name</h5>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5>Email</h5>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <h5>Actions</h5>
                             </div>
                         </div>
 
                     </div> <!-- end col class-->
-        </div> 
-    
-        <div class="row " style="margin-top: 1rem;">
-            <div class="col" style="border: solid; border-color: white;">
-                <h2 >Listed Properties</h2>                
-            </div>
+                <div class="col-md-1">
 
-            <div class ="col">
-                <h2 >Unlisted Properties</h2> 
-            </div>
-        </div>
-    
-        <div  class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; padding-bottom: 1rem;" id="Div1" runat="server" >
-                    <div class="col">
-                         <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="ActivePropGridView">
-                             <Columns>
-                                 <asp:BoundField DataField="Host Name" HeaderText ="Host Name" />
-                                 <asp:BoundField DataField="Street Address" HeaderText="Street Address" />
-                                 <asp:BoundField DataField="State" HeaderText ="State" />
-                                 <asp:BoundField DataField="Country" HeaderText="Country" />
-                             </Columns>
-                         </asp:GridView>
-                            <asp:SqlDataSource ID="ActivePropGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetConnectionString %>" SelectCommand="SELECT H.firstName + ' ' + H.lastName AS 'Host Name', A.houseNumber + ' ' + A.street AS 'Street Address', A.state AS 'State', A.country AS 'Country' FROM Accommodation AS A INNER JOIN Host AS H ON H.hostID = A.hostID WHERE (A.listed = 'T')"></asp:SqlDataSource>
-                    </div> <!-- end col class-->
-                    <div class="col">
-                        <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" DataSourceID="InactivePropGridView">
-                             <Columns>
-                                 <asp:BoundField DataField="Host Name" HeaderText ="Host Name" />
-                                 <asp:BoundField DataField="Street Address" HeaderText="Street Address" />
-                                 <asp:BoundField DataField="State" HeaderText ="State" />
-                                 <asp:BoundField DataField="Country" HeaderText="Country" />
-                             </Columns>
-                         </asp:GridView>
-                            <asp:SqlDataSource ID="InactivePropGridView" runat="server" ConnectionString="<%$ ConnectionStrings:RoomMagnetConnectionString %>" SelectCommand="SELECT H.firstName + ' ' + H.lastName AS 'Host Name', A.houseNumber + ' ' + A.street AS 'Street Address', A.state AS 'State', A.country AS 'Country' FROM Accommodation AS A INNER JOIN Host AS H ON H.hostID = A.hostID WHERE (A.listed = 'F')"></asp:SqlDataSource>
-                    </div>
+                </div>
         </div> 
-</div>
+    
+
 
 <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
    <div class="row" style="padding-left: 3rem;">
