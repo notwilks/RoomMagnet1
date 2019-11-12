@@ -16,47 +16,9 @@ public partial class MessageCenter : System.Web.UI.Page
     {
         String tenantID;
 
-        // Create a data source for populating gridview of messages
-        SqlDataSource messagesDataSource = new SqlDataSource();
-        messagesDataSource.ID = "messagesDataSource";
-        this.Page.Controls.Add(messagesDataSource);
-        messagesDataSource.ConnectionString = WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString;
 
-        // Create divs to display messages
-        // Row div 
-        var div1 = new HtmlGenericControl("div")
-        {
-
-        };
-        messages.Controls.Add(div1);
-        div1.Style.Add("margin-top", "1rem;");
-        div1.Style.Add("border-bottom", "solid;");
-        div1.Style.Add("border-bottom-width", "1px;");
-        div1.Attributes.Add("class", "row");
-
-        // Name div
-        var nameDiv = new HtmlGenericControl("div")
-        {
-
-        };
-        div1.Controls.Add(nameDiv);
-        nameDiv.Attributes.Add("class", "col-md-4");
-
-        // Subject div
-        var subjectDiv = new HtmlGenericControl("div")
-        {
-
-        };
-        div1.Controls.Add(subjectDiv);
-        subjectDiv.Attributes.Add("class", "col-md-4");
-
-        // Button div
-        var btnDiv = new HtmlGenericControl("div")
-        {
-
-        };
-        div1.Controls.Add(btnDiv);
-        btnDiv.Attributes.Add("class", "col-md-4");
+        
+        
 
 
         // Functionality for Host Users 
@@ -92,17 +54,52 @@ public partial class MessageCenter : System.Web.UI.Page
             
 
             // Retrieve a Host's existing messages from DB
-            SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.subjectLine FROM MessageCenter m "
+            SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.subjectLine, t.tenantID FROM MessageCenter m "
                                                         + "INNER JOIN Tenant t ON t.tenantID = m.tenantID " 
                                                         + "WHERE m.hostID = @hID", sc);
             selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
             reader = selectMessages.ExecuteReader();
             while (reader.Read())
             {
-                
+                // Create divs to display messages
+                // Row div 
+                var div1 = new HtmlGenericControl("div")
+                {
+
+                };
+                messages.Controls.Add(div1);
+                div1.Style.Add("margin-top", "1rem;");
+                div1.Style.Add("border-bottom", "solid;");
+                div1.Style.Add("border-bottom-width", "1px;");
+                div1.Attributes.Add("class", "row");
+
+                // Name div
+                var nameDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(nameDiv);
+                nameDiv.Attributes.Add("class", "col-md-4");
+
+                // Subject div
+                var subjectDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(subjectDiv);
+                subjectDiv.Attributes.Add("class", "col-md-4");
+
+                // Button div
+                var btnDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(btnDiv);
+                btnDiv.Attributes.Add("class", "col-md-4");
+
                 // Populate message divs
                 // Sender name
-                String name = reader.GetString(1);
+                String name = reader.GetString(0);
                 var senderName = new HtmlGenericControl("p")
                 {
                     InnerText = name
@@ -110,7 +107,7 @@ public partial class MessageCenter : System.Web.UI.Page
                 nameDiv.Controls.Add(senderName);
 
                 // Subject
-                String subject = reader.GetString(2);
+                String subject = reader.GetString(1);
                 var subjectLine = new HtmlGenericControl("p")
                 {
                     InnerText = subject
@@ -118,25 +115,16 @@ public partial class MessageCenter : System.Web.UI.Page
                 subjectDiv.Controls.Add(subjectLine);
 
                 // View message button
-
-
-
-
-
-
-
-
-
-
-
-
-
+                Button view = new Button();
+                view.ID = Convert.ToString(reader.GetInt32(2));
+                view.Text = "View Message";
+                view.Attributes.Add("class", "btn btn-success btn-sm");
+                view.Style.Add("margin-bottom", "1rem;");
+                view.Attributes.Add("runat", "server");
+                view.Click += new EventHandler(ViewMessage_Click);
+                btnDiv.Controls.Add(view);
             }
             reader.Close();
-
-
-
-
             sc.Close();
         }
 
@@ -168,16 +156,83 @@ public partial class MessageCenter : System.Web.UI.Page
                 int hostID = reader.GetInt32(2);
                 AddToDropdown(contactName, hostID);
             }
+            reader.Close();
 
             // Retrieve a Host's existing messages from DB
-            /*SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText FROM MessageCenter m "
+            SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.subjectLine, m.hostID FROM MessageCenter m "
                                                         + "INNER JOIN host h ON h.hostID = m.hostID "
                                                         + "WHERE tenantID = @tID", sc);
             selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
+            reader = selectMessages.ExecuteReader();
+            while (reader.Read())
+            {
+                // Create divs to display messages
+                // Row div 
+                var div1 = new HtmlGenericControl("div")
+                {
 
-            sc.Close();*/
-            
-            
+                };
+                messages.Controls.Add(div1);
+                div1.Style.Add("margin-top", "1rem;");
+                div1.Style.Add("border-bottom", "solid;");
+                div1.Style.Add("border-bottom-width", "1px;");
+                div1.Attributes.Add("class", "row");
+
+                // Name div
+                var nameDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(nameDiv);
+                nameDiv.Attributes.Add("class", "col-md-4");
+
+                // Subject div
+                var subjectDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(subjectDiv);
+                subjectDiv.Attributes.Add("class", "col-md-4");
+
+                // Button div
+                var btnDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(btnDiv);
+                btnDiv.Attributes.Add("class", "col-md-4");
+
+                // Populate message divs
+                // Sender name
+                String name = reader.GetString(0);
+                var senderName = new HtmlGenericControl("p")
+                {
+                    InnerText = name
+                };
+                nameDiv.Controls.Add(senderName);
+
+                // Subject
+                String subject = reader.GetString(1);
+                var subjectLine = new HtmlGenericControl("p")
+                {
+                    InnerText = subject
+                };
+                subjectDiv.Controls.Add(subjectLine);
+
+                // View message button
+                Button view = new Button();
+                view.ID = Convert.ToString(reader.GetInt32(2));
+                view.Text = "View Message";
+                view.Attributes.Add("class", "btn btn-success btn-sm");
+                view.Style.Add("margin-bottom", "1rem;");
+                view.Attributes.Add("runat", "server");
+                view.Click += new EventHandler(ViewMessage_Click);
+                btnDiv.Controls.Add(view);
+            }
+            reader.Close();
+            sc.Close();
+
+
 
 
 
@@ -226,4 +281,10 @@ public partial class MessageCenter : System.Web.UI.Page
 
         dropdownContacts.Items.Add(contact);
     }
+
+    protected void ViewMessage_Click(object sender, EventArgs e)
+    {
+
+    }
+
 }
