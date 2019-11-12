@@ -118,7 +118,7 @@
     
 
 
-<footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
+<footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! chnage-->
    <div class="row" style="padding-left: 3rem;">
     <div class="col-md-4" style="padding-left: 3rem;">   
     <h3 class="din">Room Magnet</h3>

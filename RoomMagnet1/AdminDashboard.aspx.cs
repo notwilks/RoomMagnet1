@@ -304,6 +304,7 @@ public partial class AdminDashboard : System.Web.UI.Page
 
         //google .serverclick
         launchmodal.ServerClick += new System.EventHandler(DeleteHostButton_Click);
+        //hello
 
     }
 }
