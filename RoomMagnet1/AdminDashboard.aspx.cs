@@ -111,23 +111,11 @@ public partial class AdminDashboard : System.Web.UI.Page
             clear.Click += new EventHandler(approveButton_Click);
             butDiv.Controls.Add(clear);
 
-            ////making href for modal
-            //var href = new HtmlGenericControl("a")
-            //{
-
-            //};
-            //href.Attributes.Add("href", "#exampleModal");
-            //href.Attributes.Add("data-toggle", "modal");
-            //butDiv.Controls.Add(href);
-
             //delete account button
             Button delete = new Button();
-            //delete.Attributes.Add("type", "button");
             delete.ID = Convert.ToString(reader.GetInt32(0) + "D");
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
-            //butDiv.Attributes.Add("href", "#exampleModal");
-            //butDiv.Attributes.Add("data-toggle", "modal");
             delete.Attributes.Add("class", "btn btn-danger btn-sm");
             delete.Style.Add("float", "right");
             delete.Text = "Delete Account";
@@ -135,19 +123,6 @@ public partial class AdminDashboard : System.Web.UI.Page
             delete.Click += new EventHandler(DeleteHostButton_Click);
             butDiv.Controls.Add(delete);
 
-            //var delete = new HtmlGenericControl("button")
-            //{
-
-            //};
-            //delete.Attributes.Add("type", "button");
-            //delete.Style.Add("margin-bottom", "1rem;");
-            //delete.Attributes.Add("class", "btn btn-danger btn-sm");
-            //delete.Style.Add("float", "right");
-            //delete.InnerText = "Delete Account";
-            //delete.Attributes.Add("onserverclick", "Test");
-            //delete.Attributes.Add("runat", "server");
-
-            //butDiv.Controls.Add(delete);
         }
         reader.Close();
 
@@ -241,14 +216,13 @@ public partial class AdminDashboard : System.Web.UI.Page
 
             //delete account button
             Button delete = new Button();
-            delete.Attributes.Add("type", "button");
             delete.ID = Convert.ToString(readerT.GetInt32(0) + "T");
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
             delete.Attributes.Add("class", "btn btn-danger btn-sm");
             delete.Style.Add("float", "right");
             delete.Text = "Delete Account";
-            clear.Click += new EventHandler(DeleteHostButton_Click);
+            delete.Click += new EventHandler(DeleteTenantButton_Click);
             butDiv.Controls.Add(delete);
         }
 
@@ -315,23 +289,36 @@ public partial class AdminDashboard : System.Web.UI.Page
 
     protected void DeleteHostButton_Click(object sender, EventArgs e)
     {
-
         sc.Open();
         Button b = sender as Button;
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
 
         String ID = b.ID.Substring(0, b.ID.Length - 1);
-        select.CommandText = "select (lastName + ', ' + firstName + ', email: ' + email) from Host where hostID = " + ID;
+        select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from Host where hostID = " + ID;
 
         String hostLFModal = Convert.ToString(select.ExecuteScalar());
 
         ViewState["hostDeleteID"] = ID;
         
         ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup('" + hostLFModal + "');", true);
+    }
 
+    protected void DeleteTenantButton_Click(object sender, EventArgs e)
+    {
+        sc.Open();
+        Button b = sender as Button;
+        SqlCommand select = new SqlCommand();
+        select.Connection = sc;
 
+        String ID = b.ID.Substring(0, b.ID.Length - 1);
+        select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from tenant where tenantID = " + ID;
 
+        String tenantLFModal = Convert.ToString(select.ExecuteScalar());
+
+        ViewState["tenantDeleteID"] = ID;
+
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopupTenant('" + tenantLFModal + "');", true);
     }
 
     protected void YesDeleteHost(object sender, EventArgs e)
@@ -371,5 +358,30 @@ public partial class AdminDashboard : System.Web.UI.Page
 
         delete.CommandText = "Delete from Passwords where email = '" + hostEmail + "'";
         delete.ExecuteNonQuery();
+
+    }
+
+    protected void YesDeleteTenant(object sender, EventArgs e)
+    {
+        sc.Open();
+        Button b = sender as Button;
+        SqlCommand delete = new SqlCommand();
+        delete.Connection = sc;
+
+        delete.CommandText = "select email from Tenant where tenantID = " + ViewState["tenantDeleteID"];
+        String tenantEmail = Convert.ToString(delete.ExecuteScalar());
+
+        delete.CommandText = "Delete from TenantImages where tenantID = " + ViewState["tenantDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "Delete from TenantBadge where tenantID = " + ViewState["tenantDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "Delete from Tenant where tenantID = " + ViewState["tenantDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "Delete from Passwords where email = '" + tenantEmail + "'";
+        delete.ExecuteNonQuery();
+
     }
 }

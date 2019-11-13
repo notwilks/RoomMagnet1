@@ -328,6 +328,9 @@ public partial class SearchResultPage : System.Web.UI.Page
                 badge1.Attributes.Add("src", storageBadge);
             }
             badge1.Style.Add("max-width", "130px;");
+            badge1.Style.Add("max-height", "30px;");
+            badge1.Style.Add("margin-right", "5px;");
+            badge1.Style.Add("margin-top", "5px;");
 
             //property badge 2
             var badge2 = new HtmlGenericControl("img")
@@ -341,6 +344,8 @@ public partial class SearchResultPage : System.Web.UI.Page
                 badge2.Attributes.Add("src", bathroomBadge);
             }
             badge2.Style.Add("max-width", "130px;");
+            badge2.Style.Add("margin-right", "5px;");
+            badge2.Style.Add("margin-top", "5px;");
 
             //property badge 3
             var badge3 = new HtmlGenericControl("img")
@@ -354,6 +359,8 @@ public partial class SearchResultPage : System.Web.UI.Page
                 badge3.Attributes.Add("src", entranceBadge);
             }
             badge3.Style.Add("max-width", "130px;");
+            badge3.Style.Add("margin-right", "5px;");
+            badge3.Style.Add("margin-top", "5px;");
 
             //property badge 4
             var badge4 = new HtmlGenericControl("img")
@@ -366,7 +373,11 @@ public partial class SearchResultPage : System.Web.UI.Page
             {
                 badge4.Attributes.Add("src", furnishedBadge);
             }
-            badge4.Style.Add("max-width", "130px;");
+            //badge4.Style.Add("max-width", "130px;");
+            badge4.Style.Add("max-width", "110px;");
+            badge4.Style.Add("max-height", "33px;");
+            badge4.Style.Add("margin-right", "5px;");
+            badge4.Style.Add("margin-top", "5px;");
 
             //property badge 5
             var badge5 = new HtmlGenericControl("img")
@@ -380,6 +391,8 @@ public partial class SearchResultPage : System.Web.UI.Page
                 badge5.Attributes.Add("src", smokerBadge);
             }
             badge5.Style.Add("max-width", "130px;");
+            badge5.Style.Add("margin-right", "5px;");
+            badge5.Style.Add("margin-top", "5px;");
 
             //property badge 6
             var badge6 = new HtmlGenericControl("img")
@@ -392,7 +405,10 @@ public partial class SearchResultPage : System.Web.UI.Page
             {
                 badge6.Attributes.Add("src", KitchenBadge);
             }
-            badge6.Style.Add("max-width", "130px;");
+            badge6.Style.Add("max-width", "100px;");
+            badge6.Style.Add("max-height", "30px;");
+            badge6.Style.Add("margin-right", "5px;");
+            badge6.Style.Add("margin-top", "5px;");
 
             //new div for middle column
             var midCol = new HtmlGenericControl("div")
@@ -498,6 +514,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             rightCol.Controls.Add(newImg);
             newImg.Style.Add("max-height", "300px;");
             newImg.Style.Add("margin-top", "1rem;");
+            newImg.ImageUrl = propImage;
 
             count++;
         }

@@ -7,6 +7,11 @@
             $("#exampleModal .modal-body").html(body)
             $("#exampleModal").modal("show");
         }
+
+        function ShowPopupTenant(body) {
+            $("#tenantModal .modal-body").html(body)
+            $("#tenantModal").modal("show");
+        }
     </script>
 <html>
 <head>
@@ -29,15 +34,46 @@
 <form runat="server">     
 <div id="containerDiv" class="container">
 
-  <div class="row " style="margin-top: 7rem; border-bottom: solid;">
-    <div class="col-md-9" style="margin-bottom: 2rem; margin-top: 2rem">
-        <h1><asp:Label ID="FirstNameLastNameHeader" runat="server" Text="Admin Dashboard"></asp:Label></h1>
-        <h3><asp:Label ID="Label1" runat="server" Text="Powered By: "></asp:Label></h3>
-        <asp:Image ID="Image4" runat="server" ImageUrl="images/companylogo-02.png" Height="100px" Width="180px"/>
-      </div>
+  <div class="row" style="margin-top: 7rem;">
+      <h1><asp:Label ID="admindash" runat="server" Text="Admin Dashboard"></asp:Label></h1>
     </div><!-- end div row -->  
    
 </div>
+    <div class="row" style="margin-right: 4rem; margin-left: 4rem;">
+    <div class="col-md-1">
+
+      </div>
+
+    <div class="col-md-10" style="margin-bottom: 2rem; margin-top: 2rem">
+        
+        
+         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+                
+             <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="active">
+                            <a class="nav-link" href="#">Search Users <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="">
+                            <a class="nav-link" href="#">Site Statistics</a>
+                        </li>
+                        <li class="">
+                            <a class="nav-link" href="#">Create New Admin</a>
+                        </li>
+                    </ul>
+            </div>
+        </nav>
+
+      </div>
+
+      <div class="col-md-1">
+
+      </div>
+        </div>
 
    <!--Start First Module -->
    <div class="row " style="margin-top: 1rem;">
@@ -97,7 +133,7 @@
                 </div>
         </div> 
 
-    <!-- Modal -->
+    <!-- Host Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -111,8 +147,29 @@
               
           </div>
           <div class="modal-footer">
-            <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn btn-primary" OnClick="YesDeleteHost"/>
+            <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn" OnClick="YesDeleteHost"/>
             <asp:Button ID="noDelete" runat="server" Text="Cancel" CssClass="btn btn-secondary"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tenant Modal -->
+    <div class="modal fade" id="tenantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tenantModalLabel">This account will be permanently deleted. Would you like to continue?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" runat="server" id="Div1">
+              
+          </div>
+          <div class="modal-footer">
+            <asp:Button ID="Button1" runat="server" Text="Yes, Delete" CssClass="btn" OnClick="YesDeleteTenant"/>
+            <asp:Button ID="Button2" runat="server" Text="Cancel" CssClass="btn btn-secondary"/>
           </div>
         </div>
       </div>
