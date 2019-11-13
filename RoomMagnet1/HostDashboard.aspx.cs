@@ -46,8 +46,8 @@ public partial class HostDashboard : System.Web.UI.Page
         int hostID = Convert.ToInt32(select.ExecuteScalar());
 
         select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM AccommodationImages where accommodationID = " + accomID;
-
-        using (SqlDataReader reader = select.ExecuteReader())
+        SqlDataReader reader = select.ExecuteReader();
+        using (reader)
         {
             while (reader.Read())
             {
@@ -55,13 +55,15 @@ public partial class HostDashboard : System.Web.UI.Page
                 HostImage2.ImageUrl = reader.GetString(1);
                 HostImage3.ImageUrl = reader.GetString(2);
             }
+            reader.Close();
         }
+        
         sc.Close();
 
         sc.Open();
         select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM HostImages where hostID = " + hostID;
-
-        using (SqlDataReader reader = select.ExecuteReader())
+        reader = select.ExecuteReader();
+        using (reader)
         {
             while (reader.Read())
             {
@@ -69,8 +71,9 @@ public partial class HostDashboard : System.Web.UI.Page
                 Image2.ImageUrl = reader.GetString(1);
                 Image3.ImageUrl = reader.GetString(2);
             }
+            reader.Close();
         }
-
+        
         //HostPrimaryImage.ImageUrl = Convert.ToString(select.ExecuteScalar());
 
         //select host bio
@@ -104,7 +107,8 @@ public partial class HostDashboard : System.Web.UI.Page
         "(select hostID from Host where email = @email3))";
 
         select.Parameters.Add(new SqlParameter("@email3", Session["userEmail"]));
-        using (SqlDataReader reader = select.ExecuteReader())
+        reader = select.ExecuteReader();
+        using (reader)
         {
             while (reader.Read())
             {
@@ -178,6 +182,107 @@ public partial class HostDashboard : System.Web.UI.Page
         }
 
         sc.Close();
+
+        // MESSAGE CENTER 
+
+        /* Retrieve a Host's existing messages from DB
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID FROM MessageCenter m "
+                                                    + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+                                                    + "WHERE m.hostID = @hID", sc);
+        selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+        sc.Open();
+        reader = selectMessages.ExecuteReader();
+        using (reader)
+        {
+            while (reader.Read())
+            {
+                // Create divs to display messages
+                // Row div 
+                var div1 = new HtmlGenericControl("div")
+                {
+
+                };
+                messages.Controls.Add(div1);
+                div1.Style.Add("margin-top", "1rem;");
+                div1.Style.Add("border-bottom", "solid;");
+                div1.Style.Add("border-bottom-width", "1px;");
+                div1.Attributes.Add("class", "row");
+
+                // Name div
+                var nameDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(nameDiv);
+                nameDiv.Attributes.Add("class", "col-md-2");
+
+                // Subject div
+                var messageDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(messageDiv);
+                messageDiv.Attributes.Add("class", "col-md-10");
+
+                // Button div
+                var btnDiv = new HtmlGenericControl("div")
+                {
+
+                };
+                div1.Controls.Add(btnDiv);
+                btnDiv.Attributes.Add("class", "col-md-2");
+
+                // Populate message divs
+                // Sender name
+                String name = reader.GetString(0);
+                var senderName = new HtmlGenericControl("p")
+                {
+                    InnerText = name
+                };
+                nameDiv.Controls.Add(senderName);
+
+                // Subject
+                String message = reader.GetString(1);
+                var messageText = new HtmlGenericControl("p")
+                {
+                    InnerText = message
+                };
+                messageDiv.Controls.Add(messageText);
+
+                // View message button
+                Button view = new Button();
+                view.ID = Convert.ToString(reader.GetInt32(2));
+                view.Text = "View Message";
+                view.Attributes.Add("class", "btn btn-success btn-sm");
+                view.Style.Add("margin-bottom", "1rem;");
+                view.Attributes.Add("runat", "server");
+                view.Click += new EventHandler(ViewMessage_Click);
+                btnDiv.Controls.Add(view);
+            }
+            reader.Close();
+
+        }
+
+
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
     {
@@ -280,5 +385,12 @@ public partial class HostDashboard : System.Web.UI.Page
             newP.Controls.Add(newImg);
             propertyModule.Controls.Add(newImg);
         } 
+    }
+
+    protected void ViewMessage_Click(object sender, EventArgs e)
+    {
+        string title = "Greetings";
+        string body = "Welcome to ASPSnippets.com";
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup('" + title + "', '" + body + "');", true);
     }
 }

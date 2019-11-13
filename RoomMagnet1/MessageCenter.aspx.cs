@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.Configuration;
+using System.Windows.Forms;
 
 public partial class MessageCenter : System.Web.UI.Page
 {
@@ -284,7 +285,9 @@ public partial class MessageCenter : System.Web.UI.Page
 
     protected void ViewMessage_Click(object sender, EventArgs e)
     {
-
+        string title = "Greetings";
+        string body = "Welcome to ASPSnippets.com";
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup('" + title + "', '" + body + "');", true);
     }
 
 }

@@ -107,6 +107,8 @@
     
     
      <div class="row " style="margin-top: 1rem;">
+         <!-- Beginning of message center -->
+
         <div class="col-md-6"  style="border: solid; border-color: white;">
             <div class="row">
                 <div class="col-md-12">
@@ -127,6 +129,7 @@
             </div>
           </div>
 
+         <!-- End on message center -->
 
         <div class="col-md-6" style="border: solid; border-color: white;" >
         <div class="row">
@@ -138,9 +141,9 @@
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; " >
             <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                <h3><asp:Label ID="HostBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
+                <h3><asp:Label ID="TenantBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
                 <p style="text-align: center;"><asp:Image ID="TenantBackgroundStatusImage" runat="server" ImageURL="images/icons-07.png" style="max-width: 75px;"/></p>
-                <p><asp:Label ID="HostBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
+                <p><asp:Label ID="TenantBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
                     
             </div>
              

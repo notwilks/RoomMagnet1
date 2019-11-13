@@ -3,6 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <!DOCTYPE html>
 
+    <script type="text/javascript">
+    function ShowPopup(title, body) {
+        $("#MyPopup .modal-title").html(title);
+        $("#MyPopup .modal-body").html(body);
+        $("#MyPopup").modal("show");
+    }
+</script>
     <html>
     <head>
         <title>RoomMagnet - Create Account</title>
@@ -73,6 +80,26 @@
 
 
 
+<!-- Modal Popup -->
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;</button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
                     <!--end container-->
