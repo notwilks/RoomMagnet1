@@ -4,6 +4,9 @@
 
 <html>
 <head runat="server">
+
+    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RoomMagnet</title>
@@ -32,28 +35,28 @@
             
                <label id="signedInUser" runat="server" class="" style="margin-right: 2rem;"></label>
            
-               <a href="SearchResultpage.aspx" class="btn btn-outline-dark">Find a Property</a>
+               <a href="SearchResultpage.aspx" class="btn " style="margin-left: 3rem" id="leftButton" >Find a Property</a>
 
-               <a href="CreateHostorTenant.aspx" class="btn " style="margin-left: 3rem" id="leftButton" runat="server">Create Account</a>
+               <a href="CreateHostorTenant.aspx" class="btn " style="margin-left:1rem;" id="leftButton" runat="server">Create Account</a>
            
-               <a href="LoginPage.aspx" class="btn " style="margin-left: 1rem; margin-right: 2rem" id="rightButton" runat="server" >Login</a>
+               <a href="LoginPage.aspx" class="btn " style="margin-left: 1rem; margin-right: 1rem" id="rightButton" runat="server" >Login</a>
            
                
           
             <nav ><ul class="nav justify-content-end">
              
               <li class="nav-item ">
-                <a class="nav-link " href="#" style="font-family: 'DIN Alternate Bold'; color: #756664; font-size: 16px;">Home-Owners</a>
+                <a class="nav-link " href="#" style="font-family: 'Raleway', sans-serif; color: #756664; font-size: 16px;">Home-Owners</a>
               </li>
                 
                 <li class="nav-item">
-                <a class="nav-link" href="#" style="font-family: 'DIN Alternate Bold'; color: #756664; font-size: 16px;">Tenants</a>
+                <a class="nav-link" href="#" style="font-family: 'Raleway', sans-serif; color: #756664; font-size: 16px;">Tenants</a>
               </li>
                
               
                 
                 <li class="nav-item">
-                <a class="nav-link" href="#" style="font-family: 'DIN Alternate Bold'; color: #756664; font-size: 16px;">FAQ</a>
+                <a class="nav-link" href="#" style="font-family: 'Raleway', sans-serif; color: #756664; font-size: 16px;">FAQ</a>
               </li>
             </ul>   
         </nav> 
