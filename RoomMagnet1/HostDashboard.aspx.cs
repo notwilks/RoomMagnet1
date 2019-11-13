@@ -82,19 +82,19 @@ public partial class HostDashboard : System.Web.UI.Page
 
         //selecting name info
         select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
+            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Convert.ToString(Session["userEmail"])));
             String userName = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
             FirstNameLastNameHeader.Text = userName + "'s Dashboard";
             HostName.Text = userName.ToString();
 
             //selecting property name
             select.CommandText = "Select description from Accommodation where hostID in (select hostID from Host where email = @email1)";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
+            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Convert.ToString(Session["userEmail"])));
             PropertyName.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
             //selecting description on the property
             select.CommandText = "Select extraInfo from Accommodation where hostID in (select hostID from Host where email = @email2)";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Session["userEmail"]));
+            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Convert.ToString(Session["userEmail"])));
             PropertyInfo.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
         //Header.Text = "Host Dashboard.";
@@ -106,7 +106,7 @@ public partial class HostDashboard : System.Web.UI.Page
         select.CommandText = "Select bathroom, entrance, storage, pets, furnished, smoker, wifi, parking, kitchen, laundry, cable, allowPets from AccommodationAmmenity WHERE accommodationID in (select accommodationID from Accommodation where hostID in " +
         "(select hostID from Host where email = @email3))";
 
-        select.Parameters.Add(new SqlParameter("@email3", Session["userEmail"]));
+        select.Parameters.Add(new SqlParameter("@email3", Convert.ToString(Session["userEmail"])));
         reader = select.ExecuteReader();
         using (reader)
         {
@@ -158,7 +158,7 @@ public partial class HostDashboard : System.Web.UI.Page
 
         // Finds whether the Host's Accommodation is currently being listed or not
         findListing.CommandText = "SELECT Listed FROM Accommodation WHERE HostID in (SELECT HostID FROM HOST WHERE Email = @email)";
-        findListing.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
+        findListing.Parameters.Add(new SqlParameter("@email", Convert.ToString(Session["userEmail"])));
         listing = Convert.ToString(findListing.ExecuteScalar());
 
         if (listing == "F")
@@ -185,7 +185,7 @@ public partial class HostDashboard : System.Web.UI.Page
 
         // MESSAGE CENTER 
 
-        /* Retrieve a Host's existing messages from DB
+        // Retrieve a Host's existing messages from DB
         SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID FROM MessageCenter m "
                                                     + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID", sc);
@@ -264,7 +264,7 @@ public partial class HostDashboard : System.Web.UI.Page
         }
 
 
-    */
+    
 
 
 

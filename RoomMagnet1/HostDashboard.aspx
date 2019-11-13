@@ -106,10 +106,10 @@
     </div><!-- end div big row -->
     
     
-     <div class="row " style="margin-top: 1rem;">
+     <div class="row " runat="server" style="margin-top: 1rem;">
          <!-- Beginning of message center -->
 
-        <div class="col-md-6"  style="border: solid; border-color: white;">
+        <div class="col-md-6" runat="server" style="border: solid; border-color: white;">
             <div class="row">
                 <div class="col-md-12">
                    <h2 >Message Board</h2> 
@@ -117,15 +117,12 @@
 
             </div>
 
-            <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
-                <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
+            <div class="row" id="messagesModule" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+                <div class="col-md-12" id="messages" runat="server" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
                    <h3>New Message Sender Name</h3>
                     <p>Content of the message. Do you want to live at my house? I want to video chat with you first. When are you free to talk?</p>
                 </div>
-                 <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>New Message Sender Name</h3>
-                    <p>Content of the message. Do you want to live at my house? I want to video chat with you first. When are you free to talk?</p>
-                </div>
+                 
             </div>
           </div>
 
