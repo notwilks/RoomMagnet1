@@ -2,6 +2,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <!doctype html>
+    <script type="text/javascript">
+        function ShowPopup(body) {
+            $("#exampleModal .modal-body").html(body)
+            $("#exampleModal").modal("show");
+        }
+    </script>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -18,7 +24,7 @@
 <link rel="shortcut icon" href="images/logo-03.png" type="image/x-icon"/>
 <link href="https://fonts.googleapis.com/css?family=Oswald:400|Raleway:300&display=swap" rel="stylesheet">    
 </head>
-
+    
 <body>
 <form runat="server">     
 <div id="containerDiv" class="container">
@@ -91,16 +97,12 @@
                 </div>
         </div> 
 
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="launchmodal" runat="server">
-        Launch demo modal
-    </button>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Are you sure you would like to delete this user?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">This account will be permanently deleted. Would you like to continue?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -109,8 +111,8 @@
               
           </div>
           <div class="modal-footer">
-            <asp:Button ID="yesDelete" runat="server" Text="Yes" CssClass="btn btn-primary"/>
-            <asp:Button ID="noDelete" runat="server" Text="No" CssClass="btn btn-secondary"/>
+            <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn btn-primary" OnClick="YesDeleteHost"/>
+            <asp:Button ID="noDelete" runat="server" Text="Cancel" CssClass="btn btn-secondary"/>
           </div>
         </div>
       </div>
