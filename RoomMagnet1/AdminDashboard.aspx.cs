@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,6 +17,7 @@ public partial class AdminDashboard : System.Web.UI.Page
     {
         approveButton.Visible = false;
         approveTenant.Visible = false;
+        ArrayList hostNames = new ArrayList();
 
         sc.Open();
 
@@ -26,10 +28,12 @@ public partial class AdminDashboard : System.Web.UI.Page
         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", lastNameSearchBox.Text));
 
         SqlDataReader reader = select.ExecuteReader();
-
         while (reader.Read())
         {
-
+            
+            String temp = reader.GetString(1);
+            hostNames.Add(temp);
+            
             //row div creation for hosts
             var div1 = new HtmlGenericControl("div")
             {
@@ -107,18 +111,43 @@ public partial class AdminDashboard : System.Web.UI.Page
             clear.Click += new EventHandler(approveButton_Click);
             butDiv.Controls.Add(clear);
 
+            ////making href for modal
+            //var href = new HtmlGenericControl("a")
+            //{
+
+            //};
+            //href.Attributes.Add("href", "#exampleModal");
+            //href.Attributes.Add("data-toggle", "modal");
+            //butDiv.Controls.Add(href);
+
             //delete account button
             Button delete = new Button();
-            delete.Attributes.Add("type", "button");
+            //delete.Attributes.Add("type", "button");
             delete.ID = Convert.ToString(reader.GetInt32(0) + "D");
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
+            //butDiv.Attributes.Add("href", "#exampleModal");
+            //butDiv.Attributes.Add("data-toggle", "modal");
             delete.Attributes.Add("class", "btn btn-danger btn-sm");
             delete.Style.Add("float", "right");
             delete.Text = "Delete Account";
-            clear.Click += new EventHandler(DeleteHostButton_Click);
+
+            delete.Click += new EventHandler(DeleteHostButton_Click);
             butDiv.Controls.Add(delete);
 
+            //var delete = new HtmlGenericControl("button")
+            //{
+
+            //};
+            //delete.Attributes.Add("type", "button");
+            //delete.Style.Add("margin-bottom", "1rem;");
+            //delete.Attributes.Add("class", "btn btn-danger btn-sm");
+            //delete.Style.Add("float", "right");
+            //delete.InnerText = "Delete Account";
+            //delete.Attributes.Add("onserverclick", "Test");
+            //delete.Attributes.Add("runat", "server");
+
+            //butDiv.Controls.Add(delete);
         }
         reader.Close();
 
@@ -286,25 +315,61 @@ public partial class AdminDashboard : System.Web.UI.Page
 
     protected void DeleteHostButton_Click(object sender, EventArgs e)
     {
+
         sc.Open();
         Button b = sender as Button;
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
 
-        select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from Host where hostID = " + 78;
+        String ID = b.ID.Substring(0, b.ID.Length - 1);
+        select.CommandText = "select (lastName + ', ' + firstName + ', email: ' + email) from Host where hostID = " + ID;
 
-        String hostLFModal = Convert.ToString(select.ExecuteNonQuery());
+        String hostLFModal = Convert.ToString(select.ExecuteScalar());
 
-        //pulling name into the modal
-        var modalName = new HtmlGenericControl("p")
+        ViewState["hostDeleteID"] = ID;
+        
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup('" + hostLFModal + "');", true);
+
+
+
+    }
+
+    protected void YesDeleteHost(object sender, EventArgs e)
+    {
+        sc.Open();
+        Button b = sender as Button;
+        SqlCommand delete = new SqlCommand();
+        delete.Connection = sc;
+
+        delete.CommandText = "select accommodationID from Accommodation where hostID = " + ViewState["hostDeleteID"];
+        String accomID = Convert.ToString(delete.ExecuteScalar());
+
+        delete.CommandText = "select email from Host where hostID = " + ViewState["hostDeleteID"];
+        String hostEmail = Convert.ToString(delete.ExecuteScalar());
+
+        try
         {
-            InnerText = "hi"
-        };
-        modalbody.Controls.Add(modalName);
+            delete.CommandText = "Delete from AccommodationImages where accommodationID = " + accomID;
+            delete.ExecuteNonQuery();
+        }
+        catch
+        {}
 
-        //google .serverclick
-        launchmodal.ServerClick += new System.EventHandler(DeleteHostButton_Click);
-        //hello
+        try
+        {
+            delete.CommandText = "Delete from AccommodationAmmenity where accommodationID = " + accomID;
+            delete.ExecuteNonQuery();
+        }
+        catch
+        {}
 
+        delete.CommandText = "Delete from HostImages where hostID = " + ViewState["hostDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "Delete from Host where hostID = " + ViewState["hostDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "Delete from Passwords where email = '" + hostEmail + "'";
+        delete.ExecuteNonQuery();
     }
 }

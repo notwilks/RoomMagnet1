@@ -87,32 +87,17 @@
     </style>
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map"></div>
+    <div>
+        <asp:Label ID="test" runat="server" Text=""></asp:Label>
+    </div>
     <script>
         function initAutocomplete() {
+
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: -33.8688, lng: 151.2195 },
-                zoom: 13,
+                zoom: 15,
                 mapTypeId: 'roadmap'
             });
-
-            //try to geolocate the map based on web browser ip
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-
-                    map.setCenter(pos);
-
-
-                }, function () {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
-            }
 
             // Create the search box and link it to the UI element.
             var input = document.getElementById('pac-input');
@@ -125,6 +110,24 @@
             });
 
             var markers = [];
+            var circles = [];
+
+            //Do geocoding stuff
+            var geocoder = new google.maps.Geocoder();
+            var hardPlace = "715 S Main St Harrisonburg, VA, USA";
+
+            geocoder.geocode({ 'address': hardPlace }, function (results, status) {
+                if (status == 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    markers.push( new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    }));
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+
             // Listen for the event fired when the user selects a prediction and retrieve
             // more details for that place.
             searchBox.addListener('places_changed', function () {
@@ -138,7 +141,14 @@
                 markers.forEach(function (marker) {
                     marker.setMap(null);
                 });
+
+                // Clear out radii for old markers
+                circles.forEach(function (circle) {
+                    circles.setMap(null);
+                });
+
                 markers = [];
+                circles = [];
 
                 // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
@@ -158,9 +168,20 @@
                     // Create a marker for each place.
                     markers.push(new google.maps.Marker({
                         map: map,
-                        icon: icon,
                         title: place.name,
                         position: place.geometry.location
+                    }));
+
+                    //Create Circle around marker
+                    circles.push(new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.7,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.25,
+                        map: map,
+                        center: place.geometry.location,
+                        radius: 804
                     }));
 
                     if (place.geometry.viewport) {
@@ -184,7 +205,7 @@
 
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqkMkz8ShD_qn4w4OEvMvjSKEPBa68TJo&libraries=places&callback=initAutocomplete"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_RtlDFF8z1UVZvm5W4LVRHF8JBxM9S1I&libraries=places&callback=initAutocomplete"
          async defer></script>
 </asp:Content>
   

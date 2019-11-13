@@ -23,6 +23,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             SearchButton_Click(sender, e);         
         }
 
+        
     }
 
     protected void SearchButton_Click(object sender, EventArgs e)
