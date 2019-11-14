@@ -2,7 +2,22 @@
 
 <asp:Content ID="HostDashboard" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <!doctype html>
+    <script type="text/javascript">
+        function ShowPopup() {
+            
+            $("#messageCenterModal").modal("show");
+        }
+
+        
+        
+    </script>
+   
+
+
 <html lang="en">
+
+
+
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="Room Magnet">
@@ -17,6 +32,7 @@
 <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="shortcut icon" href="images/logo-03.png" type="image/x-icon"/>
 <link href="https://fonts.googleapis.com/css?family=Oswald:400|Raleway:300&display=swap" rel="stylesheet">    
+
 </head>
 
 <body>
@@ -116,17 +132,51 @@
                 </div>
 
             </div>
-
             <div class="row" id="messagesModule" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
                 <div class="col-md-12" id="messages" runat="server" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>New Message Sender Name</h3>
-                    <p>Content of the message. Do you want to live at my house? I want to video chat with you first. When are you free to talk?</p>
+                   
                 </div>
                  
             </div>
+
+            
           </div>
 
          <!-- End on message center -->
+
+         <!-- Message Modal Popup -->
+         <div class="modal fade" id="messageCenterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel">Message Center</h5>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     <div class="modal-body" runat="server" id="modalbody">
+                         <div class="container-fluid">
+                             <div class="col-md-6" style="border-bottom: solid; border-color: black; margin-top: 1rem;">
+                                 <h6>
+                                     <asp:Label ID="lblMessageHistory" runat="server"></asp:Label></h6>
+
+                             </div>
+                             <div class="col-md-6" style="margin-top: 1rem;">
+                                 <h6>
+                                     <asp:Label ID="Label1" runat="server"></asp:Label></h6>
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="modal-footer">
+                         <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn" />
+                         <asp:Button ID="noDelete" runat="server" Text="Cancel" CssClass="btn btn-secondary" />
+                     </div>
+                 </div>
+             </div>
+         </div>
+<!-- Message Modal Popup -->
+ 
 
         <div class="col-md-6" style="border: solid; border-color: white;" >
         <div class="row">

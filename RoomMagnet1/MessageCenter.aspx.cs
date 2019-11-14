@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.Configuration;
+using Google.Cloud.Translation.V2;
 //using System.Windows.Forms;
 
 public partial class MessageCenter : System.Web.UI.Page
