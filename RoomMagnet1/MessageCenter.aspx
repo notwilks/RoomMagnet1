@@ -3,14 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <!DOCTYPE html>
 
-    <script type="text/javascript">
+   
+    <html>
+
+        <script type="text/javascript">
     function ShowPopup(title, body) {
         $("#MyPopup .modal-title").html(title);
         $("#MyPopup .modal-body").html(body);
         $("#MyPopup").modal("show");
     }
 </script>
-    <html>
+
     <head>
         <title>RoomMagnet - Create Account</title>
         <!-- Bootstrap v4 -->
@@ -141,6 +144,7 @@
         </footer>
         <!-- end footer! -->
     </body>
+
     </html>
 </asp:Content>
 

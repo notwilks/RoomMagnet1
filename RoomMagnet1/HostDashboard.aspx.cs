@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using Google.Cloud.Translation.V2;
 using System.Web.UI.HtmlControls;
+using System.Data;
 public partial class HostDashboard : System.Web.UI.Page
 {
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
@@ -43,7 +44,7 @@ public partial class HostDashboard : System.Web.UI.Page
         select.CommandText = "Select hostID from Host where email = @hostEmail2";
         select.Parameters.Add(new SqlParameter("@hostEmail2", Convert.ToString(Session["userEmail"])));
 
-        int hostID = Convert.ToInt32(select.ExecuteScalar());
+        ViewState["hostID"] = Convert.ToInt32(select.ExecuteScalar());
 
         select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM AccommodationImages where accommodationID = " + accomID;
         SqlDataReader reader = select.ExecuteReader();
@@ -61,7 +62,7 @@ public partial class HostDashboard : System.Web.UI.Page
         sc.Close();
 
         sc.Open();
-        select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM HostImages where hostID = " + hostID;
+        select.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM HostImages where hostID = " + Convert.ToString(ViewState["hostID"]);
         reader = select.ExecuteReader();
         using (reader)
         {
@@ -77,7 +78,7 @@ public partial class HostDashboard : System.Web.UI.Page
         //HostPrimaryImage.ImageUrl = Convert.ToString(select.ExecuteScalar());
 
         //select host bio
-        select.CommandText = "Select biography from Host where hostID = " + hostID;
+        select.CommandText = "Select biography from Host where hostID = " + Convert.ToString(ViewState["hostID"]);
         HostBio.Text = Convert.ToString(select.ExecuteScalar());
 
         //selecting name info
@@ -216,13 +217,13 @@ public partial class HostDashboard : System.Web.UI.Page
                 div1.Controls.Add(nameDiv);
                 nameDiv.Attributes.Add("class", "col-md-2");
 
-                // Subject div
+                // Message div
                 var messageDiv = new HtmlGenericControl("div")
                 {
 
                 };
                 div1.Controls.Add(messageDiv);
-                messageDiv.Attributes.Add("class", "col-md-10");
+                messageDiv.Attributes.Add("class", "col-md-7");
 
                 // Button div
                 var btnDiv = new HtmlGenericControl("div")
@@ -241,7 +242,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 };
                 nameDiv.Controls.Add(senderName);
 
-                // Subject
+                // Message
                 String message = reader.GetString(1);
                 var messageText = new HtmlGenericControl("p")
                 {
@@ -264,12 +265,11 @@ public partial class HostDashboard : System.Web.UI.Page
         }
 
 
-    
 
 
 
 
-
+       
 
 
 
@@ -389,8 +389,73 @@ public partial class HostDashboard : System.Web.UI.Page
 
     protected void ViewMessage_Click(object sender, EventArgs e)
     {
-        string title = "Greetings";
-        string body = "Welcome to ASPSnippets.com";
-        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup('" + title + "', '" + body + "');", true);
+
+        // Pass tenantID to message center
+        Button btn = (Button)sender;
+        String tenantID = btn.ID.ToString();
+        BuildMessageCenter(tenantID);
+
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
+    }
+
+    
+
+    protected void BuildMessageCenter(String tenantID)
+    {
+
+        // Get Message History from particular sender
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent FROM MessageCenter m "
+                                                    + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+                                                    + "WHERE m.hostID = @hID and t.tenantID = @tID", sc);
+        selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+        selectMessages.Parameters.AddWithValue("@tID", tenantID);
+        
+        SqlDataReader reader = selectMessages.ExecuteReader();
+
+        // Declare asp control variables to be used by modal
+        String senderName = "";
+        String message = "";
+
+        while (reader.Read())
+        {
+            senderName = reader.GetString(0);
+            lblMessageHistory.Text = "Message history with " + senderName;
+            message = reader.GetString(1);
+
+            // Create divs to display messages
+            // Row div 
+            var div1 = new HtmlGenericControl("div")
+            {
+
+            };
+            messages.Controls.Add(div1);
+            div1.Style.Add("margin-top", "1rem;");
+            div1.Style.Add("border-bottom", "solid;");
+            div1.Style.Add("border-bottom-width", "1px;");
+            div1.Attributes.Add("class", "row");
+
+
+            // Date div
+            var dateDiv = new HtmlGenericControl("div")
+            {
+
+            };
+            div1.Controls.Add(dateDiv);
+            dateDiv.Attributes.Add("class", "col-md-2");
+
+            // Message div
+            var messageDiv = new HtmlGenericControl("div")
+            {
+
+            };
+            div1.Controls.Add(messageDiv);
+            messageDiv.Attributes.Add("class", "col-md-7");
+
+
+        }
+
+
+
+
     }
 }
