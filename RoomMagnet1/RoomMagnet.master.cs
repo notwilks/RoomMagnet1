@@ -44,7 +44,8 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
             {
                 select.CommandText = "Select CONCAT(firstName, ' ' , lastName) from " + table + " where email = @email";
                 select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Session["userEmail"]));
-                signedInUser.InnerText = "Hi, " + Convert.ToString(select.ExecuteScalar());
+                String s1 = Convert.ToString(select.ExecuteScalar());
+                signedInUser.InnerText = "Hi, " + HttpUtility.HtmlEncode(s1);
             }
             catch
             {
