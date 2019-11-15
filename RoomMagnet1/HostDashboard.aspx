@@ -146,34 +146,40 @@
 
          <!-- Message Modal Popup -->
          <div class="modal fade" id="messageCenterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-             <div class="modal-dialog" role="document">
-                 <div class="modal-content">
-                     <div class="modal-header">
+             <div class="modal-dialog" role="document" runat="server">
+                 <div class="modal-content" runat="server">
+                     <div class="modal-header" runat="server">
                          <h5 class="modal-title" id="exampleModalLabel">Message Center</h5>
                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                              <span aria-hidden="true">&times;</span>
                          </button>
                      </div>
                      <div class="modal-body" runat="server" id="modalbody">
-                         <div class="container-fluid">
-                             <div class="col-md-6" style="border-bottom: solid; border-color: black; margin-top: 1rem;">
-                                 <h6>
-                                     <asp:Label ID="lblMessageHistory" runat="server"></asp:Label></h6>
-
-                             </div>
-                             <div class="col-md-6" style="margin-top: 1rem;">
-                                 <h6>
-                                     <asp:Label ID="Label1" runat="server"></asp:Label></h6>
-
+                         <div class="row">
+                             <div class="col-md-6" runat="server" style="border-bottom: solid; border-color: black; margin-top: 1rem;">
+                                 
+                                    <h6><asp:Label ID="lblMessageHistory" runat="server"></asp:Label></h6>
+                                
                              </div>
                          </div>
-                     </div>
+                         <div class="row">
+                             <div class="col-md-6" ID="messageHistoryDiv" runat="server" style="border-bottom: solid; border-color: black; margin-top: 1rem;">
+                                 
+                                 
+                             </div>
+                         </div>
+                             
+                             
+                        </div> 
+                     
                      <div class="modal-footer">
                          <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn" />
                          <asp:Button ID="noDelete" runat="server" Text="Cancel" CssClass="btn btn-secondary" />
                      </div>
-                 </div>
+                 
+              </div>
              </div>
+
          </div>
 <!-- Message Modal Popup -->
  

@@ -413,14 +413,14 @@ public partial class HostDashboard : System.Web.UI.Page
         SqlDataReader reader = selectMessages.ExecuteReader();
 
         // Declare asp control variables to be used by modal
-        String senderName = "";
-        String message = "";
+        
+        
 
         while (reader.Read())
         {
-            senderName = reader.GetString(0);
-            lblMessageHistory.Text = "Message history with " + senderName;
-            message = reader.GetString(1);
+            
+            lblMessageHistory.Text = "Message history with " + reader.GetString(0);
+            
 
             // Create divs to display messages
             // Row div 
@@ -428,7 +428,7 @@ public partial class HostDashboard : System.Web.UI.Page
             {
 
             };
-            messages.Controls.Add(div1);
+            messageHistoryDiv.Controls.Add(div1);
             div1.Style.Add("margin-top", "1rem;");
             div1.Style.Add("border-bottom", "solid;");
             div1.Style.Add("border-bottom-width", "1px;");
@@ -449,7 +449,24 @@ public partial class HostDashboard : System.Web.UI.Page
 
             };
             div1.Controls.Add(messageDiv);
-            messageDiv.Attributes.Add("class", "col-md-7");
+            messageDiv.Attributes.Add("class", "col-md-4");
+
+            // Populate divs
+            // Date
+            String date = reader.GetDateTime(3).ToShortDateString();
+            var dateSent = new HtmlGenericControl("p")
+            {
+                InnerText = date
+            };
+            dateDiv.Controls.Add(dateSent);
+
+            // Message
+            String message = reader.GetString(1);
+            var messageText = new HtmlGenericControl("p")
+            {
+                InnerText = message
+            };
+            messageDiv.Controls.Add(messageText);
 
 
         }
