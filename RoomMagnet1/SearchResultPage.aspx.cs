@@ -35,6 +35,22 @@ public partial class SearchResultPage : System.Web.UI.Page
             ViewState["AccommodationID"] = "";
         }
 
+        SqlCommand insert = new SqlCommand();
+        insert.Connection = sc;
+
+        sc.Open();
+
+        insert.CommandText = "Insert into Search(searchDate, lastUpdated, lastUpdatedBy, state, city) VALUES (@searchDate, @lastUp, @lastUpBy, @stateIN, @cityIN)";
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@searchDate", DateTime.Now));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUp", DateTime.Now));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpBy", "Joe Muia"));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@stateIN", Convert.ToString(Session["StateSearch"])));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@cityIN", Convert.ToString(Session["CitySearch"])));
+
+        insert.ExecuteNonQuery();
+
+        sc.Close();
+
         String bathroom = "%";
         String bathroomBadge = "images/private-bath.png";
         String entrance = "%";
