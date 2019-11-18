@@ -63,12 +63,12 @@
 <form runat="server">    
 <div  class="container">
 
-  <div class="row fixed-top" style="margin-top: 6.35rem; background-color: white; ">
+  <div class="row fixed-top" style="margin-top: 6.35rem; background-color: lightgray">
     <div class="col-md-1" >
         <asp:Button ID="BackButton" runat="server" Text="Back" style="margin-top: 1.5rem; margin-left: .5rem;" CssClass="btn" OnClick="BackButton_Click"/>
       </div>
     <div class="col-md-8" style="margin-top: 1rem; "> 
-          <h1><asp:Label ID="HostNameLabel" runat="server" Text="Someone's Property"></asp:Label><img src="images/icons-07.png" style="max-width: 30px;" alt="background check approved icon"></h1> 
+          <h1><asp:Label ID="HostNameLabel" runat="server" Text="Someone's Property"></asp:Label><asp:Image ID="backgroundCheckImage" runat="server" style="max-width: 30px;" ImageUrl=""/></h1> 
         </div> <!--end col-->
       <div class="col-md-3" style="margin-top: 1.5rem; "> 
           <p style=" float: center; "><asp:ImageButton ID="MessageButton" runat="server" style="max-width: 100px;" alt="message icon" ImageUrl="images/message-badge.png" OnClick="MessageButton_Click"/>
@@ -82,10 +82,8 @@
     	</div>
     	<div class="col-md-12" style="margin-top: .5rem;  margin-bottom: 1rem;">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner"> <!-- house pics div -->
-                	<div class="carousel-item active">
-                		<img src="images/kitchen.jpeg"  class="d-block w-100 propertyc">
-                	</div>
+                <div class="carousel-inner" runat="server" id="carouselInner"> <!-- house pics div -->
+                	
                 	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="background-color:lightgray;">
                 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 		<span class="sr-only">Previous</span>
@@ -94,31 +92,42 @@
                 		<span class="carousel-control-next-icon" aria-hidden="true"></span>
                 		<span class="sr-only">Next</span>
                 	</a>
+
                 </div> <!--end carousel-inner-->
             </div> <!--end carousel div-->
         </div> <!--end col div-->
         <div class="col-md-7" style="padding: 20px; padding-left: 40px;">
-            <h5>Harrisonburg, 22801</h5>
-            <p >The brief bio that a homeowner would write about their home would go here. This is a room in an old home, but it's not haunted I swear. Haunted houses are seriously so scary, like how do people live in them? This is more of the bio because what if people have a lot to say?</p>
+            <h5><asp:Label ID="CityStateZip" runat="server" Text=""></asp:Label></h5>
+            <p ><asp:Label ID="PropBio" runat="server" Text=""></asp:Label></p>
+                <div class="row" style="margin-top: 3rem;">
+                    <p>
+                        <b>Price: </b> <asp:Label ID="price" runat="server" Text=""></asp:Label>
+                            <br />
+                            <br />
+                        <b>Number of Current Residents: </b> <asp:Label ID="numOfTenants" runat="server" Text=""></asp:Label>
+                            <br />
+                            <br />
+                        <b>Room Type: </b> <asp:Label ID="roomType" runat="server" Text=""></asp:Label>
+                            <br />
+                            <br />
+                        <b>Neighborhood: </b> <asp:Label ID="neighborhood" runat="server" Text=""></asp:Label>
+
+                    </p>
+                </div>
         </div>
         <div class="col-md-5" style="padding: 20px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
+            <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
         </div>
     </div><!-- end div row --> 
     
     <div class="row" style="margin-top: 1rem;">
     	<div class="col-md-12">
-    		<h3>Host(s) Name Here</h2>
+    		<h3><asp:Label ID="hostName2" runat="server" Text=""></asp:Label></h3>
     	</div>
     	<div class="col-md-4" style="margin-top: .5rem;  margin-bottom: 1rem;">
              <div id="carousel2" class="carousel slide" data-ride="carousel">
              	<div class="carousel-inner">
              		<div class="carousel-item active">
-             			<img src="images/johnsmith1.jpeg"  class="d-block w-100">
-             		</div>
-             		<div class="carousel-item">
              			<img src="images/johnsmith1.jpeg"  class="d-block w-100">
              		</div>
              		<a class="carousel-control-prev" href="#carousel2" role="button" data-slide="prev">
@@ -133,11 +142,9 @@
             </div> <!--end carousel -->
         </div> <!-- end col div -->
         <div class="col-md-8" style="padding-bottom: 10px; padding-left: 30px; padding-right: 30px;">
-            <h5>Title of host's goes here.</h5>
-            <p >The brief bio of a host would go here. I am a nice person to live with, I am a retired teacher, I enjoy knitting, cooking and watching movies. </p>
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
+            <h5><asp:Label ID="hostGender" runat="server" Text=""></asp:Label></h5>
+            <p ><asp:Label ID="hostBio" runat="server" Text=""></asp:Label></p>
+            <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
         </div>
     </div><!-- end div row -->
     
