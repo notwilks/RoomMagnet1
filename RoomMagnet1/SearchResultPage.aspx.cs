@@ -201,7 +201,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             order = "a.dateListed asc";
         }
 
-        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode, ai.mainImage from Host h " +
+        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode, ai.mainImage, a.accommodationID from Host h " +
             "inner join Accommodation a on a.hostID = h.HostID " +
             "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
             "inner join AccommodationImages ai on a.accommodationID = ai.accommodationID " +
@@ -481,38 +481,34 @@ public partial class SearchResultPage : System.Web.UI.Page
             rightCol.Style.Add("float", "right");
             rightCol.Style.Add("margin-bottom", "1rem;");
 
-            //message badge
-            var messageBadge = new HtmlGenericControl("img")
-            {
-
-            };
-
-            rightCol.Controls.Add(messageBadge);
-            messageBadge.Attributes.Add("src", "images/message-badge.png");
-            messageBadge.Style.Add("max-width", "100px;");
-            messageBadge.Style.Add("margin-right", "1rem;");
-
-            //favorite badge
-            var favoriteBadge = new HtmlGenericControl("img")
-            {
-
-            };
-
-            rightCol.Controls.Add(favoriteBadge);
-            favoriteBadge.Attributes.Add("src", "images/favorite-badge.png");
-            favoriteBadge.Style.Add("max-width", "90px;");
-            favoriteBadge.Style.Add("margin-right", "1rem;");
-
             //view profile badge
-            var viewProfileBadge = new HtmlGenericControl("img")
-            {
-
-            };
-
+            ImageButton viewProfileBadge = new ImageButton();
             rightCol.Controls.Add(viewProfileBadge);
-            viewProfileBadge.Attributes.Add("src", "images/view-profile-badge.png");
+            viewProfileBadge.ImageUrl = "images/view-profile-badge.png";
             viewProfileBadge.Style.Add("max-width", "90px;");
             viewProfileBadge.Style.Add("margin-right", "1rem;");
+            viewProfileBadge.ID = Convert.ToString(reader.GetInt32(15)) + "P";
+            viewProfileBadge.Click += new ImageClickEventHandler(ViewProfile_Click);
+
+
+            if (Convert.ToString(Session["userType"]) == "T")
+            {
+                //message badge
+                ImageButton messageBadge = new ImageButton();
+                rightCol.Controls.Add(messageBadge);
+                messageBadge.ImageUrl= "images/message-badge.png";
+                messageBadge.Style.Add("max-width", "100px;");
+                messageBadge.Style.Add("margin-right", "1rem;");
+
+                //Favorite Badge
+                ImageButton favoriteBadge = new ImageButton();
+                rightCol.Controls.Add(favoriteBadge);
+                favoriteBadge.ImageUrl = "images/favorite-badge.png";
+                favoriteBadge.Style.Add("max-width", "90px;");
+                favoriteBadge.Style.Add("margin-right", "1rem;");
+                favoriteBadge.ID = Convert.ToString(reader.GetInt32(15));
+                favoriteBadge.Click += new ImageClickEventHandler(FavoriteBadge_Click);
+            }
 
             //main property image
             String propImage = reader.GetString(14);
@@ -603,20 +599,33 @@ public partial class SearchResultPage : System.Web.UI.Page
 
     protected void FavoriteBadge_Click(object sender, EventArgs e)
     {
+        ImageButton b = sender as ImageButton;
 
         // Get tenantID to from Tenant to be inserted into FavoriteProperty
         SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
         selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
         sc.Open();
         String tenantID = selectTenantID.ExecuteScalar().ToString();
-        sc.Close();
-        // Get 
+        
+
+        String ID = b.ID;
+        //Setting favorite
         SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
         insertFavorite.Parameters.AddWithValue("@tID", tenantID);
-        insertFavorite.Parameters.AddWithValue("@aID", ViewState["AccommodationID"]);
+        insertFavorite.Parameters.AddWithValue("@aID", b.ID);
         insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
         insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
+        insertFavorite.ExecuteNonQuery();
+        sc.Close();
+        b.Visible = false;
+    }
 
+    protected void ViewProfile_Click(object sender, EventArgs e)
+    {
+        ImageButton b = sender as ImageButton;
+        String ID = b.ID.Substring(0, b.ID.Length - 1);
+        Session["propertyID"] = ID;
+        Response.Redirect("PropertyInfo.aspx");
     }
 
 

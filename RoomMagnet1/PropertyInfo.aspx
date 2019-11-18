@@ -65,7 +65,7 @@
 
   <div class="row fixed-top" style="margin-top: 6.35rem; background-color: white; ">
     <div class="col-md-1" >
-      <a href class="btn" style="margin-top: 1.5rem; margin-left: .5rem;">Back</a>
+        <asp:Button ID="BackButton" runat="server" Text="Back" style="margin-top: 1.5rem; margin-left: .5rem;" CssClass="btn" OnClick="BackButton_Click"/>
       </div>
     <div class="col-md-8" style="margin-top: 1rem; "> 
           <h1><asp:Label ID="HostNameLabel" runat="server" Text="Someone's Property"></asp:Label><img src="images/icons-07.png" style="max-width: 30px;" alt="background check approved icon"></h1> 

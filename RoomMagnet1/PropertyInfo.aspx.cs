@@ -21,4 +21,9 @@ public partial class PropertyInfo : System.Web.UI.Page
     {
 
     }
+
+    protected void BackButton_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("SearchResultPage.aspx");
+    }
 }
