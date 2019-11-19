@@ -16,6 +16,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+    <script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
 <html lang="en">
 
 
@@ -154,14 +176,12 @@
                          <div class="modal-body">
                           <div class="container-fluid">
                             <div class="row">
-                              <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
-                                <div class="dropdown">
-                                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More Contacts</button>
-                                  <div id="dropDownDiv" runat="server" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Sender</a>
-                                    <a class="dropdown-item" href="#">Another Sender</a>
-                                    <a class="dropdown-item" href="#">Another Sender</a>
-                                  </div>
+                              <div class="col-md-12 ml-auto"  style="padding-bottom: 15px;">
+                                <div class="dropdown" id="dropdownDiv" runat="server">
+                                  <asp:DropDownList ID="DropDownList1" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
+                                    <asp:ListItem Value=0>Your Contacts</asp:ListItem>
+                                  </asp:DropDownList>
+                                  
                                 </div>
                               </div> <!--end col-->
                             </div> <!--end row-->
@@ -173,8 +193,8 @@
                                       <!-- Message previews populated by code-bhind -->
                                     
                                   </div>
-                                  <div class="col-sm-6">
-                                    <p>Messages go here.</p>
+                                  <div class="col-sm-6" id="messageModalFullMessage" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
+                                    
                                   </div>
                                 </div> <!--end row-->
                               </div> <!--end col-sm-9-->

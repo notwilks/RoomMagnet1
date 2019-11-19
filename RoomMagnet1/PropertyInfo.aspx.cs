@@ -67,28 +67,28 @@ public partial class PropertyInfo : System.Web.UI.Page
             }
 
             //Setting host Bio
-            hostBio.Text = reader.GetString(4);
+            hostBio.Text = HttpUtility.HtmlEncode(reader.GetString(4));
 
             //setting Property title
-            PropTitle.Text = reader.GetString(6);
+            PropTitle.Text = HttpUtility.HtmlEncode(reader.GetString(6));
 
             //setting city, state, zip
-            CityStateZip.Text = reader.GetString(7) + ", " + reader.GetString(8) + " " + reader.GetString(13);
+            CityStateZip.Text = HttpUtility.HtmlEncode(reader.GetString(7)) + ", " + HttpUtility.HtmlEncode(reader.GetString(8)) + " " + HttpUtility.HtmlEncode(reader.GetString(13));
 
             //setting property bio
-            PropBio.Text = reader.GetString(9);
+            PropBio.Text = HttpUtility.HtmlEncode(reader.GetString(9));
 
             //setting room type
-            roomType.Text = reader.GetString(11);
+            roomType.Text = HttpUtility.HtmlEncode(reader.GetString(11));
 
             //setting number of current residents
-            numOfTenants.Text = Convert.ToString(reader.GetInt32(12));
+            numOfTenants.Text = Convert.ToString(HttpUtility.HtmlEncode(reader.GetInt32(12)));
 
             //setting neighborhood
-            neighborhood.Text = reader.GetString(14);
+            neighborhood.Text = HttpUtility.HtmlEncode(reader.GetString(14));
 
             //setting price
-            price.Text = "$" + reader.GetDecimal(10).ToString(".00") + "/month";
+            price.Text = "$" + HttpUtility.HtmlEncode(reader.GetDecimal(10).ToString(".00")) + "/month";
 
 
             //setting main image
@@ -128,6 +128,108 @@ public partial class PropertyInfo : System.Web.UI.Page
                 propImage2.Attributes.Add("class", "d-block w-100 propertyc");
                 cDiv2.Controls.Add(propImage2);
             }
+
+            //Setting prop image 3
+            String image3 = reader.GetString(29);
+            if (image3.Length > 0)
+            {
+                var cDiv3 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv3.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv3);
+
+                var propImage3 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage3.Attributes.Add("src", image3);
+                propImage3.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv3.Controls.Add(propImage3);
+            }
+
+            //Setting prop image 4
+            String image4 = reader.GetString(30);
+            if (image4.Length > 0)
+            {
+                var cDiv4 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv4.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv4);
+
+                var propImage4 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage4.Attributes.Add("src", image4);
+                propImage4.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv4.Controls.Add(propImage4);
+            }
+
+            //Setting prop image 5
+            String image5 = reader.GetString(31);
+            if (image5.Length > 0)
+            {
+                var cDiv5 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv5.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv5);
+
+                var propImage5 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage5.Attributes.Add("src", image5);
+                propImage5.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv5.Controls.Add(propImage5);
+            }
+
+            //Setting prop image 6
+            String image6 = reader.GetString(32);
+            if (image6.Length > 0)
+            {
+                var cDiv6 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv6.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv6);
+
+                var propImage6 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage6.Attributes.Add("src", image6);
+                propImage6.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv6.Controls.Add(propImage6);
+            }
+
+            //Setting prop image 7
+            String image7 = reader.GetString(33);
+            if (image7.Length > 0)
+            {
+                var cDiv6 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv6.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv6);
+
+                var propImage6 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage6.Attributes.Add("src", image6);
+                propImage6.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv6.Controls.Add(propImage6);
+            }
+
+
         }
     }
 

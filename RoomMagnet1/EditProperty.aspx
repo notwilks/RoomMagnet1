@@ -168,8 +168,15 @@
             </div> <!--end col-->
               <div class="col">
                 <label for="formGroupExampleInput">Upload more images of your property</label>
-                <asp:FileUpload ID="image2" runat="server" CssClass="btn form-control"/>
+                  <asp:FileUpload ID="image2" runat="server" CssClass="btn form-control"/>
                   <asp:FileUpload ID="image3" runat="server" CssClass="btn"/>
+                  <asp:FileUpload ID="image4" runat="server" CssClass="btn form-control"/>
+                  <asp:FileUpload ID="image5" runat="server" CssClass="btn"/>
+                  <asp:FileUpload ID="image6" runat="server" CssClass="btn form-control"/>
+                  <asp:FileUpload ID="image7" runat="server" CssClass="btn"/>
+                  <asp:FileUpload ID="image8" runat="server" CssClass="btn form-control"/>
+                  <asp:FileUpload ID="image9" runat="server" CssClass="btn"/>
+                  <asp:FileUpload ID="image10" runat="server" CssClass="btn form-control"/>
             </div> <!--end col-->
           </div> <!--end row class-->
 
