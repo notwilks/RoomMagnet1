@@ -32,7 +32,7 @@ public partial class ResetPassword : System.Web.UI.Page
             grabCode.Connection = sc;
             grabCode.CommandText = "select resetCode from passwords where email = @emailURL";
             grabCode.Parameters.Add(new SqlParameter("@emailURL", Session["emailURL"].ToString()));
-            string checkCode = Convert.ToString(grabCode.ExecuteScalar());
+            string checkCode = HttpUtility.HtmlEncode(Convert.ToString(grabCode.ExecuteScalar()));
             sc.Close();
 
             //if statement to check that code in url matches most recent resetCode updated in the database. 
