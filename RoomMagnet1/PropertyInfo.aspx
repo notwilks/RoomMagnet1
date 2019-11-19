@@ -331,7 +331,9 @@
             mapTypeId: 'roadmap',
             disableDefaultUI: true,
             zoomControl: true,
-            
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+            }
         });
 
         // Create the search box and link it to the UI element.
