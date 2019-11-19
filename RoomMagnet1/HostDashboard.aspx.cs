@@ -253,7 +253,7 @@ public partial class HostDashboard : System.Web.UI.Page
 
                 // View message button
                 Button view = new Button();
-                view.ID = Convert.ToString(reader.GetInt32(2));
+                ViewState["tenantID"] = Convert.ToString(reader.GetInt32(2));
                 view.Text = "Messages";
                 view.Attributes.Add("type", "button");
                 view.Attributes.Add("class", "btn float-right");
@@ -407,81 +407,103 @@ public partial class HostDashboard : System.Web.UI.Page
     protected void ViewMessage_Click(object sender, EventArgs e)
     {
 
-        // Pass tenantID to message center
-        Button btn = (Button)sender;
-        String tenantID = btn.ID.ToString();
-        BuildMessageCenter(tenantID);
+       
+        BuildMessageCenter();
 
         ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
     }
 
     
 
-    protected void BuildMessageCenter(String tenantID)
+    protected void BuildMessageCenter()
     {
 
         // Retrieve contacts (Tenants that have favorited this host's property) 
-        SqlCommand selectContacts = new SqlCommand("SELECT t.firstName, t.lastName, t.tenantID, h.hostID "
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
                                                     + "FROM Tenant t "
                                                     + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
                                                     + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
                                                     + "INNER JOIN Host h ON a.hostID = h.hostID "
-                                                    + "WHERE h.email = @hemail2", sc);
-        selectContacts.Parameters.AddWithValue("@hemail2", Convert.ToString(Session["userEmail"]));
+                                                    + "WHERE h.hostID = @hID", sc);
+        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
 
         SqlDataReader reader = selectContacts.ExecuteReader();
+
+
+  
+        
+
 
         // Add contacts to dropdown
 
         while (reader.Read())
         {
-            String name = reader.GetString(0);
-            var contactName = new HtmlGenericControl("a")
-            {
-                InnerText = name
-            };
-            contactName.Attributes.Add("class", "dropdown-item");
-            dropDownDiv.Controls.Add(contactName);
+            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false){
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                DropDownList1.Items.Add(contact);
+            }
+            
+            
 
         }
         reader.Close();
 
         // Get Message History from particular sender
-        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent FROM MessageCenter m "
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent, messageID FROM MessageCenter m "
                                                     + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
-                                                    + "WHERE m.hostID = @hID and t.tenantID = @tID", sc);
+                                                    + "WHERE m.hostID = @hID and t.tenantID = @tID "
+                                                    + "ORDER BY dateSent DESC", sc);
         selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-        selectMessages.Parameters.AddWithValue("@tID", tenantID);
+        selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
         
         reader = selectMessages.ExecuteReader();
 
+
+
         
-        
-        
-        
+
         while (reader.Read())
         {
+            var div2 = new HtmlGenericControl("div")
+            {
 
+            };
+            messageModalPreview.Controls.Add(div2);
+            div2.Style.Add("margin-top", "1rem;");
+            div2.Style.Add("border-bottom", "solid;");
+            div2.Style.Add("border-bottom-width", "1px;");
+            div2.Attributes.Add("class", "col-md-12");
 
-            // Populate div
-
+            // Populate Left column
             // Sender 
             String sender = reader.GetString(0);
-            var senderName = new HtmlGenericControl("h5")
+            var leftSenderHeader = new HtmlGenericControl("h5")
             {
                 InnerText = sender
             };
-            senderName.Attributes.Add("style", "font-size: 17px");
-            messageModalPreview.Controls.Add(senderName);
+            leftSenderHeader.Attributes.Add("style", "font-size: 17px");
+            div2.Controls.Add(leftSenderHeader);
 
-            // Date
+            // View message button
+            Button viewMessage = new Button();
+            viewMessage.ID = Convert.ToString(reader.GetInt32(4));
+            viewMessage.Text = "View";
+            viewMessage.Attributes.Add("type", "button");
+            viewMessage.Attributes.Add("class", "btn float-right");
+            viewMessage.Attributes.Add("runat", "server");
+            //view.Attributes.Add("data-toggle", "modal");
+            //view.Attributes.Add("data-target", "#exampleModalCenter");
+            //view.Click += new EventHandler(ViewMessage_Click);
+            leftSenderHeader.Controls.Add(viewMessage);
+
+            // Date 
             String date = reader.GetDateTime(3).ToShortDateString();
-            var dateSent = new HtmlGenericControl("p")
+            var leftDateSent = new HtmlGenericControl("p")
             {
                 InnerText = date
             };
-            dateSent.Attributes.Add("style", "font-size: 13px");
-            messageModalPreview.Controls.Add(dateSent);
+            leftDateSent.Attributes.Add("style", "font-size: 13px");
+            div2.Controls.Add(leftDateSent);
 
             // Message
             String message = reader.GetString(1);
@@ -489,17 +511,75 @@ public partial class HostDashboard : System.Web.UI.Page
             {
                 message = message.Substring(0, 20) + "...";
             }
-            var messageText = new HtmlGenericControl("p")
+            var leftMessageText = new HtmlGenericControl("p")
             {
                 InnerText = message
             };
-            messageModalPreview.Controls.Add(messageText);
+            div2.Controls.Add(leftMessageText);
 
+
+            // Populate Right column
+            var div3 = new HtmlGenericControl("div")
+            {
+
+            };
+            messageModalFullMessage.Controls.Add(div3);
+            div3.Style.Add("margin-top", "1rem;");
+            div3.Style.Add("border-bottom", "solid;");
+            div3.Style.Add("border-bottom-width", "1px;");
+            div3.Attributes.Add("class", "col-sm-6");
+
+            var rightSenderHeader = new HtmlGenericControl("h5")
+            {
+                InnerText = sender
+            };
+            leftSenderHeader.Attributes.Add("style", "font-size: 17px");
+            div3.Controls.Add(leftSenderHeader);
+
+            var rightDateSent = new HtmlGenericControl("p")
+            {
+                InnerText = date
+            };
+            rightDateSent.Attributes.Add("style", "font-size: 13px");
+            div3.Controls.Add(leftDateSent);
+
+            var rightMessageText = new HtmlGenericControl("p")
+            {
+                InnerText = message
+            };
+            div3.Controls.Add(rightMessageText);
 
         }
-        
+
+
+
+
+
 
 
 
     }
+
+
+    protected Boolean CheckExistingContacts(String tenantID)
+    {
+        Boolean contactExists = false;
+
+        foreach (ListItem li in DropDownList1.Items)
+        {
+            if (li.Value == tenantID)
+            {
+                contactExists = true;
+            }
+        }
+        return contactExists;
+    }
+
+    protected void ShowFullMessage()
+    {
+
+    }
+
+
+
 }
