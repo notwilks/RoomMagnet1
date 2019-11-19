@@ -53,7 +53,88 @@
         margin-top: 310px;
     }
 }    
-    
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 500px;
+        width: 700px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }    
 </style>   
     
     
@@ -63,12 +144,12 @@
 <form runat="server">    
 <div  class="container">
 
-  <div class="row fixed-top" style="margin-top: 6.35rem; background-color: white; ">
+  <div class="row fixed-top" style="margin-top: 6.35rem; background-color: lightgray">
     <div class="col-md-1" >
         <asp:Button ID="BackButton" runat="server" Text="Back" style="margin-top: 1.5rem; margin-left: .5rem;" CssClass="btn" OnClick="BackButton_Click"/>
       </div>
     <div class="col-md-8" style="margin-top: 1rem; "> 
-          <h1><asp:Label ID="HostNameLabel" runat="server" Text="Someone's Property"></asp:Label><img src="images/icons-07.png" style="max-width: 30px;" alt="background check approved icon"></h1> 
+          <h1><asp:Label ID="HostNameLabel" runat="server" Text="Someone's Property"></asp:Label><asp:Image ID="backgroundCheckImage" runat="server" style="max-width: 30px;" ImageUrl=""/></h1> 
         </div> <!--end col-->
       <div class="col-md-3" style="margin-top: 1.5rem; "> 
           <p style=" float: center; "><asp:ImageButton ID="MessageButton" runat="server" style="max-width: 100px;" alt="message icon" ImageUrl="images/message-badge.png" OnClick="MessageButton_Click"/>
@@ -82,10 +163,8 @@
     	</div>
     	<div class="col-md-12" style="margin-top: .5rem;  margin-bottom: 1rem;">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner"> <!-- house pics div -->
-                	<div class="carousel-item active">
-                		<img src="images/kitchen.jpeg"  class="d-block w-100 propertyc">
-                	</div>
+                <div class="carousel-inner" runat="server" id="carouselInner"> <!-- house pics div -->
+                	
                 	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="background-color:lightgray;">
                 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 		<span class="sr-only">Previous</span>
@@ -94,31 +173,42 @@
                 		<span class="carousel-control-next-icon" aria-hidden="true"></span>
                 		<span class="sr-only">Next</span>
                 	</a>
+
                 </div> <!--end carousel-inner-->
             </div> <!--end carousel div-->
         </div> <!--end col div-->
         <div class="col-md-7" style="padding: 20px; padding-left: 40px;">
-            <h5>Harrisonburg, 22801</h5>
-            <p >The brief bio that a homeowner would write about their home would go here. This is a room in an old home, but it's not haunted I swear. Haunted houses are seriously so scary, like how do people live in them? This is more of the bio because what if people have a lot to say?</p>
-        </div>
+            <h5><asp:Label ID="CityStateZip" runat="server" Text=""></asp:Label></h5>
+            <p ><asp:Label ID="PropBio" runat="server" Text=""></asp:Label></p>
+                <div class="row" style="margin-top: 3rem;">
+                    <p>
+                        <b>Price: </b> <asp:Label ID="price" runat="server" Text=""></asp:Label>
+                            <br />
+                            <br />
+                        <b>Number of Current Residents: </b> <asp:Label ID="numOfTenants" runat="server" Text=""></asp:Label>
+                            <br />
+                            <br />
+                        <b>Room Type: </b> <asp:Label ID="roomType" runat="server" Text=""></asp:Label>
+                            <br />
+                            <br />
+                        <b>Neighborhood: </b> <asp:Label ID="neighborhood" runat="server" Text=""></asp:Label>
+                    </p>
+                </div>
         <div class="col-md-5" style="padding: 20px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
+            <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
         </div>
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <div id="map"></div>
     </div><!-- end div row --> 
     
     <div class="row" style="margin-top: 1rem;">
     	<div class="col-md-12">
-    		<h3>Host(s) Name Here</h2>
+    		<h3><asp:Label ID="hostName2" runat="server" Text=""></asp:Label></h3>
     	</div>
     	<div class="col-md-4" style="margin-top: .5rem;  margin-bottom: 1rem;">
              <div id="carousel2" class="carousel slide" data-ride="carousel">
              	<div class="carousel-inner">
              		<div class="carousel-item active">
-             			<img src="images/johnsmith1.jpeg"  class="d-block w-100">
-             		</div>
-             		<div class="carousel-item">
              			<img src="images/johnsmith1.jpeg"  class="d-block w-100">
              		</div>
              		<a class="carousel-control-prev" href="#carousel2" role="button" data-slide="prev">
@@ -133,11 +223,9 @@
             </div> <!--end carousel -->
         </div> <!-- end col div -->
         <div class="col-md-8" style="padding-bottom: 10px; padding-left: 30px; padding-right: 30px;">
-            <h5>Title of host's goes here.</h5>
-            <p >The brief bio of a host would go here. I am a nice person to live with, I am a retired teacher, I enjoy knitting, cooking and watching movies. </p>
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
-            <img src="images/badges-03.png" style="max-width: 130px; padding-top: 5px;">
+            <h5><asp:Label ID="hostGender" runat="server" Text=""></asp:Label></h5>
+            <p ><asp:Label ID="hostBio" runat="server" Text=""></asp:Label></p>
+            <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
         </div>
     </div><!-- end div row -->
     
@@ -228,7 +316,129 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <!-- end of do not delete -->
-</form> 
+<script>
+    function initAutocomplete() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -33.8688, lng: 151.2195 },
+            zoom: 15,
+            mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        var circles = [];
+
+        //Do geocoding stuff
+        var geocoder = new google.maps.Geocoder();
+        var hardPlace = "715 S Main St Harrisonburg, VA, USA";
+
+        geocoder.geocode({ 'address': hardPlace }, function (results, status) {
+            if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+                /*
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                }));
+                */
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // Clear out the old markers.
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+
+            // Clear out radii for old markers
+            circles.forEach(function (circle) {
+                circles.setMap(null);
+            });
+
+            markers = [];
+            circles = [];
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                /*
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+                */
+
+                //Create Circle around marker
+                circles.push(new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.7,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.25,
+                    map: map,
+                    center: place.geometry.location,
+                    radius: 804
+                }));
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+
+    </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_RtlDFF8z1UVZvm5W4LVRHF8JBxM9S1I&libraries=places&callback=initAutocomplete"
+     async defer></script>
+</form>
 </body>
 </html>
 </asp:Content>

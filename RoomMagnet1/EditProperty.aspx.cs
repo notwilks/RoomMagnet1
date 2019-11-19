@@ -126,6 +126,125 @@ public partial class EditProperty : System.Web.UI.Page
             }
         }
 
+        if (image4.HasFile)
+        {
+            String ext = Path.GetExtension(image4.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image4.SaveAs(path + accomID + image4.FileName);
+
+                String name = "Images2/" + accomID + image4.FileName;
+
+                updateImages.CommandText = "update AccommodationImages set image4 = @image4 where accommodationID = " + accomID;
+                updateImages.Parameters.Add(new SqlParameter("@image4", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image5.HasFile)
+        {
+            String ext = Path.GetExtension(image5.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image5.SaveAs(path + accomID + image5.FileName);
+
+                String name = "Images2/" + accomID + image5.FileName;
+
+                updateImages.CommandText = "update AccommodationImages set image5 = @image5 where accommodationID = " + accomID;
+                updateImages.Parameters.Add(new SqlParameter("@image5", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image6.HasFile)
+        {
+            String ext = Path.GetExtension(image6.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image6.SaveAs(path + accomID + image6.FileName);
+
+                String name = "Images2/" + accomID + image6.FileName;
+
+                updateImages.CommandText = "update AccommodationImages set image6 = @image6 where accommodationID = " + accomID;
+                updateImages.Parameters.Add(new SqlParameter("@image6", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image7.HasFile)
+        {
+            String ext = Path.GetExtension(image7.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image7.SaveAs(path + accomID + image7.FileName);
+
+                String name = "Images2/" + accomID + image7.FileName;
+
+                updateImages.CommandText = "update AccommodationImages set image7 = @image7 where accommodationID = " + accomID;
+                updateImages.Parameters.Add(new SqlParameter("@image7", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image8.HasFile)
+        {
+            String ext = Path.GetExtension(image8.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image8.SaveAs(path + accomID + image8.FileName);
+
+                String name = "Images2/" + accomID + image8.FileName;
+
+                updateImages.CommandText = "update AccommodationImages set image8 = @image8 where accommodationID = " + accomID;
+                updateImages.Parameters.Add(new SqlParameter("@image8", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image9.HasFile)
+        {
+            String ext = Path.GetExtension(image9.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image9.SaveAs(path + accomID + image9.FileName);
+
+                String name = "Images2/" + accomID + image9.FileName;
+
+                updateImages.CommandText = "update AccommodationImages set image9 = @image9 where accommodationID = " + accomID;
+                updateImages.Parameters.Add(new SqlParameter("@image9", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
+        if (image10.HasFile)
+        {
+            String ext = Path.GetExtension(image10.FileName);
+
+            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            {
+                image10.SaveAs(path + accomID + image10.FileName);
+
+                String name = "Images2/" + accomID + image10.FileName;
+
+                updateImages.CommandText = "update AccommodationImages set image10 = @image10 where accommodationID = " + accomID;
+                updateImages.Parameters.Add(new SqlParameter("@image10", name));
+
+                updateImages.ExecuteNonQuery();
+            }
+        }
+
 
 
         SqlCommand update = new SqlCommand();

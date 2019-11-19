@@ -628,9 +628,4 @@ public partial class SearchResultPage : System.Web.UI.Page
         Response.Redirect("PropertyInfo.aspx");
     }
 
-
-    protected void searchMapBtn_Click(object sender, EventArgs e)
-    {
-        Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "addCircle();", true);
-    }
 }
