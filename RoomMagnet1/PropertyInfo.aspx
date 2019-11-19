@@ -114,6 +114,10 @@
 
                     </p>
                 </div>
+
+                <div class="row" style="margin-top: 3rem;" id="map">
+                    
+                </div>
         </div>
         <div class="col-md-5" style="padding: 20px;">
             <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
