@@ -188,13 +188,13 @@ window.onclick = function(event) {
                             <div class="row">
                               <div class="col-sm-12">
                                 <div class="row">
-                                  <div class="col-sm-6" id="messageModalPreview" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
-                                    
-                                      <!-- Message previews populated by code-bhind -->
+                                  <div class="col-sm-6" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
                                     
                                   </div>
-                                  <div class="col-sm-6" id="messageModalFullMessage" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
+                                  <div class="col-sm-6" id="rightDiv" runat="server">
                                     
+
+                                  </div>
                                   </div>
                                 </div> <!--end row-->
                               </div> <!--end col-sm-9-->
@@ -208,7 +208,7 @@ window.onclick = function(event) {
                     </div> <!--end modal content-->
                   </div> <!--end modal-dialog div-->
                   
-
+        
  
 
         <div class="col-md-6" style="border: solid; border-color: white;" >
