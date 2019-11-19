@@ -50,7 +50,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
 
             if (dobBox.Text.Length == 10)
             {
-                tempTenant.SetBirthDate(Convert.ToDateTime(dobBox.Text));
+                tempTenant.SetBirthDate(Convert.ToDateTime(HttpUtility.HtmlEncode(dobBox.Text)));
             }
 
             try
@@ -86,7 +86,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                             }
                             else
                             {
-                                tenantType = OtherTBox.Text;
+                                tenantType = HttpUtility.HtmlEncode(OtherTBox.Text);
                                 OtherErrorLbl.Text = "";
                                 //TenantTypeErrorLbl.Text = "";
                             }
