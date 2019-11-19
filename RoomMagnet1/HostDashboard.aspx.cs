@@ -449,7 +449,7 @@ public partial class HostDashboard : System.Web.UI.Page
         reader.Close();
 
         // Get Message History from particular sender
-        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent FROM MessageCenter m "
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent, messageID FROM MessageCenter m "
                                                     + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID and t.tenantID = @tID "
                                                     + "ORDER BY dateSent DESC", sc);
@@ -464,19 +464,29 @@ public partial class HostDashboard : System.Web.UI.Page
 
         while (reader.Read())
         {
-            
+            var div2 = new HtmlGenericControl("div")
+            {
+
+            };
+            messageModalPreview.Controls.Add(div2);
+            div2.Style.Add("margin-top", "1rem;");
+            div2.Style.Add("border-bottom", "solid;");
+            div2.Style.Add("border-bottom-width", "1px;");
+            div2.Attributes.Add("class", "col-md-12");
+
+            // Populate Left column
             // Sender 
             String sender = reader.GetString(0);
-            var senderHeader = new HtmlGenericControl("h5")
+            var leftSenderHeader = new HtmlGenericControl("h5")
             {
                 InnerText = sender
             };
-            senderHeader.Attributes.Add("style", "font-size: 17px");
-            messageModalPreview.Controls.Add(senderHeader);
+            leftSenderHeader.Attributes.Add("style", "font-size: 17px");
+            div2.Controls.Add(leftSenderHeader);
 
             // View message button
             Button viewMessage = new Button();
-            //viewMessage.ID = Convert.ToString(reader.GetInt32(2));
+            viewMessage.ID = Convert.ToString(reader.GetInt32(4));
             viewMessage.Text = "View";
             viewMessage.Attributes.Add("type", "button");
             viewMessage.Attributes.Add("class", "btn float-right");
@@ -484,16 +494,16 @@ public partial class HostDashboard : System.Web.UI.Page
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
             //view.Click += new EventHandler(ViewMessage_Click);
-            senderHeader.Controls.Add(viewMessage);
+            leftSenderHeader.Controls.Add(viewMessage);
 
-            // Date
+            // Date 
             String date = reader.GetDateTime(3).ToShortDateString();
-            var dateSent = new HtmlGenericControl("p")
+            var leftDateSent = new HtmlGenericControl("p")
             {
                 InnerText = date
             };
-            dateSent.Attributes.Add("style", "font-size: 13px");
-            messageModalPreview.Controls.Add(dateSent);
+            leftDateSent.Attributes.Add("style", "font-size: 13px");
+            div2.Controls.Add(leftDateSent);
 
             // Message
             String message = reader.GetString(1);
@@ -501,15 +511,49 @@ public partial class HostDashboard : System.Web.UI.Page
             {
                 message = message.Substring(0, 20) + "...";
             }
-            var messageText = new HtmlGenericControl("p")
+            var leftMessageText = new HtmlGenericControl("p")
             {
                 InnerText = message
             };
-            messageModalPreview.Controls.Add(messageText);
+            div2.Controls.Add(leftMessageText);
 
+
+            // Populate Right column
+            var div3 = new HtmlGenericControl("div")
+            {
+
+            };
+            messageModalFullMessage.Controls.Add(div3);
+            div3.Style.Add("margin-top", "1rem;");
+            div3.Style.Add("border-bottom", "solid;");
+            div3.Style.Add("border-bottom-width", "1px;");
+            div3.Attributes.Add("class", "col-sm-6");
+
+            var rightSenderHeader = new HtmlGenericControl("h5")
+            {
+                InnerText = sender
+            };
+            leftSenderHeader.Attributes.Add("style", "font-size: 17px");
+            div3.Controls.Add(leftSenderHeader);
+
+            var rightDateSent = new HtmlGenericControl("p")
+            {
+                InnerText = date
+            };
+            rightDateSent.Attributes.Add("style", "font-size: 13px");
+            div3.Controls.Add(leftDateSent);
+
+            var rightMessageText = new HtmlGenericControl("p")
+            {
+                InnerText = message
+            };
+            div3.Controls.Add(rightMessageText);
 
         }
-        
+
+
+
+
 
 
 
@@ -531,6 +575,10 @@ public partial class HostDashboard : System.Web.UI.Page
         return contactExists;
     }
 
+    protected void ShowFullMessage()
+    {
+
+    }
 
 
 

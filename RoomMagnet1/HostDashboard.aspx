@@ -193,8 +193,8 @@ window.onclick = function(event) {
                                       <!-- Message previews populated by code-bhind -->
                                     
                                   </div>
-                                  <div class="col-sm-6">
-                                    <p>Messages go here.</p>
+                                  <div class="col-sm-6" id="messageModalFullMessage" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
+                                    
                                   </div>
                                 </div> <!--end row-->
                               </div> <!--end col-sm-9-->
