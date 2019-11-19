@@ -602,9 +602,4 @@ public partial class SearchResultPage : System.Web.UI.Page
 
     }
 
-
-    protected void searchMapBtn_Click(object sender, EventArgs e)
-    {
-        Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "addCircle();", true);
-    }
 }
