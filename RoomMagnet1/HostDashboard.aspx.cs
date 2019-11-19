@@ -187,7 +187,7 @@ public partial class HostDashboard : System.Web.UI.Page
         // MESSAGE CENTER 
 
         // Retrieve a Host's existing messages from DB
-        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID FROM MessageCenter m "
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, m.messageID FROM MessageCenter m "
                                                     + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID", sc);
         selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
@@ -253,14 +253,14 @@ public partial class HostDashboard : System.Web.UI.Page
 
                 // View message button
                 Button view = new Button();
-                ViewState["tenantID"] = Convert.ToString(reader.GetInt32(2));
+                view.ID = Convert.ToString(reader.GetInt32(3));
                 view.Text = "Messages";
                 view.Attributes.Add("type", "button");
                 view.Attributes.Add("class", "btn float-right");
                 view.Attributes.Add("runat", "server");
                 //view.Attributes.Add("data-toggle", "modal");
                 //view.Attributes.Add("data-target", "#exampleModalCenter");
-                view.Click += new EventHandler(ViewMessage_Click);
+                view.Click += new EventHandler(ViewMessageHistory_Click);
                 senderName.Controls.Add(view);
 
                 // Message
@@ -404,18 +404,19 @@ public partial class HostDashboard : System.Web.UI.Page
         } 
     }
 
-    protected void ViewMessage_Click(object sender, EventArgs e)
+    protected void ViewMessageHistory_Click(object sender, EventArgs e)
     {
 
-       
-        BuildMessageCenter();
+        Button btn = (Button)sender;
+        String mID = Convert.ToString(btn.ID);
+        BuildMessageCenter(mID);
 
         ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
     }
 
-    
 
-    protected void BuildMessageCenter()
+
+    protected void BuildMessageCenter(String mID)
     {
 
         // Retrieve contacts (Tenants that have favorited this host's property) 
@@ -430,49 +431,42 @@ public partial class HostDashboard : System.Web.UI.Page
         SqlDataReader reader = selectContacts.ExecuteReader();
 
 
-  
-        
+
+
 
 
         // Add contacts to dropdown
 
         while (reader.Read())
         {
-            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false){
+            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false) {
                 ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
                 DropDownList1.Items.Add(contact);
             }
-            
-            
+
+
 
         }
         reader.Close();
-
+        // Get tenantID 
+        SqlCommand selectTenant = new SqlCommand("SELECT tenantID FROM messageCenter WHERE messageID = @mID", sc);
+        selectTenant.Parameters.AddWithValue("@mID", mID);
+        String tID = Convert.ToString(selectTenant.ExecuteScalar());
         // Get Message History from particular sender
         SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent, messageID FROM MessageCenter m "
                                                     + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID and t.tenantID = @tID "
                                                     + "ORDER BY dateSent DESC", sc);
         selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-        selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
-        
+        selectMessages.Parameters.AddWithValue("@tID", tID);
+
         reader = selectMessages.ExecuteReader();
 
 
 
-        
-
         while (reader.Read())
         {
-            var div2 = new HtmlGenericControl("div")
-            {
 
-            };
-            messageModalPreview.Controls.Add(div2);
-            div2.Style.Add("margin-top", "1rem;");
-            div2.Style.Add("border-bottom", "solid;");
-            div2.Style.Add("border-bottom-width", "1px;");
-            div2.Attributes.Add("class", "col-md-12");
 
             // Populate Left column
             // Sender 
@@ -482,7 +476,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 InnerText = sender
             };
             leftSenderHeader.Attributes.Add("style", "font-size: 17px");
-            div2.Controls.Add(leftSenderHeader);
+            leftDiv.Controls.Add(leftSenderHeader);
 
             // View message button
             Button viewMessage = new Button();
@@ -493,7 +487,7 @@ public partial class HostDashboard : System.Web.UI.Page
             viewMessage.Attributes.Add("runat", "server");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
-            //view.Click += new EventHandler(ViewMessage_Click);
+            viewMessage.Click += new EventHandler(ViewFullMessage_Click);
             leftSenderHeader.Controls.Add(viewMessage);
 
             // Date 
@@ -503,7 +497,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 InnerText = date
             };
             leftDateSent.Attributes.Add("style", "font-size: 13px");
-            div2.Controls.Add(leftDateSent);
+            leftDiv.Controls.Add(leftDateSent);
 
             // Message
             String message = reader.GetString(1);
@@ -515,46 +509,12 @@ public partial class HostDashboard : System.Web.UI.Page
             {
                 InnerText = message
             };
-            div2.Controls.Add(leftMessageText);
-
-
-            // Populate Right column
-            var div3 = new HtmlGenericControl("div")
-            {
-
-            };
-            messageModalFullMessage.Controls.Add(div3);
-            div3.Style.Add("margin-top", "1rem;");
-            div3.Style.Add("border-bottom", "solid;");
-            div3.Style.Add("border-bottom-width", "1px;");
-            div3.Attributes.Add("class", "col-sm-6");
-
-            var rightSenderHeader = new HtmlGenericControl("h5")
-            {
-                InnerText = sender
-            };
-            leftSenderHeader.Attributes.Add("style", "font-size: 17px");
-            div3.Controls.Add(leftSenderHeader);
-
-            var rightDateSent = new HtmlGenericControl("p")
-            {
-                InnerText = date
-            };
-            rightDateSent.Attributes.Add("style", "font-size: 13px");
-            div3.Controls.Add(leftDateSent);
-
-            var rightMessageText = new HtmlGenericControl("p")
-            {
-                InnerText = message
-            };
-            div3.Controls.Add(rightMessageText);
-
+            leftDiv.Controls.Add(leftMessageText);
         }
+        reader.Close();
 
-
-
-
-
+        // Populate Right column
+        
 
 
 
@@ -575,9 +535,47 @@ public partial class HostDashboard : System.Web.UI.Page
         return contactExists;
     }
 
-    protected void ShowFullMessage()
+    protected void ViewFullMessage_Click(object sender, EventArgs e)
     {
+        Button btn = (Button)sender;
+        String mID = Convert.ToString(btn.ID);
 
+        SqlCommand selectFullMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent, messageID FROM MessageCenter m "
+                                                            + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+                                                            + "WHERE m.messageID = @mID", sc);
+        selectFullMessage.Parameters.AddWithValue("@mID", mID);
+        SqlDataReader reader = selectFullMessage.ExecuteReader();
+        while (reader.Read())
+        {
+            String senderName = reader.GetString(0);
+            var rightSenderHeader = new HtmlGenericControl("h5")
+            {
+                InnerText = senderName
+            };
+            rightSenderHeader.Attributes.Add("style", "font-size: 17px");
+            rightDiv.Controls.Add(rightSenderHeader);
+
+            String date = reader.GetDateTime(3).ToShortDateString();
+            var rightDateSent = new HtmlGenericControl("p")
+            {
+                InnerText = date
+            };
+            rightDateSent.Attributes.Add("style", "font-size: 13px");
+            rightDiv.Controls.Add(rightDateSent);
+
+            String message = reader.GetString(1);
+            var rightMessageText = new HtmlGenericControl("p")
+            {
+                InnerText = message
+            };
+            rightDiv.Controls.Add(rightMessageText);
+
+
+
+
+        }
+
+        reader.Close();
     }
 
 
