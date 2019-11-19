@@ -22,12 +22,19 @@ public partial class PropertyInfo : System.Web.UI.Page
             "aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, aa.allowPets, aa.cable, aa.laundry, aa.parking, aa.wifi, aa.pets, " +
             "ISNULL(ai.mainImage, ''), ISNULL(ai.image2, ''), ISNULL(ai.image3, ''), ISNULL(ai.image4, ''), ISNULL(ai.image5, ''), ISNULL(ai.image6, ''), " +
             "ISNULL(ai.image7, ''), ISNULL(ai.image8, ''),  ISNULL(ai.image9, ''),  ISNULL(ai.image10, ''), " +
-            "ISNULL (hi.mainImage, ''), ISNULL(hi.image2, ''), ISNULL(hi.image3, '') " +
-            "from Host h inner join Accommodation a on a.hostID = h.HostID " +
+            "ISNULL (hi.mainImage, ''), ISNULL(hi.image2, ''), ISNULL(hi.image3, ''), a.houseNumber, a.street " +
+            "from Host h inner join Accommodation a on a.hostID = h.HostID " + 
             "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
             "inner join AccommodationImages ai on a.accommodationID = ai.accommodationID " +
             "inner join HostImages hi on hi.hostID = h.hostID " +
             "where a.accommodationID = @propID";
+
+        //FOR WYATT -- GOOGLE MAPS API ADDRESS
+        //house number = reader.getString(40)
+        //street = 41
+        //city = 7
+        //state = 8
+        //zip = 13
 
         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@propID", Session["propertyID"]));
 
@@ -213,22 +220,121 @@ public partial class PropertyInfo : System.Web.UI.Page
             String image7 = reader.GetString(33);
             if (image7.Length > 0)
             {
-                var cDiv6 = new HtmlGenericControl("div")
+                var cDiv7 = new HtmlGenericControl("div")
                 {
 
                 };
-                cDiv6.Attributes.Add("class", "carousel-item");
-                carouselInner.Controls.Add(cDiv6);
+                cDiv7.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv7);
 
-                var propImage6 = new HtmlGenericControl("img")
+                var propImage7 = new HtmlGenericControl("img")
                 {
 
                 };
-                propImage6.Attributes.Add("src", image6);
-                propImage6.Attributes.Add("class", "d-block w-100 propertyc");
-                cDiv6.Controls.Add(propImage6);
+                propImage7.Attributes.Add("src", image7);
+                propImage7.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv7.Controls.Add(propImage7);
             }
 
+            //Setting prop image 8
+            String image8 = reader.GetString(34);
+            if (image8.Length > 0)
+            {
+                var cDiv8 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv8.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv8);
+
+                var propImage8 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage8.Attributes.Add("src", image8);
+                propImage8.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv8.Controls.Add(propImage8);
+            }
+
+            //Setting prop image 9
+            String image9 = reader.GetString(35);
+            if (image9.Length > 0)
+            {
+                var cDiv9 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv9.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv9);
+
+                var propImage9 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage9.Attributes.Add("src", image9);
+                propImage9.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv9.Controls.Add(propImage9);
+            }
+
+            //Setting prop image 10
+            String image10 = reader.GetString(36);
+            if (image10.Length > 0)
+            {
+                var cDiv10 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv10.Attributes.Add("class", "carousel-item");
+                carouselInner.Controls.Add(cDiv10);
+
+                var propImage10 = new HtmlGenericControl("img")
+                {
+
+                };
+                propImage10.Attributes.Add("src", image10);
+                propImage10.Attributes.Add("class", "d-block w-100 propertyc");
+                cDiv10.Controls.Add(propImage10);
+            }
+
+            //setting host main image
+            String hostmainImage = reader.GetString(37);
+            if (hostmainImage.Length > 0)
+            {
+                var cDiv11 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv11.Attributes.Add("class", "carousel-item active");
+                hostcarousel.Controls.Add(cDiv11);
+
+                var hostImage = new HtmlGenericControl("img")
+                {
+
+                };
+                hostImage.Attributes.Add("src", hostmainImage);
+                hostImage.Attributes.Add("class", "d-block w-100");
+                cDiv11.Controls.Add(hostImage);
+            }
+
+            //setting host image 2
+            String hostImage2 = reader.GetString(38);
+            if (hostImage2.Length > 0)
+            {
+                var cDiv12 = new HtmlGenericControl("div")
+                {
+
+                };
+                cDiv12.Attributes.Add("class", "carousel-item");
+                hostcarousel.Controls.Add(cDiv12);
+
+                var hostprofileImage2 = new HtmlGenericControl("img")
+                {
+
+                };
+                hostprofileImage2.Attributes.Add("src", hostImage2);
+                hostprofileImage2.Attributes.Add("class", "d-block w-100 img-fluid");
+                cDiv12.Controls.Add(hostprofileImage2);
+            }
 
         }
     }

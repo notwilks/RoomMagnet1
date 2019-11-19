@@ -159,7 +159,7 @@
 
     <div class="row prop" style="border-bottom: solid; border-bottom-width: 1px; border-bottom-color: #D0D0D0;">
     	<div class="col-md-12">
-    		<h3><asp:Label ID="PropTitle" runat="server" Text="Title of Space"></asp:Label></h3>
+    		
     	</div>
     	<div class="col-md-12" style="margin-top: .5rem;  margin-bottom: 1rem;">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -177,7 +177,11 @@
                 </div> <!--end carousel-inner-->
             </div> <!--end carousel div-->
         </div> <!--end col div-->
+        <div class="row justify-content-center" style="margin-bottom: 1rem;">
+            <h3><asp:Label ID="PropTitle" runat="server" Text="Title of Space"></asp:Label></h3>
+        </div>
         <div class="col-md-7" style="padding: 20px; padding-left: 40px;">
+            
             <h5><asp:Label ID="CityStateZip" runat="server" Text=""></asp:Label></h5>
             <p ><asp:Label ID="PropBio" runat="server" Text=""></asp:Label></p>
                 <div class="row" style="margin-top: 3rem;">
@@ -203,13 +207,13 @@
         <div id="map"></div>
     </div><!-- end div row --> 
     
-    <div class="row" style="margin-top: 1rem;">
+    <div class="row" style="margin-top: 1rem; border-top: solid; border-top-width: 1px;">
     	<div class="col-md-12">
-    		<h3><asp:Label ID="hostName2" runat="server" Text=""></asp:Label></h3>
+    		<h2>About the host</h2>
     	</div>
     	<div class="col-md-4" style="margin-top: .5rem;  margin-bottom: 1rem;">
              <div id="carousel2" class="carousel slide" data-ride="carousel">
-             	<div class="carousel-inner">
+             	<div class="carousel-inner" runat="server" id="hostcarousel">
              		<div class="carousel-item active">
              			<img src="images/johnsmith1.jpeg"  class="d-block w-100">
              		</div>
@@ -225,7 +229,9 @@
             </div> <!--end carousel -->
         </div> <!-- end col div -->
         <div class="col-md-8" style="padding-bottom: 10px; padding-left: 30px; padding-right: 30px;">
-            <h5><asp:Label ID="hostGender" runat="server" Text=""></asp:Label></h5>
+            <h3><asp:Label ID="hostName2" runat="server" Text=""></asp:Label></h3>
+            <br />
+            <h6><asp:Label ID="hostGender" runat="server" Text=""></asp:Label></h6>
             <p ><asp:Label ID="hostBio" runat="server" Text=""></asp:Label></p>
             <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
         </div>
@@ -283,7 +289,7 @@
                       </div> <!--end modal header-->
                     </div> <!--end modal content-->
                   </div> <!--end modal-dialog div-->
-    
+    </div>
 </div> <!-- end div container! -->    
 <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
    <div class="row" style="padding-left: 3rem;">
