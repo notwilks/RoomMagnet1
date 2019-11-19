@@ -198,10 +198,20 @@
                         <b>Neighborhood: </b> <asp:Label ID="neighborhood" runat="server" Text=""></asp:Label>
                     </p>
                 </div>
+                <!-- Begin Google Map Row--> 
                 <div class="row">
-                     <div id="map"></div>
+                    <div class="col">
+
+                    </div>
+                    <div class="col-6">
+                         <div id="map"></div>
+                    </div>
+                    <div class="col">
+
+                    </div>                   
                 </div>
-       
+                <!-- End Google Map Row-->
+
     </div><!-- end div row --> 
     
     <div class="row" style="margin-top: 1rem; border-top: solid; border-top-width: 1px;">
