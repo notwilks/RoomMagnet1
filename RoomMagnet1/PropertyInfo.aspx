@@ -56,8 +56,8 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 500px;
-        width: 700px;
+        height: 400px;
+        width: 600px;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -354,7 +354,8 @@
 
         //Do geocoding stuff
         var geocoder = new google.maps.Geocoder();
-        var hardPlace = "715 S Main St Harrisonburg, VA, USA";
+
+        var hardPlace = '<%=jsStreetName %>';
 
         geocoder.geocode({ 'address': hardPlace }, function (results, status) {
             if (status == 'OK') {

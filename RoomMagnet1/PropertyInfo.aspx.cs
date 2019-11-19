@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 
 public partial class PropertyInfo : System.Web.UI.Page
 {
+    public string jsStreetName = "715 S Main St Harrisonburg, VA, USA";
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -42,6 +43,7 @@ public partial class PropertyInfo : System.Web.UI.Page
 
         while(reader.Read())
         {
+            jsStreetName = reader.GetString(40) + " " + reader.GetString(41) + " " + reader.GetString(7) + ", " + reader.GetString(8) + ", USA";
             //setting fixed top bar name
             HostNameLabel.Text = HttpUtility.HtmlEncode(reader.GetString(0)) + "'s Property";
             hostName2.Text = HttpUtility.HtmlEncode(reader.GetString(0));
