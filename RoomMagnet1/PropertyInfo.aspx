@@ -197,7 +197,9 @@
         <div class="col-md-5" style="padding: 20px;">
             <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
         </div>
+        <!--
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+            -->
         <div id="map"></div>
     </div><!-- end div row --> 
     
@@ -322,11 +324,15 @@
         var map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: -33.8688, lng: 151.2195 },
             zoom: 15,
-            mapTypeId: 'roadmap'
+            mapTypeId: 'roadmap',
+            disableDefaultUI: true,
+            zoomControl: true,
+            
         });
 
         // Create the search box and link it to the UI element.
-
+        //Commented out because not needed for this functionality.
+        /*
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -335,6 +341,7 @@
         map.addListener('bounds_changed', function () {
             searchBox.setBounds(map.getBounds());
         });
+        */
 
         var markers = [];
         var circles = [];
@@ -346,12 +353,25 @@
         geocoder.geocode({ 'address': hardPlace }, function (results, status) {
             if (status == 'OK') {
                 map.setCenter(results[0].geometry.location);
+
                 /*
                 markers.push(new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location
                 }));
                 */
+
+                //Create Circle around marker
+                circles.push(new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.7,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.25,
+                    map: map,
+                    center: results[0].geometry.location,
+                    radius: 804
+                }));
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -359,6 +379,8 @@
 
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
+
+        /*
         searchBox.addListener('places_changed', function () {
             var places = searchBox.getPlaces();
 
@@ -395,13 +417,13 @@
                 };
 
                 // Create a marker for each place.
-                /*
+                
                 markers.push(new google.maps.Marker({
                     map: map,
                     title: place.name,
                     position: place.geometry.location
                 }));
-                */
+                
 
                 //Create Circle around marker
                 circles.push(new google.maps.Circle({
@@ -424,6 +446,7 @@
             });
             map.fitBounds(bounds);
         });
+        */       
     }
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {

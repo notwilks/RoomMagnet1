@@ -100,15 +100,21 @@
             });
 
             // Create the search box and link it to the UI element.
+
+            /*
             var input = document.getElementById('pac-input');
             var searchBox = new google.maps.places.SearchBox(input);
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            */
 
             // Bias the SearchBox results towards current map's viewport.
+
+            /*
             map.addListener('bounds_changed', function () {
                 searchBox.setBounds(map.getBounds());
             });
-
+            */
+            
             var markers = [];
             var circles = [];
 
@@ -119,10 +125,28 @@
             geocoder.geocode({ 'address': hardPlace }, function (results, status) {
                 if (status == 'OK') {
                     map.setCenter(results[0].geometry.location);
-                    markers.push( new google.maps.Marker({
+
+                    //Add Marker based on geocoded position -- commented out because we don't want exact property locations. 
+
+                    /*
+                    markers.push(new google.maps.Marker({
                         map: map,
                         position: results[0].geometry.location
                     }));
+                    */
+
+                    //Create Circle around marker
+                    circles.push(new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.7,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.25,
+                        map: map,
+                        center: results[0].geometry.location,
+                        radius: 804
+                    }));
+
                 } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                 }
