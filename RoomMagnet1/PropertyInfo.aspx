@@ -214,9 +214,7 @@
     	<div class="col-md-4" style="margin-top: .5rem;  margin-bottom: 1rem;">
              <div id="carousel2" class="carousel slide" data-ride="carousel">
              	<div class="carousel-inner" runat="server" id="hostcarousel">
-             		<div class="carousel-item active">
-             			<img src="images/johnsmith1.jpeg"  class="d-block w-100">
-             		</div>
+
              		<a class="carousel-control-prev" href="#carousel2" role="button" data-slide="prev">
              			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
              			<span class="sr-only">Previous</span>
