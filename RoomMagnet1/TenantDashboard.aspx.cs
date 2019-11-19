@@ -37,7 +37,7 @@ public partial class TenantDashboard : System.Web.UI.Page
             phoneNumber = reader.GetString(2);
             DOB = Convert.ToDateTime(reader.GetDateTime(3));
             today = DateTime.Now;
-            age = CalculateAge(reader.GetDateTime(3)).ToString(); ;
+            age = CalculateAge(reader.GetDateTime(3)).ToString();
             bio = reader.GetString(4);
 
         }

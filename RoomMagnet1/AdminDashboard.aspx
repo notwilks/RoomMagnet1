@@ -56,13 +56,13 @@
              <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="active">
-                            <a class="nav-link" href="#">Search Users <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="AdminDashboard.aspx">Search Users <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="">
-                            <a class="nav-link" href="#">Site Statistics</a>
+                            <a class="nav-link" href="AdminStats.aspx">Site Statistics</a>
                         </li>
                         <li class="">
-                            <a class="nav-link" href="#">Create New Admin</a>
+                            <a class="nav-link" href="CreateAdmin.aspx">Create New Admin</a>
                         </li>
                     </ul>
             </div>

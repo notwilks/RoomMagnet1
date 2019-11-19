@@ -23,17 +23,28 @@ public partial class SearchResultPage : System.Web.UI.Page
             SearchButton_Click(sender, e);         
         }
 
-        
-    }
-
-    protected void SearchButton_Click(object sender, EventArgs e)
-    {
         if (IsPostBack)
         {
             Session["CitySearch"] = HttpUtility.HtmlEncode(CitySearchBox.Text);
             Session["StateSearch"] = HttpUtility.HtmlEncode(stateBox.SelectedValue);
             ViewState["AccommodationID"] = "";
         }
+
+        SqlCommand insert = new SqlCommand();
+        insert.Connection = sc;
+
+        sc.Open();
+
+        insert.CommandText = "Insert into Search(searchDate, lastUpdated, lastUpdatedBy, state, city) VALUES (@searchDate, @lastUp, @lastUpBy, @stateIN, @cityIN)";
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@searchDate", DateTime.Now));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUp", DateTime.Now));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpBy", "Joe Muia"));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@stateIN", Convert.ToString(Session["StateSearch"])));
+        insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@cityIN", Convert.ToString(Session["CitySearch"])));
+
+        insert.ExecuteNonQuery();
+
+        sc.Close();
 
         String bathroom = "%";
         String bathroomBadge = "images/private-bath.png";
@@ -63,7 +74,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             entrance = "%";
         }
 
-        if(PrivateBathroomBox.Checked)
+        if (PrivateBathroomBox.Checked)
         {
             bathroom = "T";
         }
@@ -72,7 +83,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             bathroom = "%";
         }
 
-        if(StorageSpaceBox.Checked)
+        if (StorageSpaceBox.Checked)
         {
             storage = "T";
         }
@@ -81,7 +92,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             storage = "%";
         }
 
-        if(FurnishedBox.Checked)
+        if (FurnishedBox.Checked)
         {
             furnished = "T";
         }
@@ -90,7 +101,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             furnished = "%";
         }
 
-        if(HasPetsBox.Checked)
+        if (HasPetsBox.Checked)
         {
             pets = "F";
         }
@@ -99,7 +110,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             pets = "%";
         }
 
-        if(AllowsSmokingBox.Checked)
+        if (AllowsSmokingBox.Checked)
         {
             smoker = "T";
         }
@@ -108,7 +119,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             smoker = "%";
         }
 
-        if(WifiBox.Checked)
+        if (WifiBox.Checked)
         {
             wifi = "T";
         }
@@ -117,7 +128,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             wifi = "%";
         }
 
-        if(ParkingBox.Checked)
+        if (ParkingBox.Checked)
         {
             parking = "T";
         }
@@ -126,7 +137,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             parking = "%";
         }
 
-        if(KitchenBox.Checked)
+        if (KitchenBox.Checked)
         {
             kitchen = "T";
         }
@@ -135,7 +146,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             kitchen = "%";
         }
 
-        if(LaundryBox.Checked)
+        if (LaundryBox.Checked)
         {
             laundry = "T";
         }
@@ -144,7 +155,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             laundry = "%";
         }
 
-        if(CableBox.Checked)
+        if (CableBox.Checked)
         {
             cable = "T";
         }
@@ -153,7 +164,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             cable = "%";
         }
 
-        if(AllowsPetsBox.Checked)
+        if (AllowsPetsBox.Checked)
         {
             allowsPets = "T";
         }
@@ -190,7 +201,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             order = "a.dateListed asc";
         }
 
-        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode, ai.mainImage from Host h " +
+        counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode, ai.mainImage, a.accommodationID from Host h " +
             "inner join Accommodation a on a.hostID = h.HostID " +
             "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
             "inner join AccommodationImages ai on a.accommodationID = ai.accommodationID " +
@@ -207,13 +218,13 @@ public partial class SearchResultPage : System.Web.UI.Page
             "and aa.kitchen like @kitchen " +
             "and aa.laundry like @laundry " +
             "and aa.cable like @cable " +
-            "and aa.allowPets like @allowsPets " + 
+            "and aa.allowPets like @allowsPets " +
             "and a.listed = 'T' " +
             "and a.price > @minPrice " +
             "and a.price <= @maxPrice " +
             "Order By " + order;
 
-        
+
 
         //Select h.firstName, h.lastName, a.description, a.extraInfo from Host h inner join Accommodation a on a.hostID = h.HostID inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID where UPPER(a.city) = @city and a.state = @state and aa.bathroom like @bathroom and aa.entrance like @entrance and aa.furnished like @furnished and aa.storage like @storage and aa.pets like @pets and aa.smoker like @smoker and aa.wifi like @wifi and aa.parking like @parking and aa.kitchen like @kitchen and aa.laundry like @laundry and aa.cable like @cable and aa.allowPets like @allowsPets
 
@@ -238,14 +249,14 @@ public partial class SearchResultPage : System.Web.UI.Page
         }
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@minPrice", minPrice));
 
-        if(MaxPriceBox.Text.Length > 0)
+        if (MaxPriceBox.Text.Length > 0)
         {
             maxPrice = Convert.ToInt32(MaxPriceBox.Text);
         }
         counter.Parameters.Add(new System.Data.SqlClient.SqlParameter("@maxPrice", maxPrice));
 
         SqlDataReader reader = counter.ExecuteReader();
-        
+
 
         while (reader.Read())
         {
@@ -254,7 +265,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             //Generating the initial div
             var div1 = new HtmlGenericControl("div")
             {
-            
+
             };
 
             ResultList.Controls.Add(div1);
@@ -272,7 +283,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             div1.Controls.Add(insidediv);
             insidediv.Attributes.Add("class", "col-md-4");
 
-        
+
             SqlCommand select = new SqlCommand();
             select.Connection = sc;
 
@@ -367,7 +378,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             {
 
             };
-            
+
             insidediv.Controls.Add(badge4);
             if (reader.GetSqlString(9) == "T")
             {
@@ -470,38 +481,34 @@ public partial class SearchResultPage : System.Web.UI.Page
             rightCol.Style.Add("float", "right");
             rightCol.Style.Add("margin-bottom", "1rem;");
 
-            //message badge
-            var messageBadge = new HtmlGenericControl("img")
-            {
-
-            };
-
-            rightCol.Controls.Add(messageBadge);
-            messageBadge.Attributes.Add("src", "images/message-badge.png");
-            messageBadge.Style.Add("max-width", "100px;");
-            messageBadge.Style.Add("margin-right", "1rem;");
-
-            //favorite badge
-            var favoriteBadge = new HtmlGenericControl("img")
-            {
-
-            };
-
-            rightCol.Controls.Add(favoriteBadge);
-            favoriteBadge.Attributes.Add("src", "images/favorite-badge.png");
-            favoriteBadge.Style.Add("max-width", "90px;");
-            favoriteBadge.Style.Add("margin-right", "1rem;");
-
             //view profile badge
-            var viewProfileBadge = new HtmlGenericControl("img")
-            {
-
-            };
-
+            ImageButton viewProfileBadge = new ImageButton();
             rightCol.Controls.Add(viewProfileBadge);
-            viewProfileBadge.Attributes.Add("src", "images/view-profile-badge.png");
+            viewProfileBadge.ImageUrl = "images/view-profile-badge.png";
             viewProfileBadge.Style.Add("max-width", "90px;");
             viewProfileBadge.Style.Add("margin-right", "1rem;");
+            viewProfileBadge.ID = Convert.ToString(reader.GetInt32(15)) + "P";
+            viewProfileBadge.Click += new ImageClickEventHandler(ViewProfile_Click);
+
+
+            if (Convert.ToString(Session["userType"]) == "T")
+            {
+                //message badge
+                ImageButton messageBadge = new ImageButton();
+                rightCol.Controls.Add(messageBadge);
+                messageBadge.ImageUrl= "images/message-badge.png";
+                messageBadge.Style.Add("max-width", "100px;");
+                messageBadge.Style.Add("margin-right", "1rem;");
+
+                //Favorite Badge
+                ImageButton favoriteBadge = new ImageButton();
+                rightCol.Controls.Add(favoriteBadge);
+                favoriteBadge.ImageUrl = "images/favorite-badge.png";
+                favoriteBadge.Style.Add("max-width", "90px;");
+                favoriteBadge.Style.Add("margin-right", "1rem;");
+                favoriteBadge.ID = Convert.ToString(reader.GetInt32(15));
+                favoriteBadge.Click += new ImageClickEventHandler(FavoriteBadge_Click);
+            }
 
             //main property image
             String propImage = reader.GetString(14);
@@ -522,6 +529,12 @@ public partial class SearchResultPage : System.Web.UI.Page
         countLabel.Text = "Your search returned " + count + " result(s) for '" + Convert.ToString(Session["CitySearch"]) + ", " + Convert.ToString(Session["StateSearch"]) + "'";
         Session["CitySearch"] = "";
         Session["StateSearch"] = "";
+
+    }
+
+    protected void SearchButton_Click(object sender, EventArgs e)
+    {
+        
     }
 
     protected void PrivateEntranceBox_CheckedChanged(object sender, EventArgs e)
@@ -586,20 +599,33 @@ public partial class SearchResultPage : System.Web.UI.Page
 
     protected void FavoriteBadge_Click(object sender, EventArgs e)
     {
-       
-        //// Get tenantID to from Tenant to be inserted into FavoriteProperty
-        //SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
-        //selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
-        //sc.Open();
-        //String tenantID = selectTenantID.ExecuteScalar().ToString();
-        //sc.Close();
-        //// Get 
-        //SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
-        //insertFavorite.Parameters.AddWithValue("@tID", tenantID);
-        //insertFavorite.Parameters.AddWithValue("@aID", ViewState["AccommodationID"]);
-        //insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
-        //insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
+        ImageButton b = sender as ImageButton;
 
+        // Get tenantID to from Tenant to be inserted into FavoriteProperty
+        SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
+        selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
+        sc.Open();
+        String tenantID = selectTenantID.ExecuteScalar().ToString();
+        
+
+        String ID = b.ID;
+        //Setting favorite
+        SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
+        insertFavorite.Parameters.AddWithValue("@tID", tenantID);
+        insertFavorite.Parameters.AddWithValue("@aID", b.ID);
+        insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
+        insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
+        insertFavorite.ExecuteNonQuery();
+        sc.Close();
+        b.Visible = false;
+    }
+
+    protected void ViewProfile_Click(object sender, EventArgs e)
+    {
+        ImageButton b = sender as ImageButton;
+        String ID = b.ID.Substring(0, b.ID.Length - 1);
+        Session["propertyID"] = ID;
+        Response.Redirect("PropertyInfo.aspx");
     }
 
 }

@@ -5,14 +5,16 @@
     <script type="text/javascript">
         function ShowPopup() {
             
-            $("#messageCenterModal").modal("show");
+            $("#exampleModalCenter").modal("show");
         }
 
         
         
     </script>
    
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <html lang="en">
 
@@ -122,66 +124,71 @@
     </div><!-- end div big row -->
     
     
-     <div class="row " runat="server" style="margin-top: 1rem;">
-         <!-- Beginning of message center -->
-
-        <div class="col-md-6" runat="server" style="border: solid; border-color: white;">
+     <div class="row " style="margin-top: 1rem;">
+        <div class="col-md-6"  style="border: solid; border-color: white;">
             <div class="row">
-                <div class="col-md-12">
-                   <h2 >Message Board</h2> 
-                </div>
-
-            </div>
-            <div class="row" id="messagesModule" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
-                <div class="col-md-12" id="messages" runat="server" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   
-                </div>
-                 
-            </div>
-
-            
-          </div>
-
-         <!-- End on message center -->
-
-         <!-- Message Modal Popup -->
-         <div class="modal fade" id="messageCenterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-             <div class="modal-dialog" role="document" runat="server">
-                 <div class="modal-content" runat="server">
-                     <div class="modal-header" runat="server">
-                         <h5 class="modal-title" id="exampleModalLabel">Message Center</h5>
-                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                         </button>
-                     </div>
-                     <div class="modal-body" runat="server" id="modalbody">
-                         <div class="row">
-                             <div class="col-md-6" runat="server" style="border-bottom: solid; border-color: black; margin-top: 1rem;">
-                                 
-                                    <h6><asp:Label ID="lblMessageHistory" runat="server"></asp:Label></h6>
-                                
-                             </div>
-                         </div>
-                         <div class="row">
-                             <div class="col-md-6" ID="messageHistoryDiv" runat="server" style="border-bottom: solid; border-color: black; margin-top: 1rem;">
-                                 
-                                 
-                             </div>
-                         </div>
-                             
-                             
-                        </div> 
-                     
-                     <div class="modal-footer">
-                         <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn" />
-                         <asp:Button ID="noDelete" runat="server" Text="Cancel" CssClass="btn btn-secondary" />
-                     </div>
-                 
+              <div class="col-md-12">
+                <h2 >Message Board</h2>
               </div>
-             </div>
+            </div>
 
-         </div>
-<!-- Message Modal Popup -->
+            <div class="row" id="messagesDashDiv" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+                
+                <!-- New message previews are populated here in the code behind -->
+
+
+            </div>
+            </div>
+         
+          
+                   <!-- Modal -->
+                   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                     <div class="modal-dialog modal-dialog-centered" role="document">
+                       <div class="modal-content">
+                         <div class="modal-header">
+                           <h4 class="modal-title" id="exampleModalLongTitle">Messages</h4>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                           </button>
+                         </div>
+                         <div class="modal-body">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
+                                <div class="dropdown">
+                                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More Contacts</button>
+                                  <div id="dropDownDiv" runat="server" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Sender</a>
+                                    <a class="dropdown-item" href="#">Another Sender</a>
+                                    <a class="dropdown-item" href="#">Another Sender</a>
+                                  </div>
+                                </div>
+                              </div> <!--end col-->
+                            </div> <!--end row-->
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="row">
+                                  <div class="col-sm-6" id="messageModalPreview" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
+                                    
+                                      <!-- Message previews populated by code-bhind -->
+                                    
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <p>Messages go here.</p>
+                                  </div>
+                                </div> <!--end row-->
+                              </div> <!--end col-sm-9-->
+                            </div> <!--end row-->
+                          </div> <!--end container-fluid-->
+                        </div> <!--end modal-body-->
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div> <!--end modal header-->
+                    </div> <!--end modal content-->
+                  </div> <!--end modal-dialog div-->
+                  
+
  
 
         <div class="col-md-6" style="border: solid; border-color: white;" >
@@ -258,9 +265,7 @@
     
 <!-- jQuery and Bootstrap links - do not delete! -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 <!-- end of do not delete -->
 </form>
 </body>
