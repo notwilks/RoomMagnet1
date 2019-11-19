@@ -198,13 +198,10 @@
                         <b>Neighborhood: </b> <asp:Label ID="neighborhood" runat="server" Text=""></asp:Label>
                     </p>
                 </div>
-        <div class="col-md-5" style="padding: 20px;">
-            <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
-        </div>
-        <!--
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-            -->
-        <div id="map"></div>
+                <div class="row">
+                     <div id="map"></div>
+                </div>
+       
     </div><!-- end div row --> 
     
     <div class="row" style="margin-top: 1rem; border-top: solid; border-top-width: 1px;">
@@ -231,7 +228,6 @@
             <br />
             <h6><asp:Label ID="hostGender" runat="server" Text=""></asp:Label></h6>
             <p ><asp:Label ID="hostBio" runat="server" Text=""></asp:Label></p>
-            <img src="images/add-badges-badge.png" style="max-width: 130px; padding-top: 5px;">
         </div>
     </div><!-- end div row -->
     

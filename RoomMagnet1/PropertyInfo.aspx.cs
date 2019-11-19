@@ -23,7 +23,7 @@ public partial class PropertyInfo : System.Web.UI.Page
             "aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, aa.allowPets, aa.cable, aa.laundry, aa.parking, aa.wifi, aa.pets, " +
             "ISNULL(ai.mainImage, ''), ISNULL(ai.image2, ''), ISNULL(ai.image3, ''), ISNULL(ai.image4, ''), ISNULL(ai.image5, ''), ISNULL(ai.image6, ''), " +
             "ISNULL(ai.image7, ''), ISNULL(ai.image8, ''),  ISNULL(ai.image9, ''),  ISNULL(ai.image10, ''), " +
-            "ISNULL (hi.mainImage, ''), ISNULL(hi.image2, ''), ISNULL(hi.image3, ''), a.houseNumber, a.street " +
+            "ISNULL (hi.mainImage, ''), ISNULL(hi.image2, ''), ISNULL(hi.image3, ''), a.houseNumber, a.street, a.country " +
             "from Host h inner join Accommodation a on a.hostID = h.HostID " + 
             "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
             "inner join AccommodationImages ai on a.accommodationID = ai.accommodationID " +
@@ -35,6 +35,7 @@ public partial class PropertyInfo : System.Web.UI.Page
         //street = 41
         //city = 7
         //state = 8
+        //country = 42
         //zip = 13
 
         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@propID", Session["propertyID"]));
@@ -43,7 +44,7 @@ public partial class PropertyInfo : System.Web.UI.Page
 
         while(reader.Read())
         {
-            jsStreetName = reader.GetString(40) + " " + reader.GetString(41) + " " + reader.GetString(7) + ", " + reader.GetString(8) + ", USA";
+            jsStreetName = reader.GetString(40) + " " + reader.GetString(41) + " " + reader.GetString(7) + ", " + reader.GetString(8) + ", " + reader.GetString(42);
             //setting fixed top bar name
             HostNameLabel.Text = HttpUtility.HtmlEncode(reader.GetString(0)) + "'s Property";
             hostName2.Text = HttpUtility.HtmlEncode(reader.GetString(0));
