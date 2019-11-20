@@ -254,7 +254,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 // View message button
                 Button view = new Button();
                 view.ID = Convert.ToString(reader.GetInt32(3));
-                view.Text = "Messages";
+                view.Text = "View Chat";
                 view.Attributes.Add("type", "button");
                 view.Attributes.Add("class", "btn float-right");
                 view.Attributes.Add("runat", "server");
@@ -493,11 +493,12 @@ public partial class HostDashboard : System.Web.UI.Page
             viewMessage.ID = Convert.ToString(reader.GetInt32(4));
             viewMessage.Text = "View";
             viewMessage.Attributes.Add("type", "button");
-            viewMessage.Attributes.Add("class", "btn float-right");
+            viewMessage.Attributes.Add("class", "btn btn-sm float-right");
             viewMessage.Attributes.Add("runat", "server");
+            viewMessage.Attributes.Add("OnClientClick", "ViewFullMessage_Click");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
-            viewMessage.Click += new EventHandler(ViewFullMessage_Click);
+            //viewMessage.Click += new EventHandler(ViewFullMessage_Click);
             leftSenderHeader.Controls.Add(viewMessage);
 
             // Date 
@@ -572,8 +573,9 @@ public partial class HostDashboard : System.Web.UI.Page
 
     protected void ViewFullMessage_Click(object sender, EventArgs e)
     {
-        Button btn = (Button)sender;
-        String mID = Convert.ToString(btn.ID);
+        
+        Button btn1 = (Button)sender;
+        String mID = Convert.ToString(btn1.ID);
 
         SqlCommand selectFullMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName,' ', h.lastName), m.sender FROM Host h "
                                                             + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
@@ -595,7 +597,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 txtBoxReply.Visible = false;
                 btnSendRepy.Visible = false;
             }
-            else
+            if(senderType == "H")
             {
                 lblSender.Visible = true;
                 lblSender.Text = reader.GetString(5);
@@ -613,6 +615,8 @@ public partial class HostDashboard : System.Web.UI.Page
         }
 
         reader.Close();
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
+
     }
 
 
