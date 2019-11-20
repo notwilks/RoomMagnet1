@@ -6,8 +6,8 @@
 <html>
     <body>
         <form runat="server">
-            <div class="container justify-content-center">
-                <div class="row" style="margin-top: 8rem;">
+            <div class="container justify-content-center" style="border:solid; border-width: 1px; margin-top: 8rem; padding: 1rem; margin-bottom: 3rem;">
+                <div class="row" style="margin-top: 1rem;">
 
                     <div class="col">
 
@@ -32,15 +32,87 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 2rem;">
-                    <p>This letter of intent (Intent to Lease) sets forth the general terms of the proposal. The provisions of this letter of intent shall serve as the basis for a definitive lease agreement to be negotiated and entered into between the tenant and landlord (the lease).</p>
+                <div class="row" style="margin-top: 2rem; margin-left: 1rem; margin-right: 1rem;">
+                    <p>This letter of intent (Intent to Lease) sets forth the general terms of the proposal.</p>
+                    <p>The provisions of this letter of intent shall serve as the basis for a definitive lease agreement to be negotiated and entered into between the tenant and landlord (the lease).</p>
                 </div>
 
                 <div class="row" style="margin-top: 2rem;">
                     <div class="col">
-                    <p>Tenant Name: <b><asp:Label ID="tenantName" runat="server" Text="Label"></asp:Label></b></p> 
+                    <p>Tenant Name: <asp:TextBox ID="tenantName" runat="server" Text="Label" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                       Background Screen complete:
+                        <asp:CheckBox ID="tenantYes" runat="server" Text="Yes" style="margin-left: 1rem;"/>
+                        <asp:CheckBox ID="tenantNo" runat="server" Text="No" style="margin-left: 1rem;"/>
+                    </p> 
                     </div>
                 </div>
+
+                <div class="row" style="margin-top: 2rem;">
+                    <div class="col">
+                    <p>Landlord Name: <b><asp:TextBox ID="landlordName" runat="server" Text="" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true" CssClass="form-control"></asp:TextBox></b>
+                       Background Screen complete:
+                        <asp:CheckBox ID="hostYes" runat="server" Text="Yes" style="margin-left: 1rem;"/>
+                        <asp:CheckBox ID="hostNo" runat="server" Text="No" style="margin-left: 1rem;"/>
+                    </p> 
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 2rem;">
+                    <div class="col">
+                    <p>Property address: <asp:TextBox ID="streetAddress" runat="server" Text="Address" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true"></asp:TextBox>
+                        <asp:Label ID="Label1" runat="server" Text="City: "></asp:Label>
+                        <asp:TextBox ID="cityBox" runat="server" Text="City" CssClass="form-control" style="display:inline-block" Width="200px" ReadOnly="true"></asp:TextBox>
+                        <asp:Label ID="Label2" runat="server" Text="State: " style="margin-left: 1rem;"></asp:Label>
+                        <asp:TextBox ID="TextBox1" runat="server" Text="State" CssClass="form-control" style="display:inline-block" Width="80px" ReadOnly="true"></asp:TextBox>
+                    </p> 
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 2rem;">
+                    <div class="col">
+                    <p>Lease Term: <asp:TextBox ID="leaseTermBox" runat="server" Text="" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true"></asp:TextBox>
+                    </p> 
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 2rem;">
+                    <div class="col">
+                    <p>Available Date: <asp:TextBox ID="AvailableDateBox" runat="server" Text="" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true"></asp:TextBox>
+                    </p> 
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 2rem;">
+                    <div class="col">
+                    <p>Rental Price: <asp:TextBox ID="PriceBox" runat="server" Text="" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true"></asp:TextBox>
+                    </p> 
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 5rem;">
+                    <div class="col">
+                    <p><b>Tenant and Host acknowledge that RoomMagnet’s match service fee will be deducted from the first month’s rent.</b></p> 
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 2rem;">
+                    <div class="col">
+                    <p><em>By typing your name below you agree to the terms set forth above.</em></p> 
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 2rem;">
+                    <div class="col">
+                    <p>Tenant Signature: <asp:TextBox ID="TenantSignature" runat="server" Text="" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px"></asp:TextBox>
+                    </p> 
+                    </div>
+
+                    <div class="col">
+                    <p>Host Signature: <asp:TextBox ID="HostSignature" runat="server" Text="" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px"></asp:TextBox>
+                    </p>
+                    </div>
+                </div>
+
             </div>
 
 

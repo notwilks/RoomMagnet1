@@ -31,8 +31,8 @@
                     <h3 class="card-title" style="text-align: center;">Room Magnet</h3>
                     <p class="card-text" style="text-align: center;">A safe, secure, long-term rental service geared towards the aging population and empty nesters who are looking to rent their extra rooms at a competitive price.</p>
                     <p style="text-align: center;">
-                        <a href="#" class="btn " style="margin-right: 1rem;">Rent My Room</a>
-                        <a href="#" class="btn " style="margin-left: 1rem;">Find a Room</a>
+                        <a href="CreateHostorTenant.aspx" class="btn " style="margin-right: 1rem;">Get Started</a>
+                        
                     </p>
 
                     
