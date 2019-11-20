@@ -56,7 +56,16 @@ window.onclick = function(event) {
 <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="shortcut icon" href="images/logo-03.png" type="image/x-icon"/>
 <link href="https://fonts.googleapis.com/css?family=Oswald:400|Raleway:300&display=swap" rel="stylesheet">    
+<style>
 
+  h3 {
+    font-size: 24px
+  }
+  h5 {
+    font-size: 18px;
+  }
+
+</style>
 </head>
 
 <body>

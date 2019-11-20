@@ -52,9 +52,9 @@ public partial class HostDashboard : System.Web.UI.Page
         {
             while (reader.Read())
             {
-                HostPrimaryImage.ImageUrl = reader.GetString(0);
-                HostImage2.ImageUrl = reader.GetString(1);
-                HostImage3.ImageUrl = reader.GetString(2);
+                HostPrimaryImage.ImageUrl = HttpUtility.HtmlEncode(reader.GetString(0));
+                HostImage2.ImageUrl = HttpUtility.HtmlEncode(reader.GetString(1));
+                HostImage3.ImageUrl = HttpUtility.HtmlEncode(reader.GetString(2));
             }
             reader.Close();
         }
@@ -68,9 +68,9 @@ public partial class HostDashboard : System.Web.UI.Page
         {
             while (reader.Read())
             {
-                Image1.ImageUrl = reader.GetString(0);
-                Image2.ImageUrl = reader.GetString(1);
-                Image3.ImageUrl = reader.GetString(2);
+                Image1.ImageUrl = HttpUtility.HtmlEncode(reader.GetString(0));
+                Image2.ImageUrl = HttpUtility.HtmlEncode(reader.GetString(1));
+                Image3.ImageUrl = HttpUtility.HtmlEncode(reader.GetString(2));
             }
             reader.Close();
         }
@@ -160,7 +160,7 @@ public partial class HostDashboard : System.Web.UI.Page
         // Finds whether the Host's Accommodation is currently being listed or not
         findListing.CommandText = "SELECT Listed FROM Accommodation WHERE HostID in (SELECT HostID FROM HOST WHERE Email = @email)";
         findListing.Parameters.Add(new SqlParameter("@email", Convert.ToString(Session["userEmail"])));
-        listing = Convert.ToString(findListing.ExecuteScalar());
+        listing = HttpUtility.HtmlEncode(Convert.ToString(findListing.ExecuteScalar()));
 
         if (listing == "F")
         {

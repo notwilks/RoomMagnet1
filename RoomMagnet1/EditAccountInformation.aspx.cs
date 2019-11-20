@@ -44,12 +44,12 @@ public partial class EditAccountInformation : System.Web.UI.Page
             {
                 if (reader.Read())
                 {
-                    FirstNameBox.Text = Convert.ToString(reader["firstName"]);
-                    LastNameBox.Text = Convert.ToString(reader["lastName"]);
-                    phoneNumberBox.Text = Convert.ToString(reader["phoneNumber"]);
-                    dobBox.Text = Convert.ToDateTime(reader["birthDate"]).ToString("MM/dd/yyyy");
-                    tempGender = Convert.ToString(reader["gender"]);
-                    BioBox.Text = Convert.ToString(reader["biography"]);
+                    FirstNameBox.Text = HttpUtility.HtmlEncode(Convert.ToString(reader["firstName"]));
+                    LastNameBox.Text = HttpUtility.HtmlEncode(Convert.ToString(reader["lastName"]));
+                    phoneNumberBox.Text = HttpUtility.HtmlEncode(Convert.ToString(reader["phoneNumber"]));
+                    dobBox.Text = HttpUtility.HtmlEncode(Convert.ToDateTime(reader["birthDate"]).ToString("MM/dd/yyyy"));
+                    tempGender = HttpUtility.HtmlEncode(Convert.ToString(reader["gender"]));
+                    BioBox.Text = HttpUtility.HtmlEncode(Convert.ToString(reader["biography"]));
 
                 }
 
@@ -67,7 +67,6 @@ public partial class EditAccountInformation : System.Web.UI.Page
                     OtherGenderBox.Visible = true;
                     OtherGenderBox.Text = "Need Other Gender Col in DB";
                 }
-
             }
             sc.Close();
 

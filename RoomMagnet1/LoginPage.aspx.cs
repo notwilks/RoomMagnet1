@@ -52,11 +52,11 @@ public partial class LoginPage : System.Web.UI.Page
 
                         select.CommandText = "select userType from Passwords where email = @email2";
                         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", EmailBox.Text));
-                        Session["userType"] = Convert.ToString(select.ExecuteScalar());
+                        Session["userType"] = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
                         select.CommandText = "Select email from Passwords where email = @email3";
                         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email3", EmailBox.Text));
-                        Session["userEmail"] = Convert.ToString(select.ExecuteScalar());
+                        Session["userEmail"] = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
                         if(Convert.ToString(Session["userType"]) == "T")
                         {

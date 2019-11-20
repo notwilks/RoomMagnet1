@@ -191,7 +191,6 @@
           </div> <!--end row class-->
 
             <div class="row" style="margin-top: 3rem;">
-
             <div class="col">
                 <label for="formGroupExampleInput">What Best Describes Your Property for Rent?</label>
                 <asp:DropDownList ID="RoomTypeList" runat="server" cssclass="form-control">
@@ -214,131 +213,176 @@
             </div> <!--end col-->
           </div> <!--end row class-->
 
-            <div class="row" style="margin-top: 3rem;">
+            <!-- START OF PROPERTY AMENTITIES -->
+            <div class="row" style="margin-top: 3rem">
 
             <div class="col">
-                <label for="formGroupExampleInput">Does the space have a private bathroom?</label>
-                <asp:RadioButtonList ID="PrivateBathroom" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <!-- space holder -->
+            </div> <!-- end col class -->
+
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end col class -->
+
+                <div class ="col">
+                    <h2>
+                        <asp:Label ID="PropAmenLbl" runat="server" Text="Property Amenities (Please select all that apply.)" CssClass="text-nowrap"></asp:Label>
+                    </h2>
+                </div> <!-- end col class -->
+
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end col class -->
+
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end col class -->
+
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end col class -->
+
+            </div> <!-- end of row class -->
+
+            <div class="row" style="margin-top: 1rem;">
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end col class -->
+
+            <div class="col">
+                <label for="formGroupExampleInput">Private Bathroom?</label>
+                <asp:CheckBox ID="PrivateBathroom" runat="server" />
                 <asp:Label ID="BathroomErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
+            </div> <!-- end col class -->
 
             <div class="col">
-                <label for="formGroupExampleInput">Does the space have a private entrance?</label>
-                <asp:RadioButtonList ID="PrivateEntrance" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <label for="formGroupExampleInput">Private Entrance?</label>
+                <asp:CheckBox ID="PrivateEntrance" runat="server"/>
                 <asp:Label ID="EntranceErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
+            </div> <!--end col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Does the space have closet/storage space?</label>
-                <asp:RadioButtonList ID="StorageSpace" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
-                <asp:Label ID="StorageErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                <!-- space holder-->
             </div> <!--end col-->
 
-
           </div> <!--end row class-->
+            <div class="row" style ="margin-top: 1rem;">
+                <div class="col">
+                    <!-- space holder -->
+                </div> <!-- end col class -->
 
-            <div class="row" style="margin-top: 3rem;">
+                <div class="col">
+                    <label for="formGroupExampleInput">Closet/Storage Space?</label>
+                <asp:CheckBox ID="StorageSpace" runat="server" />
+                <asp:Label ID="StorageErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div> <!-- end col class-->
+
+                <div class="col">
+                    <label for="formGroupExampleInput">Private Parking?</label>
+                    <asp:CheckBox ID="Parking" runat="server" />
+                    <asp:Label ID="ParkingErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div> <!-- end col class -->
+
+                <div class="col">
+                <!-- space holder -->
+            </div> <!-- end col class -->
+
+            </div> <!-- end row class-->
+
+            <div class="row" style="margin-top: 1rem;">
 
             <div class="col">
-                <label for="formGroupExampleInput">Does the space have private parking?</label>
-                <asp:RadioButtonList ID="Parking" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
-                <asp:Label ID="ParkingErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
+                <!-- space holder -->
+            </div> <!-- end of col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Is the space furnished?</label>
-                <asp:RadioButtonList ID="Furnished" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <label for="formGroupExampleInput">Furnished?</label>
+                <asp:CheckBox ID="Furnished" runat="server" />
                 <asp:Label ID="FurnishedErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
+            </div> <!-- end col class -->
 
             <div class="col">
-                <label for="formGroupExampleInput">Do you smoke/allow smokers?</label>
-                <asp:RadioButtonList ID="Smokers" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <label for="formGroupExampleInput">Allow Smokers?</label>
+                <asp:CheckBox ID="Smoker" runat="server" />
                 <asp:Label ID="SmokerErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class-->
 
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end of col class-->
+
           </div> <!--end row class-->             
 
-            <div class="row" style="margin-top: 3rem;">
+            <div class="row" style="margin-top: 1rem;">
+
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end of col class-->
 
              <div class="col">
-                <label for="formGroupExampleInput">Do you have pets?</label>
-                <asp:RadioButtonList ID="Pets" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <label for="formGroupExampleInput">Pets in Residence?</label>
+                 <asp:CheckBox ID="HavePets" runat="server" />
                 <asp:Label ID="PetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
              </div> <!-- end col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Do you allow pets?</label>
-                <asp:RadioButtonList ID="AllowPets" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <label for="formGroupExampleInput">Allow Pets?</label>
+                <asp:CheckBox ID="AllowPets" runat="server" />
                 <asp:Label ID="AllowPetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-                
-               
             </div> <!--end col-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Does the space have a private kitchen?</label>
-                <asp:RadioButtonList ID="PrivateKitchen" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <!-- space holder -->
+            </div> <!-- end of col class-->
+
+            </div> <!--end row class-->
+
+
+            <div class="row" style="margin-top: 1rem;">
+
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end of col class-->
+
+            <div class="col">
+                <label for="formGroupExampleInput">Private Kitchen?</label>
+                <asp:CheckBox ID="PrivateKitchen" runat="server" />
                 <asp:Label ID="KitchenErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
-          </div> <!--end row class-->
-
-            <div class="row" style="margin-top: 3rem;">
+            </div> <!-- end col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Does the space have private laundry access?</label>
-                <asp:RadioButtonList ID="PrivateLaundry" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <label for="formGroupExampleInput">Laundry Access?</label>
+                <asp:CheckBox ID="PrivateLaundry" runat="server" />
                 <asp:Label ID="LaundryErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-                
-               
             </div> <!--end col-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Can you provide wifi?</label>
-                <asp:RadioButtonList ID="Wifi" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
-                <asp:Label ID="WifiErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
+                <!-- space holder -->
+            </div> <!-- end of col class-->
+
+            </div> <!-- end row class -->
+
+            <div class="row" style="margin-top: 1rem;">
 
             <div class="col">
-                <label for="formGroupExampleInput">Can you provide cable TV?</label>
-                <asp:RadioButtonList ID="Cable" runat="server" RepeatDirection="Horizontal" Width="200px">
-                        <asp:ListItem Value="T">Yes</asp:ListItem>
-                        <asp:ListItem Value="F">No</asp:ListItem>
-                    </asp:RadioButtonList>
+                <!-- space holder -->
+            </div> <!-- end of col class-->
+
+            <div class="col">
+                <label for="formGroupExampleInput">Wifi?</label>
+                <asp:CheckBox ID="Wifi" runat="server" />
+                <asp:Label ID="WifiErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+            </div> <!-- end of col class-->
+
+            <div class="col">
+                <label for="formGroupExampleInput">Cable TV?</label>
+                <asp:CheckBox ID="CableTV" runat="server" />
                 <asp:Label ID="CableErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-            </div>
+            </div> <!-- end of col class-->
+
+            <div class="col">
+                <!-- space holder -->
+            </div> <!-- end of col class-->
 
           </div> <!--end row class-->
 

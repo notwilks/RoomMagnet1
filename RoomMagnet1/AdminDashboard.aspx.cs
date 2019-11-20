@@ -31,7 +31,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         while (reader.Read())
         {
             
-            String temp = reader.GetString(1);
+            String temp = HttpUtility.HtmlEncode(reader.GetString(1));
             hostNames.Add(temp);
             
             //row div creation for hosts
@@ -74,7 +74,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             butDiv.Attributes.Add("class", "col-md-5");
 
             //host last and first name
-            String hostLF = reader.GetString(1);
+            String hostLF = HttpUtility.HtmlEncode(reader.GetString(1));
             var hostName = new HtmlGenericControl("p")
             {
                 InnerText = hostLF
@@ -83,7 +83,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             leftDiv.Controls.Add(hostName);
 
             //host email
-            String hostE = reader.GetString(2);
+            String hostE = HttpUtility.HtmlEncode(reader.GetString(2));
             var hostEmail = new HtmlGenericControl("p")
             {
                 InnerText = hostE
@@ -95,7 +95,8 @@ public partial class AdminDashboard : System.Web.UI.Page
             String btnText = reader.GetString(3);
             Button clear = new Button();
             
-            clear.ID = Convert.ToString(reader.GetInt32(0));
+            clear.ID = HttpUtility.HtmlEncode(Convert.ToString(reader.GetInt32(0)));
+
             if (btnText == "T")
             {
                 clear.Text = "Revoke Background Check";
@@ -113,7 +114,7 @@ public partial class AdminDashboard : System.Web.UI.Page
 
             //delete account button
             Button delete = new Button();
-            delete.ID = Convert.ToString(reader.GetInt32(0) + "D");
+            delete.ID = HttpUtility.HtmlEncode(Convert.ToString(reader.GetInt32(0) + "D"));
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
             delete.Attributes.Add("class", "btn btn-danger btn-sm");
@@ -177,7 +178,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             butDiv.Attributes.Add("class", "col-md-5");
 
             //Tenant last and first name
-            String tenantLF = readerT.GetString(1);
+            String tenantLF = HttpUtility.HtmlEncode(readerT.GetString(1));
             var tenantName = new HtmlGenericControl("p")
             {
                 InnerText = tenantLF
@@ -186,7 +187,7 @@ public partial class AdminDashboard : System.Web.UI.Page
             leftDiv.Controls.Add(tenantName);
 
             //Tenant email
-            String tenantE = readerT.GetString(2);
+            String tenantE = HttpUtility.HtmlEncode(readerT.GetString(2));
             var tenantEmail = new HtmlGenericControl("p")
             {
                 InnerText = tenantE
@@ -195,10 +196,10 @@ public partial class AdminDashboard : System.Web.UI.Page
             emailDiv.Controls.Add(tenantEmail);
 
             //adding approve button
-            String btnText = readerT.GetString(3);
+            String btnText = HttpUtility.HtmlEncode(readerT.GetString(3));
             Button clear = new Button();
 
-            clear.ID = Convert.ToString(readerT.GetInt32(0));
+            clear.ID = HttpUtility.HtmlEncode(Convert.ToString(readerT.GetInt32(0)));
             if (btnText == "T")
             {
                 clear.Text = "Revoke Background Check";
@@ -216,7 +217,7 @@ public partial class AdminDashboard : System.Web.UI.Page
 
             //delete account button
             Button delete = new Button();
-            delete.ID = Convert.ToString(readerT.GetInt32(0) + "T");
+            delete.ID = HttpUtility.HtmlEncode(Convert.ToString(readerT.GetInt32(0) + "T"));
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
             delete.Attributes.Add("class", "btn btn-danger btn-sm");
@@ -297,7 +298,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         String ID = b.ID.Substring(0, b.ID.Length - 1);
         select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from Host where hostID = " + ID;
 
-        String hostLFModal = Convert.ToString(select.ExecuteScalar());
+        String hostLFModal = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
         ViewState["hostDeleteID"] = ID;
         
@@ -314,7 +315,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         String ID = b.ID.Substring(0, b.ID.Length - 1);
         select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from tenant where tenantID = " + ID;
 
-        String tenantLFModal = Convert.ToString(select.ExecuteScalar());
+        String tenantLFModal = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
         ViewState["tenantDeleteID"] = ID;
 
@@ -329,10 +330,10 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.Connection = sc;
 
         delete.CommandText = "select accommodationID from Accommodation where hostID = " + ViewState["hostDeleteID"];
-        String accomID = Convert.ToString(delete.ExecuteScalar());
+        String accomID = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
 
         delete.CommandText = "select email from Host where hostID = " + ViewState["hostDeleteID"];
-        String hostEmail = Convert.ToString(delete.ExecuteScalar());
+        String hostEmail = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
 
         try
         {
@@ -369,7 +370,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.Connection = sc;
 
         delete.CommandText = "select email from Tenant where tenantID = " + ViewState["tenantDeleteID"];
-        String tenantEmail = Convert.ToString(delete.ExecuteScalar());
+        String tenantEmail = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
 
         delete.CommandText = "Delete from TenantImages where tenantID = " + ViewState["tenantDeleteID"];
         delete.ExecuteNonQuery();

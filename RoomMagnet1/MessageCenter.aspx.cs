@@ -20,7 +20,7 @@ public partial class MessageCenter : System.Web.UI.Page
 
 
         
-        
+
 
 
         // Functionality for Host Users 
@@ -45,8 +45,7 @@ public partial class MessageCenter : System.Web.UI.Page
 
             while (reader.Read())
             {
-
-                string contactName = reader.GetString(0).ToString() + " " + reader.GetString(1).ToString();
+                string contactName = HttpUtility.HtmlEncode(reader.GetString(0).ToString() + " " + reader.GetString(1).ToString());
                 int tenID = reader.GetInt32(2);
                 AddToDropdown(contactName, tenID);
             }

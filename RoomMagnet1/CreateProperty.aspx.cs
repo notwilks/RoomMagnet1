@@ -66,228 +66,116 @@ public partial class CreateProperty : System.Web.UI.Page
             String cable = " ";
             String allowPets = " ";
 
-            // RadioButton Value Declaration If Statements
-            if (PrivateBathroom.SelectedValue == "T")
+            // Checkbox Selection If Statements
+
+            if (PrivateBathroom.Checked)
             {
                 bathroom = "T";
             }
-            else if (PrivateBathroom.SelectedValue == "F")
+            else if (!PrivateBathroom.Checked)
             {
                 bathroom = "F";
             }
 
-            if (PrivateEntrance.SelectedValue == "T")
+            if (PrivateEntrance.Checked)
             {
                 entrance = "T";
             }
-            else if (PrivateEntrance.SelectedValue == "F")
+            else if (!PrivateEntrance.Checked)
             {
                 entrance = "F";
             }
 
-            if (StorageSpace.SelectedValue == "T")
+            if (StorageSpace.Checked)
             {
                 storage = "T";
             }
-            else if (StorageSpace.SelectedValue == "F")
+            else if (!StorageSpace.Checked)
             {
                 storage = "F";
             }
 
-            if (Furnished.SelectedValue == "T")
+            if (Furnished.Checked)
             {
                 furnished = "T";
             }
-            else if (Furnished.SelectedValue == "F")
+            else if (!Furnished.Checked)
             {
                 furnished = "F";
             }
 
-            if (Smokers.SelectedValue == "T")
+            if (Smoker.Checked)
             {
                 smoker = "T";
             }
-            else if (Smokers.SelectedValue == "F")
+            else if (!Smoker.Checked)
             {
                 smoker = "F";
             }
 
-            if (Pets.SelectedValue == "T")
+            if (HavePets.Checked)
             {
                 pets = "T";
             }
-            else if (Pets.SelectedValue == "F")
+            else if (!HavePets.Checked)
             {
                 pets = "F";
             }
 
-            if (Parking.SelectedValue == "T")
+            if (Parking.Checked)
             {
                 parking = "T";
             }
-            else if (Parking.SelectedValue == "F")
+            else if (!Parking.Checked)
             {
                 parking = "F";
             }
 
-            if (PrivateKitchen.SelectedValue == "T")
+            if (PrivateKitchen.Checked)
             {
                 kitchen = "T";
             }
-            else if (PrivateKitchen.SelectedValue == "F")
+            else if (!PrivateKitchen.Checked)
             {
                 kitchen = "F";
             }
 
-            if (PrivateLaundry.SelectedValue == "T")
+            if (PrivateLaundry.Checked)
             {
                 laundry = "T";
             }
-            else if (PrivateLaundry.SelectedValue == "F")
+            else if (!PrivateLaundry.Checked)
             {
                 laundry = "F";
             }
 
-            if (Wifi.SelectedValue == "T")
+            if (Wifi.Checked)
             {
                 wifi = "T";
             }
-            else if (Wifi.SelectedValue == "F")
+            else if (!Wifi.Checked)
             {
                 wifi = "F";
             }
 
-            if (Cable.SelectedValue == "T")
+            if (CableTV.Checked)
             {
                 cable = "T";
             }
-            else if (Cable.SelectedValue == "F")
+            else if (!CableTV.Checked)
             {
                 cable = "F";
             }
 
-            if (AllowPets.SelectedValue == "T")
+            if (AllowPets.Checked)
             {
                 allowPets = "T";
             }
-            else if (AllowPets.SelectedValue == "F")
+            else if (!AllowPets.Checked)
             {
                 allowPets = "F";
             }
             // End of RadioButton Declarations If Statements
-
-            // Radio Button If Statements that display errors if an option is not selected
-            if (bathroom == " " || entrance == " " || storage == " " || furnished == " " || smoker == " " || pets == " " || parking == " " || kitchen == " "
-                || laundry == " " || wifi == " " || cable == " " && allowPets == " ")
-            {
-                if (bathroom == " ")
-                {
-                    BathroomErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    BathroomErrorLbl.Text = "";
-                }
-
-                if (entrance == " ")
-                {
-                    EntranceErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    EntranceErrorLbl.Text = "";
-                }
-
-                if (storage == " ")
-                {
-                    StorageErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    StorageErrorLbl.Text = "";
-                }
-
-                if (furnished == " ")
-                {
-                    FurnishedErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    FurnishedErrorLbl.Text = "";
-                }
-
-                if (smoker == " ")
-                {
-                    SmokerErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    SmokerErrorLbl.Text = "";
-                }
-
-                if (pets == " ")
-                {
-                    PetsErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    PetsErrorLbl.Text = "";
-                }
-
-                if (parking == " ")
-                {
-                    ParkingErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    ParkingErrorLbl.Text = "";
-                }
-
-                if (kitchen == " ")
-                {
-                    KitchenErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    KitchenErrorLbl.Text = "";
-                }
-
-                if (laundry == " ")
-                {
-                    LaundryErrorLbl.Text = "Please select an option";
-                }
-                else
-                {
-                    LaundryErrorLbl.Text = "";
-                }
-
-                if (wifi == " ")
-                {
-                    WifiErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    WifiErrorLbl.Text = "";
-                }
-
-                if (cable == " ")
-                {
-                    CableErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    CableErrorLbl.Text = "";
-                }
-
-                if (allowPets == " ")
-                {
-                    AllowPetsErrorLbl.Text = "Please select an option.";
-                }
-                else
-                {
-                    AllowPetsErrorLbl.Text = "";
-                }
-            } // End of Radio Button If Statements
 
             // TextBox If Statements that display error labels if left blank
             if (AddressBox.Text == "" || CityBox.Text == "" || ZipBox.Text == "" || stateBox.SelectedIndex == 0 || PriceBox.Text == "" || Convert.ToDouble(PriceBox.Text) < 0 || TNumBox.Text == ""
@@ -557,18 +445,18 @@ public partial class CreateProperty : System.Web.UI.Page
         TerminationDateBox.Text = "01/01/2020";
         DescriptBox.Text = "Example Property";
         RoomTypeList.SelectedItem.Value = "Private Room";
-        PrivateBathroom.SelectedValue = "F";
-        PrivateEntrance.SelectedValue = "F";
-        StorageSpace.SelectedValue = "T";
-        Parking.SelectedValue = "T";
-        Furnished.SelectedValue = "T";
-        Smokers.SelectedValue = "F";
-        Pets.SelectedValue = "F";
-        AllowPets.SelectedValue = "T";
-        PrivateKitchen.SelectedValue = "F";
-        PrivateLaundry.SelectedValue = "F";
-        Wifi.SelectedValue = "T";
-        Cable.SelectedValue = "F";
+        //PrivateBathroom.SelectedValue = "F";
+        //PrivateEntrance.SelectedValue = "F";
+        //StorageSpace.SelectedValue = "T";
+        //Parking.SelectedValue = "T";
+        //Furnished.SelectedValue = "T";
+        //Smokers.SelectedValue = "F";
+        //Pets.SelectedValue = "F";
+        //AllowPets.SelectedValue = "T";
+        //PrivateKitchen.SelectedValue = "F";
+        //PrivateLaundry.SelectedValue = "F";
+        //Wifi.SelectedValue = "T";
+        //Cable.SelectedValue = "F";
         ExtraInfoBox.Text = "This is a sample property.";
     }
 }
