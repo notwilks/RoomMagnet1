@@ -29,7 +29,7 @@
             <div class="card card-inverse" style="width: 25rem; margin-top: 2rem; margin-bottom: 2rem; margin-right: 1rem;">
                 <div class="card-body">
                     <h3 class="card-title" style="text-align: center;">Room Magnet</h3>
-                    <p class="card-text" style="text-align: center;">An intergenerational rental matching service that attracts the best option for your needs.</p>
+                    <p class="card-text" style="text-align: center;">A safe, secure, long-term rental service geared towards the aging population and empty nesters who are looking to rent their extra rooms at a competitive price.</p>
                     <p style="text-align: center;">
                         <a href="#" class="btn " style="margin-right: 1rem;">Rent My Room</a>
                         <a href="#" class="btn " style="margin-left: 1rem;">Find a Room</a>
@@ -136,7 +136,7 @@
     <div class="row">
         <div class="col-md-2" style="margin: 0 auto;">
             <p style="text-align: center;"><img src="images/icons-01.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Create a profile.</p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Create and customize your profile.</p>
         </div>
       <div class="col-md-1  ">
             <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
@@ -145,7 +145,7 @@
         
          <div class="col-md-2" style="margin: 0 auto;">
             <p style="text-align: center;"><img src="images/icons-02.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Fill out your preferences.</p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Search for your potential housing match.</p>
         </div>
         <div class="col-md-1 ">
             <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
@@ -154,7 +154,7 @@
         
          <div class="col-md-2" style="margin: 0 auto;">
             <p style="text-align: center;"><img src="images/icons-03.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Get cleared.</p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Wait for your background check to be cleared.</p>
         </div>
         <div class="col-md-1  ">
             <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
@@ -162,7 +162,7 @@
         </div>
          <div class="col-md-2" style="margin: 0 auto;">
             <p style="text-align: center; "><img src="images/icons-04.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Find your housing match.</p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Agree on your housing match.</p>
         </div>
     
     </div><!-- end div row! -->
