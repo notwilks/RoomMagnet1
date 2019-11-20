@@ -11,6 +11,16 @@
         
         
     </script>
+
+    <script type="text/javascript">
+        function ShowPopup2() {
+            
+            $("#composeMessageModal").modal("show");
+        }
+
+        
+        
+    </script>
    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -159,7 +169,8 @@ window.onclick = function(event) {
         <div class="col-md-6"  style="border: solid; border-color: white;">
             <div class="row">
               <div class="col-md-12">
-                <h2 >Message Board</h2>
+                <h2 >Message Board<asp:Button ID="btnCompose" CssClass="btn float-right" runat="server" Text="Compose" OnClick="Compose_Click"/></h2>
+                
               </div>
             </div>
 
@@ -231,6 +242,62 @@ window.onclick = function(event) {
              <!--end modal content-->
          </div>
          <!--end modal-dialog div-->
+
+
+
+
+
+
+                          <!-- Modal -->
+         <div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+             <div class="modal-dialog modal-dialog-centered" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h4 class="modal-title" id="modalTitle">Send a Message</h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     <div class="modal-body">
+                         <div class="container-fluid">
+                             <div class="row">
+                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
+                                     <div class="dropdown" id="Div1" runat="server">
+                                         <asp:DropDownList ID="DropDownList2" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
+                                             <asp:ListItem Value="0">Your Contacts</asp:ListItem>
+                                         </asp:DropDownList>
+                                         <div>
+                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
+                                         <asp:Button ID="btnSendMessage" CssClass="btn float-right" runat="server" Text="Send"/>
+                                             </div>
+                                     </div>
+                                 </div>
+
+                                 <!--end col-->
+                             </div>
+                             <!--end row-->
+                            
+                         </div>
+                         <!--end container-fluid-->
+                     </div>
+                     <!--end modal-body-->
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     </div>
+                     
+                 </div>
+                 <!--end modal header-->
+         
+             </div>
+             <!--end modal content-->
+         </div>
+         <!--end modal-dialog div-->
+
+
+
+
+
+
          
      
         

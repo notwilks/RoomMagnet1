@@ -404,6 +404,42 @@ public partial class HostDashboard : System.Web.UI.Page
         } 
     }
 
+    protected void Compose_Click(object sender, EventArgs e)
+    {
+        
+        // Retrieve contacts (Tenants that have favorited this host's property) 
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
+                                                    + "FROM Tenant t "
+                                                    + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
+                                                    + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
+                                                    + "INNER JOIN Host h ON a.hostID = h.hostID "
+                                                    + "WHERE h.hostID = @hID", sc);
+        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+
+        SqlDataReader reader = selectContacts.ExecuteReader();
+
+
+
+
+
+
+        // Add contacts to dropdowns
+
+        while (reader.Read())
+        {
+            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false)
+            {
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                DropDownList2.Items.Add(contact);
+            }
+
+
+
+        }
+        reader.Close();
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
+    }
+
     protected void ViewMessageHistory_Click(object sender, EventArgs e)
     {
 
@@ -435,7 +471,7 @@ public partial class HostDashboard : System.Web.UI.Page
 
 
 
-        // Add contacts to dropdown
+        // Add contacts to dropdowns
 
         while (reader.Read())
         {
@@ -543,11 +579,13 @@ public partial class HostDashboard : System.Web.UI.Page
             send.ID = Convert.ToString(reader.GetInt32(4));
             send.Text = "Send";
             send.Attributes.Add("type", "button");
+            send.Click += new EventHandler(Send_Click);
             send.Attributes.Add("class", "btn float-right");
             send.Attributes.Add("runat", "server");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
-            send.Click += new EventHandler(Send_Click);
+            send.Attributes.Add("UseSubmitBehavior", "false");
+            //send.Attributes.Add("data-dismiss", "modal");
             rightDiv.Controls.Add(send);
         }
         reader.Close();
@@ -576,12 +614,13 @@ public partial class HostDashboard : System.Web.UI.Page
         
         Button btn1 = (Button)sender;
         String mID = Convert.ToString(btn1.ID);
-
+        btnSendRepy.ID = mID;
         SqlCommand selectFullMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName,' ', h.lastName), m.sender FROM Host h "
                                                             + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
                                                             + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                             + "WHERE m.messageID = @mID", sc);
         selectFullMessage.Parameters.AddWithValue("@mID", mID);
+
         SqlDataReader reader = selectFullMessage.ExecuteReader();
         while (reader.Read())
         {
@@ -609,7 +648,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 btnSendRepy.Visible = true;
             }
 
-
+            btnSendRepy.ID = mID;
 
 
         }
