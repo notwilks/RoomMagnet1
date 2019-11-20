@@ -42,7 +42,6 @@
 
 
     </div><!-- end div row! -->
-      
 
      <h5 class="nav justify-content-center" style="margin-top: 2rem;">Find a Property</h5>
                   
