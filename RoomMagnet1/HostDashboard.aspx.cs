@@ -524,7 +524,7 @@ public partial class HostDashboard : System.Web.UI.Page
         reader.Close();
 
         // Populate Right column
-        SqlCommand selectClickedMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent, messageID FROM MessageCenter m "
+        SqlCommand selectClickedMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID FROM MessageCenter m "
                                                     + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID and t.tenantID = @tID and m.messageID = @mID "
                                                     + "ORDER BY dateSent DESC", sc);
