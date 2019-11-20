@@ -16,7 +16,14 @@ public partial class PropertyInfo : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        if (Convert.ToString(Session["userType"]) == "T")
+        {
+            intentToLease.Visible = true;
+        }
+        else
+        {
+            intentToLease.Visible = false;
+        }
         String bathroomBadge = "images/private-bath.png";
         String entranceBadge = "images/private-entrance.png";
         String storageBadge = "images/storagespace.png";
@@ -554,10 +561,14 @@ public partial class PropertyInfo : System.Web.UI.Page
             {
                 FavoriteButton.ID = Convert.ToString(reader.GetSqlInt32(5));
                 FavoriteButton.Click += new ImageClickEventHandler(FavoriteButton_Click);
+                FavoriteButton.ImageUrl = "images/favorite-badge.png";
+                FavoriteButton.Visible = true;
             }
             else
             {
                 FavoriteButton.Click += new ImageClickEventHandler(NoFav);
+                FavoriteButton.ImageUrl = "images/favorite-badge.png";
+                FavoriteButton.Visible = true;
             }
 
             accomID = reader.GetInt32(5);
@@ -587,10 +598,12 @@ public partial class PropertyInfo : System.Web.UI.Page
                 {
                     FavoriteButton.ImageUrl = "images/favorited.png";
                     FavoriteButton.Click += new ImageClickEventHandler(AlreadyFav);
+                    FavoriteButton.Visible = true;
                 }
                 else
                 {
                     FavoriteButton.ImageUrl = "images/favorite-badge.png";
+                    FavoriteButton.Visible = true;
                 }
 
 
@@ -630,6 +643,9 @@ public partial class PropertyInfo : System.Web.UI.Page
         insertFavorite.ExecuteNonQuery();
         sc.Close();
         b.Visible = false;
+
+        FavoriteButton.Visible = true;
+        FavoriteButton.ImageUrl = "images/favorited.png";
     }
 
     public string CalculateAge(DateTime DOB)
@@ -655,6 +671,7 @@ public partial class PropertyInfo : System.Web.UI.Page
     protected void NoFav(object sender, EventArgs e)
     {
         ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
+        FavoriteButton.Visible = true;
     }
 
     protected void AlreadyFav(object sender, EventArgs e)
@@ -671,8 +688,26 @@ public partial class PropertyInfo : System.Web.UI.Page
         int tenID = Convert.ToInt32(fav.ExecuteScalar());
 
         fav.CommandText = "Delete From FavoriteProperty where accommodationID = " + accomID + " and tenantID = " + tenID2;
+        fav.ExecuteNonQuery();
 
         FavoriteButton.ImageUrl = "images/favorite-badge.png";
+        FavoriteButton.Visible = true;
+        sc.Close();
+    }
+
+    protected void intentToLease_Click(object sender, EventArgs e)
+    {
+        SqlCommand select = new SqlCommand();
+        select.Connection = sc;
+
+        sc.Open();
+
+        select.CommandText = "Select (firstName + ' ' + LastName) from Tenant where email = '" + Session["userEmail"] + "'";
+
+        Session["tenantLease"] = Convert.ToString(select.ExecuteScalar());
+
+        Response.Redirect("IntentToLease.aspx");
+
         sc.Close();
     }
 }

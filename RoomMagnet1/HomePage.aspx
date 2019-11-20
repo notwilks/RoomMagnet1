@@ -23,7 +23,7 @@
 <form id="form1" runat="server">
 
 
-  <div class="row" style="background-image: url(images/foldimg_A0_Rectangle_2_pattern.png); background-repeat: no-repeat; background-size:cover; margin-top: 6rem;">
+  <div class="row" style="background-image: url(images/home.jpg); background-repeat: no-repeat; background-size:cover; margin-top: 6rem;">
 
         <div class="col-md-4  ctahome" style="margin-top: 8rem; margin-bottom: 8rem; ">
             <div class="card card-inverse" style="width: 25rem; margin-top: 2rem; margin-bottom: 2rem; margin-right: 1rem;">
@@ -46,7 +46,7 @@
 
      <h5 class="nav justify-content-center" style="margin-top: 2rem;">Find a Property</h5>
                   
-                  </div>  <ul class="nav justify-content-center" >
+                  <ul class="nav justify-content-center">
                       <li class="nav-item" >
                             <asp:TextBox ID="CitySearchBox" runat="server" CssClass="form-control" style="margin-right:1rem;" placeholder="Search By City"></asp:TextBox>
                       </li>
@@ -110,33 +110,64 @@
                       </li>
                     </ul>
 
-    
-    
-   <div class="row" style="margin-top: 5rem;">
-    
-    <div class="col-md-6 " >
-       <div class="card" style="width: 30rem; border: none; margin: 0 auto;">
-          <img src="images/scott-webb-1ddol8rgUH8-unsplash.jpg" class="card-img-top" alt="picture of a house">
-          <div class="card-body">
-            <p style="text-align: center; "><a href="#" class="btn " style="font-size: 20px;">Your safety is our #1 concern.</a></p>
-          </div>
+    <div class="row" style="margin-top: 5rem; margin-bottom: 2rem; margin-left: 6rem">
+    <div class="col-sm">
+        <!-- empty-->
+    </div>
+
+    <div class="col-sm">
+        <!-- empty -->
+    </div>
+
+    <div class="col-sm">
+        <h3>
+            <asp:Label ID="HWW" runat="server" Text="How We Work" CssClass="text-nowrap"></asp:Label>
+        </h3>
+    </div>
+
+    <div class="col-sm">
+        <!-- empty -->
+    </div>
+
+    <div class="col-sm">
+        <!-- empty -->
+    </div>
+    </div><!-- end div row! -->
+
+    <div class="row">
+        <div class="col-md-2" style="margin: 0 auto;">
+            <p style="text-align: center;"><img src="images/icons-01.png" style="max-width: 150px;"></p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Create a profile.</p>
         </div>
-    </div><!-- end div col! -->
-       
-    <div class="col-md-6">
-       
-       <div class="card" style="width: 30rem; border: none; margin: 0 auto;;">
-          <img src="images/ben-o-bro-wpU4veNGnHg-unsplash.jpg" class="card-img-top" alt="picture of a house">
-          <div class="card-body">
-            <p style="text-align: center; "><a href="#" class="btn " style="font-size: 20px;">Search by city &amp; preferences.</a></p>
-          </div>
+      <div class="col-md-1  ">
+            <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
+             <p  class="arrowd" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8595;</p>
         </div>
         
-    </div><!-- end div col! -->
-       
-    </div> <!-- end div row! -->
+         <div class="col-md-2" style="margin: 0 auto;">
+            <p style="text-align: center;"><img src="images/icons-02.png" style="max-width: 150px;"></p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Fill out your preferences.</p>
+        </div>
+        <div class="col-md-1 ">
+            <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
+             <p  class="arrowd" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8595;</p>
+        </div>
+        
+         <div class="col-md-2" style="margin: 0 auto;">
+            <p style="text-align: center;"><img src="images/icons-03.png" style="max-width: 150px;"></p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Get cleared.</p>
+        </div>
+        <div class="col-md-1  ">
+            <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
+             <p  class="arrowd" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8595;</p>
+        </div>
+         <div class="col-md-2" style="margin: 0 auto;">
+            <p style="text-align: center; "><img src="images/icons-04.png" style="max-width: 150px;"></p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Find your housing match.</p>
+        </div>
     
-    
+    </div><!-- end div row! -->
+      
     <div class="row" style="margin-top: 5rem; margin-left: 1rem;">
         <div class="col-md-12">
         <h3>Hear From Some Happy Customers</h3>
@@ -175,51 +206,32 @@
             </div>    
         </div><!-- end div carousel! -->
     </div><!-- end div row! -->
+
+    <div class="row" style="margin-top: 5rem;">
     
-    
-    <div class="row" style="margin-top: 5rem; margin-left: 1rem;">
-        <div class="col-md-12">
-        <h3>How We Work</h3>
-        </div>    
-    </div><!-- end div row! -->
-    
-    
-    <div class="row">
-        <div class="col-md-2" style="margin: 0 auto;">
-            <p style="text-align: center;"><img src="images/icons-01.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Create a profile.</p>
+    <div class="col-md-6 " >
+       <div class="card" style="width: 30rem; border: none; margin: 0 auto;">
+          <img src="images/scott-webb-1ddol8rgUH8-unsplash.jpg" class="card-img-top" alt="picture of a house">
+          <div class="card-body">
+            <p style="text-align: center; "><a href="#" class="btn " style="font-size: 20px;">Your safety is our #1 concern.</a></p>
+          </div>
         </div>
-      <div class="col-md-1  ">
-            <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
-             <p  class="arrowd" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8595;</p>
-        </div>
-        
-         <div class="col-md-2" style="margin: 0 auto;">
-            <p style="text-align: center;"><img src="images/icons-02.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Fill out your preferences.</p>
-        </div>
-        <div class="col-md-1 ">
-            <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
-             <p  class="arrowd" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8595;</p>
+    </div><!-- end div col! -->
+       
+    <div class="col-md-6">
+       
+       <div class="card" style="width: 30rem; border: none; margin: 0 auto;;">
+          <img src="images/ben-o-bro-wpU4veNGnHg-unsplash.jpg" class="card-img-top" alt="picture of a house">
+          <div class="card-body">
+            <p style="text-align: center; "><a href="#" class="btn " style="font-size: 20px;">Search by city &amp; preferences.</a></p>
+          </div>
         </div>
         
-         <div class="col-md-2" style="margin: 0 auto;">
-            <p style="text-align: center;"><img src="images/icons-03.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Get cleared.</p>
-        </div>
-        <div class="col-md-1  ">
-            <p  class="arrowr" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8594;</p>
-             <p  class="arrowd" style="text-align: center; font-size: 5rem; margin: 0 auto; margin-top: 2rem;">&#8595;</p>
-        </div>
-         <div class="col-md-2" style="margin: 0 auto;">
-            <p style="text-align: center; "><img src="images/icons-04.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Find your housing match.</p>
-        </div>
+    </div><!-- end div col! -->
+       
+    </div> <!-- end div row! -->
     
-    </div><!-- end div row! -->
-    
-    
-   <div class="row" style="margin-top: 5rem; margin-bottom: 2rem;">
+   <div class="row" style="margin-top: 1rem; margin-bottom: 2rem;">
         <div class="col-md-12">
             <p style="text-align: center; font-size: 50px;" class="din" id="listedProperties" runat="server"></p>
             <p style="text-align: center; font-size: 20px;">Properties are currently listed.<br>Find your perfect fit.</p>

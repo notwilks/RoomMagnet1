@@ -161,8 +161,10 @@
           <h1><asp:Label ID="HostNameLabel" runat="server" Text="Someone's Property"></asp:Label><asp:Image ID="backgroundCheckImage" runat="server" style="max-width: 30px;" ImageUrl=""/></h1> 
         </div> <!--end col-->
       <div class="col-md-3" style="margin-top: 1.5rem; "> 
+          
           <p style=" float: center; "><asp:ImageButton ID="MessageButton" runat="server" style="max-width: 100px;" alt="message icon" ImageUrl="images/message-badge.png" OnClick="MessageButton_Click"/>
-            <asp:ImageButton ID="FavoriteButton" runat="server" style="max-width: 90px;" alt="favorite icon" ImageUrl="images/favorite-badge.png"/> </p>
+            <asp:ImageButton ID="FavoriteButton" runat="server" style="max-width: 90px;" alt="favorite icon" ImageUrl="images/favorite-badge.png"/> 
+              <asp:Button ID="intentToLease" runat="server" Text="Request Leasing Agreement" cssclass="btn btn-primary" style="margin-left: 2rem;" OnClick="intentToLease_Click"/></p>
         </div> <!--end col-->
     </div><!-- end div row -->  
 
