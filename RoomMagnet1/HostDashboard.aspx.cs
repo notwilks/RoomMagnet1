@@ -539,7 +539,7 @@ public partial class HostDashboard : System.Web.UI.Page
             lblDate.Text = reader.GetDateTime(3).ToShortDateString();
             lblMessageText.Text = reader.GetString(1);
             Button send = new Button();
-            send.ID = Convert.ToString(reader.GetInt32(2));
+            send.ID = Convert.ToString(reader.GetInt32(4));
             send.Text = "Send";
             send.Attributes.Add("type", "button");
             send.Attributes.Add("class", "btn float-right");
