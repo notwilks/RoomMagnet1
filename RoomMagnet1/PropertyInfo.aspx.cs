@@ -10,10 +10,28 @@ using System.Web.UI.HtmlControls;
 
 public partial class PropertyInfo : System.Web.UI.Page
 {
+    public int accomID = 0;
+
     public string jsStreetName = "715 S Main St Harrisonburg, VA, USA";
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+        
+        String bathroomBadge = "images/private-bath.png";
+        String entranceBadge = "images/private-entrance.png";
+        String storageBadge = "images/storagespace.png";
+        String furnishedBadge = "images/furnished-badge.png";
+        String hasPetsBadge = "images/haspets.png";
+        String smokerBadge = "images/non-smoker-badge.png";
+        String wifiBadge = "images/wifi.png";
+        String parkingBadge = "images/parking.png";
+        String KitchenBadge = "images/kitchen-badge.png";
+        String laundryBadge = "images/laundry.png";
+        String cableBadge = "images/cable.png";
+        String allowsPetsBadge = "images/allowspets.png";
+
+        
+
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
         sc.Open();
@@ -339,7 +357,251 @@ public partial class PropertyInfo : System.Web.UI.Page
                 cDiv12.Controls.Add(hostprofileImage2);
             }
 
+            //setting property badge 1
+            var badge1 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(15) == "T")
+            {
+                badge1.Attributes.Add("src", bathroomBadge);
+                badgeArea.Controls.Add(badge1);
+            }
+            badge1.Style.Add("max-width", "130px;");
+            badge1.Style.Add("max-height", "30px;");
+            badge1.Style.Add("margin-right", "5px;");
+            badge1.Style.Add("margin-top", "5px;");
+
+            //setting property badge 2
+            var badge2 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(16) == "T")
+            {
+                badge2.Attributes.Add("src", entranceBadge);
+                badgeArea.Controls.Add(badge2);
+            }
+            badge2.Style.Add("max-width", "130px;");
+            badge2.Style.Add("max-height", "30px;");
+            badge2.Style.Add("margin-right", "5px;");
+            badge2.Style.Add("margin-top", "5px;");
+
+            //setting property badge 3
+            var badge3 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(17) == "T")
+            {
+                badge3.Attributes.Add("src", furnishedBadge);
+                badgeArea.Controls.Add(badge3);
+            }
+            badge3.Style.Add("max-width", "130px;");
+            badge3.Style.Add("max-height", "30px;");
+            badge3.Style.Add("margin-right", "5px;");
+            badge3.Style.Add("margin-top", "5px;");
+
+            //setting property badge 4
+            var badge4 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(18) == "T")
+            {
+                badge4.Attributes.Add("src", storageBadge);
+                badgeArea.Controls.Add(badge4);
+            }
+            badge4.Style.Add("max-width", "130px;");
+            badge4.Style.Add("max-height", "30px;");
+            badge4.Style.Add("margin-right", "5px;");
+            badge4.Style.Add("margin-top", "5px;");
+
+            //setting property badge 5
+            var badge5 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(19) == "F")
+            {
+                badge5.Attributes.Add("src", smokerBadge);
+                badgeArea.Controls.Add(badge5);
+            }
+            badge5.Style.Add("max-width", "130px;");
+            badge5.Style.Add("max-height", "30px;");
+            badge5.Style.Add("margin-right", "5px;");
+            badge5.Style.Add("margin-top", "5px;");
+
+            //setting property badge 6
+            var badge6 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(20) == "T")
+            {
+                badge6.Attributes.Add("src", KitchenBadge);
+                badgeArea.Controls.Add(badge6);
+            }
+            badge6.Style.Add("max-width", "130px;");
+            badge6.Style.Add("max-height", "30px;");
+            badge6.Style.Add("margin-right", "5px;");
+            badge6.Style.Add("margin-top", "5px;");
+
+            //setting property badge 7
+            var badge7 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(21) == "T")
+            {
+                badge7.Attributes.Add("src", allowsPetsBadge);
+                badgeArea.Controls.Add(badge7);
+            }
+            badge7.Style.Add("max-width", "130px;");
+            badge7.Style.Add("max-height", "30px;");
+            badge7.Style.Add("margin-right", "5px;");
+            badge7.Style.Add("margin-top", "5px;");
+
+            //setting property badge 8
+            var badge8 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(22) == "T")
+            {
+                badge8.Attributes.Add("src", cableBadge);
+                badgeArea.Controls.Add(badge8);
+            }
+            badge8.Style.Add("max-width", "130px;");
+            badge8.Style.Add("max-height", "30px;");
+            badge8.Style.Add("margin-right", "5px;");
+            badge8.Style.Add("margin-top", "5px;");
+
+            //setting property badge 9
+            var badge9 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(23) == "T")
+            {
+                badge9.Attributes.Add("src", laundryBadge);
+                badgeArea.Controls.Add(badge9);
+            }
+            badge9.Style.Add("max-width", "130px;");
+            badge9.Style.Add("max-height", "30px;");
+            badge9.Style.Add("margin-right", "5px;");
+            badge9.Style.Add("margin-top", "5px;");
+
+            //setting property badge 10
+            var badge10 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(24) == "T")
+            {
+                badge10.Attributes.Add("src", parkingBadge);
+                badgeArea.Controls.Add(badge10);
+            }
+            badge10.Style.Add("max-width", "130px;");
+            badge10.Style.Add("max-height", "30px;");
+            badge10.Style.Add("margin-right", "5px;");
+            badge10.Style.Add("margin-top", "5px;");
+
+            //setting property badge 11
+            var badge11 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(25) == "T")
+            {
+                badge11.Attributes.Add("src", wifiBadge);
+                badgeArea.Controls.Add(badge11);
+            }
+            badge11.Style.Add("max-width", "130px;");
+            badge11.Style.Add("max-height", "30px;");
+            badge11.Style.Add("margin-right", "5px;");
+            badge11.Style.Add("margin-top", "5px;");
+
+            //setting property badge 12
+            var badge12 = new HtmlGenericControl("img")
+            {
+
+            };
+
+            if (reader.GetSqlString(26) == "T")
+            {
+                badge12.Attributes.Add("src", hasPetsBadge);
+                badgeArea.Controls.Add(badge12);
+            }
+            badge12.Style.Add("max-width", "130px;");
+            badge12.Style.Add("max-height", "30px;");
+            badge12.Style.Add("margin-right", "5px;");
+            badge12.Style.Add("margin-top", "5px;");
+
+            //setting ID of favorite Button
+            if(Convert.ToString(Session["userType"]) == "T")
+            {
+                FavoriteButton.ID = Convert.ToString(reader.GetSqlInt32(5));
+                FavoriteButton.Click += new ImageClickEventHandler(FavoriteButton_Click);
+            }
+            else
+            {
+                FavoriteButton.Click += new ImageClickEventHandler(NoFav);
+            }
+
+            accomID = reader.GetInt32(5);
+            
         }
+        sc.Close();
+        reader.Close();
+
+        SqlCommand fav = new SqlCommand();
+        fav.Connection = sc;
+
+        sc.Open();
+
+        try
+        {
+            if (Convert.ToString(Session["userType"]) == "T")
+            {
+                
+
+                fav.CommandText = "Select tenantID from Tenant where email = '" + Session["userEmail"] + "'";
+                int tenID2 = Convert.ToInt32(fav.ExecuteScalar());
+
+                fav.CommandText = "Select ISNULL(tenantID, 0) from FavoriteProperty where accommodationID = " + accomID + " and tenantID = " + tenID2;
+                int tenID = Convert.ToInt32(fav.ExecuteScalar());
+
+                if (tenID == tenID2)
+                {
+                    FavoriteButton.ImageUrl = "images/favorited.png";
+                    FavoriteButton.Click += new ImageClickEventHandler(AlreadyFav);
+                }
+                else
+                {
+                    FavoriteButton.ImageUrl = "images/favorite-badge.png";
+                }
+
+
+            }
+        }
+        catch
+        {
+
+        }
+        sc.Close();
+        
     }
 
     protected void MessageButton_Click(object sender, ImageClickEventArgs e)
@@ -349,7 +611,25 @@ public partial class PropertyInfo : System.Web.UI.Page
 
     protected void FavoriteButton_Click(object sender, ImageClickEventArgs e)
     {
+        ImageButton b = sender as ImageButton;
 
+        // Get tenantID to from Tenant to be inserted into FavoriteProperty
+        SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);
+        selectTenantID.Parameters.AddWithValue("@email", Convert.ToString(Session["userEmail"]));
+        sc.Open();
+        String tenantID = selectTenantID.ExecuteScalar().ToString();
+
+
+        String ID = b.ID;
+        //Setting favorite
+        SqlCommand insertFavorite = new SqlCommand("INSERT INTO FavoriteProperty(tenantID, accommodationID, lastUpdated, lastUpdatedBy) VALUES(@tID, @aID, @lastUpdated, @lastUpdatedBy)", sc);
+        insertFavorite.Parameters.AddWithValue("@tID", tenantID);
+        insertFavorite.Parameters.AddWithValue("@aID", b.ID);
+        insertFavorite.Parameters.AddWithValue("@lastUpdated", DateTime.Now.ToString());
+        insertFavorite.Parameters.AddWithValue("@lastUpdatedBy", "Joe Muia");
+        insertFavorite.ExecuteNonQuery();
+        sc.Close();
+        b.Visible = false;
     }
 
     public string CalculateAge(DateTime DOB)
@@ -370,5 +650,29 @@ public partial class PropertyInfo : System.Web.UI.Page
     protected void BackButton_Click(object sender, EventArgs e)
     {
         Response.Redirect("SearchResultPage.aspx");
+    }
+
+    protected void NoFav(object sender, EventArgs e)
+    {
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
+    }
+
+    protected void AlreadyFav(object sender, EventArgs e)
+    {
+        SqlCommand fav = new SqlCommand();
+        fav.Connection = sc;
+
+        sc.Open();
+
+        fav.CommandText = "Select tenantID from Tenant where email = '" + Session["userEmail"] + "'";
+        int tenID2 = Convert.ToInt32(fav.ExecuteScalar());
+
+        fav.CommandText = "Select ISNULL(tenantID, 0) from FavoriteProperty where accommodationID = " + accomID + " and tenantID = " + tenID2;
+        int tenID = Convert.ToInt32(fav.ExecuteScalar());
+
+        fav.CommandText = "Delete From FavoriteProperty where accommodationID = " + accomID + " and tenantID = " + tenID2;
+
+        FavoriteButton.ImageUrl = "images/favorite-badge.png";
+        sc.Close();
     }
 }

@@ -2,6 +2,15 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <!doctype html>
+    <script type="text/javascript">
+        function ShowPopup() {
+            $("#exampleModal").modal("show");
+        }
+
+        function ShowPopup2() {
+            $("#exampleModal2").modal("show");
+        }
+    </script>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -153,7 +162,7 @@
         </div> <!--end col-->
       <div class="col-md-3" style="margin-top: 1.5rem; "> 
           <p style=" float: center; "><asp:ImageButton ID="MessageButton" runat="server" style="max-width: 100px;" alt="message icon" ImageUrl="images/message-badge.png" OnClick="MessageButton_Click"/>
-            <asp:ImageButton ID="FavoriteButton" runat="server" style="max-width: 90px;" alt="favorite icon" ImageUrl="images/favorite-badge.png" OnClick="FavoriteButton_Click"/> </p>
+            <asp:ImageButton ID="FavoriteButton" runat="server" style="max-width: 90px;" alt="favorite icon" ImageUrl="images/favorite-badge.png"/> </p>
         </div> <!--end col-->
     </div><!-- end div row -->  
 
@@ -177,7 +186,7 @@
                 </div> <!--end carousel-inner-->
             </div> <!--end carousel div-->
         </div> <!--end col div-->
-        <div class="row justify-content-center" style="margin-bottom: 1rem;">
+        <div class="row" style="margin-bottom: 1rem; margin-left: 2.5rem; border-bottom: solid; border-bottom-width: 1px;">
             <h3><asp:Label ID="PropTitle" runat="server" Text="Title of Space"></asp:Label></h3>
         </div>
         <div class="col-md-7" style="padding: 20px; padding-left: 40px;">
@@ -185,18 +194,24 @@
             <h5><asp:Label ID="CityStateZip" runat="server" Text=""></asp:Label></h5>
             <p ><asp:Label ID="PropBio" runat="server" Text=""></asp:Label></p>
                 <div class="row" style="margin-top: 3rem;">
-                    <p>
-                        <b>Price: </b> <asp:Label ID="price" runat="server" Text=""></asp:Label>
-                            <br />
-                            <br />
-                        <b>Number of Current Residents: </b> <asp:Label ID="numOfTenants" runat="server" Text=""></asp:Label>
-                            <br />
-                            <br />
-                        <b>Room Type: </b> <asp:Label ID="roomType" runat="server" Text=""></asp:Label>
-                            <br />
-                            <br />
-                        <b>Neighborhood: </b> <asp:Label ID="neighborhood" runat="server" Text=""></asp:Label>
-                    </p>
+                    <div class="col">
+                        <p>
+                            <b>Price: </b> <asp:Label ID="price" runat="server" Text=""></asp:Label>
+                                <br />
+                                <br />
+                            <b>Number of Current Residents: </b> <asp:Label ID="numOfTenants" runat="server" Text=""></asp:Label>
+                                <br />
+                                <br />
+                            <b>Room Type: </b> <asp:Label ID="roomType" runat="server" Text=""></asp:Label>
+                                <br />
+                                <br />
+                            <b>Neighborhood: </b> <asp:Label ID="neighborhood" runat="server" Text=""></asp:Label>
+                        </p>
+                    </div>
+
+                    <div class="col">
+                        
+                    </div>
                 </div>
                 <!-- Begin Google Map Row--> 
                 <div class="row">
@@ -213,6 +228,9 @@
                 <!-- End Google Map Row-->
 
     </div><!-- end div row --> 
+        <div class="col" id="badgeArea" runat="server" style="margin-top: 1.5rem;">
+             <h5>Amenities</h5>
+        </div>
     
     <div class="row" style="margin-top: 1rem; border-top: solid; border-top-width: 1px;">
     	<div class="col-md-12">
@@ -293,6 +311,47 @@
                       </div> <!--end modal header-->
                     </div> <!--end modal content-->
                   </div> <!--end modal-dialog div-->
+
+            <!--You must be signed in as a tenant to favorite modal-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h5>Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You must be signed in to favorite a property.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="Button" class="btn" data-dismiss="modal">Dismiss</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!--already been favorited modal-->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h5>Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You have already favorited this property.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="Button" class="btn" data-dismiss="modal">Dismiss</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
     </div>
 </div> <!-- end div container! -->    
 <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
@@ -383,7 +442,7 @@
                     fillOpacity: 0.25,
                     map: map,
                     center: results[0].geometry.location,
-                    radius: 804
+                    radius: 700
                 }));
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
