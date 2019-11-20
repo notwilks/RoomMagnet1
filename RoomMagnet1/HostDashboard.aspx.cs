@@ -187,9 +187,9 @@ public partial class HostDashboard : System.Web.UI.Page
         // MESSAGE CENTER 
 
         // Retrieve a Host's existing messages from DB
-        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, m.messageID FROM MessageCenter m "
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, m.messageID, m.sender FROM MessageCenter m "
                                                     + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
-                                                    + "WHERE m.hostID = @hID", sc);
+                                                    + "WHERE m.hostID = @hID and sender = 'T'", sc);
         selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
         sc.Open();
         reader = selectMessages.ExecuteReader();
@@ -453,8 +453,9 @@ public partial class HostDashboard : System.Web.UI.Page
         selectTenant.Parameters.AddWithValue("@mID", mID);
         String tID = Convert.ToString(selectTenant.ExecuteScalar());
         // Get Message History from particular sender
-        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent, messageID FROM MessageCenter m "
-                                                    + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName, ' ', h.lastName), m.sender FROM Host h "
+                                                            + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
+                                                            + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID and t.tenantID = @tID "
                                                     + "ORDER BY dateSent DESC", sc);
         selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
@@ -470,10 +471,19 @@ public partial class HostDashboard : System.Web.UI.Page
 
             // Populate Left column
             // Sender 
-            String sender = reader.GetString(0);
+            String senderType = reader.GetString(6);
+            String senderName;
+            if (senderType == "T")
+            {
+                senderName = reader.GetString(0);
+            }
+            else
+            {
+                senderName = reader.GetString(5);
+            }
             var leftSenderHeader = new HtmlGenericControl("h5")
             {
-                InnerText = sender
+                InnerText = senderName
             };
             leftSenderHeader.Attributes.Add("style", "font-size: 17px");
             leftDiv.Controls.Add(leftSenderHeader);
@@ -514,8 +524,33 @@ public partial class HostDashboard : System.Web.UI.Page
         reader.Close();
 
         // Populate Right column
-        
+        SqlCommand selectClickedMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID FROM MessageCenter m "
+                                                    + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+                                                    + "WHERE m.hostID = @hID and t.tenantID = @tID and m.messageID = @mID "
+                                                    + "ORDER BY dateSent DESC", sc);
+        selectClickedMessage.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+        selectClickedMessage.Parameters.AddWithValue("@tID", tID);
+        selectClickedMessage.Parameters.AddWithValue("@mID", mID);
+        reader = selectClickedMessage.ExecuteReader();
 
+        while (reader.Read())
+        {
+            lblSender.Text = reader.GetString(0);
+            lblDate.Text = reader.GetDateTime(3).ToShortDateString();
+            lblMessageText.Text = reader.GetString(1);
+            Button send = new Button();
+            send.ID = Convert.ToString(reader.GetInt32(4));
+            send.Text = "Send";
+            send.Attributes.Add("type", "button");
+            send.Attributes.Add("class", "btn float-right");
+            send.Attributes.Add("runat", "server");
+            //view.Attributes.Add("data-toggle", "modal");
+            //view.Attributes.Add("data-target", "#exampleModalCenter");
+            send.Click += new EventHandler(Send_Click);
+            rightDiv.Controls.Add(send);
+        }
+        reader.Close();
+         
 
 
     }
@@ -540,35 +575,37 @@ public partial class HostDashboard : System.Web.UI.Page
         Button btn = (Button)sender;
         String mID = Convert.ToString(btn.ID);
 
-        SqlCommand selectFullMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, dateSent, messageID FROM MessageCenter m "
+        SqlCommand selectFullMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName,' ', h.lastName), m.sender FROM Host h "
+                                                            + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
                                                             + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                             + "WHERE m.messageID = @mID", sc);
         selectFullMessage.Parameters.AddWithValue("@mID", mID);
         SqlDataReader reader = selectFullMessage.ExecuteReader();
         while (reader.Read())
         {
-            String senderName = reader.GetString(0);
-            var rightSenderHeader = new HtmlGenericControl("h5")
+            String senderType = reader.GetString(6);;
+            if (senderType == "T")
             {
-                InnerText = senderName
-            };
-            rightSenderHeader.Attributes.Add("style", "font-size: 17px");
-            rightDiv.Controls.Add(rightSenderHeader);
-
-            String date = reader.GetDateTime(3).ToShortDateString();
-            var rightDateSent = new HtmlGenericControl("p")
+                lblSender.Visible = true;
+                lblSender.Text = reader.GetString(0);
+                lblDate.Visible = true;
+                lblDate.Text = reader.GetDateTime(3).ToShortDateString();
+                lblMessageText.Visible = true;
+                lblMessageText.Text = reader.GetString(1);
+                txtBoxReply.Visible = false;
+                btnSendRepy.Visible = false;
+            }
+            else
             {
-                InnerText = date
-            };
-            rightDateSent.Attributes.Add("style", "font-size: 13px");
-            rightDiv.Controls.Add(rightDateSent);
-
-            String message = reader.GetString(1);
-            var rightMessageText = new HtmlGenericControl("p")
-            {
-                InnerText = message
-            };
-            rightDiv.Controls.Add(rightMessageText);
+                lblSender.Visible = true;
+                lblSender.Text = reader.GetString(5);
+                lblDate.Visible = true;
+                lblDate.Text = reader.GetDateTime(3).ToShortDateString();
+                lblMessageText.Visible = true;
+                lblMessageText.Text = reader.GetString(1);
+                txtBoxReply.Visible = true;
+                btnSendRepy.Visible = true;
+            }
 
 
 
@@ -578,6 +615,15 @@ public partial class HostDashboard : System.Web.UI.Page
         reader.Close();
     }
 
+
+    protected void Send_Click(object sender, EventArgs e)
+    {
+        Button sendBtn = (Button)sender;
+        String tID = Convert.ToString(sendBtn.ID);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent) VALUES(@hostID, @tenantID, @msg, @date", sc);
+        sendMessage.Parameters.AddWithValue("@hostID", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@tenantID", tID);
+    }
 
 
 }

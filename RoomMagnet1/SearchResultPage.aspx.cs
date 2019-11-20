@@ -53,19 +53,25 @@ public partial class SearchResultPage : System.Web.UI.Page
             String entrance = "%";
             String entranceBadge = "images/private-entrance.png";
             String storage = "%";
-            String storageBadge = "images/closet-space-badge.png";
+            String storageBadge = "images/storagespace.png";
             String furnished = "%";
             String furnishedBadge = "images/furnished-badge.png";
             String pets = "%";
+            String hasPetsBadge = "images/haspets.png";
             String smoker = "%";
             String smokerBadge = "images/non-smoker-badge.png";
             String wifi = "%";
+            String wifiBadge = "images/wifi.png";
             String parking = "%";
+            String parkingBadge = "images/parking.png";
             String kitchen = "%";
             String KitchenBadge = "images/kitchen-badge.png";
             String laundry = "%";
+            String laundryBadge = "images/laundry.png";
             String cable = "%";
+            String cableBadge = "images/cable.png";
             String allowsPets = "%";
+            String allowsPetsBadge = "images/allowspets.png";
 
             if (PrivateEntranceBox.Checked)
             {
@@ -203,7 +209,9 @@ public partial class SearchResultPage : System.Web.UI.Page
                 order = "a.dateListed asc";
             }
 
-            counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode, ai.mainImage, a.accommodationID from Host h " +
+            counter.CommandText = "Select h.firstName, h.lastName, a.description, a.extraInfo, a.price, a.roomType, a.numOfTenants, aa.bathroom, aa.entrance, " +
+                "aa.furnished, aa.storage, aa.smoker, aa.kitchen, a.zipCode, ai.mainImage, a.accommodationID, aa.wifi, aa.parking, aa.laundry, aa.cable, " +
+                "aa.allowPets, aa.pets, h.cleared from Host h " +
                 "inner join Accommodation a on a.hostID = h.HostID " +
                 "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
                 "inner join AccommodationImages ai on a.accommodationID = ai.accommodationID " +
@@ -356,7 +364,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 {
                     badge2.Attributes.Add("src", bathroomBadge);
                 }
-                badge2.Style.Add("max-width", "130px;");
+                badge2.Style.Add("max-width", "135px;");
                 badge2.Style.Add("margin-right", "5px;");
                 badge2.Style.Add("margin-top", "5px;");
 
@@ -386,7 +394,6 @@ public partial class SearchResultPage : System.Web.UI.Page
                 {
                     badge4.Attributes.Add("src", furnishedBadge);
                 }
-                //badge4.Style.Add("max-width", "130px;");
                 badge4.Style.Add("max-width", "110px;");
                 badge4.Style.Add("max-height", "33px;");
                 badge4.Style.Add("margin-right", "5px;");
@@ -423,6 +430,102 @@ public partial class SearchResultPage : System.Web.UI.Page
                 badge6.Style.Add("margin-right", "5px;");
                 badge6.Style.Add("margin-top", "5px;");
 
+                //property badge 7
+                var badge7 = new HtmlGenericControl("img")
+                {
+
+                };
+
+                if (reader.GetSqlString(16) == "T")
+                {
+                    badge6.Attributes.Add("src", wifiBadge);
+                    insidediv.Controls.Add(badge7);
+                }
+                badge7.Style.Add("max-width", "100px;");
+                badge7.Style.Add("max-height", "30px;");
+                badge7.Style.Add("margin-right", "5px;");
+                badge7.Style.Add("margin-top", "5px;");
+
+                //property badge 8
+                var badge8 = new HtmlGenericControl("img")
+                {
+
+                };
+
+                if (reader.GetSqlString(17) == "T")
+                {
+                    badge8.Attributes.Add("src", parkingBadge);
+                    insidediv.Controls.Add(badge8);
+                }
+                badge8.Style.Add("max-width", "130px;");
+                badge8.Style.Add("max-height", "30px;");
+                badge8.Style.Add("margin-right", "5px;");
+                badge8.Style.Add("margin-top", "5px;");
+
+                //property badge 9
+                var badge9 = new HtmlGenericControl("img")
+                {
+
+                };
+
+                if (reader.GetSqlString(18) == "T")
+                {
+                    badge9.Attributes.Add("src", laundryBadge);
+                    insidediv.Controls.Add(badge9);
+                }
+                badge9.Style.Add("max-width", "100px;");
+                badge9.Style.Add("max-height", "30px;");
+                badge9.Style.Add("margin-right", "5px;");
+                badge9.Style.Add("margin-top", "5px;");
+
+                //property badge 10
+                var badge10 = new HtmlGenericControl("img")
+                {
+
+                };
+
+                if (reader.GetSqlString(19) == "T")
+                {
+                    badge10.Attributes.Add("src", cableBadge);
+                    insidediv.Controls.Add(badge10);
+                }
+                badge10.Style.Add("max-width", "100px;");
+                badge10.Style.Add("max-height", "30px;");
+                badge10.Style.Add("margin-right", "5px;");
+                badge10.Style.Add("margin-top", "5px;");
+
+                //property badge 11
+                var badge11 = new HtmlGenericControl("img")
+                {
+
+                };
+
+                if (reader.GetSqlString(20) == "T")
+                {
+                    badge11.Attributes.Add("src", allowsPetsBadge);
+                    insidediv.Controls.Add(badge11);
+                }
+                badge11.Style.Add("max-width", "100px;");
+                badge11.Style.Add("max-height", "30px;");
+                badge11.Style.Add("margin-right", "5px;");
+                badge11.Style.Add("margin-top", "5px;");
+
+                //property badge 12
+                var badge12 = new HtmlGenericControl("img")
+                {
+
+                };
+
+                if (reader.GetSqlString(21) == "T")
+                {
+                    badge12.Attributes.Add("src", hasPetsBadge);
+                    insidediv.Controls.Add(badge12);
+                }
+                badge12.Style.Add("max-width", "100px;");
+                badge12.Style.Add("max-height", "30px;");
+                badge12.Style.Add("margin-right", "5px;");
+                badge12.Style.Add("margin-top", "5px;");
+
                 //new div for middle column
                 var midCol = new HtmlGenericControl("div")
                 {
@@ -440,7 +543,15 @@ public partial class SearchResultPage : System.Web.UI.Page
                 };
 
                 midCol.Controls.Add(approved);
-                approved.Attributes.Add("src", "images/icons-07.png");
+                if (reader.GetSqlString(22) == "T")
+                {
+                    approved.Attributes.Add("src", "images/icons-07.png");
+                }
+                else
+                {
+                    approved.Attributes.Add("src", "images/icons-08.png");
+                }
+                
                 approved.Style.Add("max-width", "30px;");
 
                 //price in middle column
@@ -486,7 +597,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 //view profile badge
                 ImageButton viewProfileBadge = new ImageButton();
                 rightCol.Controls.Add(viewProfileBadge);
-                viewProfileBadge.ImageUrl = "images/view-profile-badge.png";
+                viewProfileBadge.ImageUrl = "images/viewProp.png";
                 viewProfileBadge.Style.Add("max-width", "90px;");
                 viewProfileBadge.Style.Add("margin-right", "1rem;");
                 viewProfileBadge.ID = Convert.ToString(reader.GetInt32(15)) + "P";
@@ -502,14 +613,6 @@ public partial class SearchResultPage : System.Web.UI.Page
                     messageBadge.Style.Add("max-width", "100px;");
                     messageBadge.Style.Add("margin-right", "1rem;");
 
-                    //Favorite Badge
-                    ImageButton favoriteBadge = new ImageButton();
-                    rightCol.Controls.Add(favoriteBadge);
-                    favoriteBadge.ImageUrl = "images/favorite-badge.png";
-                    favoriteBadge.Style.Add("max-width", "90px;");
-                    favoriteBadge.Style.Add("margin-right", "1rem;");
-                    favoriteBadge.ID = Convert.ToString(reader.GetInt32(15));
-                    favoriteBadge.Click += new ImageClickEventHandler(FavoriteBadge_Click);
                 }
 
                 //main property image
@@ -531,6 +634,11 @@ public partial class SearchResultPage : System.Web.UI.Page
             countLabel.Text = "Your search returned " + count + " result(s) for '" + Convert.ToString(Session["CitySearch"]) + ", " + Convert.ToString(Session["StateSearch"]) + "'";
             Session["CitySearch"] = "";
             Session["StateSearch"] = "";
+
+            //SqlCommand fav = new SqlCommand();
+            //fav.Connection = sc;
+
+            //sc.Open();
 
         }
     }

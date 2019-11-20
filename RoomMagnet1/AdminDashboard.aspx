@@ -147,8 +147,8 @@
               
           </div>
           <div class="modal-footer">
-            <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn" OnClick="YesDeleteHost"/>
-            <asp:Button ID="noDelete" runat="server" Text="Cancel" CssClass="btn btn-secondary"/>
+            <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn"/>
+            <asp:Button ID="noDelete" runat="server" Text="Cancel"/>
           </div>
         </div>
       </div>
