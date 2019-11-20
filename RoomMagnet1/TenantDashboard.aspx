@@ -15,8 +15,16 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <!-- custom css -->
 <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
-<link rel="shortcut icon" href="images/logo-03.png" type="image/x-icon"/>
+<link rel="shortcut icon" href="images/logo-03.png" type="image/x-icon"/>   
 <link href="https://fonts.googleapis.com/css?family=Oswald:400|Raleway:300&display=swap" rel="stylesheet">    
+<style>
+  h3 {
+    font-size: 24px
+  }
+  h5 {
+    font-size: 18px;
+  }
+</style>
 </head>
 
 <body>
@@ -115,10 +123,8 @@
                 <asp:Image ID="HostBackgroundStatus4" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
                 <asp:Button ID="ViewProperty4" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
             </div>
-        </div>  
-        
-      </div>      
-    
+        </div>          
+      </div>          
     </div><!-- end div big row -->
     
     
@@ -128,7 +134,6 @@
                 <div class="col-md-12">
                    <h2 >Message Board</h2> 
                 </div>
-
             </div>
 
             <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >

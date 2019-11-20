@@ -59,7 +59,8 @@
           <div class="row">          
             <div class="col">
               <label for="formGroupExampleInput">Date of Birth</label>
-              <asp:TextBox ID="dobBox" runat="server" placeholder ="MM/DD/YYY" CssClass="form-control"></asp:TextBox>
+              <asp:TextBox ID="dobBox" runat="server" placeholder ="MM/DD/YYYY" CssClass="form-control"></asp:TextBox>
+              <asp:Label ID="dobErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
               <asp:RequiredFieldValidator ID="DoBValidator" runat="server" ControlToValidate="dobBox" ErrorMessage="This field is required" Font-Size="Small" ForeColor="Red"></asp:RequiredFieldValidator>
               <asp:CompareValidator ID="DoBCompareValidator" runat="server" ControlToValidate="dobBox" Text="Please enter date in 'MM/DD/YYYY' format." Type="Date" Operator="DataTypeCheck" Font-Size="Small" ForeColor="Red"></asp:CompareValidator>
             </div> <!--end col-->
@@ -174,7 +175,6 @@
        
     </div>
 </footer><!-- end footer! --> 
-    
 <!-- jQuery and Bootstrap links - do not delete! -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
