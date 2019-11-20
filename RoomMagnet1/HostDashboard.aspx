@@ -56,7 +56,16 @@ window.onclick = function(event) {
 <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="shortcut icon" href="images/logo-03.png" type="image/x-icon"/>
 <link href="https://fonts.googleapis.com/css?family=Oswald:400|Raleway:300&display=swap" rel="stylesheet">    
+<style>
 
+  h3 {
+    font-size: 24px
+  }
+  h5 {
+    font-size: 18px;
+  }
+
+</style>
 </head>
 
 <body>
@@ -164,50 +173,66 @@ window.onclick = function(event) {
          
           
                    <!-- Modal -->
-                   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                     <div class="modal-dialog modal-dialog-centered" role="document">
-                       <div class="modal-content">
-                         <div class="modal-header">
-                           <h4 class="modal-title" id="exampleModalLongTitle">Messages</h4>
-                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+             <div class="modal-dialog modal-dialog-centered" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h4 class="modal-title" id="exampleModalLongTitle">Messages</h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                              <span aria-hidden="true">&times;</span>
-                           </button>
-                         </div>
-                         <div class="modal-body">
-                          <div class="container-fluid">
-                            <div class="row">
-                              <div class="col-md-12 ml-auto"  style="padding-bottom: 15px;">
-                                <div class="dropdown" id="dropdownDiv" runat="server">
-                                  <asp:DropDownList ID="DropDownList1" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
-                                    <asp:ListItem Value=0>Your Contacts</asp:ListItem>
-                                  </asp:DropDownList>
-                                  
-                                </div>
-                              </div> <!--end col-->
-                            </div> <!--end row-->
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="row">
-                                  <div class="col-sm-6" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
-                                    
-                                  </div>
-                                  <div class="col-sm-6" id="rightDiv" runat="server">
-                                    
+                         </button>
+                     </div>
+                     <div class="modal-body">
+                         <div class="container-fluid">
+                             <div class="row">
+                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
+                                     <div class="dropdown" id="dropdownDiv" runat="server">
+                                         <asp:DropDownList ID="DropDownList1" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
+                                             <asp:ListItem Value="0">Your Contacts</asp:ListItem>
+                                         </asp:DropDownList>
 
-                                  </div>
-                                  </div>
-                                </div> <!--end row-->
-                              </div> <!--end col-sm-9-->
-                            </div> <!--end row-->
-                          </div> <!--end container-fluid-->
-                        </div> <!--end modal-body-->
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                      </div> <!--end modal header-->
-                    </div> <!--end modal content-->
-                  </div> <!--end modal-dialog div-->
-                  
+                                     </div>
+                                 </div>
+                                 <!--end col-->
+                             </div>
+                             <!--end row-->
+                             <div class="row">
+                                 <div class="col-sm-12">
+                                     <div class="row">
+                                         <div class="col-sm-6" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
+                                         </div>
+                                         <div class="col-sm-6" id="rightDiv" runat="server">
+                                             <h5><asp:Label ID="lblSender" runat="server"></asp:Label></h5>
+                                             <h6><asp:Label ID="lblDate" runat="server"></asp:Label></h6>
+                                             <p><asp:Label ID="lblMessageText" runat="server"></asp:Label></p>
+                                             <p><asp:TextBox ID="txtBoxReply" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
+                                             <!--<asp:Button ID="btnSendRepy" CssClass="btn float-right" runat="server" Text="Send" OnClick="Send_Click"/>-->
+                                             
+                                                 
+                                         </div>
+                                     </div>
+                                     <!--end row-->
+                                 </div>
+                                 <!--end col-sm-9-->
+                             </div>
+                             <!--end row-->
+                         </div>
+                         <!--end container-fluid-->
+                     </div>
+                     <!--end modal-body-->
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     </div>
+                     
+                 </div>
+                 <!--end modal header-->
+         
+             </div>
+             <!--end modal content-->
+         </div>
+         <!--end modal-dialog div-->
+         
+     
         
  
 

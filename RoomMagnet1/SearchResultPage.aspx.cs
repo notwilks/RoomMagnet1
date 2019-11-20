@@ -311,7 +311,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 hostName.Style.Add("margin-top", "1rem;");
 
                 //Property name in left column
-                String PropTempName = reader.GetString(2);
+                String PropTempName = HttpUtility.HtmlEncode(reader.GetString(2));
                 var PropName = new HtmlGenericControl("h5")
                 {
                     InnerText = PropTempName
@@ -319,7 +319,7 @@ public partial class SearchResultPage : System.Web.UI.Page
 
                 insidediv.Controls.Add(PropName);
 
-                String PropZip = "Zip code: " + reader.GetString(13);
+                String PropZip = HttpUtility.HtmlEncode("Zip code: " + reader.GetString(13));
                 var propZip = new HtmlGenericControl("h6")
                 {
                     InnerText = PropZip
@@ -328,7 +328,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 insidediv.Controls.Add(propZip);
 
                 //propery description in left column
-                String PropTempBio = reader.GetString(3);
+                String PropTempBio = HttpUtility.HtmlEncode(reader.GetString(3));
                 var PropBio = new HtmlGenericControl("p")
                 {
                     InnerText = PropTempBio
@@ -555,7 +555,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 approved.Style.Add("max-width", "30px;");
 
                 //price in middle column
-                String Price = "$" + reader.GetDecimal(4).ToString(".00") + "/month";
+                String Price = HttpUtility.HtmlEncode("$" + reader.GetDecimal(4).ToString(".00") + "/month");
                 var price = new HtmlGenericControl("h4")
                 {
                     InnerText = Price
@@ -565,7 +565,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 price.Attributes.Add("margin-top", "3rem;");
 
                 //property type in middle column
-                String propertyType = reader.GetString(5);
+                String propertyType = HttpUtility.HtmlEncode(reader.GetString(5));
                 var PropType = new HtmlGenericControl("h5")
                 {
                     InnerText = propertyType
@@ -574,7 +574,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 midCol.Controls.Add(PropType);
 
                 //number of tenants in middle column
-                String numOfTen = Convert.ToString(reader.GetInt32(6)) + " people live in this home";
+                String numOfTen = HttpUtility.HtmlEncode(Convert.ToString(reader.GetInt32(6)) + " people live in this home");
                 var tenants = new HtmlGenericControl("p")
                 {
                     InnerText = numOfTen
@@ -616,7 +616,7 @@ public partial class SearchResultPage : System.Web.UI.Page
                 }
 
                 //main property image
-                String propImage = reader.GetString(14);
+                String propImage = HttpUtility.HtmlEncode(reader.GetString(14));
                 Image newImg = new Image()
                 {
                     ImageUrl = propImage,

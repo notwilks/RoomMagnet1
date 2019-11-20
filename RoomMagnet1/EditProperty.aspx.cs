@@ -31,18 +31,17 @@ public partial class EditProperty : System.Web.UI.Page
                 {
                     while (reader.Read())
                     {
-                        HouseNumBox.Text = reader.GetString(0);
-                        StreetBox.Text = reader.GetString(1);
-                        stateBox.SelectedValue = reader.GetString(2);
-                        ZipBox.Text = reader.GetString(3);
-                        Price.Text = "$" + reader.GetDecimal(4).ToString(".00");
-                        NumOfTenantsBox.Text = reader.GetInt32(5).ToString();
-                        neighborhoodBox.Text = reader.GetString(6);
-                        PropNameBox.Text = reader.GetString(7);
-                        RoomTypeList.SelectedValue = Convert.ToString(reader.GetString(8));
-                        PropDescriptionBox.Text = reader.GetString(9);
-                        cityBox.Text = reader.GetString(10);
-
+                        HouseNumBox.Text = HttpUtility.HtmlEncode(reader.GetString(0));
+                        StreetBox.Text = HttpUtility.HtmlEncode(reader.GetString(1));
+                        stateBox.SelectedValue = HttpUtility.HtmlEncode(reader.GetString(2));
+                        ZipBox.Text = HttpUtility.HtmlEncode(reader.GetString(3));
+                        Price.Text = HttpUtility.HtmlEncode("$" + reader.GetDecimal(4).ToString(".00"));
+                        NumOfTenantsBox.Text = HttpUtility.HtmlEncode(reader.GetInt32(5).ToString());
+                        neighborhoodBox.Text = HttpUtility.HtmlEncode(reader.GetString(6));
+                        PropNameBox.Text = HttpUtility.HtmlEncode(reader.GetString(7));
+                        RoomTypeList.SelectedValue = HttpUtility.HtmlEncode(Convert.ToString(reader.GetString(8)));
+                        PropDescriptionBox.Text = HttpUtility.HtmlEncode(reader.GetString(9));
+                        cityBox.Text = HttpUtility.HtmlEncode(reader.GetString(10));
                     }
                 }
                 reader.Close();

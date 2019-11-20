@@ -20,7 +20,7 @@ public partial class HomePage : System.Web.UI.Page
             select.Connection = sc;
 
             select.CommandText = "Select COUNT(accommodationID) from Accommodation WHERE listed = 'T'";
-            listedProperties.InnerText = Convert.ToString(select.ExecuteScalar());
+            listedProperties.InnerText = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
         }
         catch (Exception ex)
         {
