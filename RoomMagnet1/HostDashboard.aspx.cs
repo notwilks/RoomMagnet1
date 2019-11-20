@@ -623,10 +623,24 @@ public partial class HostDashboard : System.Web.UI.Page
     protected void Send_Click(object sender, EventArgs e)
     {
         Button sendBtn = (Button)sender;
+        String mID = Convert.ToString(sendBtn.ID);
+
+        // Get TenantID based on messageID passed from send button
+        SqlCommand selectTenant = new SqlCommand("SELECT TenantID FROM MessgeCenter WHERE MessageID = @msgID", sc);
+        selectTenant.Parameters.AddWithValue("@msgID", mID);
+        sc.Open();
         String tID = Convert.ToString(sendBtn.ID);
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent) VALUES(@hostID, @tenantID, @msg, @date", sc);
+
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID, @tenantID, @msg, @date, @sender", sc);
         sendMessage.Parameters.AddWithValue("@hostID", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID", tID);
+        sendMessage.Parameters.AddWithValue("@msg", txtBoxReply.Text);
+        sendMessage.Parameters.AddWithValue("@date", DateTime.Now.ToLongDateString());
+        sendMessage.Parameters.AddWithValue("@sender", "H");
+        sendMessage.ExecuteNonQuery();
+        sc.Close();
+
+
     }
 
 

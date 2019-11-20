@@ -18,12 +18,12 @@ public partial class TokBoxTest : System.Web.UI.Page
         OpenTok opentok = new OpenTok(apiKey, secret);
 
         // Replace with meaningful metadata for the connection.
-        string connectionMetadata = "username=Bob,userLevel=4";
+        //string connectionMetadata = "username=Bob,userLevel=4";
 
         // Generate a token. Use the Role value appropriate for the user.
-        string sessionId = opentok.CreateSession().Id;
+        //string sessionId = opentok.CreateSession().Id;
 
-        string token = opentok.GenerateToken(sessionId);
+        //string token = opentok.GenerateToken(sessionId);
 
         
     }
