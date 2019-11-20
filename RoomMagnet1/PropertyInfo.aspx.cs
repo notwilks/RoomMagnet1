@@ -44,7 +44,7 @@ public partial class PropertyInfo : System.Web.UI.Page
 
         while(reader.Read())
         {
-            jsStreetName = reader.GetString(40) + " " + reader.GetString(41) + " " + reader.GetString(7) + ", " + reader.GetString(8) + ", " + reader.GetString(42);
+            jsStreetName = HttpUtility.HtmlEncode(reader.GetString(40) + " " + reader.GetString(41) + " " + reader.GetString(7) + ", " + reader.GetString(8) + ", " + reader.GetString(42));
             //setting fixed top bar name
             HostNameLabel.Text = HttpUtility.HtmlEncode(reader.GetString(0)) + "'s Property";
             hostName2.Text = HttpUtility.HtmlEncode(reader.GetString(0));
