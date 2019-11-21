@@ -34,7 +34,6 @@
   <div class="row " style="margin-top: 7rem;">
     <div class="col-md-12">
         <h1 style="font-size: 60px"><asp:Label ID="FirstNameLastNameHeader" runat="server"></asp:Label></h1><!-- += 's Dashboard -->
-        <a href="MessageCenter.aspx">Message Center Temp Link></a>
       </div>
 
     </div><!-- end div row -->  
