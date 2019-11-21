@@ -5,7 +5,17 @@
     <script type="text/javascript">
         function ShowPopup() {
             
-            $("#exampleModalCenter").modal("show");
+            $("#viewReplyModal").modal("show");
+        }
+
+        
+        
+    </script>
+
+    <script type="text/javascript">
+        function ShowPopup2() {
+            
+            $("#composeMessageModal").modal("show");
         }
 
         
@@ -81,7 +91,7 @@ window.onclick = function(event) {
     
    <!--Start First Module -->
    <div class="row " style="margin-top: 1rem;">
-    <div class="col-md-6" style="border: solid; border-color: white;">
+    <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
         <div class="row">
             <div class="col-md-6">
                <h2 >Your Property</h2>                
@@ -117,7 +127,7 @@ window.onclick = function(event) {
     <!--End First Module -->   
 
     <!--Start Second Module -->
-    <div class="col-md-6" style="border: solid; border-color: white;">
+    <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
         <div class="row">
             <div class="col-md-6">
                <h2 >Your Profile</h2> 
@@ -156,10 +166,11 @@ window.onclick = function(event) {
     
     
      <div class="row " style="margin-top: 1rem;">
-        <div class="col-md-6"  style="border: solid; border-color: white;">
+        <div class="col-md-6"  style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
             <div class="row">
               <div class="col-md-12">
-                <h2 >Message Board</h2>
+                <h2 >Message Board<asp:Button ID="btnCompose" CssClass="btn float-right" runat="server" Text="Compose" OnClick="Compose_Click"/></h2>
+                
               </div>
             </div>
 
@@ -173,7 +184,7 @@ window.onclick = function(event) {
          
           
                    <!-- Modal -->
-         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+         <div class="modal fade" id="viewReplyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
              <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                      <div class="modal-header">
@@ -231,12 +242,73 @@ window.onclick = function(event) {
              <!--end modal content-->
          </div>
          <!--end modal-dialog div-->
+
+
+
+
+
+
+                          <!-- Compose message modal -->
+         <div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+             <div class="modal-dialog modal-dialog-centered" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h4 class="modal-title" id="modalTitle">Send a Message</h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     <div class="modal-body">
+                         <div class="container-fluid">
+                             <div class="row">
+                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
+                                     <div class="dropdown" id="Div1" runat="server">
+                                         <asp:DropDownList ID="DropDownList2" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
+                                             <asp:ListItem Value="0">Your Contacts</asp:ListItem>
+                                         </asp:DropDownList>
+                                         
+                                             <div class="row">
+                                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
+                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
+                                            <asp:Button ID="btnSendNewMessage" CssClass="btn float-right" runat="server" Text="Send" OnClick="SendNewMessage_Click"/>
+                                                     </div>
+                                         
+
+                                                 </div>
+                                     </div>
+                                 </div>
+
+                                 <!--end col-->
+                             </div>
+                             <!--end row-->
+                            
+                         </div>
+                         <!--end container-fluid-->
+                     </div>
+                     <!--end modal-body-->
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     </div>
+                     
+                 </div>
+                 <!--end modal header-->
+         
+             </div>
+             <!--end modal content-->
+         </div>
+         <!--end modal-dialog div-->
+
+
+
+
+
+
          
      
         
  
 
-        <div class="col-md-6" style="border: solid; border-color: white;" >
+        <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;" >
         <div class="row">
             <div class="col-md-12">
                <h2 >Background Check Status</h2> 
@@ -245,7 +317,7 @@ window.onclick = function(event) {
         </div>
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; " >
-            <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
+            <div class="col-md-12" style="margin-top: 1rem;">
                 <h3><asp:Label ID="TenantBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
                 <p style="text-align: center;"><asp:Image ID="TenantBackgroundStatusImage" runat="server" ImageURL="images/icons-07.png" style="max-width: 75px;"/></p>
                 <p><asp:Label ID="TenantBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
@@ -257,14 +329,14 @@ window.onclick = function(event) {
     
     </div><!-- end div big row -->
     
-   
-    <div class="row " style="margin-top: 1rem;">
+<div style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-top: 1rem; padding: 1rem; margin-bottom: 1rem;">
+    <div class="row " >
         <div class="col-md-12"  >
             <h2>Your Rental Agreements</h2>
           </div>
     </div><!-- end div big row -->  
     
-    <div class="row " style="margin-top: 1rem; background-color: #ebebeb; margin-bottom: 3rem;">
+    <div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
         <div class="col-md-12"  style=" margin-top: 1rem;">
             <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
           </div>
@@ -276,7 +348,7 @@ window.onclick = function(event) {
             </div>
             -->
     </div><!-- end div big row -->  
-    
+</div>       
     
     
 </div> <!-- end div container! -->    

@@ -702,9 +702,16 @@ public partial class PropertyInfo : System.Web.UI.Page
 
         sc.Open();
 
-        select.CommandText = "Select (firstName + ' ' + LastName) from Tenant where email = '" + Session["userEmail"] + "'";
+        select.CommandText = "Select (firstName + ' ' + LastName), cleared from Tenant where email = '" + Session["userEmail"] + "'";
 
-        Session["tenantLease"] = Convert.ToString(select.ExecuteScalar());
+        SqlDataReader reader = select.ExecuteReader();
+
+
+        while (reader.Read())
+        {
+            Session["tenantLease"] = reader.GetString(0);
+            Session["tenantCleared"] = reader.GetString(1);
+        }
 
         Response.Redirect("IntentToLease.aspx");
 

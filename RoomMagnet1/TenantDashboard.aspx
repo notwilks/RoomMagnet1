@@ -32,24 +32,22 @@
 <div  class="container">
 
   <div class="row " style="margin-top: 7rem;">
-    <div class="col-md-9">
-        <h1><asp:Label ID="FirstNameLastNameHeader" runat="server"></asp:Label></h1><!-- += 's Dashboard -->
+    <div class="col-md-12">
+        <h1 style="font-size: 60px"><asp:Label ID="FirstNameLastNameHeader" runat="server"></asp:Label></h1><!-- += 's Dashboard -->
         <a href="MessageCenter.aspx">Message Center Temp Link></a>
       </div>
-    <div class="col-md-3">
-        <asp:Button ID="SearchProperties" runat="server" Text="Search Properties" cssclass="btn" OnClick="SearchProperties_Click"/>
-      </div>
+
     </div><!-- end div row -->  
     
     
    <div class="row " style="margin-top: 1rem;">
-    <div class="col-md-6" style="border: solid; border-color: white;">
+    <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
         <div class="row">
             <div class="col-md-6">
-               <h2 >Your Profile</h2> 
+               <h1>Your Profile</h1> 
             </div>
             <div class="col-md-6">
-                <asp:Button ID="EditProfileBtn" runat="server" OnClick="EditProfileBtn_Click" Text="Edit Profile" cssclass="btn"/>
+                <asp:Button ID="EditProfileBtn" runat="server" OnClick="EditProfileBtn_Click" Text="Edit Profile" cssclass="btn" style="margin-top: 1rem;"/>
             </div>
         </div>
         
@@ -77,91 +75,52 @@
         </div>
       </div>
        
-       
-       <div class="col-md-6" style="border: solid; border-color: white; ">
+       <div class="col-md-6" style="border: solid; border-color: black; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
         <div class="row">
-            <h2 >Your Favorites</h2>
+            <h1 style="margin-left: 1rem;">Your Favorites</h1>
         </div>
            
-        <div class="row" style="background-color: #ebebeb; margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;" >
+        <div class="row" style="background-color: #ebebeb; margin-top: 1rem;" id="favorites" runat="server">
             <div class="col-md-6" style="margin-top: 1rem;">
-                <h3><asp:Label ID="HostName1" runat="server" Text="Host Name"></asp:Label></h3>
-                <h5><asp:Label ID="PropertyName1" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
+
             </div>
              <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="HostBackgroundStatus1" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
-                 <asp:Button ID="ViewProperty1" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
+
             </div>
-        </div>
-        <div class="row" style="background-color: #ebebeb; solid; border-bottom: solid; border-bottom-width: 1px" >
-            <div class="col-md-6" style="margin-top: 1rem;">
-                <h3><asp:Label ID="HostName2" runat="server" Text="Host Name"></asp:Label></h3>
-                <h5><asp:Label ID="PropertyName2" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
-            </div>
-             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="HostBackgroundStatus2" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
-                <asp:Button ID="ViewProperty2" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
-            </div>
-        </div> 
-        <div class="row" style="background-color: #ebebeb; solid; border-bottom: solid; border-bottom-width: 1px" >
-            <div class="col-md-6" style="margin-top: 1rem;">
-                <h3><asp:Label ID="HostName3" runat="server" Text="Host Name"></asp:Label></h3>
-                <h5><asp:Label ID="PropertyName3" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
-            </div>
-             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="HostBackgroundStatus3" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
-                <asp:Button ID="ViewProperty3" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
-            </div>
-        </div>  
-        
-           <div class="row" style="background-color: #ebebeb; solid; border-bottom: solid; border-bottom-width: 1px" >
-            <div class="col-md-6" style="margin-top: 1rem;">
-                <h3><asp:Label ID="HostName4" runat="server" Text="Host Name"></asp:Label></h3>
-                <h5><asp:Label ID="PropertyName4" runat="server" Text="1 Room with Private Bath in Harrisonburg, VA"></asp:Label></h5>
-            </div>
-             <div class="col-md-6" style="margin-top: 1rem;">
-                <asp:Image ID="HostBackgroundStatus4" ImageURl="images/icons-07.png" runat="server" style="max-width: 50px;"/>
-                <asp:Button ID="ViewProperty4" runat="server" Text="View Property" style="margin-left: 1rem;" CssClass="btn"/>
-            </div>
-        </div>          
+        </div>         
       </div>          
     </div><!-- end div big row -->
     
     
      <div class="row " style="margin-top: 1rem;">
-        <div class="col-md-6"  style="border: solid; border-color: white;">
+        <div class="col-md-6"  style="border: solid; border-color: black; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
             <div class="row">
                 <div class="col-md-12">
-                   <h2 >Message Board</h2> 
-                </div>
+                   <h2 >Message Board<asp:Button ID="btnCompose" CssClass="btn float-right" runat="server" Text="Compose" Style="margin-top: 1rem"/></h2>
+                
+              </div>
             </div>
 
-            <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
-                <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>New Message Sender Name</h3>
-                    <p>Content of the message. Do you want to live at my house? I want to video chat with you first. When are you free to talk?</p>
+            <div class="row" id="messageCenterDiv" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+                
                 </div>
-                 <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>New Message Sender Name</h3>
-                    <p>Content of the message. Do you want to live at my house? I want to video chat with you first. When are you free to talk?</p>
-                </div>
-            </div>
+            
           </div>
 
 
-        <div class="col-md-6" style="border: solid; border-color: white;" >
+        <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
         <div class="row">
             <div class="col-md-12">
-               <h2 >Background Check Status</h2> 
+               <h1>Background Check Status</h1> 
             </div>
             
         </div>
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; " >
-            <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                <h3><asp:Label ID="TenantBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
+            <div class="col-md-12" style="margin-top: 1rem;">
+                <h3><asp:Label ID="TenantBackgroundStatusWords" runat="server" Text=""></asp:Label></h3>
                 <p style="text-align: center;"><asp:Image ID="TenantBackgroundStatusImage" runat="server" ImageURL="images/icons-07.png" style="max-width: 75px;"/></p>
-                <p><asp:Label ID="TenantBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
+                <p><asp:Label ID="TenantBackgroundStatusDescrip" runat="server" Text=""></asp:Label></p>
                     
             </div>
              
@@ -170,19 +129,19 @@
     
     </div><!-- end div big row -->
     
-   
-    <div class="row " style="margin-top: 1rem;">
-        <div class="col-md-12"  >
-            <h2>Your Rental Agreements</h2>
-          </div>
-    </div><!-- end div big row -->  
+   <div style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-top: 1rem; padding: 1rem; margin-bottom: 1rem;">
+        <div class="row " style="margin-top: 1rem;">
+            <div class="col-md-12"  >
+                <h2>Your Rental Agreements</h2>
+              </div>
+        </div><!-- end div big row -->  
     
-    <div class="row " style="margin-top: 1rem; background-color: #ebebeb; margin-bottom: 3rem;">
-        <div class="col-md-12"  style=" margin-top: 1rem;">
-            <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
-          </div>
-    </div><!-- end div big row -->  
-    
+        <div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
+            <div class="col-md-12"  style=" margin-top: 1rem;">
+                <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
+              </div>
+        </div><!-- end div big row -->  
+    </div>
     
     
 </div> <!-- end div container! -->    

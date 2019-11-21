@@ -14,5 +14,14 @@ public partial class IntentToLease : System.Web.UI.Page
         DateBox.Text = Convert.ToString(DateTime.Now.ToString("dd/MM/yyyy"));
 
         tenantName.Text = Convert.ToString(Session["tenantLease"]);
+
+        if(Convert.ToString(Session["tenantCleared"]) == "T")
+        {
+            tenantYes.Checked = true;
+        }
+        else
+        {
+            tenantNo.Checked = true;
+        }
     }
 }
