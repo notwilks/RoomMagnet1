@@ -115,13 +115,37 @@
 
             </div>
             <div class="row" style="margin-bottom: 2rem;">
-                
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
                 <div class="col" id="cancelArea" runat="server">
                         
                     </div>
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
                     <div class="col">
                         <asp:Button ID="saveButton" runat="server" Text="Save and send to Host" OnClick="saveButton_Click" CssClass="btn"/>
                     </div>
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
                     
             </div>
 

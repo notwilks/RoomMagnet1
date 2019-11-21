@@ -598,22 +598,22 @@ public partial class SearchResultPage : System.Web.UI.Page
                 ImageButton viewProfileBadge = new ImageButton();
                 rightCol.Controls.Add(viewProfileBadge);
                 viewProfileBadge.ImageUrl = "images/viewProp.png";
-                viewProfileBadge.Style.Add("max-width", "90px;");
+                viewProfileBadge.Style.Add("max-width", "110px;");
                 viewProfileBadge.Style.Add("margin-right", "1rem;");
                 viewProfileBadge.ID = Convert.ToString(reader.GetInt32(15)) + "P";
                 viewProfileBadge.Click += new ImageClickEventHandler(ViewProfile_Click);
 
 
-                if (Convert.ToString(Session["userType"]) == "T")
-                {
-                    //message badge
-                    ImageButton messageBadge = new ImageButton();
-                    rightCol.Controls.Add(messageBadge);
-                    messageBadge.ImageUrl = "images/message-badge.png";
-                    messageBadge.Style.Add("max-width", "100px;");
-                    messageBadge.Style.Add("margin-right", "1rem;");
+                //if (Convert.ToString(Session["userType"]) == "T")
+                //{
+                //    //message badge
+                //    ImageButton messageBadge = new ImageButton();
+                //    rightCol.Controls.Add(messageBadge);
+                //    messageBadge.ImageUrl = "images/message-badge.png";
+                //    messageBadge.Style.Add("max-width", "100px;");
+                //    messageBadge.Style.Add("margin-right", "1rem;");
 
-                }
+                //}
 
                 //main property image
                 String propImage = HttpUtility.HtmlEncode(reader.GetString(14));
