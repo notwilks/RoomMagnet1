@@ -186,11 +186,61 @@ public partial class TenantDashboard : System.Web.UI.Page
 
             }
             sc.Close();
+        reader.Close();
 
-            // MESSAGE CENTER 
+        //Rental Agreement
+        SqlCommand rental = new SqlCommand();
+        rental.Connection = sc;
 
-            // Retrieve a Tenant's existing messages from DB
-            SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
+        sc.Open();
+        rental.CommandText = "Select ra.hostID, h.firstName, a.description, a.accommodationID from RentalAgreement ra " +
+            "inner join host h on ra.hostID = h.hostID " +
+            "inner join Accommodation a on ra.hostID = a.hostID where tenantID = " + tenantID;
+
+        SqlDataReader readerRental = rental.ExecuteReader();
+        while (readerRental.Read())
+        {
+            var divRental = new HtmlGenericControl("div")
+            {
+
+            };
+            divRental.Style.Add("border-top", "solid");
+            divRental.Style.Add("border-top-width", "1px;");
+            divRental.Style.Add("border-bottom", "solid");
+            divRental.Style.Add("border-bottom-width", "1px;");
+            rentalAgreementArea.Controls.Add(divRental);
+
+            var hostNameAgreement = new HtmlGenericControl("h3")
+            {
+
+            };
+            hostNameAgreement.InnerText = Convert.ToString(readerRental.GetString(1));
+            divRental.Controls.Add(hostNameAgreement);
+            
+
+            var propDescAgreement = new HtmlGenericControl("p")
+            {
+
+            };
+            propDescAgreement.InnerText = readerRental.GetString(2);
+            divRental.Controls.Add(propDescAgreement);
+
+            Button viewPropAgreement = new Button();
+            viewPropAgreement.Text = "View Property";
+            viewPropAgreement.Style.Add("display", "inline-block");
+            viewPropAgreement.Style.Add("margin-left", "3rem");
+            viewPropAgreement.ID = Convert.ToString(readerRental.GetInt32(3)) + "R";
+            viewPropAgreement.Click += new EventHandler(ViewLeaseProp);
+            viewPropAgreement.Attributes.Add("class", "btn");
+            propDescAgreement.Controls.Add(viewPropAgreement);
+        }
+        sc.Close();
+        readerRental.Close();
+
+        // MESSAGE CENTER 
+
+        // Retrieve a Tenant's existing messages from DB
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
                                                         + "INNER JOIN host h ON h.hostID = m.hostID "
                                                         + "WHERE m.tenantID = @tID and sender = @senderType", sc);
             selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
@@ -637,6 +687,14 @@ public partial class TenantDashboard : System.Web.UI.Page
         
 
         UpdatePanel1.Update();
+    }
+
+    protected void ViewLeaseProp(object sender, EventArgs e)
+    {
+        Button b = sender as Button;
+        String ID = b.ID.Substring(0, b.ID.Length - 1);
+        Session["propertyID"] = ID;
+        Response.Redirect("PropertyInfo.aspx");
     }
 
 

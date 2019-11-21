@@ -63,7 +63,7 @@
                         <asp:Label ID="Label1" runat="server" Text="City: "></asp:Label>
                         <asp:TextBox ID="cityBox" runat="server" Text="" CssClass="form-control" style="display:inline-block" Width="200px" ReadOnly="true"></asp:TextBox>
                         <asp:Label ID="Label2" runat="server" Text="State: " style="margin-left: 1rem;"></asp:Label>
-                        <asp:TextBox ID="TextBox1" runat="server" Text="" CssClass="form-control" style="display:inline-block" Width="80px" ReadOnly="true"></asp:TextBox>
+                        <asp:TextBox ID="stateBox" runat="server" Text="" CssClass="form-control" style="display:inline-block" Width="80px" ReadOnly="true"></asp:TextBox>
                     </p> 
                     </div>
                 </div>
@@ -113,6 +113,40 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="row" style="margin-bottom: 2rem;">
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                <div class="col" id="cancelArea" runat="server">
+                        
+                    </div>
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                    <div class="col">
+                        <asp:Button ID="saveButton" runat="server" Text="Save and send to Host" OnClick="saveButton_Click" CssClass="btn"/>
+                    </div>
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+
+                <div class="col">
+                    <!-- empty -->
+                </div> <!-- end col class -->
+                    
             </div>
 
 

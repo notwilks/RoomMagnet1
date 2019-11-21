@@ -22,7 +22,7 @@
                         margin-top: 10rem;
                     }
 
-                    #subscriber {
+                    #publisher {
                         position: absolute;
                         left: 0;
                         top: 0;
@@ -31,15 +31,13 @@
                         z-index: 10;
                     }
 
-                    #publisher {
+                    #subscriber {
                         position: absolute;
                         width: 360px;
                         height: 240px;
                         bottom: 10px;
                         left: 10px;
                         z-index: 100;
-                        border: 3px solid white;
-                        border-radius: 3px;
                     }
             </style>
             <script type="text/javascript">
@@ -60,6 +58,13 @@
                 function initializeSession() {
                   var session = OT.initSession(apiKey, sessionId);
 
+                    // Create a publisher
+                  var publisher = OT.initPublisher('publisher', {
+                    insertMode: 'append',
+                    width: '100%',
+                    height: '100%'
+                    }, handleError);
+
                   // Subscribe to a newly created stream
                       session.on('streamCreated', function(event) {
                       session.subscribe(event.stream, 'subscriber', {
@@ -69,12 +74,7 @@
                       }, handleError);
                       });
 
-                  // Create a publisher
-                  var publisher = OT.initPublisher('publisher', {
-                    insertMode: 'append',
-                    width: '100%',
-                    height: '100%'
-                  }, handleError);
+                  
 
                   // Connect to the session
                   session.connect(token, function(error) {
@@ -94,8 +94,8 @@
                 <div style="margin-top: 8rem;">
 
                     <div id="videos">
-                        <div id="publisher"></div>
                         <div id="subscriber"></div>
+                        <div id="publisher"></div>
                     </div>
 
                     <script type="text/javascript"></script>

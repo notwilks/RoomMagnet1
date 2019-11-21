@@ -206,6 +206,59 @@ public partial class HostDashboard : System.Web.UI.Page
 
             sc.Close();
 
+            //Rental Agreement
+            SqlCommand rental = new SqlCommand();
+            rental.Connection = sc;
+
+            sc.Open();
+
+            rental.CommandText = "select hostID from Host where email = '" + Session["userEmail"] + ";";
+            int hostID = Convert.ToInt32(rental.ExecuteScalar());
+
+            rental.CommandText = "Select t.tenantID, t.FirstName, t.biography from RentalAgreement ra " +
+                "inner join tenant on ra.tenantID = t.tenantID " +
+                "where hostID = " + hostID;
+
+            SqlDataReader readerRental = rental.ExecuteReader();
+            while (readerRental.Read())
+            {
+                var divRental = new HtmlGenericControl("div")
+                {
+
+                };
+                divRental.Style.Add("border-top", "solid");
+                divRental.Style.Add("border-top-width", "1px;");
+                divRental.Style.Add("border-bottom", "solid");
+                divRental.Style.Add("border-bottom-width", "1px;");
+                rentalAgreementArea.Controls.Add(divRental);
+
+                var hostNameAgreement = new HtmlGenericControl("h3")
+                {
+
+                };
+                hostNameAgreement.InnerText = Convert.ToString(readerRental.GetString(1));
+                divRental.Controls.Add(hostNameAgreement);
+
+
+                var propDescAgreement = new HtmlGenericControl("p")
+                {
+
+                };
+                propDescAgreement.InnerText = readerRental.GetString(2);
+                divRental.Controls.Add(propDescAgreement);
+
+                //Button viewPropAgreement = new Button();
+                //viewPropAgreement.Text = "View Property";
+                //viewPropAgreement.Style.Add("display", "inline-block");
+                //viewPropAgreement.Style.Add("margin-left", "3rem");
+                //viewPropAgreement.ID = Convert.ToString(readerRental.GetInt32(3)) + "R";
+                //viewPropAgreement.Click += new EventHandler(ViewLeaseProp);
+                //viewPropAgreement.Attributes.Add("class", "btn");
+                //propDescAgreement.Controls.Add(viewPropAgreement);
+            }
+            sc.Close();
+            readerRental.Close();
+
             // MESSAGE CENTER 
 
             // Retrieve a Host's existing messages from DB
