@@ -14,62 +14,67 @@ public partial class TenantDashboard : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        // Load database data into local variables to be displayed on dashboard
-        sc.Open();
-        SqlCommand selectTenantInfo = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
-            "phoneNumber, birthDate, isnull(biography, 'bio goes here') FROM [Tenant] where email = @email", sc);
-        selectTenantInfo.Parameters.AddWithValue("@email", Session["userEmail"]);
-        SqlDataReader reader = selectTenantInfo.ExecuteReader();
-        String name = "";
-        String email = "";
-        String phoneNumber = "";
-        DateTime DOB = DateTime.Now;
-        DateTime today = DateTime.Now;
-        String age = "";
-        String bio = "";
-        char badge1 = 'F';
-        char badge2 = 'F';
-        while (reader.Read())
+        if (Convert.ToString(Session["userEmail"]) == "")
         {
-            name = reader.GetString(0);
-            email = reader.GetString(1);
-            phoneNumber = reader.GetString(2);
-            DOB = Convert.ToDateTime(reader.GetDateTime(3));
-            today = DateTime.Now;
-            age = CalculateAge(reader.GetDateTime(3)).ToString();
-            bio = reader.GetString(4);
-
+            Response.Redirect("HomePage.aspx");
         }
-        reader.Close();
-
-        SqlCommand selectBadge = new SqlCommand("SELECT undergraduate, graduate FROM TenantBadge where tenantID = (select tenantID from Tenant where email = @email2)", sc);
-        selectBadge.Parameters.AddWithValue("@email2", Session["userEmail"]);
-        reader = selectBadge.ExecuteReader();
-        while (reader.Read())
+        else
         {
-            badge1 = Convert.ToChar(reader["undergraduateBadge"]);
-            badge2 = Convert.ToChar(reader["graduateBadge"]);
-        }
-        reader.Close();
+            // Load database data into local variables to be displayed on dashboard
+            sc.Open();
+            SqlCommand selectTenantInfo = new SqlCommand("SELECT concat(firstName, ' ', lastName), email," +
+                "phoneNumber, birthDate, isnull(biography, 'bio goes here') FROM [Tenant] where email = @email", sc);
+            selectTenantInfo.Parameters.AddWithValue("@email", Session["userEmail"]);
+            SqlDataReader reader = selectTenantInfo.ExecuteReader();
+            String name = "";
+            String email = "";
+            String phoneNumber = "";
+            DateTime DOB = DateTime.Now;
+            DateTime today = DateTime.Now;
+            String age = "";
+            String bio = "";
+            char badge1 = 'F';
+            char badge2 = 'F';
+            while (reader.Read())
+            {
+                name = reader.GetString(0);
+                email = reader.GetString(1);
+                phoneNumber = reader.GetString(2);
+                DOB = Convert.ToDateTime(reader.GetDateTime(3));
+                today = DateTime.Now;
+                age = CalculateAge(reader.GetDateTime(3)).ToString();
+                bio = reader.GetString(4);
 
-        string image1 = checkBadge(badge1, "images/undergrad-badge.png");
-        string image2 = checkBadge(badge2, "images/masters-badge.png");
+            }
+            reader.Close();
 
-        FirstNameLastNameHeader.Text = HttpUtility.HtmlEncode(name) + "'s Dashboard";
-        FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;
-        BioLabel.Text = HttpUtility.HtmlEncode(bio);
+            SqlCommand selectBadge = new SqlCommand("SELECT undergraduate, graduate FROM TenantBadge where tenantID = (select tenantID from Tenant where email = @email2)", sc);
+            selectBadge.Parameters.AddWithValue("@email2", Session["userEmail"]);
+            reader = selectBadge.ExecuteReader();
+            while (reader.Read())
+            {
+                badge1 = Convert.ToChar(reader["undergraduateBadge"]);
+                badge2 = Convert.ToChar(reader["graduateBadge"]);
+            }
+            reader.Close();
 
-        SqlCommand selectImages = new SqlCommand();
-        selectImages.Connection = sc;
+            string image1 = checkBadge(badge1, "images/undergrad-badge.png");
+            string image2 = checkBadge(badge2, "images/masters-badge.png");
 
-        selectImages.CommandText = "Select tenantID from Tenant where email = @tenEmail";
-        selectImages.Parameters.AddWithValue("@tenEmail", Session["userEmail"]);
+            FirstNameLastNameHeader.Text = HttpUtility.HtmlEncode(name) + "'s Dashboard";
+            FirstNameLastNameAge.Text = HttpUtility.HtmlEncode(name) + ", " + age;
+            BioLabel.Text = HttpUtility.HtmlEncode(bio);
 
-        int tenantID = Convert.ToInt32(selectImages.ExecuteScalar());
+            SqlCommand selectImages = new SqlCommand();
+            selectImages.Connection = sc;
 
-        selectImages.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM TenantImages where tenantID = " + tenantID;
-        reader = selectImages.ExecuteReader();
+            selectImages.CommandText = "Select tenantID from Tenant where email = @tenEmail";
+            selectImages.Parameters.AddWithValue("@tenEmail", Session["userEmail"]);
+
+            int tenantID = Convert.ToInt32(selectImages.ExecuteScalar());
+
+            selectImages.CommandText = "Select ISNULL(mainImage, ''), ISNULL(image2, ''), ISNULL(image3, '') FROM TenantImages where tenantID = " + tenantID;
+            reader = selectImages.ExecuteReader();
 
             while (reader.Read())
             {
@@ -78,14 +83,7 @@ public partial class TenantDashboard : System.Web.UI.Page
                 TenantImage3.ImageUrl = reader.GetString(2);
             }
             reader.Close();
-
-
-        //Header.Text = "Host Dashboard.";
-        //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
-        //select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
-        //String hostName = Convert.ToString(select.ExecuteScalar());
-        //ProfileHeader.Text = "Welcome " + hostName;
-
+        }
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
     {
