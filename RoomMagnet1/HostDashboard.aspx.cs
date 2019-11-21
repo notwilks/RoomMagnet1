@@ -526,9 +526,9 @@ public partial class HostDashboard : System.Web.UI.Page
                                                     + "INNER JOIN Host h ON a.hostID = h.hostID "
                                                     + "WHERE h.hostID = @hID", sc);
         selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-
+        sc.Open();
         SqlDataReader reader = selectContacts.ExecuteReader();
-
+       
 
 
 
@@ -623,6 +623,7 @@ public partial class HostDashboard : System.Web.UI.Page
             leftDiv.Controls.Add(leftMessageText);
         }
         reader.Close();
+        sc.Close();
 
         // Populate Right column
         SqlCommand selectClickedMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID FROM MessageCenter m "
@@ -632,6 +633,7 @@ public partial class HostDashboard : System.Web.UI.Page
         selectClickedMessage.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
         selectClickedMessage.Parameters.AddWithValue("@tID", tID);
         selectClickedMessage.Parameters.AddWithValue("@mID", mID);
+        sc.Open();
         reader = selectClickedMessage.ExecuteReader();
 
         while (reader.Read())
