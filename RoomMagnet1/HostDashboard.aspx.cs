@@ -209,8 +209,10 @@ public partial class HostDashboard : System.Web.UI.Page
                 };
                 messagesDashDiv.Controls.Add(div1);
                 div1.Style.Add("margin-top", "1rem;");
-                div1.Style.Add("border-bottom", "solid;");
-                div1.Style.Add("border-bottom-width", "1px;");
+                //div1.Style.Add("border-bottom", "solid;");
+                //div1.Style.Add("border-bottom-width", "1px;");
+                div1.Style.Add("border-top", "solid;");
+                div1.Style.Add("border-top-width", "1px;");
                 div1.Attributes.Add("class", "col-md-12");
                 /*
                // New Message Header
@@ -249,6 +251,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 {
                     InnerText = "New Message | " + name
                 };
+                senderName.Style.Add("margin-top", "1rem");
                 div1.Controls.Add(senderName);
 
                 // View message button
@@ -258,6 +261,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 view.Attributes.Add("type", "button");
                 view.Attributes.Add("class", "btn float-right");
                 view.Attributes.Add("runat", "server");
+                view.Style.Add("margin-top", "1rem");
                 //view.Attributes.Add("data-toggle", "modal");
                 //view.Attributes.Add("data-target", "#exampleModalCenter");
                 view.Click += new EventHandler(ViewMessageHistory_Click);
