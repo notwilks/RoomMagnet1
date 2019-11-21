@@ -176,7 +176,7 @@ window.onclick = function(event) {
             <div class="row" id="messagesDashDiv" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
                 
                 <!-- New message previews are populated here in the code behind -->
-
+                <asp:Label ID="NoFavs" runat="server" Text=""></asp:Label>
 
             </div>
             </div>

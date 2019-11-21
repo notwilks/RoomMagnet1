@@ -469,38 +469,38 @@ public partial class HostDashboard : System.Web.UI.Page
 
     protected void Compose_Click(object sender, EventArgs e)
     {
-
-        // Retrieve contacts (Tenants that have favorited this host's property) 
-        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
-                                                    + "FROM Tenant t "
-                                                    + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
-                                                    + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
-                                                    + "INNER JOIN Host h ON a.hostID = h.hostID "
-                                                    + "WHERE h.hostID = @hID", sc);
-        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-
-        SqlDataReader reader = selectContacts.ExecuteReader();
-
-
-
-
-
-
-        // Add contacts to dropdowns
-
-        while (reader.Read())
+        try
         {
-            if (CheckExistingContacts2(Convert.ToString(reader.GetInt32(1))) == false)
+
+            // Retrieve contacts (Tenants that have favorited this host's property) 
+            SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
+                                                        + "FROM Tenant t "
+                                                        + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
+                                                        + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
+                                                        + "INNER JOIN Host h ON a.hostID = h.hostID "
+                                                        + "WHERE h.hostID = @hID", sc);
+            selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+
+            SqlDataReader reader = selectContacts.ExecuteReader();
+
+            // Add contacts to dropdowns
+
+            while (reader.Read())
             {
-                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
-                DropDownList2.Items.Add(contact);
+                if (CheckExistingContacts2(Convert.ToString(reader.GetInt32(1))) == false)
+                {
+                    ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                    DropDownList2.Items.Add(contact);
+                }
+
             }
-
-
-
+            reader.Close();
+            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
         }
-        reader.Close();
-        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
+        catch
+        {
+            NoFavs.Text = "You cannot message a tenant until a tenant has favorited your property.";
+        }
     }
 
     protected void ViewMessageHistory_Click(object sender, EventArgs e)

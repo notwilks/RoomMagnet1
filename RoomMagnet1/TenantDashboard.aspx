@@ -130,7 +130,7 @@
             </div>
 
             <div class="row" id="messageCenterDiv" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
-                
+                <asp:Label ID="NoFavs" runat="server" Text=""></asp:Label>
                 </div>
             
           </div>
