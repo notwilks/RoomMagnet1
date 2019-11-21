@@ -14,6 +14,14 @@ public partial class TenantDashboard : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Retrieve tenant ID 
+        
+        SqlCommand selectTenantID = new SqlCommand("Select hostID from Host where email = @tenantEmail", sc);
+        selectTenantID.Parameters.Add(new SqlParameter("@tenantEmail", Convert.ToString(Session["userEmail"])));
+        sc.Open();
+        ViewState["tenantID"] = Convert.ToInt32(selectTenantID.ExecuteScalar());
+        sc.Close();
+
 
         // Load database data into local variables to be displayed on dashboard
         sc.Open();
@@ -55,9 +63,11 @@ public partial class TenantDashboard : System.Web.UI.Page
             }
         }
         reader.Close();
+        sc.Close();
 
         SqlCommand selectBadge = new SqlCommand("SELECT undergraduate, graduate FROM TenantBadge where tenantID = (select tenantID from Tenant where email = @email2)", sc);
         selectBadge.Parameters.AddWithValue("@email2", Session["userEmail"]);
+        sc.Open();
         reader = selectBadge.ExecuteReader();
         while (reader.Read())
         {
@@ -65,6 +75,7 @@ public partial class TenantDashboard : System.Web.UI.Page
             badge2 = Convert.ToChar(reader["graduateBadge"]);
         }
         reader.Close();
+        
 
         string image1 = checkBadge(badge1, "images/undergrad-badge.png");
         string image2 = checkBadge(badge2, "images/masters-badge.png");
@@ -172,6 +183,95 @@ public partial class TenantDashboard : System.Web.UI.Page
 
 
         }
+        sc.Close();
+
+        // MESSAGE CENTER 
+
+        // Retrieve a Tenant's existing messages from DB
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
+                                                    + "INNER JOIN host h ON h.hostID = m.hostID "
+                                                    + "WHERE m.tenantID = @tID and sender = 'H'", sc);
+        selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
+        sc.Open();
+        reader = selectMessages.ExecuteReader();
+
+
+        using (reader)
+        {
+            while (reader.Read())
+            {
+                // Create div to display messages
+                 
+                var div1 = new HtmlGenericControl("div")
+                {
+
+                };
+                messageCenterDiv.Controls.Add(div1);
+                div1.Style.Add("margin-top", "1rem;");
+                //div1.Style.Add("border-bottom", "solid;");
+                //div1.Style.Add("border-bottom-width", "1px;");
+                div1.Style.Add("border-top", "solid;");
+                div1.Style.Add("border-top-width", "1px;");
+                div1.Attributes.Add("class", "col-md-12");
+
+                // Populate message divs
+                // Sender name
+                String sName = reader.GetString(0);
+                var senderName = new HtmlGenericControl("h3")
+                {
+                    InnerText = "New Message | " + sName
+                };
+                senderName.Style.Add("margin-top", "1rem");
+                div1.Controls.Add(senderName);
+
+                // View message button
+                Button view = new Button();
+                view.ID = Convert.ToString(reader.GetInt32(3));
+                view.Text = "View Chat";
+                view.Attributes.Add("type", "button");
+                view.Attributes.Add("class", "btn float-right");
+                view.Attributes.Add("runat", "server");
+                view.Style.Add("margin-top", "1rem");
+                //view.Attributes.Add("data-toggle", "modal");
+                //view.Attributes.Add("data-target", "#exampleModalCenter");
+                //view.Click += new EventHandler(ViewMessageHistory_Click);
+                senderName.Controls.Add(view);
+
+                // Message
+                String message = reader.GetString(1);
+                if (message.Length >= 140)
+                {
+                    message = message.Substring(0, 140) + "...";
+                }
+                var messageText = new HtmlGenericControl("p")
+                {
+                    InnerText = message
+                };
+                div1.Controls.Add(messageText);
+
+
+
+
+
+
+
+
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
