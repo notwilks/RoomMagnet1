@@ -93,9 +93,9 @@
             <form runat="server">
                 <div style="margin-top: 8rem;">
 
-                    <div id="videos">          
-                        <div id="subscriber"></div>
+                    <div id="videos">
                         <div id="publisher"></div>
+                        <div id="subscriber"></div>
                     </div>
 
                     <script type="text/javascript"></script>
