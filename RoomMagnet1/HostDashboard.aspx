@@ -96,7 +96,7 @@ window.onclick = function(event) {
                <h2 >Your Property</h2>                
             </div>
             <div>
-                <asp:Button ID="EditPropertyButton" runat="server" Text="EditProperty" cssclass="btn" OnClick="EditPropertyButton_Click"/>
+                <asp:Button ID="EditPropertyButton" runat="server" Text="EditProperty" cssclass="btn" OnClick="EditPropertyButton_Click" style="margin-top: .5rem;"/>
             </div>         
             <div class ="col" runat="server">
                 <asp:Button ID="ListPropertyButton" runat="server" Text="List Property" CssClass="btn" OnClick ="ListPropertyButton_Clicked" AutoPostBack="true" style="margin-top: .5rem;"/>

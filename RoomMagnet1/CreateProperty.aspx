@@ -216,31 +216,11 @@
             <!-- START OF PROPERTY AMENTITIES -->
             <div class="row" style="margin-top: 3rem">
 
-            <div class="col">
-                <!-- space holder -->
-            </div> <!-- end col class -->
-
-            <div class="col">
-                <!-- space holder -->
-            </div> <!-- end col class -->
-
                 <div class ="col">
                     <h2>
                         <asp:Label ID="PropAmenLbl" runat="server" Text="Property Amenities (Please select all that apply.)" CssClass="text-nowrap"></asp:Label>
                     </h2>
                 </div> <!-- end col class -->
-
-            <div class="col">
-                <!-- space holder -->
-            </div> <!-- end col class -->
-
-            <div class="col">
-                <!-- space holder -->
-            </div> <!-- end col class -->
-
-            <div class="col">
-                <!-- space holder -->
-            </div> <!-- end col class -->
 
             </div> <!-- end of row class -->
 
@@ -250,14 +230,14 @@
             </div> <!-- end col class -->
 
             <div class="col">
-                <label for="formGroupExampleInput">Private Bathroom?</label>
                 <asp:CheckBox ID="PrivateBathroom" runat="server" />
+                <label for="formGroupExampleInput">Private Bathroom?</label>
                 <asp:Label ID="BathroomErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class -->
 
             <div class="col">
-                <label for="formGroupExampleInput">Private Entrance?</label>
                 <asp:CheckBox ID="PrivateEntrance" runat="server"/>
+                <label for="formGroupExampleInput">Private Entrance?</label>
                 <asp:Label ID="EntranceErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col class-->
 
@@ -272,14 +252,14 @@
                 </div> <!-- end col class -->
 
                 <div class="col">
-                    <label for="formGroupExampleInput">Closet/Storage Space?</label>
                 <asp:CheckBox ID="StorageSpace" runat="server" />
+                <label for="formGroupExampleInput">Closet/Storage Space?</label>
                 <asp:Label ID="StorageErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div> <!-- end col class-->
 
                 <div class="col">
-                    <label for="formGroupExampleInput">Private Parking?</label>
                     <asp:CheckBox ID="Parking" runat="server" />
+                    <label for="formGroupExampleInput">Private Parking?</label>
                     <asp:Label ID="ParkingErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div> <!-- end col class -->
 
@@ -296,14 +276,14 @@
             </div> <!-- end of col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Furnished?</label>
                 <asp:CheckBox ID="Furnished" runat="server" />
+                <label for="formGroupExampleInput">Furnished?</label>
                 <asp:Label ID="FurnishedErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class -->
 
             <div class="col">
-                <label for="formGroupExampleInput">Allow Smokers?</label>
                 <asp:CheckBox ID="Smoker" runat="server" />
+                <label for="formGroupExampleInput">Allow Smokers?</label>
                 <asp:Label ID="SmokerErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class-->
 
@@ -320,14 +300,14 @@
             </div> <!-- end of col class-->
 
              <div class="col">
-                <label for="formGroupExampleInput">Pets in Residence?</label>
                  <asp:CheckBox ID="HavePets" runat="server" />
+                <label for="formGroupExampleInput">Pets in Residence?</label>
                 <asp:Label ID="PetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
              </div> <!-- end col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Allow Pets?</label>
                 <asp:CheckBox ID="AllowPets" runat="server" />
+                <label for="formGroupExampleInput">Allow Pets?</label>
                 <asp:Label ID="AllowPetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col-->
 
@@ -345,14 +325,14 @@
             </div> <!-- end of col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Private Kitchen?</label>
                 <asp:CheckBox ID="PrivateKitchen" runat="server" />
+                <label for="formGroupExampleInput">Private Kitchen?</label>
                 <asp:Label ID="KitchenErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Laundry Access?</label>
                 <asp:CheckBox ID="PrivateLaundry" runat="server" />
+                <label for="formGroupExampleInput">Laundry Access?</label>
                 <asp:Label ID="LaundryErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col-->
 
@@ -369,14 +349,14 @@
             </div> <!-- end of col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Wifi?</label>
                 <asp:CheckBox ID="Wifi" runat="server" />
+                <label for="formGroupExampleInput">Wifi?</label>
                 <asp:Label ID="WifiErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end of col class-->
 
             <div class="col">
-                <label for="formGroupExampleInput">Cable TV?</label>
                 <asp:CheckBox ID="CableTV" runat="server" />
+                <label for="formGroupExampleInput">Cable TV?</label>
                 <asp:Label ID="CableErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end of col class-->
 

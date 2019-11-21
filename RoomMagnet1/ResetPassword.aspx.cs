@@ -50,7 +50,6 @@ public partial class ResetPassword : System.Web.UI.Page
                 insert.Parameters.Add(new SqlParameter("@emptyCode", DBNull.Value));
                 insert.ExecuteNonQuery();
 
-
                 //Lastly, notify user of successful password change
                 outputField.Text = "Password Successfully Changed, You will be redirected back to the login page shortly.";
 
