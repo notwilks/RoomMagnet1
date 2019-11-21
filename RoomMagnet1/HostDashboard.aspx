@@ -91,7 +91,7 @@ window.onclick = function(event) {
     
    <!--Start First Module -->
    <div class="row " style="margin-top: 1rem;">
-    <div class="col-md-6" style="border: solid; border-color: white;">
+    <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
         <div class="row">
             <div class="col-md-6">
                <h2 >Your Property</h2>                
@@ -127,7 +127,7 @@ window.onclick = function(event) {
     <!--End First Module -->   
 
     <!--Start Second Module -->
-    <div class="col-md-6" style="border: solid; border-color: white;">
+    <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
         <div class="row">
             <div class="col-md-6">
                <h2 >Your Profile</h2> 
@@ -166,7 +166,7 @@ window.onclick = function(event) {
     
     
      <div class="row " style="margin-top: 1rem;">
-        <div class="col-md-6"  style="border: solid; border-color: white;">
+        <div class="col-md-6"  style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
             <div class="row">
               <div class="col-md-12">
                 <h2 >Message Board<asp:Button ID="btnCompose" CssClass="btn float-right" runat="server" Text="Compose" OnClick="Compose_Click"/></h2>
@@ -308,7 +308,7 @@ window.onclick = function(event) {
         
  
 
-        <div class="col-md-6" style="border: solid; border-color: white;" >
+        <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;" >
         <div class="row">
             <div class="col-md-12">
                <h2 >Background Check Status</h2> 
@@ -317,7 +317,7 @@ window.onclick = function(event) {
         </div>
         
         <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem; " >
-            <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
+            <div class="col-md-12" style="margin-top: 1rem;">
                 <h3><asp:Label ID="TenantBackgroundStatusWords" runat="server" Text="Status Goes Here"></asp:Label></h3>
                 <p style="text-align: center;"><asp:Image ID="TenantBackgroundStatusImage" runat="server" ImageURL="images/icons-07.png" style="max-width: 75px;"/></p>
                 <p><asp:Label ID="TenantBackgroundStatusDescrip" runat="server" Text="You are a verified user! Your background check has been successful and you are cleared."></asp:Label></p>
@@ -329,14 +329,14 @@ window.onclick = function(event) {
     
     </div><!-- end div big row -->
     
-   
-    <div class="row " style="margin-top: 1rem;">
+<div style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-top: 1rem; padding: 1rem; margin-bottom: 1rem;">
+    <div class="row " >
         <div class="col-md-12"  >
             <h2>Your Rental Agreements</h2>
           </div>
     </div><!-- end div big row -->  
     
-    <div class="row " style="margin-top: 1rem; background-color: #ebebeb; margin-bottom: 3rem;">
+    <div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
         <div class="col-md-12"  style=" margin-top: 1rem;">
             <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
           </div>
@@ -348,7 +348,7 @@ window.onclick = function(event) {
             </div>
             -->
     </div><!-- end div big row -->  
-    
+</div>       
     
     
 </div> <!-- end div container! -->    
