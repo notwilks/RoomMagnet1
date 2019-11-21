@@ -43,7 +43,7 @@
 
     </div><!-- end div row! -->
 
-     <h5 class="nav justify-content-center" style="margin-top: 2rem;">Find a Property</h5>
+     <h5 class="nav justify-content-center" style="margin-top: 2rem; margin-bottom: .5rem;">Find a Property</h5>
                   
                   <ul class="nav justify-content-center">
                       <li class="nav-item" >
@@ -120,7 +120,7 @@
 
     <div class="col-sm">
         <h3>
-            <asp:Label ID="HWW" runat="server" Text="How We Work" CssClass="text-nowrap"></asp:Label>
+            <asp:Label ID="HWW" runat="server" Text="How We Work" CssClass="text-nowrap" style="margin-left: 1rem;"></asp:Label>
         </h3>
     </div>
 
@@ -162,7 +162,7 @@
         </div>
          <div class="col-md-2" style="margin: 0 auto;">
             <p style="text-align: center; "><img src="images/icons-04.png" style="max-width: 150px;"></p>
-            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Agree on your housing match.</p>
+            <p style="text-align: center; margin: 0 auto; font-size: 18px;">Move in with your new housemate.</p>
         </div>
     
     </div><!-- end div row! -->
