@@ -16,22 +16,22 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
         String table = "";
         if(Convert.ToString(Session["userEmail"]) != "")
         {
-            leftButton.InnerText = "My Profile";
+            middleButton.InnerText = "My Profile";
             rightButton.InnerText = "Logout";
             rightButton.Attributes.Add("href", "LogoutPage.aspx");
             if (Convert.ToString(Session["userType"]) == "T")
             {
-                leftButton.Attributes.Add("href", "TenantDashboard.aspx");
+                middleButton.Attributes.Add("href", "TenantDashboard.aspx");
                 table = "Tenant";
             }
             else if(Convert.ToString(Session["userType"]) == "H")
             {
-                leftButton.Attributes.Add("href", "HostDashboard.aspx");
+                middleButton.Attributes.Add("href", "HostDashboard.aspx");
                 table = "Host";
             }
             else if (Convert.ToString(Session["userType"]) == "A")
             {
-                leftButton.Attributes.Add("href", "AdminDashboard.aspx");
+                middleButton.Attributes.Add("href", "AdminDashboard.aspx");
 
             }
 
@@ -57,10 +57,12 @@ public partial class RoomMagnet : System.Web.UI.MasterPage
         }
         else
         {
-            leftButton.InnerText = "Create Account";
+            middleButton.InnerText = "Create Account";
             rightButton.InnerText = "Login";
-            leftButton.Attributes.Add("href", "CreateHostorTenant.aspx");
+            middleButton.Attributes.Add("href", "CreateHostorTenant.aspx");
             rightButton.Attributes.Add("href", "LoginPage.aspx");
         }
+
+
     }
 }
