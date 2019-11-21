@@ -139,8 +139,10 @@
 
 
          <!-- Compose message modal -->
+         <asp:ScriptManager ID="ScriptManager1"   EnablePageMethods="true"   EnablePartialRendering="true" runat="server" />
          <div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
              <div class="modal-dialog modal-dialog-centered" role="document">
+                 
                  <div class="modal-content">
                      <div class="modal-header">
                          <h4 class="modal-title" id="modalTitle">Send a Message</h4>
@@ -149,18 +151,22 @@
                          </button>
                      </div>
                      <div class="modal-body">
+                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                        <ContentTemplate>
                          <div class="container-fluid">
                              <div class="row">
-                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
+                                 <div class="col-md-12" style="padding-bottom: 15px;">
                                      <div class="dropdown" id="Div1" runat="server">
                                          <asp:DropDownList ID="DropDownList2" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
                                              <asp:ListItem Value="0">Your Contacts</asp:ListItem>
                                          </asp:DropDownList>
+                                         <p style="font-size:10pt;">*Contacts based on hosts of your favorited properties</p> 
                                          
                                              <div class="row">
-                                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
-                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
-                                            <asp:Button ID="btnSendNewMessage" CssClass="btn float-right" runat="server" Text="Send" OnClick="SendNewMessage_Click"/>
+                                                 <div class="col-md-12" style="padding-bottom: 15px;">
+                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; width: 100%; margin-top: 1rem; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
+                                           
+                                                     <asp:Button ID="btnSendNewMessage" CssClass="btn float-right" runat="server" Text="Send" OnClick="SendNewMessage_Click"/>
                                                      </div>
                                          
 
@@ -174,21 +180,22 @@
                             
                          </div>
                          <!--end container-fluid-->
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                      </div>
                      <!--end modal-body-->
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     </div>
+                     
                      
                  </div>
                  <!--end modal header-->
          
              </div>
              <!--end modal content-->
+             
          </div>
          <!--end modal-dialog div-->
 
-
+         </div>
 
 
          <!-- Modal -->

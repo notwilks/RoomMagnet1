@@ -632,6 +632,12 @@ public partial class TenantDashboard : System.Web.UI.Page
         ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
 
     }
+    protected void DropDownList1_IndexChanged(object sender, EventArgs e)
+    {
+        
+
+        UpdatePanel1.Update();
+    }
 
 
 }
