@@ -351,6 +351,14 @@ public partial class AdminDashboard : System.Web.UI.Page
         catch
         {}
 
+        try
+        {
+            delete.CommandText = "Delete from FavoriteProperty where accommodationID = " + accomID;
+            delete.ExecuteNonQuery();
+        }
+        catch
+        { }
+
         delete.CommandText = "Delete from HostImages where hostID = " + ViewState["hostDeleteID"];
         delete.ExecuteNonQuery();
 
@@ -385,6 +393,9 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.ExecuteNonQuery();
 
         delete.CommandText = "delete from RentalAgreement where tenantID = " + ViewState["tenantDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "delete from FavoriteProperty where tenantID = " + ViewState["tenantDeleteID"];
         delete.ExecuteNonQuery();
 
         delete.CommandText = "delete from MessageCenter where tenantID = " + ViewState["tenantDeleteID"];
