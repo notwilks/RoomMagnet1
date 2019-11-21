@@ -716,7 +716,7 @@ public partial class PropertyInfo : System.Web.UI.Page
 
         sc.Open();
 
-        select.CommandText = "Select (firstName + ' ' + LastName), cleared, tenantID from Tenant where email = '" + Session["userEmail"] + "'";
+        select.CommandText = "Select (firstName + ' ' + LastName), isnull(cleared, 'F'), tenantID from Tenant where email = '" + Session["userEmail"] + "'";
 
         SqlDataReader reader = select.ExecuteReader();
 
