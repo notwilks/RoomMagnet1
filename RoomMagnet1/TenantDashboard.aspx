@@ -159,7 +159,8 @@
         <a href="#">Tenants</a><br>
         <a href="#">Safety</a><br>
         <a href="#">FAQ</a><br>
-        <a href="#">Contact Us</a>
+        <a href="#">Contact Us</a><br>
+        <a href="TokBoxTest.aspx">Video Chat</a>
     </p>
     </div>
     
