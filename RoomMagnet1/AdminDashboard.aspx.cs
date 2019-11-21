@@ -354,6 +354,12 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.CommandText = "Delete from HostImages where hostID = " + ViewState["hostDeleteID"];
         delete.ExecuteNonQuery();
 
+        delete.CommandText = "Delete from MessageCenter where hostID = " + ViewState["hostDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "Delete from RentalAgreement where hostID = " + ViewState["hostDeleteID"];
+        delete.ExecuteNonQuery();
+
         delete.CommandText = "Delete from Host where hostID = " + ViewState["hostDeleteID"];
         delete.ExecuteNonQuery();
 
@@ -376,6 +382,12 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.ExecuteNonQuery();
 
         delete.CommandText = "Delete from TenantBadge where tenantID = " + ViewState["tenantDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "delete from RentalAgreement where tenantID = " + ViewState["tenantDeleteID"];
+        delete.ExecuteNonQuery();
+
+        delete.CommandText = "delete from MessageCenter where tenantID = " + ViewState["tenantDeleteID"];
         delete.ExecuteNonQuery();
 
         delete.CommandText = "Delete from Tenant where tenantID = " + ViewState["tenantDeleteID"];
