@@ -231,13 +231,13 @@
 
             <div class="col">
                 <asp:CheckBox ID="PrivateBathroom" runat="server" />
-                <label for="formGroupExampleInput">Private Bathroom?</label>
+                <label for="formGroupExampleInput">Private Bathroom</label>
                 <asp:Label ID="BathroomErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class -->
 
             <div class="col">
                 <asp:CheckBox ID="PrivateEntrance" runat="server"/>
-                <label for="formGroupExampleInput">Private Entrance?</label>
+                <label for="formGroupExampleInput">Private Entrance</label>
                 <asp:Label ID="EntranceErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col class-->
 
@@ -253,13 +253,13 @@
 
                 <div class="col">
                 <asp:CheckBox ID="StorageSpace" runat="server" />
-                <label for="formGroupExampleInput">Closet/Storage Space?</label>
+                <label for="formGroupExampleInput">Closet/Storage Space</label>
                 <asp:Label ID="StorageErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div> <!-- end col class-->
 
                 <div class="col">
                     <asp:CheckBox ID="Parking" runat="server" />
-                    <label for="formGroupExampleInput">Private Parking?</label>
+                    <label for="formGroupExampleInput">Private Parking</label>
                     <asp:Label ID="ParkingErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div> <!-- end col class -->
 
@@ -277,13 +277,13 @@
 
             <div class="col">
                 <asp:CheckBox ID="Furnished" runat="server" />
-                <label for="formGroupExampleInput">Furnished?</label>
+                <label for="formGroupExampleInput">Furnished</label>
                 <asp:Label ID="FurnishedErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class -->
 
             <div class="col">
                 <asp:CheckBox ID="Smoker" runat="server" />
-                <label for="formGroupExampleInput">Allow Smokers?</label>
+                <label for="formGroupExampleInput">Allow Smokers</label>
                 <asp:Label ID="SmokerErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class-->
 
@@ -301,13 +301,13 @@
 
              <div class="col">
                  <asp:CheckBox ID="HavePets" runat="server" />
-                <label for="formGroupExampleInput">Pets in Residence?</label>
+                <label for="formGroupExampleInput">Pets in Residence</label>
                 <asp:Label ID="PetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
              </div> <!-- end col class-->
 
             <div class="col">
                 <asp:CheckBox ID="AllowPets" runat="server" />
-                <label for="formGroupExampleInput">Allow Pets?</label>
+                <label for="formGroupExampleInput">Allow Pets</label>
                 <asp:Label ID="AllowPetsErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col-->
 
@@ -326,13 +326,13 @@
 
             <div class="col">
                 <asp:CheckBox ID="PrivateKitchen" runat="server" />
-                <label for="formGroupExampleInput">Private Kitchen?</label>
+                <label for="formGroupExampleInput">Private Kitchen</label>
                 <asp:Label ID="KitchenErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end col class-->
 
             <div class="col">
                 <asp:CheckBox ID="PrivateLaundry" runat="server" />
-                <label for="formGroupExampleInput">Laundry Access?</label>
+                <label for="formGroupExampleInput">Laundry Access</label>
                 <asp:Label ID="LaundryErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!--end col-->
 
@@ -350,13 +350,13 @@
 
             <div class="col">
                 <asp:CheckBox ID="Wifi" runat="server" />
-                <label for="formGroupExampleInput">Wifi?</label>
+                <label for="formGroupExampleInput">Wifi</label>
                 <asp:Label ID="WifiErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end of col class-->
 
             <div class="col">
                 <asp:CheckBox ID="CableTV" runat="server" />
-                <label for="formGroupExampleInput">Cable TV?</label>
+                <label for="formGroupExampleInput">Cable TV</label>
                 <asp:Label ID="CableErrorLbl" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
             </div> <!-- end of col class-->
 
