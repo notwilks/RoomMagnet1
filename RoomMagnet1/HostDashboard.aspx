@@ -5,7 +5,7 @@
     <script type="text/javascript">
         function ShowPopup() {
             
-            $("#exampleModalCenter").modal("show");
+            $("#viewReplyModal").modal("show");
         }
 
         
@@ -184,7 +184,7 @@ window.onclick = function(event) {
          
           
                    <!-- Modal -->
-         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+         <div class="modal fade" id="viewReplyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
              <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                      <div class="modal-header">
@@ -248,7 +248,7 @@ window.onclick = function(event) {
 
 
 
-                          <!-- Modal -->
+                          <!-- Compose message modal -->
          <div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
              <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
@@ -266,10 +266,15 @@ window.onclick = function(event) {
                                          <asp:DropDownList ID="DropDownList2" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
                                              <asp:ListItem Value="0">Your Contacts</asp:ListItem>
                                          </asp:DropDownList>
-                                         <div>
+                                         
+                                             <div class="row">
+                                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
                                          <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
-                                         <asp:Button ID="btnSendMessage" CssClass="btn float-right" runat="server" Text="Send"/>
-                                             </div>
+                                            <asp:Button ID="btnSendNewMessage" CssClass="btn float-right" runat="server" Text="Send" OnClick="SendNewMessage_Click"/>
+                                                     </div>
+                                         
+
+                                                 </div>
                                      </div>
                                  </div>
 
