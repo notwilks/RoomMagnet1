@@ -22,12 +22,12 @@
 <body>
 <form id="form1" runat="server">
 
-  <div class="row" style="background-image: url(images/home.jpg); background-repeat: no-repeat; background-size:cover; margin-top: 6rem;">
+  <div class="row" style="background-image: url(images/oldyounggirls.jpg); background-repeat: no-repeat; background-size:cover; margin-top: 6rem;">
 
         <div class="col-md-4  ctahome" style="margin-top: 8rem; margin-bottom: 8rem; ">
             <div class="card card-inverse" style="width: 25rem; margin-top: 2rem; margin-bottom: 2rem; margin-right: 1rem;">
                 <div class="card-body">
-                    <h3 class="card-title" style="text-align: center;">Room Magnet</h3>
+                    <h1 class="card-title" style="text-align: center;">Room Magnet</h1>
                     <p class="card-text" style="text-align: center;">A safe, secure, long-term rental service geared towards the aging population and empty nesters who are looking to rent their extra rooms at a competitive price.</p>
                     <p style="text-align: center;">
                         <a href="CreateHostorTenant.aspx" class="btn " style="margin-right: 1rem;">Get Started</a>
