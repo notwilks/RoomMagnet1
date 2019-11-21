@@ -163,7 +163,7 @@
                                          
                                              <div class="row">
                                                  <div class="col-md-12" style="padding-bottom: 15px;">
-                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; width: 100%; margin-top: 1rem; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
+                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; width: 100%; margin-top: 1rem; font-size:14pt;" ForeColor="Gray" placeholder="Compose Message"></asp:TextBox></p>
                                            
                                                      <asp:Button ID="btnSendNewMessage" CssClass="btn float-right" runat="server" Text="Send" OnClick="SendNewMessage_Click"/>
                                                      </div>
@@ -230,7 +230,7 @@
                                              <h5><asp:Label ID="lblSender" runat="server"></asp:Label></h5>
                                              <h6><asp:Label ID="lblDate" runat="server"></asp:Label></h6>
                                              <p><asp:Label ID="lblMessageText" runat="server"></asp:Label></p>
-                                             <p><asp:TextBox ID="txtBoxReply" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
+                                             <p><asp:TextBox ID="txtBoxReply" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" placeholder="Write a reply..."></asp:TextBox></p>
                                              <!--<asp:Button ID="btnSendRepy" CssClass="btn float-right" runat="server" Text="Send" OnClick="Send_Click"/>-->
                                              
                                                  

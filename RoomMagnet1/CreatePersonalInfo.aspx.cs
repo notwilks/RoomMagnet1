@@ -106,8 +106,8 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                             }
 
                             //Insert user info into tenant table
-                            insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, phoneNumber, birthDate, gender, lastUpdated, lastUpdatedBy, biography, tenantType) VALUES " +
-                                "(@firstName, @lastName, @email, @phone, @dob, @gender, @lastUpdated, @lastUpdatedBy, @biography, @tenantType)";
+                            insert.CommandText = "INSERT INTO [dbo].[Tenant] (firstName, lastName, email, phoneNumber, birthDate, gender, lastUpdated, lastUpdatedBy, biography, tenantType, cleared) VALUES " +
+                                "(@firstName, @lastName, @email, @phone, @dob, @gender, @lastUpdated, @lastUpdatedBy, @biography, @tenantType, @cleared)";
 
                             insert.Parameters.AddWithValue("@firstName", tempTenant.GetFirstName());
                             insert.Parameters.AddWithValue("@lastName", tempTenant.GetLastName());
@@ -119,6 +119,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                             insert.Parameters.AddWithValue("@lastUpdated", DateTime.Now);
                             insert.Parameters.AddWithValue("@biography", tempTenant.GetBiography());
                             insert.Parameters.AddWithValue("@tenantType", tempTenant.GetTenantType());
+                            insert.Parameters.AddWithValue("@cleared", "F");
 
                             insert.ExecuteNonQuery();
 
@@ -187,8 +188,8 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         tempHost.SetBiography(bioBox.Text);
                         pNumBoxErrorLbl.Text = "";
                         //Insert user info into host table
-                        insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber, lastUpdatedBy, lastUpdated, biography) " +
-                            "VALUES (@firstName, @lastName, @email, @dob, @gender, @phoneNumber, @lastUpdatedBy, @lastUpdated, @biography)";
+                        insert.CommandText = "INSERT INTO [dbo].[Host] (firstName, lastName, email, birthDate, gender, phoneNumber, lastUpdatedBy, lastUpdated, biography, cleared) " +
+                            "VALUES (@firstName, @lastName, @email, @dob, @gender, @phoneNumber, @lastUpdatedBy, @lastUpdated, @biography, @cleared)";
 
                         insert.Parameters.Add(new SqlParameter("@firstName", tempHost.GetFistName()));
                         insert.Parameters.Add(new SqlParameter("@lastName", tempHost.GetLastName()));
@@ -199,6 +200,8 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                         insert.Parameters.Add(new SqlParameter("@lastUpdatedBy", "Joe Muia"));
                         insert.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
                         insert.Parameters.Add(new SqlParameter("@biography", tempHost.GetBiography()));
+                        insert.Parameters.Add(new SqlParameter("@cleared", "F"));
+
 
                         insert.ExecuteNonQuery();
 
