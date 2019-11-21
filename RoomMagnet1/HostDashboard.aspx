@@ -165,9 +165,9 @@ window.onclick = function(event) {
     
     
      <div class="row " runat="server" style="margin-top: 1rem;">
-        <div class="col-md-6"  style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
-            <div class="row">
-              <div class="col-md-12">
+        <div class="col-md-6" runat="server" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
+            <div class="row" runat="server">
+              <div class="col-md-12" runat="server">
                 <h2 >Message Board<asp:Button ID="btnCompose" CssClass="btn float-right" runat="server" Text="Compose" OnClick="Compose_Click" style="margin-top: .5rem;"/></h2>
                 
               </div>

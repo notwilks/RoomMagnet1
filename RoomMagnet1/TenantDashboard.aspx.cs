@@ -116,7 +116,8 @@ public partial class TenantDashboard : System.Web.UI.Page
 
             select.CommandText = "select a.accommodationID, a.description, h.firstName, h.cleared from FavoriteProperty fp " +
                 "inner join Accommodation a on a.accommodationID = fp.accommodationID " +
-                "inner join Host h on h.hostID = a.hostID where fp.tenantID = " + tenantID;
+                "inner join Host h on h.hostID = a.hostID where fp.tenantID = @tenID";
+            select.Parameters.AddWithValue("@tenID", Convert.ToString(ViewState["tenantID"]));
 
             reader = select.ExecuteReader();
 
@@ -346,14 +347,14 @@ public partial class TenantDashboard : System.Web.UI.Page
     protected void Compose_Click(object sender, EventArgs e)
     {
 
-        // Retrieve contacts (Tenants that have favorited this host's property) 
-        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
+        // Retrieve contacts (hosts of favorited properties) 
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(h.firstName,' ', h.lastName), t.tenantID, h.hostID "
                                                     + "FROM Tenant t "
                                                     + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
                                                     + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
                                                     + "INNER JOIN Host h ON a.hostID = h.hostID "
-                                                    + "WHERE h.hostID = @hID", sc);
-        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+                                                    + "WHERE t.tenantID = @tID", sc);
+        selectContacts.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
 
         SqlDataReader reader = selectContacts.ExecuteReader();
 
@@ -366,9 +367,9 @@ public partial class TenantDashboard : System.Web.UI.Page
 
         while (reader.Read())
         {
-            if (CheckExistingContacts2(Convert.ToString(reader.GetInt32(1))) == false)
+            if (CheckExistingContacts2(Convert.ToString(reader.GetInt32(2))) == false)
             {
-                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(2)));
                 DropDownList2.Items.Add(contact);
             }
 
@@ -394,15 +395,15 @@ public partial class TenantDashboard : System.Web.UI.Page
     protected void SendNewMessage_Click(object sender, EventArgs e)
     {
         // Get TenantID based on selected contact
-        String tID = Convert.ToString(DropDownList2.SelectedValue);
+        String hID = Convert.ToString(DropDownList2.SelectedValue);
 
         // Insert message into message center 
         SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText, dateSent, sender) VALUES(@tID3, @hID3, @msgText3, @date3, @sender3)", sc);
-        sendMessage.Parameters.AddWithValue("@tID3", tID);
-        sendMessage.Parameters.AddWithValue("@hID3", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@tID3", Convert.ToString(ViewState["tenantID"]));
+        sendMessage.Parameters.AddWithValue("@hID3", hID);
         sendMessage.Parameters.AddWithValue("@msgText3", txtBoxMessage.Text.ToString());
         sendMessage.Parameters.AddWithValue("date3", DateTime.Now.ToString());
-        sendMessage.Parameters.AddWithValue("@sender3", "H");
+        sendMessage.Parameters.AddWithValue("@sender3", "T");
 
         sendMessage.ExecuteNonQuery();
         sc.Close();
@@ -425,7 +426,7 @@ public partial class TenantDashboard : System.Web.UI.Page
         SqlCommand selectContacts = new SqlCommand("SELECT concat(h.firstName,' ', h.lastName), t.tenantID, h.hostID "
                                                     + "FROM host h "
                                                     + "INNER JOIN Accommodation a ON h.hostID = a.hostID "
-                                                    + "INNER JOIN FavoriteProperty f ON a.hostID = f.hostID "
+                                                    + "INNER JOIN FavoriteProperty f ON a.accommodationID = f.accommodationID "
                                                     + "INNER JOIN Tenant t ON f.tenantID = t.tenantID "
                                                     + "WHERE t.tenantID = @tenantID", sc);
         selectContacts.Parameters.AddWithValue("@tenantID", Convert.ToString(ViewState["tenantID"]));
@@ -456,7 +457,7 @@ public partial class TenantDashboard : System.Web.UI.Page
         selectTenant.Parameters.AddWithValue("@mID", mID);
         String hID = Convert.ToString(selectTenant.ExecuteScalar());
         // Get Message History from particular sender
-        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName, ' ', h.lastName), m.sender FROM Host h "
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(t.firstName, ' ', t.lastName), m.sender FROM Host h "
                                                             + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
                                                             + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID and t.tenantID = @tID "
@@ -476,7 +477,7 @@ public partial class TenantDashboard : System.Web.UI.Page
             // Sender 
             String senderType = reader.GetString(6);
             String senderName;
-            if (senderType == "T")
+            if (senderType == "H")
             {
                 senderName = reader.GetString(0);
             }
@@ -501,7 +502,7 @@ public partial class TenantDashboard : System.Web.UI.Page
             viewMessage.Attributes.Add("OnClientClick", "ViewFullMessage_Click");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
-            //viewMessage.Click += new EventHandler(ViewFullMessage_Click);
+            viewMessage.Click += new EventHandler(ViewFullMessage_Click);
             leftSenderHeader.Controls.Add(viewMessage);
 
             // Date 
@@ -581,22 +582,71 @@ public partial class TenantDashboard : System.Web.UI.Page
         String mID = Convert.ToString(sendBtn.ID);
 
         // Get TenantID based on messageID passed from send button
-        SqlCommand selectTenant = new SqlCommand("SELECT TenantID FROM MessgeCenter WHERE MessageID = @msgID", sc);
+        SqlCommand selectTenant = new SqlCommand("SELECT hostID FROM MessgeCenter WHERE MessageID = @msgID", sc);
         selectTenant.Parameters.AddWithValue("@msgID", mID);
 
-        String tID = Convert.ToString(sendBtn.ID);
+        String hID = Convert.ToString(sendBtn.ID);
 
         SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2)", sc);
-        sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
-        sendMessage.Parameters.AddWithValue("@tenantID2", tID);
+        sendMessage.Parameters.AddWithValue("@hostID2", hID);
+        sendMessage.Parameters.AddWithValue("@tenantID2", Convert.ToString(ViewState["tenantID"]));
         sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
         sendMessage.Parameters.AddWithValue("@date2", DateTime.Now.ToLongDateString());
-        sendMessage.Parameters.AddWithValue("@sender2", "H");
+        sendMessage.Parameters.AddWithValue("@sender2", "T");
         sc.Open();
         sendMessage.ExecuteNonQuery();
         sc.Close();
 
 
+
+    }
+
+    protected void ViewFullMessage_Click(object sender, EventArgs e)
+    {
+
+        Button btn1 = (Button)sender;
+        String mID = Convert.ToString(btn1.ID);
+        btnSendRepy.ID = mID;
+        SqlCommand selectFullMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName,' ', h.lastName), m.sender FROM Host h "
+                                                            + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
+                                                            + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+                                                            + "WHERE m.messageID = @mID", sc);
+        selectFullMessage.Parameters.AddWithValue("@mID", mID);
+
+        SqlDataReader reader = selectFullMessage.ExecuteReader();
+        while (reader.Read())
+        {
+            String senderType = reader.GetString(6); ;
+            if (senderType == "H")
+            {
+                lblSender.Visible = true;
+                lblSender.Text = reader.GetString(0);
+                lblDate.Visible = true;
+                lblDate.Text = reader.GetDateTime(3).ToShortDateString();
+                lblMessageText.Visible = true;
+                lblMessageText.Text = reader.GetString(1);
+                txtBoxReply.Visible = false;
+                btnSendRepy.Visible = false;
+            }
+            if (senderType == "T")
+            {
+                lblSender.Visible = true;
+                lblSender.Text = reader.GetString(5);
+                lblDate.Visible = true;
+                lblDate.Text = reader.GetDateTime(3).ToShortDateString();
+                lblMessageText.Visible = true;
+                lblMessageText.Text = reader.GetString(1);
+                txtBoxReply.Visible = true;
+                btnSendRepy.Visible = true;
+            }
+
+            btnSendRepy.ID = mID;
+
+
+        }
+
+        reader.Close();
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
 
     }
 
