@@ -41,8 +41,8 @@
                     <div class="col">
                     <p>Tenant Name: <asp:TextBox ID="tenantName" runat="server" Text="Label" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true" CssClass="form-control"></asp:TextBox>
                        Background Screen complete:
-                        <asp:CheckBox ID="tenantYes" runat="server" Text="Yes" style="margin-left: 1rem;"/>
-                        <asp:CheckBox ID="tenantNo" runat="server" Text="No" style="margin-left: 1rem;"/>
+                        <asp:CheckBox ID="tenantYes" runat="server" Text="Yes" style="margin-left: 1rem;" onclick="return false;"/>
+                        <asp:CheckBox ID="tenantNo" runat="server" Text="No" style="margin-left: 1rem;" onclick="return false;"/>
                     </p> 
                     </div>
                 </div>
@@ -59,11 +59,11 @@
 
                 <div class="row" style="margin-top: 2rem;">
                     <div class="col">
-                    <p>Property address: <asp:TextBox ID="streetAddress" runat="server" Text="Address" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true"></asp:TextBox>
+                    <p>Property address: <asp:TextBox ID="streetAddress" runat="server" Text="" CssClass="form-control" style="margin-right: 3rem; display:inline-block" Width="300px" ReadOnly="true"></asp:TextBox>
                         <asp:Label ID="Label1" runat="server" Text="City: "></asp:Label>
-                        <asp:TextBox ID="cityBox" runat="server" Text="City" CssClass="form-control" style="display:inline-block" Width="200px" ReadOnly="true"></asp:TextBox>
+                        <asp:TextBox ID="cityBox" runat="server" Text="" CssClass="form-control" style="display:inline-block" Width="200px" ReadOnly="true"></asp:TextBox>
                         <asp:Label ID="Label2" runat="server" Text="State: " style="margin-left: 1rem;"></asp:Label>
-                        <asp:TextBox ID="TextBox1" runat="server" Text="State" CssClass="form-control" style="display:inline-block" Width="80px" ReadOnly="true"></asp:TextBox>
+                        <asp:TextBox ID="TextBox1" runat="server" Text="" CssClass="form-control" style="display:inline-block" Width="80px" ReadOnly="true"></asp:TextBox>
                     </p> 
                     </div>
                 </div>
