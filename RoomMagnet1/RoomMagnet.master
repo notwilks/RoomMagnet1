@@ -36,7 +36,7 @@
            
                <a href="SearchResultpage.aspx" class="btn " style="margin-left: 3rem" id="leftButton" >Find a Property</a>
 
-               <a href="CreateHostorTenant.aspx" class="btn " style="margin-left:1rem;" id="leftButton" runat="server">Create Account</a>
+               <a href="CreateHostorTenant.aspx" class="btn " style="margin-left:1rem;" id="middleButton" runat="server">Create Account</a>
            
                <a href="LoginPage.aspx" class="btn " style="margin-left: 1rem; margin-right: 1rem" id="rightButton" runat="server" >Login</a>                          
           

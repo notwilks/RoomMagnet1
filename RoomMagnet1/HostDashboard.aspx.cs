@@ -24,11 +24,11 @@ public partial class HostDashboard : System.Web.UI.Page
     char cBadge10;
     char cBadge11;
     char cBadge12;
-    
+
     String listing = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
         sc.Open();
 
         SqlCommand select = new SqlCommand();
@@ -58,7 +58,7 @@ public partial class HostDashboard : System.Web.UI.Page
             }
             reader.Close();
         }
-        
+
         sc.Close();
 
         sc.Open();
@@ -74,7 +74,7 @@ public partial class HostDashboard : System.Web.UI.Page
             }
             reader.Close();
         }
-        
+
         //HostPrimaryImage.ImageUrl = Convert.ToString(select.ExecuteScalar());
 
         //select host bio
@@ -83,20 +83,20 @@ public partial class HostDashboard : System.Web.UI.Page
 
         //selecting name info
         select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Convert.ToString(Session["userEmail"])));
-            String userName = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
-            FirstNameLastNameHeader.Text = userName + "'s Dashboard";
-            HostName.Text = userName.ToString();
+        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", Convert.ToString(Session["userEmail"])));
+        String userName = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+        FirstNameLastNameHeader.Text = userName + "'s Dashboard";
+        HostName.Text = userName.ToString();
 
-            //selecting property name
-            select.CommandText = "Select description from Accommodation where hostID in (select hostID from Host where email = @email1)";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Convert.ToString(Session["userEmail"])));
-            PropertyName.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+        //selecting property name
+        select.CommandText = "Select description from Accommodation where hostID in (select hostID from Host where email = @email1)";
+        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Convert.ToString(Session["userEmail"])));
+        PropertyName.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
-            //selecting description on the property
-            select.CommandText = "Select extraInfo from Accommodation where hostID in (select hostID from Host where email = @email2)";
-            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Convert.ToString(Session["userEmail"])));
-            PropertyInfo.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+        //selecting description on the property
+        select.CommandText = "Select extraInfo from Accommodation where hostID in (select hostID from Host where email = @email2)";
+        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Convert.ToString(Session["userEmail"])));
+        PropertyInfo.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
         //Header.Text = "Host Dashboard.";
         //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
@@ -125,7 +125,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 cBadge9 = Convert.ToChar(reader["laundry"]);
                 cBadge11 = Convert.ToChar(reader["cable"]);
                 cBadge12 = Convert.ToChar(reader["allowPets"]);
-              
+
             }
             reader.Close();
         }
@@ -135,7 +135,7 @@ public partial class HostDashboard : System.Web.UI.Page
         string image3 = checkBadge(cBadge3, "images/closet-space-badge.png");
         string image4 = checkBadge(cBadge4, "images/add-badges-badge.png");
         string image5 = checkBadge(cBadge5, "images/furnished-badge.png");
-        string image6 = checkBadge(cBadge6, "images/non-smoker-badge.png"); 
+        string image6 = checkBadge(cBadge6, "images/non-smoker-badge.png");
         string image7 = checkBadge(cBadge7, "images/add-badges-badge.png");
         string image8 = checkBadge(cBadge8, "images/add-badges-badge.png");
         string image9 = checkBadge(cBadge9, "images/add-badges-badge.png");
@@ -268,14 +268,14 @@ public partial class HostDashboard : System.Web.UI.Page
                 if (message.Length >= 140)
                 {
                     message = message.Substring(0, 140) + "...";
-                } 
+                }
                 var messageText = new HtmlGenericControl("p")
                 {
                     InnerText = message
                 };
                 div1.Controls.Add(messageText);
 
-                
+
             }
             reader.Close();
 
@@ -286,7 +286,7 @@ public partial class HostDashboard : System.Web.UI.Page
 
 
 
-       
+
 
 
 
@@ -383,25 +383,61 @@ public partial class HostDashboard : System.Web.UI.Page
 
     protected void addBadge(string image)
     {
-       if(image != "")
+        if (image != "")
         {
-            
+
 
             HtmlGenericControl newP = new HtmlGenericControl("p")
             {
 
             };
-            
+
             Image newImg = new Image()
             {
                 ImageUrl = image,
-                
+
             };
-            newImg.Attributes.Add("style","max-width: 150px; margin-top: 3px; margin-right: 2rem;");
-            
+            newImg.Attributes.Add("style", "max-width: 150px; margin-top: 3px; margin-right: 2rem;");
+
             newP.Controls.Add(newImg);
             propertyModule.Controls.Add(newImg);
-        } 
+        }
+    }
+
+    protected void Compose_Click(object sender, EventArgs e)
+    {
+
+        // Retrieve contacts (Tenants that have favorited this host's property) 
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
+                                                    + "FROM Tenant t "
+                                                    + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
+                                                    + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
+                                                    + "INNER JOIN Host h ON a.hostID = h.hostID "
+                                                    + "WHERE h.hostID = @hID", sc);
+        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+
+        SqlDataReader reader = selectContacts.ExecuteReader();
+
+
+
+
+
+
+        // Add contacts to dropdowns
+
+        while (reader.Read())
+        {
+            if (CheckExistingContacts2(Convert.ToString(reader.GetInt32(1))) == false)
+            {
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                DropDownList2.Items.Add(contact);
+            }
+
+
+
+        }
+        reader.Close();
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
     }
 
     protected void ViewMessageHistory_Click(object sender, EventArgs e)
@@ -435,11 +471,12 @@ public partial class HostDashboard : System.Web.UI.Page
 
 
 
-        // Add contacts to dropdown
+        // Add contacts to dropdowns
 
         while (reader.Read())
         {
-            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false) {
+            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false)
+            {
                 ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
                 DropDownList1.Items.Add(contact);
             }
@@ -543,15 +580,17 @@ public partial class HostDashboard : System.Web.UI.Page
             send.ID = Convert.ToString(reader.GetInt32(4));
             send.Text = "Send";
             send.Attributes.Add("type", "button");
+            send.Click += new EventHandler(Send_Click);
             send.Attributes.Add("class", "btn float-right");
             send.Attributes.Add("runat", "server");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
-            send.Click += new EventHandler(Send_Click);
+            send.Attributes.Add("UseSubmitBehavior", "false");
+            //send.Attributes.Add("data-dismiss", "modal");
             rightDiv.Controls.Add(send);
         }
         reader.Close();
-         
+
 
 
     }
@@ -569,23 +608,36 @@ public partial class HostDashboard : System.Web.UI.Page
             }
         }
         return contactExists;
-    }
 
+    }
+    protected Boolean CheckExistingContacts2(String tenantID)
+    {
+        Boolean contactExists = false;
+        foreach (ListItem li in DropDownList2.Items)
+        {
+            if (li.Value == tenantID)
+            {
+                contactExists = true;
+            }
+        }
+        return contactExists;
+    }
     protected void ViewFullMessage_Click(object sender, EventArgs e)
     {
-        
+
         Button btn1 = (Button)sender;
         String mID = Convert.ToString(btn1.ID);
-
+        btnSendRepy.ID = mID;
         SqlCommand selectFullMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName,' ', h.lastName), m.sender FROM Host h "
                                                             + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
                                                             + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                             + "WHERE m.messageID = @mID", sc);
         selectFullMessage.Parameters.AddWithValue("@mID", mID);
+
         SqlDataReader reader = selectFullMessage.ExecuteReader();
         while (reader.Read())
         {
-            String senderType = reader.GetString(6);;
+            String senderType = reader.GetString(6); ;
             if (senderType == "T")
             {
                 lblSender.Visible = true;
@@ -597,7 +649,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 txtBoxReply.Visible = false;
                 btnSendRepy.Visible = false;
             }
-            if(senderType == "H")
+            if (senderType == "H")
             {
                 lblSender.Visible = true;
                 lblSender.Text = reader.GetString(5);
@@ -609,7 +661,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 btnSendRepy.Visible = true;
             }
 
-
+            btnSendRepy.ID = mID;
 
 
         }
@@ -628,20 +680,38 @@ public partial class HostDashboard : System.Web.UI.Page
         // Get TenantID based on messageID passed from send button
         SqlCommand selectTenant = new SqlCommand("SELECT TenantID FROM MessgeCenter WHERE MessageID = @msgID", sc);
         selectTenant.Parameters.AddWithValue("@msgID", mID);
-        sc.Open();
+        
         String tID = Convert.ToString(sendBtn.ID);
 
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID, @tenantID, @msg, @date, @sender", sc);
-        sendMessage.Parameters.AddWithValue("@hostID", Convert.ToString(ViewState["hostID"]));
-        sendMessage.Parameters.AddWithValue("@tenantID", tID);
-        sendMessage.Parameters.AddWithValue("@msg", txtBoxReply.Text);
-        sendMessage.Parameters.AddWithValue("@date", DateTime.Now.ToLongDateString());
-        sendMessage.Parameters.AddWithValue("@sender", "H");
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2)", sc);
+        sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@tenantID2", tID);
+        sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
+        sendMessage.Parameters.AddWithValue("@date2", DateTime.Now.ToLongDateString());
+        sendMessage.Parameters.AddWithValue("@sender2", "H");
+        sc.Open();
         sendMessage.ExecuteNonQuery();
         sc.Close();
+        
 
 
     }
 
 
+    protected void SendNewMessage_Click(object sender, EventArgs e)
+    {
+        // Get TenantID based on selected contact
+        String tID = Convert.ToString(DropDownList2.SelectedValue);
+
+        // Insert message into message center 
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText, dateSent, sender) VALUES(@tID3, @hID3, @msgText3, @date3, @sender3)", sc);
+        sendMessage.Parameters.AddWithValue("@tID3", tID);
+        sendMessage.Parameters.AddWithValue("@hID3", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@msgText3", txtBoxMessage.Text.ToString());
+        sendMessage.Parameters.AddWithValue("date3", DateTime.Now.ToString());
+        sendMessage.Parameters.AddWithValue("@sender3", "H");
+
+        sendMessage.ExecuteNonQuery();
+        sc.Close();
+    }
 }
