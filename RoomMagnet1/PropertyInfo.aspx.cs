@@ -608,7 +608,17 @@ public partial class PropertyInfo : System.Web.UI.Page
                     FavoriteButton.Visible = true;
                 }
 
+                fav.CommandText = "Select tenantID from RentalAgreement where hostID = " + hostID;
+                int tenIDRental = Convert.ToInt32(fav.ExecuteScalar());
 
+                if (tenID2 == tenIDRental)
+                {
+                    intentToLease.Text = "View Rental Agreement";
+                }
+                else
+                {
+                    intentToLease.Text = "Request Rental Agreement";
+                }
             }
         }
         catch
@@ -616,6 +626,8 @@ public partial class PropertyInfo : System.Web.UI.Page
 
         }
         sc.Close();
+
+
         
     }
 

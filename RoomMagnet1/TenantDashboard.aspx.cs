@@ -186,23 +186,56 @@ public partial class TenantDashboard : System.Web.UI.Page
 
             }
             sc.Close();
+        reader.Close();
 
         //Rental Agreement
-
         SqlCommand rental = new SqlCommand();
         rental.Connection = sc;
 
         sc.Open();
-        rental.CommandText = "Select hostID from RentalAgreement where tenantID = " + tenantID;
-        String hostIDLease = Convert.ToString(rental.ExecuteScalar());
+        rental.CommandText = "Select ra.hostID, h.firstName, a.description, a.accommodationID from RentalAgreement ra " +
+            "inner join host h on ra.hostID = h.hostID " +
+            "inner join Accommodation a on ra.hostID = a.hostID where tenantID = " + tenantID;
 
-        var hostIDAgreement = new HtmlGenericControl("p")
+        SqlDataReader readerRental = rental.ExecuteReader();
+        while (readerRental.Read())
         {
+            var divRental = new HtmlGenericControl("div")
+            {
 
-        };
-        hostIDAgreement.InnerText = Convert.ToString(hostIDLease);
-        rentalAgreementArea.Controls.Add(hostIDAgreement);
+            };
+            divRental.Style.Add("border-top", "solid");
+            divRental.Style.Add("border-top-width", "1px;");
+            divRental.Style.Add("border-bottom", "solid");
+            divRental.Style.Add("border-bottom-width", "1px;");
+            rentalAgreementArea.Controls.Add(divRental);
+
+            var hostNameAgreement = new HtmlGenericControl("h3")
+            {
+
+            };
+            hostNameAgreement.InnerText = Convert.ToString(readerRental.GetString(1));
+            divRental.Controls.Add(hostNameAgreement);
+            
+
+            var propDescAgreement = new HtmlGenericControl("p")
+            {
+
+            };
+            propDescAgreement.InnerText = readerRental.GetString(2);
+            divRental.Controls.Add(propDescAgreement);
+
+            Button viewPropAgreement = new Button();
+            viewPropAgreement.Text = "View Property";
+            viewPropAgreement.Style.Add("display", "inline-block");
+            viewPropAgreement.Style.Add("margin-left", "3rem");
+            viewPropAgreement.ID = Convert.ToString(readerRental.GetInt32(3)) + "R";
+            viewPropAgreement.Click += new EventHandler(ViewLeaseProp);
+            viewPropAgreement.Attributes.Add("class", "btn");
+            propDescAgreement.Controls.Add(viewPropAgreement);
+        }
         sc.Close();
+        readerRental.Close();
 
         // MESSAGE CENTER 
 
@@ -648,6 +681,14 @@ public partial class TenantDashboard : System.Web.UI.Page
         reader.Close();
         ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
 
+    }
+
+    protected void ViewLeaseProp(object sender, EventArgs e)
+    {
+        Button b = sender as Button;
+        String ID = b.ID.Substring(0, b.ID.Length - 1);
+        Session["propertyID"] = ID;
+        Response.Redirect("PropertyInfo.aspx");
     }
 
 
