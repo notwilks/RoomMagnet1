@@ -22,7 +22,6 @@
 <body>
 <form id="form1" runat="server">
 
-
   <div class="row" style="background-image: url(images/home.jpg); background-repeat: no-repeat; background-size:cover; margin-top: 6rem;">
 
         <div class="col-md-4  ctahome" style="margin-top: 8rem; margin-bottom: 8rem; ">
@@ -268,9 +267,7 @@
     </div>
        
     </div>
-</footer><!-- end footer! --> 
-    
-
+</footer><!-- end footer! -->
     
 </form>
 </body>
