@@ -230,9 +230,6 @@ window.onclick = function(event) {
                          <!--end container-fluid-->
                      </div>
                      <!--end modal-body-->
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     </div>
                      
                  </div>
                  <!--end modal header-->
@@ -273,7 +270,7 @@ window.onclick = function(event) {
                                          
                                              <div class="row">
                                                  <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
-                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; width: 100%; margin-top: 1rem; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
+                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; width: 100%; margin-top: 1rem; font-size:14pt;" ForeColor="Gray" placeholder="Compose Message"></asp:TextBox></p>
                                          
                                             <asp:Button ID="btnSendNewMessage" CssClass="btn float-right" runat="server" Text="Send" OnClick="SendNewMessage_Click"/>
                                                      </div>

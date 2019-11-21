@@ -390,12 +390,8 @@ public partial class TenantDashboard : System.Web.UI.Page
                                                         + "INNER JOIN Host h ON a.hostID = h.hostID "
                                                         + "WHERE t.tenantID = @tID", sc);
             selectContacts.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
-
+            sc.Open();
             SqlDataReader reader = selectContacts.ExecuteReader();
-
-
-
-
 
 
             // Add contacts to dropdowns

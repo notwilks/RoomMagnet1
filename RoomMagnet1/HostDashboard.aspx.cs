@@ -472,6 +472,7 @@ public partial class HostDashboard : System.Web.UI.Page
         try
         {
 
+
             // Retrieve contacts (Tenants that have favorited this host's property) 
             SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
                                                         + "FROM Tenant t "
@@ -480,7 +481,7 @@ public partial class HostDashboard : System.Web.UI.Page
                                                         + "INNER JOIN Host h ON a.hostID = h.hostID "
                                                         + "WHERE h.hostID = @hID", sc);
             selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-
+            sc.Open();
             SqlDataReader reader = selectContacts.ExecuteReader();
 
             // Add contacts to dropdowns
@@ -767,7 +768,7 @@ public partial class HostDashboard : System.Web.UI.Page
     {
         // Get TenantID based on selected contact
         String tID = Convert.ToString(DropDownList2.SelectedValue);
-
+        sc.Open();
         // Insert message into message center 
         SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText, dateSent, sender) VALUES(@tID3, @hID3, @msgText3, @date3, @sender3)", sc);
         sendMessage.Parameters.AddWithValue("@tID3", tID);
