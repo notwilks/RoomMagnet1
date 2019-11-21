@@ -116,7 +116,8 @@ public partial class TenantDashboard : System.Web.UI.Page
 
             select.CommandText = "select a.accommodationID, a.description, h.firstName, h.cleared from FavoriteProperty fp " +
                 "inner join Accommodation a on a.accommodationID = fp.accommodationID " +
-                "inner join Host h on h.hostID = a.hostID where fp.tenantID = " + tenantID;
+                "inner join Host h on h.hostID = a.hostID where fp.tenantID = @tenID";
+            select.Parameters.AddWithValue("@tenID", Convert.ToString(ViewState["tenantID"]));
 
             reader = select.ExecuteReader();
 
@@ -329,14 +330,14 @@ public partial class TenantDashboard : System.Web.UI.Page
     protected void Compose_Click(object sender, EventArgs e)
     {
 
-        // Retrieve contacts (Tenants that have favorited this host's property) 
-        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
+        // Retrieve contacts (hosts of favorited properties) 
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(h.firstName,' ', h.lastName), t.tenantID, h.hostID "
                                                     + "FROM Tenant t "
                                                     + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
                                                     + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
                                                     + "INNER JOIN Host h ON a.hostID = h.hostID "
-                                                    + "WHERE h.hostID = @hID", sc);
-        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+                                                    + "WHERE t.tenantID = @tID", sc);
+        selectContacts.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
 
         SqlDataReader reader = selectContacts.ExecuteReader();
 
@@ -351,7 +352,7 @@ public partial class TenantDashboard : System.Web.UI.Page
         {
             if (CheckExistingContacts2(Convert.ToString(reader.GetInt32(1))) == false)
             {
-                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(2)));
                 DropDownList2.Items.Add(contact);
             }
 
@@ -408,7 +409,7 @@ public partial class TenantDashboard : System.Web.UI.Page
         SqlCommand selectContacts = new SqlCommand("SELECT concat(h.firstName,' ', h.lastName), t.tenantID, h.hostID "
                                                     + "FROM host h "
                                                     + "INNER JOIN Accommodation a ON h.hostID = a.hostID "
-                                                    + "INNER JOIN FavoriteProperty f ON a.hostID = f.hostID "
+                                                    + "INNER JOIN FavoriteProperty f ON a.accommodationID = f.accommodationID "
                                                     + "INNER JOIN Tenant t ON f.tenantID = t.tenantID "
                                                     + "WHERE t.tenantID = @tenantID", sc);
         selectContacts.Parameters.AddWithValue("@tenantID", Convert.ToString(ViewState["tenantID"]));
@@ -439,7 +440,7 @@ public partial class TenantDashboard : System.Web.UI.Page
         selectTenant.Parameters.AddWithValue("@mID", mID);
         String hID = Convert.ToString(selectTenant.ExecuteScalar());
         // Get Message History from particular sender
-        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName, ' ', h.lastName), m.sender FROM Host h "
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(t.firstName, ' ', t.lastName), m.sender FROM Host h "
                                                             + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
                                                             + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
                                                     + "WHERE m.hostID = @hID and t.tenantID = @tID "
@@ -459,7 +460,7 @@ public partial class TenantDashboard : System.Web.UI.Page
             // Sender 
             String senderType = reader.GetString(6);
             String senderName;
-            if (senderType == "T")
+            if (senderType == "H")
             {
                 senderName = reader.GetString(0);
             }
