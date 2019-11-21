@@ -114,7 +114,7 @@ public partial class TenantDashboard : System.Web.UI.Page
             SqlCommand select = new SqlCommand();
             select.Connection = sc;
 
-            select.CommandText = "select a.accommodationID, a.description, h.firstName, h.cleared from FavoriteProperty fp " +
+            select.CommandText = "select a.accommodationID, a.description, h.firstName, isnull(h.cleared, 'F') from FavoriteProperty fp " +
                 "inner join Accommodation a on a.accommodationID = fp.accommodationID " +
                 "inner join Host h on h.hostID = a.hostID where fp.tenantID = @tenID";
             select.Parameters.AddWithValue("@tenID", Convert.ToString(ViewState["tenantID"]));
