@@ -398,6 +398,7 @@
             mapTypeId: 'roadmap',
             disableDefaultUI: true,
             zoomControl: true,
+            panControl: true,
             zoomControlOptions: {
                 style: google.maps.ZoomControlStyle.SMALL
             }

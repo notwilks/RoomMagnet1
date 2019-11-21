@@ -203,17 +203,17 @@ public partial class TenantDashboard : System.Web.UI.Page
                 {
                     // Create div to display messages
 
-                    var div1 = new HtmlGenericControl("div")
+                    var div2 = new HtmlGenericControl("div")
                     {
 
                     };
-                    messageCenterDiv.Controls.Add(div1);
-                    div1.Style.Add("margin-top", "1rem;");
+                    messageCenterDiv.Controls.Add(div2);
+                    div2.Style.Add("margin-top", "1rem;");
                     //div1.Style.Add("border-bottom", "solid;");
                     //div1.Style.Add("border-bottom-width", "1px;");
-                    div1.Style.Add("border-top", "solid;");
-                    div1.Style.Add("border-top-width", "1px;");
-                    div1.Attributes.Add("class", "col-md-12");
+                    div2.Style.Add("border-top", "solid;");
+                    div2.Style.Add("border-top-width", "1px;");
+                    div2.Attributes.Add("class", "col-md-12");
 
                     // Populate message divs
                     // Sender name
@@ -223,7 +223,7 @@ public partial class TenantDashboard : System.Web.UI.Page
                         InnerText = "New Message | " + sName
                     };
                     senderName.Style.Add("margin-top", "1rem");
-                    div1.Controls.Add(senderName);
+                    div2.Controls.Add(senderName);
 
                     // View message button
                     Button view = new Button();
@@ -248,7 +248,7 @@ public partial class TenantDashboard : System.Web.UI.Page
                     {
                         InnerText = message
                     };
-                    div1.Controls.Add(messageText);
+                    div2.Controls.Add(messageText);
 
 
 
