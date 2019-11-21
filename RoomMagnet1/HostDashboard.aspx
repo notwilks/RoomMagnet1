@@ -164,7 +164,7 @@ window.onclick = function(event) {
     </div><!-- end div big row -->
     
     
-     <div class="row " style="margin-top: 1rem;">
+     <div class="row " runat="server" style="margin-top: 1rem;">
         <div class="col-md-6"  style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
             <div class="row">
               <div class="col-md-12">

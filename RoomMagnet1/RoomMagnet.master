@@ -61,12 +61,7 @@
      
 </div> <!-- end div container! -->
     <body>
-        <script type="text/javascript">
-            window.addEventListener('unload', function (event) {
-            '<%Session["userEmail"] = ""; %>';
-            '<%Session["userType"] = ""; %>';
-            });
-        </script>
+        
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
         

@@ -23,7 +23,7 @@ public partial class TenantDashboard : System.Web.UI.Page
 
             // Retrieve tenant ID 
 
-            SqlCommand selectTenantID = new SqlCommand("Select hostID from Host where email = @tenantEmail", sc);
+            SqlCommand selectTenantID = new SqlCommand("Select tenantID from Tenant where email = @tenantEmail", sc);
             selectTenantID.Parameters.Add(new SqlParameter("@tenantEmail", Convert.ToString(Session["userEmail"])));
             sc.Open();
             ViewState["tenantID"] = Convert.ToInt32(selectTenantID.ExecuteScalar());
@@ -195,10 +195,11 @@ public partial class TenantDashboard : System.Web.UI.Page
             // MESSAGE CENTER 
 
             // Retrieve a Tenant's existing messages from DB
-            SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
+            SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
                                                         + "INNER JOIN host h ON h.hostID = m.hostID "
-                                                        + "WHERE m.tenantID = @tID and sender = 'H'", sc);
+                                                        + "WHERE m.tenantID = @tID and sender = @senderType", sc);
             selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
+            selectMessages.Parameters.AddWithValue("@senderType", "H");
             sc.Open();
             reader = selectMessages.ExecuteReader();
 
@@ -241,7 +242,7 @@ public partial class TenantDashboard : System.Web.UI.Page
                     view.Style.Add("margin-top", "1rem");
                     //view.Attributes.Add("data-toggle", "modal");
                     //view.Attributes.Add("data-target", "#exampleModalCenter");
-                    //view.Click += new EventHandler(ViewMessageHistory_Click);
+                    view.Click += new EventHandler(ViewMessageHistory_Click);
                     senderName.Controls.Add(view);
 
                     // Message
@@ -331,4 +332,263 @@ public partial class TenantDashboard : System.Web.UI.Page
         Session["propertyID"] = ID;
         Response.Redirect("PropertyInfo.aspx");
     }
+
+    protected void Compose_Click(object sender, EventArgs e)
+    {
+
+        // Retrieve contacts (Tenants that have favorited this host's property) 
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
+                                                    + "FROM Tenant t "
+                                                    + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
+                                                    + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
+                                                    + "INNER JOIN Host h ON a.hostID = h.hostID "
+                                                    + "WHERE h.hostID = @hID", sc);
+        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+
+        SqlDataReader reader = selectContacts.ExecuteReader();
+
+
+
+
+
+
+        // Add contacts to dropdowns
+
+        while (reader.Read())
+        {
+            if (CheckExistingContacts2(Convert.ToString(reader.GetInt32(1))) == false)
+            {
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                DropDownList2.Items.Add(contact);
+            }
+
+
+
+        }
+        reader.Close();
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup2();", true);
+    }
+    protected Boolean CheckExistingContacts2(String tenantID)
+    {
+        Boolean contactExists = false;
+        foreach (ListItem li in DropDownList2.Items)
+        {
+            if (li.Value == tenantID)
+            {
+                contactExists = true;
+            }
+        }
+        return contactExists;
+    }
+
+    protected void SendNewMessage_Click(object sender, EventArgs e)
+    {
+        // Get TenantID based on selected contact
+        String tID = Convert.ToString(DropDownList2.SelectedValue);
+
+        // Insert message into message center 
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(tenantID, hostID, messageText, dateSent, sender) VALUES(@tID3, @hID3, @msgText3, @date3, @sender3)", sc);
+        sendMessage.Parameters.AddWithValue("@tID3", tID);
+        sendMessage.Parameters.AddWithValue("@hID3", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@msgText3", txtBoxMessage.Text.ToString());
+        sendMessage.Parameters.AddWithValue("date3", DateTime.Now.ToString());
+        sendMessage.Parameters.AddWithValue("@sender3", "H");
+
+        sendMessage.ExecuteNonQuery();
+        sc.Close();
+    }
+
+    protected void ViewMessageHistory_Click(object sender, EventArgs e)
+    {
+
+        Button btn = (Button)sender;
+        String mID = Convert.ToString(btn.ID);
+        BuildMessageCenter(mID);
+
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
+    }
+
+    protected void BuildMessageCenter(String mID)
+    {
+
+        // Retrieve contacts (Hosts of favorited properties) 
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(h.firstName,' ', h.lastName), t.tenantID, h.hostID "
+                                                    + "FROM host h "
+                                                    + "INNER JOIN Accommodation a ON h.hostID = a.hostID "
+                                                    + "INNER JOIN FavoriteProperty f ON a.hostID = f.hostID "
+                                                    + "INNER JOIN Tenant t ON f.tenantID = t.tenantID "
+                                                    + "WHERE t.tenantID = @tenantID", sc);
+        selectContacts.Parameters.AddWithValue("@tenantID", Convert.ToString(ViewState["tenantID"]));
+
+        SqlDataReader reader = selectContacts.ExecuteReader();
+
+
+
+
+
+
+        // Add contacts to dropdowns
+
+        while (reader.Read())
+        {
+            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false)
+            {
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                DropDownList1.Items.Add(contact);
+            }
+
+
+
+        }
+        reader.Close();
+        // Get hostID 
+        SqlCommand selectTenant = new SqlCommand("SELECT hostID FROM messageCenter WHERE messageID = @mID", sc);
+        selectTenant.Parameters.AddWithValue("@mID", mID);
+        String hID = Convert.ToString(selectTenant.ExecuteScalar());
+        // Get Message History from particular sender
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID, concat(h.firstName, ' ', h.lastName), m.sender FROM Host h "
+                                                            + "INNER JOIN MessageCenter m ON h.hostID = m.hostID "
+                                                            + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+                                                    + "WHERE m.hostID = @hID and t.tenantID = @tID "
+                                                    + "ORDER BY dateSent DESC", sc);
+        selectMessages.Parameters.AddWithValue("@hID", hID);
+        selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
+
+        reader = selectMessages.ExecuteReader();
+
+
+
+        while (reader.Read())
+        {
+
+
+            // Populate Left column
+            // Sender 
+            String senderType = reader.GetString(6);
+            String senderName;
+            if (senderType == "T")
+            {
+                senderName = reader.GetString(0);
+            }
+            else
+            {
+                senderName = reader.GetString(5);
+            }
+            var leftSenderHeader = new HtmlGenericControl("h5")
+            {
+                InnerText = senderName
+            };
+            leftSenderHeader.Attributes.Add("style", "font-size: 17px");
+            leftDiv.Controls.Add(leftSenderHeader);
+
+            // View message button
+            Button viewMessage = new Button();
+            viewMessage.ID = Convert.ToString(reader.GetInt32(4));
+            viewMessage.Text = "View";
+            viewMessage.Attributes.Add("type", "button");
+            viewMessage.Attributes.Add("class", "btn btn-sm float-right");
+            viewMessage.Attributes.Add("runat", "server");
+            viewMessage.Attributes.Add("OnClientClick", "ViewFullMessage_Click");
+            //view.Attributes.Add("data-toggle", "modal");
+            //view.Attributes.Add("data-target", "#exampleModalCenter");
+            //viewMessage.Click += new EventHandler(ViewFullMessage_Click);
+            leftSenderHeader.Controls.Add(viewMessage);
+
+            // Date 
+            String date = reader.GetDateTime(3).ToShortDateString();
+            var leftDateSent = new HtmlGenericControl("p")
+            {
+                InnerText = date
+            };
+            leftDateSent.Attributes.Add("style", "font-size: 13px");
+            leftDiv.Controls.Add(leftDateSent);
+
+            // Message
+            String message = reader.GetString(1);
+            if (message.Length >= 20)
+            {
+                message = message.Substring(0, 20) + "...";
+            }
+            var leftMessageText = new HtmlGenericControl("p")
+            {
+                InnerText = message
+            };
+            leftDiv.Controls.Add(leftMessageText);
+        }
+        reader.Close();
+
+        // Populate Right column
+        SqlCommand selectClickedMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID FROM MessageCenter m "
+                                                    + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
+                                                    + "WHERE m.hostID = @hID and t.tenantID = @tID and m.messageID = @mID "
+                                                    + "ORDER BY dateSent DESC", sc);
+        selectClickedMessage.Parameters.AddWithValue("@hID", hID);
+        selectClickedMessage.Parameters.AddWithValue("@tID", ViewState["tenantID"]);
+        selectClickedMessage.Parameters.AddWithValue("@mID", mID);
+        reader = selectClickedMessage.ExecuteReader();
+
+        while (reader.Read())
+        {
+            lblSender.Text = reader.GetString(0);
+            lblDate.Text = reader.GetDateTime(3).ToShortDateString();
+            lblMessageText.Text = reader.GetString(1);
+            Button send = new Button();
+            send.ID = Convert.ToString(reader.GetInt32(4));
+            send.Text = "Send";
+            send.Attributes.Add("type", "button");
+            send.Click += new EventHandler(Send_Click);
+            send.Attributes.Add("class", "btn float-right");
+            send.Attributes.Add("runat", "server");
+            //view.Attributes.Add("data-toggle", "modal");
+            //view.Attributes.Add("data-target", "#exampleModalCenter");
+            send.Attributes.Add("UseSubmitBehavior", "false");
+            //send.Attributes.Add("data-dismiss", "modal");
+            rightDiv.Controls.Add(send);
+        }
+        reader.Close();
+
+
+
+    }
+
+    protected Boolean CheckExistingContacts(String tenantID)
+    {
+        Boolean contactExists = false;
+
+        foreach (ListItem li in DropDownList1.Items)
+        {
+            if (li.Value == tenantID)
+            {
+                contactExists = true;
+            }
+        }
+        return contactExists;
+
+    }
+    protected void Send_Click(object sender, EventArgs e)
+    {
+        Button sendBtn = (Button)sender;
+        String mID = Convert.ToString(sendBtn.ID);
+
+        // Get TenantID based on messageID passed from send button
+        SqlCommand selectTenant = new SqlCommand("SELECT TenantID FROM MessgeCenter WHERE MessageID = @msgID", sc);
+        selectTenant.Parameters.AddWithValue("@msgID", mID);
+
+        String tID = Convert.ToString(sendBtn.ID);
+
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2)", sc);
+        sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@tenantID2", tID);
+        sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
+        sendMessage.Parameters.AddWithValue("@date2", DateTime.Now.ToLongDateString());
+        sendMessage.Parameters.AddWithValue("@sender2", "H");
+        sc.Open();
+        sendMessage.ExecuteNonQuery();
+        sc.Close();
+
+
+
+    }
+
+
 }
