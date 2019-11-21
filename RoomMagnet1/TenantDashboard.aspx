@@ -120,8 +120,7 @@
       </div>          
     </div><!-- end div big row -->
     
-    
-     <div class="row " runat="server" style="margin-top: 1rem;">
+    <div class="row" runat="server" style="margin-top: 1rem;">
         <div class="col-md-6" runat="server" style="border: solid; border-color: black; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
             <div class="row" runat="server">
                 <div class="col-md-12" runat="server">
@@ -195,7 +194,7 @@
          </div>
          <!--end modal-dialog div-->
 
-         </div>
+        
 
 
          <!-- Modal -->
@@ -292,8 +291,8 @@
         </div><!-- end div big row -->  
     
         <div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
-            <div class="col-md-12"  style=" margin-top: 1rem;">
-                <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
+            <div class="col-md-12"  style=" margin-top: 1rem;" id="rentalAgreementArea" runat="server">
+                <p></p>
               </div>
         </div><!-- end div big row -->  
     </div>
