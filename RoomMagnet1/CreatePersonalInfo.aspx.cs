@@ -47,7 +47,6 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
         if (Convert.ToString(Session["userType"]) == "T")
         {
             Tenant tempTenant = new Tenant();
-
             try
             {
                 // Validates whether all the textboxes have actual values in them

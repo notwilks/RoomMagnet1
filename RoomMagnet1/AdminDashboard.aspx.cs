@@ -24,7 +24,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
 
-        select.CommandText = "select hostID, (lastName + ', ' + firstName) AS 'Host Accounts', email, cleared from Host where lastName = @lastName";
+        select.CommandText = "select ISNULL(hostID, 0), ISNULL((lastName + ', ' + firstName), ''), isnull(email, ''), isnull(cleared, 'F') from Host where lastName = @lastName";
         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", lastNameSearchBox.Text));
 
         SqlDataReader reader = select.ExecuteReader();
@@ -131,7 +131,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         SqlCommand selectT = new SqlCommand();
         select.Connection = sc;
 
-        select.CommandText = "select tenantID, (lastName + ', ' + firstName), email, ISNULL(cleared, 'F') from Tenant where lastName = @lastName1";
+        select.CommandText = "select isnull(tenantID, 0), isnull((lastName + ', ' + firstName), ''), isnull(email, ''), ISNULL(cleared, 'F') from Tenant where lastName = @lastName1";
         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName1", lastNameSearchBox.Text));
 
         SqlDataReader readerT = select.ExecuteReader();
