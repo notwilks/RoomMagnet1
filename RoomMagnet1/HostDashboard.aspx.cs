@@ -356,28 +356,12 @@ public partial class HostDashboard : System.Web.UI.Page
 
 
                 }
+                sc.Close();
                 reader.Close();
 
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
 
     }
     protected void EditProfileBtn_Click(object sender, EventArgs e)
