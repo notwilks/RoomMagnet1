@@ -212,11 +212,11 @@ public partial class HostDashboard : System.Web.UI.Page
 
             sc.Open();
 
-            rental.CommandText = "select hostID from Host where email = '" + Session["userEmail"] + ";";
+            rental.CommandText = "select hostID from Host where email = '" + Session["userEmail"] + "';";
             int hostID = Convert.ToInt32(rental.ExecuteScalar());
 
             rental.CommandText = "Select t.tenantID, t.FirstName, t.biography from RentalAgreement ra " +
-                "inner join tenant on ra.tenantID = t.tenantID " +
+                "inner join tenant t on ra.tenantID = t.tenantID " +
                 "where hostID = " + hostID;
 
             SqlDataReader readerRental = rental.ExecuteReader();
