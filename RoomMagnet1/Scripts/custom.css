@@ -456,17 +456,17 @@ button {
 }
 
 .btn-outline-dark:hover {
-        color: #fff;
-        background-color: #CC6559;
-        border-color: #CC6559;
+     color: #fff;
+     background-color: #CC6559;
+     border-color: #CC6559;
 }
 
 
 /* fonts   */
-@import url('https://fonts.googleapis.com/css?family=Oswald:500|Raleway:300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oswald:400|Raleway:300&display=swap');
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald', sans-serif !important;
 }
 
 p {

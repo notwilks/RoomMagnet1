@@ -41,6 +41,22 @@ public partial class HostDashboard : System.Web.UI.Page
 
         int accomID = Convert.ToInt32(select.ExecuteScalar());
 
+        select.CommandText = "Select cleared from Host where email = '" + Session["userEmail"] + "'";
+        string cleared = Convert.ToString(select.ExecuteScalar());
+
+        if (cleared == "T")
+        {
+            TenantBackgroundStatusImage.ImageUrl = "images/icons-07.png";
+            TenantBackgroundStatusDescrip.Text = "You are a verified user! Your background check has been completed and you are cleared.";
+            TenantBackgroundStatusWords.Text = "Completed";
+        }
+        else
+        {
+            TenantBackgroundStatusImage.ImageUrl = "images/icons-08.png";
+            TenantBackgroundStatusDescrip.Text = "Your background check has either not yet been submitted or is currently under review.";
+            TenantBackgroundStatusWords.Text = "Not Completed";
+        }
+
         select.CommandText = "Select hostID from Host where email = @hostEmail2";
         select.Parameters.Add(new SqlParameter("@hostEmail2", Convert.ToString(Session["userEmail"])));
 
@@ -209,8 +225,10 @@ public partial class HostDashboard : System.Web.UI.Page
                 };
                 messagesDashDiv.Controls.Add(div1);
                 div1.Style.Add("margin-top", "1rem;");
-                div1.Style.Add("border-bottom", "solid;");
-                div1.Style.Add("border-bottom-width", "1px;");
+                //div1.Style.Add("border-bottom", "solid;");
+                //div1.Style.Add("border-bottom-width", "1px;");
+                div1.Style.Add("border-top", "solid;");
+                div1.Style.Add("border-top-width", "1px;");
                 div1.Attributes.Add("class", "col-md-12");
                 /*
                // New Message Header
@@ -249,6 +267,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 {
                     InnerText = "New Message | " + name
                 };
+                senderName.Style.Add("margin-top", "1rem");
                 div1.Controls.Add(senderName);
 
                 // View message button
@@ -258,6 +277,7 @@ public partial class HostDashboard : System.Web.UI.Page
                 view.Attributes.Add("type", "button");
                 view.Attributes.Add("class", "btn float-right");
                 view.Attributes.Add("runat", "server");
+                view.Style.Add("margin-top", "1rem");
                 //view.Attributes.Add("data-toggle", "modal");
                 //view.Attributes.Add("data-target", "#exampleModalCenter");
                 view.Click += new EventHandler(ViewMessageHistory_Click);
