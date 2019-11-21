@@ -635,10 +635,7 @@ public partial class SearchResultPage : System.Web.UI.Page
             Session["CitySearch"] = "";
             Session["StateSearch"] = "";
 
-            //SqlCommand fav = new SqlCommand();
-            //fav.Connection = sc;
-
-            //sc.Open();
+            
 
         }
     }

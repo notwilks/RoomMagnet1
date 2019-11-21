@@ -186,10 +186,27 @@ public partial class TenantDashboard : System.Web.UI.Page
             }
             sc.Close();
 
-            // MESSAGE CENTER 
+        //Rental Agreement
 
-            // Retrieve a Tenant's existing messages from DB
-            SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
+        SqlCommand rental = new SqlCommand();
+        rental.Connection = sc;
+
+        sc.Open();
+        rental.CommandText = "Select hostID from RentalAgreement where tenantID = " + tenantID;
+        String hostIDLease = Convert.ToString(rental.ExecuteScalar());
+
+        var hostIDAgreement = new HtmlGenericControl("p")
+        {
+
+        };
+        hostIDAgreement.InnerText = Convert.ToString(hostIDLease);
+        rentalAgreementArea.Controls.Add(hostIDAgreement);
+        sc.Close();
+
+        // MESSAGE CENTER 
+
+        // Retrieve a Tenant's existing messages from DB
+        SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
                                                         + "INNER JOIN host h ON h.hostID = m.hostID "
                                                         + "WHERE m.tenantID = @tID and sender = @senderType", sc);
             selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));

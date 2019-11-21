@@ -285,8 +285,8 @@
         </div><!-- end div big row -->  
     
         <div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
-            <div class="col-md-12"  style=" margin-top: 1rem;">
-                <p>When you have a rental agreement, it will be indicated here. We hope you find your perfect housing match so that you can have some wonderful rental agreements.</p>
+            <div class="col-md-12"  style=" margin-top: 1rem;" id="rentalAgreementArea" runat="server">
+                <p></p>
               </div>
         </div><!-- end div big row -->  
     </div>

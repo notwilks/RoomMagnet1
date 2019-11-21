@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 public partial class PropertyInfo : System.Web.UI.Page
 {
     public int accomID = 0;
+    public int hostID = 0;
 
     public string jsStreetName = "715 S Main St Harrisonburg, VA, USA";
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
@@ -48,7 +49,7 @@ public partial class PropertyInfo : System.Web.UI.Page
             "aa.bathroom, aa.entrance, aa.furnished, aa.storage, aa.smoker, aa.kitchen, aa.allowPets, aa.cable, aa.laundry, aa.parking, aa.wifi, aa.pets, " +
             "ISNULL(ai.mainImage, ''), ISNULL(ai.image2, ''), ISNULL(ai.image3, ''), ISNULL(ai.image4, ''), ISNULL(ai.image5, ''), ISNULL(ai.image6, ''), " +
             "ISNULL(ai.image7, ''), ISNULL(ai.image8, ''),  ISNULL(ai.image9, ''),  ISNULL(ai.image10, ''), " +
-            "ISNULL (hi.mainImage, ''), ISNULL(hi.image2, ''), ISNULL(hi.image3, ''), a.houseNumber, a.street, a.country " +
+            "ISNULL (hi.mainImage, ''), ISNULL(hi.image2, ''), ISNULL(hi.image3, ''), a.houseNumber, a.street, a.country, h.hostID " +
             "from Host h inner join Accommodation a on a.hostID = h.HostID " + 
             "inner join AccommodationAmmenity aa on a.accommodationID = aa.accommodationID " +
             "inner join AccommodationImages ai on a.accommodationID = ai.accommodationID " +
@@ -572,7 +573,8 @@ public partial class PropertyInfo : System.Web.UI.Page
             }
 
             accomID = reader.GetInt32(5);
-            
+            hostID = reader.GetInt32(43);
+
         }
         sc.Close();
         reader.Close();
@@ -702,7 +704,7 @@ public partial class PropertyInfo : System.Web.UI.Page
 
         sc.Open();
 
-        select.CommandText = "Select (firstName + ' ' + LastName), cleared from Tenant where email = '" + Session["userEmail"] + "'";
+        select.CommandText = "Select (firstName + ' ' + LastName), cleared, tenantID from Tenant where email = '" + Session["userEmail"] + "'";
 
         SqlDataReader reader = select.ExecuteReader();
 
@@ -711,7 +713,11 @@ public partial class PropertyInfo : System.Web.UI.Page
         {
             Session["tenantLease"] = reader.GetString(0);
             Session["tenantCleared"] = reader.GetString(1);
+            Session["tenantIDLease"] = reader.GetInt32(2);
         }
+
+        Session["hostIDLease"] = hostID;
+        Session["accomIDLease"] = accomID;
 
         Response.Redirect("IntentToLease.aspx");
 
