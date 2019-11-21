@@ -96,20 +96,15 @@
         <div class="col-md-6"  style="border: solid; border-color: black; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
             <div class="row">
                 <div class="col-md-12">
-                   <h1>Message Board</h1> 
-                </div>
+                   <h2 >Message Board<asp:Button ID="btnCompose" CssClass="btn float-right" runat="server" Text="Compose" Style="margin-top: 1rem"/></h2>
+                
+              </div>
             </div>
 
-            <div class="row" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
-                <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>New Message Sender Name</h3>
-                    <p>Content of the message. Do you want to live at my house? I want to video chat with you first. When are you free to talk?</p>
+            <div class="row" id="messageCenterDiv" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+                
                 </div>
-                 <div class="col-md-12" style="margin-top: 1rem; border-bottom: solid; border-bottom-width: 1px;">
-                   <h3>New Message Sender Name</h3>
-                    <p>Content of the message. Do you want to live at my house? I want to video chat with you first. When are you free to talk?</p>
-                </div>
-            </div>
+            
           </div>
 
 
