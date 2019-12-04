@@ -260,7 +260,35 @@ public partial class HostDashboard : System.Web.UI.Page
             readerRental.Close();
 
             // MESSAGE CENTER 
+            // Display notification for new messages 
+            SqlCommand newMessage = new SqlCommand("SELECT messageID from MessageCenter WHERE hostID = @hID and sender = 'T'", sc);
+            newMessage.Parameters.AddWithValue("hID", Convert.ToString(ViewState["hostID"]));
+            sc.Open();
+           
+            
+            var div1 = new HtmlGenericControl("div");
+            {
+            };
+            messagesDashDiv.Controls.Add(div1);
+            String notification = "";
+            var messageNotification = new HtmlGenericControl("p")
+            {
+                
+            };
+            
+            if (newMessage.ExecuteScalar() == DBNull.Value)
+            {
+                notification = "You do not have any new messages";
+            }
+            else
+            {
+                notification = "You have a new message! Visit Message Center to view it.";
+            }
+            messageNotification.InnerText = notification;
+            div1.Controls.Add(messageNotification);
+            sc.Close();
 
+            /*
             // Retrieve a Host's existing messages from DB
             SqlCommand selectMessages = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), messageText, t.tenantID, m.messageID, m.sender FROM MessageCenter m "
                                                         + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
@@ -268,12 +296,14 @@ public partial class HostDashboard : System.Web.UI.Page
             selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
             sc.Open();
             reader = selectMessages.ExecuteReader();
-
+            
 
 
 
             using (reader)
             {
+                // OLD CODE TO SHOW NEW MESSAGE PREVIEWS ON DASH
+                /*
                 while (reader.Read())
                 {
                     // Create divs to display messages
@@ -289,34 +319,7 @@ public partial class HostDashboard : System.Web.UI.Page
                     div1.Style.Add("border-top", "solid;");
                     div1.Style.Add("border-top-width", "1px;");
                     div1.Attributes.Add("class", "col-md-12");
-                    /*
-                   // New Message Header
-                   var newMessageHeader = new HtmlGenericControl("div")
-                   {
-
-                   };
-                   div1.Controls.Add(newMessageHeader);
-
-
-                   // Message div
-                   var messageDiv = new HtmlGenericControl("div")
-                   {
-
-                   };
-                   div1.Controls.Add(messageDiv);
-
-
-                   // Button div
-                   var btnMoreMessages = new HtmlGenericControl("div")
-                   {
-
-                   };
-                   div1.Controls.Add(btnDiv);
-                   btnDiv.Attributes.Add("class", "col-md-2");
-
-
-                   messageDiv.Attributes.Add("class", "col-md-7");
-                   */
+                   
 
 
                     // Populate message divs
@@ -358,8 +361,8 @@ public partial class HostDashboard : System.Web.UI.Page
                 }
                 sc.Close();
                 reader.Close();
-
-            }
+                
+            }*/
 
         }
 
@@ -469,6 +472,8 @@ public partial class HostDashboard : System.Web.UI.Page
 
     protected void Compose_Click(object sender, EventArgs e)
     {
+        Response.Redirect("HostMessageCenter.aspx");
+        /*
         try
         {
 
@@ -502,6 +507,7 @@ public partial class HostDashboard : System.Web.UI.Page
         {
             NoFavs.Text = "You cannot message a tenant until a tenant has favorited your property.";
         }
+        */
     }
 
     protected void ViewMessageHistory_Click(object sender, EventArgs e)
