@@ -48,7 +48,7 @@
             <div class="col" runat="server">
                 <div class="row" style="margin-left: 1rem;" runat="server">
                     <div class="col-md-4" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
-                        <div class="row" style="border-bottom-style: solid; border-bottom-color: #D0D0D0; margin-bottom: 1rem;">
+                        <div class="row" runat="server" style="border-bottom-style: solid; border-bottom-color: #D0D0D0; margin-bottom: 1rem;">
                             <h4>Your Conversations</h4>
                         </div>
                     </div>
@@ -111,8 +111,8 @@
                                                 </asp:DropDownList>
                                                 <p style="font-size: 10pt;">*Contacts based on tenants who have favorited your property</p>
 
-                                                <div class="row">
-                                                    <div class="col-md-12" style="padding-bottom: 15px;">
+                                                <div class="row" runat="server">
+                                                    <div class="col-md-12" style="padding-bottom: 15px;" runat="server">
                                                         <p>
                                                             <asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" Style="height: 200px; width: 100%; margin-top: 1rem; font-size: 14pt;" ForeColor="Gray" placeholder="Compose Message"></asp:TextBox></p>
 
