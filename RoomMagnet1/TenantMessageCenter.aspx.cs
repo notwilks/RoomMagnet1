@@ -51,12 +51,20 @@ public partial class TenantMessageCenter : System.Web.UI.Page
             String senderType = reader.GetString(6);
             String hostName = reader.GetString(5);
 
+            var divOne = new HtmlGenericControl("div")
+            {
+               
+            };
+            divOne.Style.Add("border-bottom", "solid");
+            divOne.Style.Add("border-bottom-width", "1px");
+            leftDiv.Controls.Add(divOne);
+
             var leftSenderHeader = new HtmlGenericControl("h5")
             {
                 InnerText = hostName
             };
             leftSenderHeader.Attributes.Add("style", "font-size: 17px");
-            leftDiv.Controls.Add(leftSenderHeader);
+            divOne.Controls.Add(leftSenderHeader);
 
             // View conversation button
             Button viewConvo = new Button();
@@ -78,7 +86,7 @@ public partial class TenantMessageCenter : System.Web.UI.Page
                 InnerText = date
             };
             leftDateSent.Attributes.Add("style", "font-size: 13px");
-            leftDiv.Controls.Add(leftDateSent);
+            divOne.Controls.Add(leftDateSent);
 
             // Message
             String message = reader.GetString(2);
@@ -90,7 +98,7 @@ public partial class TenantMessageCenter : System.Web.UI.Page
             {
                 InnerText = message
             };
-            leftDiv.Controls.Add(leftMessageText);
+            divOne.Controls.Add(leftMessageText);
         }
         reader.Close();
         sc.Close();
