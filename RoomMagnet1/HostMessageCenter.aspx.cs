@@ -159,30 +159,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
     }
 
 
-    protected void Send_Click(object sender, EventArgs e)
-    {
-        Button sendBtn = (Button)sender;
-        String mID = Convert.ToString(sendBtn.ID);
-
-        // Get TenantID based on messageID passed from send button
-        SqlCommand selectTenant = new SqlCommand("SELECT TenantID FROM MessgeCenter WHERE MessageID = @msgID", sc);
-        selectTenant.Parameters.AddWithValue("@msgID", mID);
-
-        String tID = Convert.ToString(sendBtn.ID);
-
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2)", sc);
-        sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
-        sendMessage.Parameters.AddWithValue("@tenantID2", tID);
-        sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
-        sendMessage.Parameters.AddWithValue("@date2", DateTime.Now.ToLongDateString());
-        sendMessage.Parameters.AddWithValue("@sender2", "H");
-        sc.Open();
-        sendMessage.ExecuteNonQuery();
-        sc.Close();
-
-
-
-    }
+    
 
     protected Boolean CheckExistingContacts(String tenantID)
     {
@@ -200,15 +177,17 @@ public partial class HostMessageCenter : System.Web.UI.Page
     protected void ViewConversation_Click(object sender, EventArgs e)
     {
         Button btn = (Button)sender;
-        String tenantID = Convert.ToString(btn.ID);
+        ViewState["tenantID"] = Convert.ToString(btn.ID);
+
+        
 
         //Get message history with particular tenant
         SqlCommand selectConversation = new SqlCommand("SELECT m.tenantID, m.dateSent, m.messageText, m.sender, t.firstName FROM MessageCenter m "
                                                         + "INNER JOIN tenant t on m.tenantID = t.tenantID "
                                                         + "where m.hostID = @hID1 and m.tenantID = @tID1 "
-                                                        + "order by dateSent desc", sc);
+                                                        + "order by dateSent asc", sc);
         selectConversation.Parameters.AddWithValue("@hID1", Convert.ToString(ViewState["hostID"]));
-        selectConversation.Parameters.AddWithValue("@tID1", tenantID);
+        selectConversation.Parameters.AddWithValue("@tID1", Convert.ToString(ViewState["tenantID"]));
         sc.Open();
 
         SqlDataReader reader = selectConversation.ExecuteReader();
@@ -269,4 +248,24 @@ public partial class HostMessageCenter : System.Web.UI.Page
 
     }
 
+    protected void Send_Click(object sender, EventArgs e)
+    {
+
+        
+
+        
+
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2)", sc);
+        sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@tenantID2", Convert.ToString(ViewState["tenantID"]));
+        sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
+        sendMessage.Parameters.AddWithValue("@date2", DateTime.Now);
+        sendMessage.Parameters.AddWithValue("@sender2", "H");
+        sc.Open();
+        sendMessage.ExecuteNonQuery();
+        sc.Close();
+
+
+
+    }
 }
