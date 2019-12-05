@@ -23,37 +23,14 @@ public partial class HostMessageCenter : System.Web.UI.Page
         ViewState["hostID"] = Convert.ToInt32(selectHostID.ExecuteScalar());
         sc.Close();
 
-        // Retrieve contacts (Tenants that have favorited this host's property) 
-        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
-                                                    + "FROM Tenant t "
-                                                    + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
-                                                    + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
-                                                    + "INNER JOIN Host h ON a.hostID = h.hostID "
-                                                    + "WHERE h.hostID = @hID", sc);
-        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-        sc.Open();
-        SqlDataReader reader = selectContacts.ExecuteReader();
-
+        
         // Reply box and send button not visible until a conversation is selected
         txtBoxReply.Visible = false;
         btnSendRepy.Visible = false;
 
 
 
-        // Add contacts to dropdowns
-
-        while (reader.Read())
-        {
-            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false)
-            {
-                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
-                DropDownList1.Items.Add(contact);
-            }
-
-
-
-        }
-        reader.Close();
+       
 
 
 
@@ -65,9 +42,8 @@ public partial class HostMessageCenter : System.Web.UI.Page
                                                     + "group by m.dateSent, m.tenantID, m.messageText, t.firstName, t.lastName, h.firstName, h.lastName, m.hostID, m.sender "
                                                     + "order by m.dateSent desc", sc);
         selectMessages.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-        
-
-        reader = selectMessages.ExecuteReader();
+        sc.Open();
+        SqlDataReader reader = selectMessages.ExecuteReader();
 
 
 
@@ -123,39 +99,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
         }
         reader.Close();
         sc.Close();
-        /*
-        // Populate Right column
-        SqlCommand selectClickedMessage = new SqlCommand("SELECT concat(t.firstName, ' ', t.lastName), m.messageText, t.tenantID, m.dateSent, m.messageID FROM MessageCenter m "
-                                                    + "INNER JOIN Tenant t ON t.tenantID = m.tenantID "
-                                                    + "WHERE m.hostID = @hID and t.tenantID = @tID and m.messageID = @mID "
-                                                    + "ORDER BY dateSent DESC", sc);
-        selectClickedMessage.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
-        selectClickedMessage.Parameters.AddWithValue("@tID", tID);
-        selectClickedMessage.Parameters.AddWithValue("@mID", mID);
-        sc.Open();
-        reader = selectClickedMessage.ExecuteReader();
-
-        while (reader.Read())
-        {
-            lblSender.Text = reader.GetString(0);
-            lblDate.Text = reader.GetDateTime(3).ToShortDateString();
-            lblMessageText.Text = reader.GetString(1);
-            Button send = new Button();
-            send.ID = Convert.ToString(reader.GetInt32(4));
-            send.Text = "Send";
-            send.Attributes.Add("type", "button");
-            send.Click += new EventHandler(Send_Click);
-            send.Attributes.Add("class", "btn float-right");
-            send.Attributes.Add("runat", "server");
-            //view.Attributes.Add("data-toggle", "modal");
-            //view.Attributes.Add("data-target", "#exampleModalCenter");
-            send.Attributes.Add("UseSubmitBehavior", "false");
-            //send.Attributes.Add("data-dismiss", "modal");
-            rightDiv.Controls.Add(send);
-        }
-        reader.Close();
-
-    */
+   
     }
 
 
@@ -268,4 +212,56 @@ public partial class HostMessageCenter : System.Web.UI.Page
 
 
     }
+
+
+    protected void ComposeNew_Click(object sender, EventArgs e)
+    {
+        AddToDropdown();
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
+
+
+    }
+    protected void SendNewMessage_Click(object sender, EventArgs e)
+    {
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3)", sc);
+        sendMessage.Parameters.AddWithValue("@hostID3", Convert.ToString(ViewState["hostID"]));
+        sendMessage.Parameters.AddWithValue("@tenantID3", Convert.ToString(DropDownList1.SelectedValue));
+        sendMessage.Parameters.AddWithValue("@msg3", Convert.ToString(txtBoxMessage.Text));
+        sendMessage.Parameters.AddWithValue("@date3", DateTime.Now);
+        sendMessage.Parameters.AddWithValue("@sender3", "H");
+        sc.Open();
+        sendMessage.ExecuteNonQuery();
+        sc.Close();
+        ScriptManager.RegisterStartupScript(this, GetType(), "Close Modal Popup", "ClosePopup();", true);
+    }
+    protected void AddToDropdown()
+    {
+        // Retrieve contacts (Tenants that have favorited this host's property) 
+        SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID "
+                                                    + "FROM Tenant t "
+                                                    + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
+                                                    + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
+                                                    + "INNER JOIN Host h ON a.hostID = h.hostID "
+                                                    + "WHERE h.hostID = @hID", sc);
+        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+        sc.Open();
+        SqlDataReader reader = selectContacts.ExecuteReader();
+
+        // Add contacts to dropdowns
+
+        while (reader.Read())
+        {
+            if (CheckExistingContacts(Convert.ToString(reader.GetInt32(1))) == false)
+            {
+                ListItem contact = new ListItem(reader.GetString(0), Convert.ToString(reader.GetInt32(1)));
+                DropDownList1.Items.Add(contact);
+            }
+
+
+
+        }
+        reader.Close();
+
+    }
+
 }
