@@ -30,7 +30,7 @@
                 <h1>Message Center</h1>
             </div>
             <div class="col" style="padding-bottom: 15px; margin-top: 1rem;">
-                <asp:Button ID="btnComposeNew" CssClass="btn float-left" runat="server" Text="Compose New Message" OnClick="ComposeNew_Click" />
+                <asp:Button ID="btnComposeNew" CssClass="btn" runat="server" Text="Compose New Message" OnClick="ComposeNew_Click" style="float: right"/>
 
 
                 <div class="dropdown" id="dropdownDiv" runat="server">
@@ -47,12 +47,12 @@
         <div class="row" runat="server">
             <div class="col" runat="server">
                 <div class="row" style="margin-left: 1rem;" runat="server">
-                    <div class="col" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
+                    <div class="col-md-4" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
                         <div class="row" style="border-bottom-style: solid; border-bottom-color: #D0D0D0; margin-bottom: 1rem;">
-                            <h6>Your Conversations</h6>
+                            <h4>Your Conversations</h4>
                         </div>
                     </div>
-                    <div class="col" id="rightDiv" runat="server">
+                    <div class="col-md-8" id="rightDiv" runat="server">
                         <div class="row">
                             <div class="col" runat="server">
                                 <div class="row" id="conversationDiv" runat="server" style=" margin-top: 1rem; margin-bottom: 1rem; min-height: 50px; max-height: 300px; overflow: auto;">
