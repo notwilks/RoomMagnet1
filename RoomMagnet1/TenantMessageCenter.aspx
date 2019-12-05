@@ -25,7 +25,7 @@
     <form runat="server">
 
         <div class="container">
-        <div class="row" style="margin-top: 7rem; margin-left: 1rem; margin-right: 1rem">
+        <div class="row" style="margin-top: 7rem; margin-left: 1rem; margin-right: 1rem; margin-bottom: 3rem;">
             <div class="col" style="">
                 <h1>Message Center</h1>
             </div>
@@ -62,7 +62,9 @@
                                 </div>
 
                                 <p>
-                                    <asp:TextBox ID="txtBoxReply" runat="server" TextMode="MultiLine" Style="height: 50px; width: 75%; font-size: 14pt;" ForeColor="Gray" Placeholder="Write a message..."></asp:TextBox></p>
+                                    <asp:TextBox ID="txtBoxReply" runat="server" TextMode="MultiLine" Style="height: 50px; width: 100%; font-size: 14pt;" ForeColor="Gray" Placeholder="Write a message..."></asp:TextBox>
+
+                                </p>
                             </div>
                         </div>
                         <div class="col" runat="server">
