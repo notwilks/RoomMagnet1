@@ -120,146 +120,26 @@
       </div>          
     </div><!-- end div big row -->
     
-    <div class="row" runat="server" style="margin-top: 1rem;">
-        <div class="col-md-6" runat="server" style="border: solid; border-color: black; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
+     <div class="row " runat="server" style="margin-top: 1rem;">
+        <div class="col-md-6" runat="server" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">
             <div class="row" runat="server">
-                <div class="col-md-12" runat="server">
-                   <h2 >Message Board<asp:Button ID="btnCompose" CssClass="btn float-right" runat="server" Text="Compose" OnClick="Compose_Click" Style="margin-top: 1rem"/></h2>
+              <div class="col-md-12" runat="server">
+                <h2 >Message Board<asp:Button ID="btnMessageCenter" CssClass="btn float-right" runat="server" Text="Message Center" OnClick="MessageCenter_Click" style="margin-top: .5rem;"/></h2>
                 
               </div>
             </div>
 
-            <div class="row" id="messageCenterDiv" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+            <div class="row" id="messagesDashDiv" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+                
+                <!-- New message notification goes here -->
                 <asp:Label ID="NoFavs" runat="server" Text=""></asp:Label>
-                </div>
-            
-          </div>
+
+            </div>
+            </div>
 
 
 
-         <!-- Compose message modal -->
-         <asp:ScriptManager ID="ScriptManager1"   EnablePageMethods="true"   EnablePartialRendering="true" runat="server" />
-         <div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
-             <div class="modal-dialog modal-dialog-centered" role="document">
-                 
-                 <div class="modal-content">
-                     <div class="modal-header">
-                         <h4 class="modal-title" id="modalTitle">Send a Message</h4>
-                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                         </button>
-                     </div>
-                     <div class="modal-body">
-                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                        <ContentTemplate>
-                         <div class="container-fluid">
-                             <div class="row">
-                                 <div class="col-md-12" style="padding-bottom: 15px;">
-                                     <div class="dropdown" id="Div1" runat="server">
-                                         <asp:DropDownList ID="DropDownList2" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
-                                             <asp:ListItem Value="0">Your Contacts</asp:ListItem>
-                                         </asp:DropDownList>
-                                         <p style="font-size:10pt;">*Contacts based on hosts of your favorited properties</p> 
-                                         
-                                             <div class="row">
-                                                 <div class="col-md-12" style="padding-bottom: 15px;">
-                                         <p><asp:TextBox ID="txtBoxMessage" runat="server" TextMode="MultiLine" style="height:200px; width: 100%; margin-top: 1rem; font-size:14pt;" ForeColor="Gray" placeholder="Compose Message"></asp:TextBox></p>
-                                           
-                                                     <asp:Button ID="btnSendNewMessage" CssClass="btn float-right" runat="server" Text="Send" OnClick="SendNewMessage_Click"/>
-                                                     </div>
-                                         
-
-                                                 </div>
-                                     </div>
-                                 </div>
-
-                                 <!--end col-->
-                             </div>
-                             <!--end row-->
-                            
-                         </div>
-                         <!--end container-fluid-->
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                     </div>
-                     <!--end modal-body-->
-                     
-                     
-                 </div>
-                 <!--end modal header-->
          
-             </div>
-             <!--end modal content-->
-             
-         </div>
-         <!--end modal-dialog div-->
-
-        
-
-
-         <!-- Modal -->
-         <div class="modal fade" id="viewReplyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
-             <div class="modal-dialog modal-dialog-centered" role="document">
-                 <div class="modal-content">
-                     <div class="modal-header">
-                         <h4 class="modal-title" id="exampleModalLongTitle">Messages</h4>
-                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                         </button>
-                     </div>
-                     <div class="modal-body">
-                         <div class="container-fluid">
-                             <div class="row">
-                                 <div class="col-md-12 ml-auto" style="padding-bottom: 15px;">
-                                     <div class="dropdown" id="dropdownDiv" runat="server">
-                                         <asp:DropDownList ID="DropDownList1" AutoPostBack="true" runat="server" CssClass="form-control btn btn-outline-secondary">
-                                             <asp:ListItem Value="0">Your Contacts</asp:ListItem>
-                                         </asp:DropDownList>
-
-                                     </div>
-                                 </div>
-                                 <!--end col-->
-                             </div>
-                             <!--end row-->
-                             <div class="row">
-                                 <div class="col-sm-12">
-                                     <div class="row">
-                                         <div class="col-sm-6" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
-                                         </div>
-                                         <div class="col-sm-6" id="rightDiv" runat="server">
-                                             <h5><asp:Label ID="lblSender" runat="server"></asp:Label></h5>
-                                             <h6><asp:Label ID="lblDate" runat="server"></asp:Label></h6>
-                                             <p><asp:Label ID="lblMessageText" runat="server"></asp:Label></p>
-                                             <p><asp:TextBox ID="txtBoxReply" runat="server" TextMode="MultiLine" style="height:200px; font-size:14pt;" ForeColor="Gray" placeholder="Write a reply..."></asp:TextBox></p>
-                                             <!--<asp:Button ID="btnSendRepy" CssClass="btn float-right" runat="server" Text="Send" OnClick="Send_Click"/>-->
-                                             
-                                                 
-                                         </div>
-                                     </div>
-                                     <!--end row-->
-                                 </div>
-                                 <!--end col-sm-9-->
-                             </div>
-                             <!--end row-->
-                         </div>
-                         <!--end container-fluid-->
-                     </div>
-                     <!--end modal-body-->
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     </div>
-                     
-                 </div>
-                 <!--end modal header-->
-         
-             </div>
-             <!--end modal content-->
-         </div>
-         <!--end modal-dialog div-->
-
-
-
-
 
 
         <div class="col-md-6" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px;">

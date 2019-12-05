@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="HostMessageCenter.aspx.cs" Inherits="HostMessageCenter" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RoomMagnet.master" AutoEventWireup="true" CodeFile="TenantMessageCenter.aspx.cs" Inherits="TenantMessageCenter" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="TenantMessageCenter" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     <!doctype html>
 
     <script type="text/javascript">
@@ -14,13 +15,11 @@
             location.reload();
         }
 
-
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
 
 
     <form runat="server">
@@ -44,9 +43,9 @@
             <!--end col-->
         </div>
         <!--end row-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row" style="margin-left: 1rem;">
+        <div class="row" runat="server">
+            <div class="col-md-12" runat="server">
+                <div class="row" style="margin-left: 1rem;" runat="server">
                     <div class="col-md-2" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
                         <div class="row" style="border-bottom-style: solid; border-bottom-color: #D0D0D0; margin-bottom: 1rem;">
                             <h6>Your Conversations</h6>
@@ -55,7 +54,7 @@
                     <div class="col-md-10" id="rightDiv" runat="server">
                         <div class="row">
                             <div class="col-md-8" runat="server">
-                                <div class="row" id="conversationDiv" runat="server" style="margin-top: 1rem; margin-bottom: 1rem; min-height: 50px; max-height: 300px; overflow: auto;">
+                                <div class="row" id="conversationDiv" runat="server" style=" margin-top: 1rem; margin-bottom: 1rem; min-height: 50px; max-height: 300px; overflow: auto;">
 
                                     <!-- conversation goes here -->
 
@@ -147,9 +146,6 @@
 
 
     </form>
-
-
-
 
 
 
