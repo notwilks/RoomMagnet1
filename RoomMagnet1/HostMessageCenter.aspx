@@ -49,7 +49,7 @@
                 <div class="row" style="margin-left: 1rem;">
                     <div class="col-md-2" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
                         <div class="row" style="border-bottom-style: solid; border-bottom-color: #D0D0D0; margin-bottom: 1rem;">
-                            <h6>Your Conversations</h6>
+                            <h4>Your Conversations</h4>
                         </div>
                     </div>
                     <div class="col-md-10" id="rightDiv" runat="server">
