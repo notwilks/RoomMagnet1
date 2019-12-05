@@ -239,14 +239,14 @@ public partial class TenantMessageCenter : System.Web.UI.Page
 
     protected void AddToDropdown()
     {
-        // Retrieve contacts (Tenants that have favorited this host's property) 
+        // Retrieve contacts (Hosts of favorited properties) 
         SqlCommand selectContacts = new SqlCommand("SELECT concat(t.firstName,' ', t.lastName), t.tenantID, h.hostID, concat(h.firstName, ' ', h.lastName) "
                                                     + "FROM Tenant t "
                                                     + "INNER JOIN FavoriteProperty f ON f.tenantID = t.tenantID "
                                                     + "INNER JOIN Accommodation a ON f.accommodationID = a.accommodationID "
                                                     + "INNER JOIN Host h ON a.hostID = h.hostID "
-                                                    + "WHERE h.hostID = @hID", sc);
-        selectContacts.Parameters.AddWithValue("@hID", Convert.ToString(ViewState["hostID"]));
+                                                    + "WHERE t.tenantID = @tID", sc);
+        selectContacts.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
         sc.Open();
         SqlDataReader reader = selectContacts.ExecuteReader();
 
