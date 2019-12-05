@@ -31,10 +31,10 @@ public partial class TenantMessageCenter : System.Web.UI.Page
 
 
         // Get Message History grouped by contact
-        SqlCommand selectMessages = new SqlCommand("SELECT m.tenantID, m.hostID, m.messageText, m.dateSent, concat(t.firstName, ' ', t.lastName), concat(h.firstName, ' ', h.lastName), m.sender FROM Host h "
-                                                    + "INNER JOIN MessageCenter m on h.hostID = m.hostID "
-                                                    + "INNER JOIN tenant t on m.tenantID = t.tenantID "
-                                                    + "WHERE m.dateSent in (select max(dateSent) from MessageCenter group by tenantID) and m.tenantID =  @tID "
+        SqlCommand selectMessages = new SqlCommand("SELECT m.tenantID, m.hostID, m.messageText, m.dateSent, concat(t.firstName, ' ', t.lastName), concat(h.firstName, ' ', h.lastName), m.sender FROM tenant t "
+                                                    + "INNER JOIN MessageCenter m on t.tenantID = m.tenantID "
+                                                    + "INNER JOIN host h on m.hostID = h.hostID "
+                                                    + "WHERE m.dateSent in (select max(dateSent) from MessageCenter group by hostID) and m.tenantID =  @tID "
                                                     + "group by m.dateSent, m.tenantID, m.messageText, t.firstName, t.lastName, h.firstName, h.lastName, m.hostID, m.sender "
                                                     + "order by m.dateSent desc", sc);
         selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
