@@ -30,13 +30,21 @@
                                              </div>
                                          </div>
                                          <div class="col-md-10" id="rightDiv" runat="server">
-                                             <h5><asp:Label ID="lblSender" runat="server"></asp:Label></h5>
-                                             <h6><asp:Label ID="lblDate" runat="server"></asp:Label></h6>
-                                             <p><asp:Label ID="lblMessageText" runat="server"></asp:Label></p>
+                                             <div class="row">
+                                                 <div class="col-md-8" runat="server">
+                                                     <div class="row" id="conversationDiv" runat="server" style="background-color: #ebebeb; margin-top: 1rem; margin-bottom: 1rem;" >
+
+                                                         <!-- conversation goes here -->
+
+                                                         </div>
                                              <p><asp:TextBox ID="txtBoxReply" runat="server" TextMode="MultiLine" style="height:50px; width:75%; font-size:14pt;" ForeColor="Gray" Text="Write a reply..."></asp:TextBox></p>
-                                             <!--<asp:Button ID="btnSendRepy" CssClass="btn float-right" runat="server" Text="Send" OnClick="Send_Click"/>-->
-                                             
+                                             </div>
+                                                 <div class="col-md-2" runat="server">
+                                                     <p><asp:Button ID="btnSendRepy" CssClass="btn float-left" runat="server" Text="Send" OnClick="Send_Click"/></p>
                                                  
+                                                 </div>
+                                             
+                                              </div>   
                                          </div>
                                      </div>
                                      <!--end row-->

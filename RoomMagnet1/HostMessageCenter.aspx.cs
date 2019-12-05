@@ -34,8 +34,9 @@ public partial class HostMessageCenter : System.Web.UI.Page
         sc.Open();
         SqlDataReader reader = selectContacts.ExecuteReader();
 
-
-
+        // Reply box and send button not visible until a conversation is selected
+        txtBoxReply.Visible = false;
+        btnSendRepy.Visible = false;
 
 
 
@@ -86,18 +87,18 @@ public partial class HostMessageCenter : System.Web.UI.Page
             leftSenderHeader.Attributes.Add("style", "font-size: 17px");
             leftDiv.Controls.Add(leftSenderHeader);
 
-            // View message button
-            Button viewMessage = new Button();
-            //viewMessage.ID = Convert.ToString(reader.GetInt32(4));
-            viewMessage.Text = "View";
-            viewMessage.Attributes.Add("type", "button");
-            viewMessage.Attributes.Add("class", "btn btn-sm float-right");
-            viewMessage.Attributes.Add("runat", "server");
-            viewMessage.Attributes.Add("OnClientClick", "ViewFullMessage_Click");
+            // View conversation button
+            Button viewConvo = new Button();
+            viewConvo.ID = Convert.ToString(reader.GetInt32(0));
+            viewConvo.Text = "View";
+            viewConvo.Attributes.Add("type", "button");
+            viewConvo.Attributes.Add("class", "btn btn-sm float-right");
+            viewConvo.Attributes.Add("runat", "server");
+            viewConvo.Attributes.Add("OnClientClick", "ViewConversation_Click");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
-            //viewMessage.Click += new EventHandler(ViewFullMessage_Click);
-            leftSenderHeader.Controls.Add(viewMessage);
+            viewConvo.Click += new EventHandler(ViewConversation_Click);
+            leftSenderHeader.Controls.Add(viewConvo);
 
             // Date 
             String date = reader.GetDateTime(3).ToShortDateString();
@@ -194,6 +195,78 @@ public partial class HostMessageCenter : System.Web.UI.Page
             }
         }
         return contactExists;
+    }
+
+    protected void ViewConversation_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        String tenantID = Convert.ToString(btn.ID);
+
+        //Get message history with particular tenant
+        SqlCommand selectConversation = new SqlCommand("SELECT m.tenantID, m.dateSent, m.messageText, m.sender, t.firstName FROM MessageCenter m "
+                                                        + "INNER JOIN tenant t on m.tenantID = t.tenantID "
+                                                        + "where m.hostID = @hID1 and m.tenantID = @tID1 "
+                                                        + "order by dateSent desc", sc);
+        selectConversation.Parameters.AddWithValue("@hID1", Convert.ToString(ViewState["hostID"]));
+        selectConversation.Parameters.AddWithValue("@tID1", tenantID);
+        sc.Open();
+
+        SqlDataReader reader = selectConversation.ExecuteReader();
+         
+        while (reader.Read())
+        {
+            // Create divs to display messages
+            // Row div 
+            var div1 = new HtmlGenericControl("div")
+            {
+
+            };
+            conversationDiv.Controls.Add(div1);
+            div1.Style.Add("margin-top", ".5rem;");
+            //div1.Style.Add("border-bottom", "solid;");
+            //div1.Style.Add("border-bottom-width", "1px;");
+            div1.Style.Add("border-top", "solid;");
+            div1.Style.Add("border-top-width", "1px;");
+            div1.Attributes.Add("class", "col-md-12");
+
+            // Sender name
+            String name = "";
+
+            var senderName = new HtmlGenericControl("h5")
+            {
+                
+            };
+            senderName.Style.Add("margin-top", "1rem");
+            if (reader.GetString(3) == "T")
+            {
+                name = reader.GetString(4);
+            }
+            else
+            {
+                name = "You";
+                senderName.Style.Add("text-align", "right");
+            }
+            senderName.InnerText = name;
+            div1.Controls.Add(senderName);
+
+            // Message
+            String message = reader.GetString(2);
+            
+            var messageText = new HtmlGenericControl("p")
+            {
+                InnerText = message
+            };
+            if(reader.GetString(3) == "H")
+            {
+                messageText.Style.Add("Text-Align", "right");
+            }
+            div1.Controls.Add(messageText);
+        }
+
+        // Make reply box and send message button visible 
+        txtBoxReply.Visible = true;
+        btnSendRepy.Visible = true;
+
     }
 
 }
