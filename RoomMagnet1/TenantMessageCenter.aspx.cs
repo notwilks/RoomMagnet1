@@ -225,7 +225,6 @@ public partial class TenantMessageCenter : System.Web.UI.Page
     {
         SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3)", sc);
         sendMessage.Parameters.AddWithValue("@hostID3", Convert.ToString(DropDownList1.SelectedValue));
-        sendMessage.Parameters.AddWithValue("@hostID3", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID3", Convert.ToString(ViewState["tenantID"]));
         sendMessage.Parameters.AddWithValue("@msg3", Convert.ToString(txtBoxMessage.Text));
         sendMessage.Parameters.AddWithValue("@date3", DateTime.Now);

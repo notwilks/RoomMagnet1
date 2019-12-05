@@ -24,7 +24,7 @@
 
     <form runat="server">
 
-        <div class="container">
+        <div class="container" runat="server">
         <div class="row" style="margin-top: 7rem; margin-left: 1rem; margin-right: 1rem; margin-bottom: 3rem;">
             <div class="col" style="">
                 <h1>Message Center</h1>
