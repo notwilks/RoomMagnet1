@@ -13,6 +13,8 @@ public partial class PropertyInfo : System.Web.UI.Page
     public int accomID = 0;
     public int hostID = 0;
 
+    
+
     public string jsStreetName = "715 S Main St Harrisonburg, VA, USA";
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
@@ -20,10 +22,12 @@ public partial class PropertyInfo : System.Web.UI.Page
         if (Convert.ToString(Session["userType"]) == "T")
         {
             intentToLease.Visible = true;
+            MessageButton.Visible = true;
         }
         else
         {
             intentToLease.Visible = false;
+            MessageButton.Visible = false;
         }
         String bathroomBadge = "images/private-bath.png";
         String entranceBadge = "images/private-entrance.png";
@@ -633,7 +637,7 @@ public partial class PropertyInfo : System.Web.UI.Page
 
     protected void MessageButton_Click(object sender, ImageClickEventArgs e)
     {
-
+        Response.Redirect("TenantMessageCenter.aspx");
     }
 
     protected void FavoriteButton_Click(object sender, ImageClickEventArgs e)

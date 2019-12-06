@@ -212,6 +212,7 @@ public partial class TenantMessageCenter : System.Web.UI.Page
         sendMessage.ExecuteNonQuery();
         sc.Close();
 
+
     }
 
 
