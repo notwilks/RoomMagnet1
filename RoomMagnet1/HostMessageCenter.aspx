@@ -44,9 +44,9 @@
             <!--end col-->
         </div>
         <!--end row-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row" style="margin-left: 1rem;">
+        <div class="row" runat="server">
+            <div class="col-md-12" runat="server">
+                <div class="row" style="margin-left: 1rem;" runat="server">
                     <div class="col-md-2" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
                         <div class="row" style="border-bottom-style: solid; border-bottom-color: #D0D0D0; margin-bottom: 1rem;">
                             <h4>Your Conversations</h4>
