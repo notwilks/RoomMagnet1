@@ -37,7 +37,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
         btnSendRepy.Visible = false;
 
         
-        DisplayConversationPreview();
+            DisplayConversationPreview();
         
 
     }  // END PAGE LOAD
@@ -62,7 +62,6 @@ public partial class HostMessageCenter : System.Web.UI.Page
     {
         Button btn = (Button)sender;
         ViewState["tenantID"] = Convert.ToString(btn.ID);
-
         DisplayConversation();
 
         
@@ -73,18 +72,20 @@ public partial class HostMessageCenter : System.Web.UI.Page
     {
 
        
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2)", sc);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2, @lastUpdated2, @lastUpdatedBy2)", sc);
         sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID2", Convert.ToString(ViewState["tenantID"]));
         sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
         sendMessage.Parameters.AddWithValue("@date2", DateTime.Now);
         sendMessage.Parameters.AddWithValue("@sender2", "H");
+        sendMessage.Parameters.AddWithValue("@lastUpdated2", DateTime.Now);
+        sendMessage.Parameters.AddWithValue("@lastUpdatedBy2", "Joe Muia");
         sc.Open();
         sendMessage.ExecuteNonQuery();
         sc.Close();
 
         DisplayConversation();
-        
+        DisplayConversationPreview();
         txtBoxReply.Text = "";
     }
 
@@ -98,12 +99,14 @@ public partial class HostMessageCenter : System.Web.UI.Page
     }
     protected void SendNewMessage_Click(object sender, EventArgs e)
     {
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3)", sc);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3, @lastUpdated3, @lastUpdatedBy3)", sc);
         sendMessage.Parameters.AddWithValue("@hostID3", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID3", Convert.ToString(DropDownList1.SelectedValue));
         sendMessage.Parameters.AddWithValue("@msg3", Convert.ToString(txtBoxMessage.Text));
         sendMessage.Parameters.AddWithValue("@date3", DateTime.Now);
         sendMessage.Parameters.AddWithValue("@sender3", "H");
+        sendMessage.Parameters.AddWithValue("@lastUpdated3", DateTime.Now);
+        sendMessage.Parameters.AddWithValue("@lastUpdatedBy3", "Joe Muia");
         sc.Open();
         sendMessage.ExecuteNonQuery();
         sc.Close();
