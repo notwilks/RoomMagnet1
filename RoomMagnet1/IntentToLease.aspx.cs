@@ -44,6 +44,13 @@ public partial class IntentToLease : System.Web.UI.Page
         cancel.Click += new EventHandler(CancelClick);
         cancelArea.Controls.Add(cancel);
 
+        SqlCommand load = new SqlCommand();
+        load.Connection = sc;
+
+        sc.Open();
+
+        load.CommandText = "Select * from RentalAgreement where ";
+
     }
 
     protected void CancelClick(object sender, EventArgs e)

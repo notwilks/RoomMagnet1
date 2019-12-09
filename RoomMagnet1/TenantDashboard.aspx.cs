@@ -112,13 +112,6 @@ public partial class TenantDashboard : System.Web.UI.Page
         }
         reader.Close();
 
-
-        //Header.Text = "Host Dashboard.";
-        //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
-        //select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
-        //String hostName = Convert.ToString(select.ExecuteScalar());
-        //ProfileHeader.Text = "Welcome " + hostName;
-
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
 
@@ -275,84 +268,6 @@ public partial class TenantDashboard : System.Web.UI.Page
         div3.Controls.Add(messageNotification);
         sc.Close();
 
-
-
-
-
-
-        // Retrieve a Tenant's existing messages from DB
-        /* SqlCommand selectMessages = new SqlCommand("SELECT concat(h.firstName, ' ', h.lastName), m.messageText, h.hostID, m.messageID, m.sender FROM MessageCenter m "
-                                                        + "INNER JOIN host h ON h.hostID = m.hostID "
-                                                        + "WHERE m.tenantID = @tID and sender = @senderType", sc);
-            selectMessages.Parameters.AddWithValue("@tID", Convert.ToString(ViewState["tenantID"]));
-            selectMessages.Parameters.AddWithValue("@senderType", "H");
-            sc.Open();
-            reader = selectMessages.ExecuteReader();
-
-
-            using (reader)
-            {
-                while (reader.Read())
-                {
-                    // Create div to display messages
-
-                    var div2 = new HtmlGenericControl("div")
-                    {
-
-                    };
-                    messageCenterDiv.Controls.Add(div2);
-                    div2.Style.Add("margin-top", "1rem;");
-                    //div1.Style.Add("border-bottom", "solid;");
-                    //div1.Style.Add("border-bottom-width", "1px;");
-                    div2.Style.Add("border-top", "solid;");
-                    div2.Style.Add("border-top-width", "1px;");
-                    div2.Attributes.Add("class", "col-md-12");
-
-                    // Populate message divs
-                    // Sender name
-                    String sName = reader.GetString(0);
-                    var senderName = new HtmlGenericControl("h3")
-                    {
-                        InnerText = "New Message | " + sName
-                    };
-                    senderName.Style.Add("margin-top", "1rem");
-                    div2.Controls.Add(senderName);
-
-                    // View message button
-                    Button view = new Button();
-                    view.ID = Convert.ToString(reader.GetInt32(3));
-                    view.Text = "View Chat";
-                    view.Attributes.Add("type", "button");
-                    view.Attributes.Add("class", "btn float-right");
-                    view.Attributes.Add("runat", "server");
-                    view.Style.Add("margin-top", "1rem");
-                    //view.Attributes.Add("data-toggle", "modal");
-                    //view.Attributes.Add("data-target", "#exampleModalCenter");
-                    view.Click += new EventHandler(ViewMessageHistory_Click);
-                    senderName.Controls.Add(view);
-
-                    // Message
-                    String message = reader.GetString(1);
-                    if (message.Length >= 140)
-                    {
-                        message = message.Substring(0, 140) + "...";
-                    }
-                    var messageText = new HtmlGenericControl("p")
-                    {
-                        InnerText = message
-                    };
-                    div2.Controls.Add(messageText);
-
-
-
-
-
-
-
-
-
-                }
-            }*/
     }
 
     protected void EditProfileBtn_Click(object sender, EventArgs e)
