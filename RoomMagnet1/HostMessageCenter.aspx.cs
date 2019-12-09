@@ -72,7 +72,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
     {
 
        
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2, @lastUpdated2, @lastUpdatedBy2)", sc);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender, lastUpdated, lastUpdatedBy) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2, @lastUpdated2, @lastUpdatedBy2)", sc);
         sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID2", Convert.ToString(ViewState["tenantID"]));
         sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
@@ -85,7 +85,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
         sc.Close();
 
         DisplayConversation();
-        DisplayConversationPreview();
+        
         txtBoxReply.Text = "";
     }
 
@@ -99,7 +99,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
     }
     protected void SendNewMessage_Click(object sender, EventArgs e)
     {
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3, @lastUpdated3, @lastUpdatedBy3)", sc);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender, lastUpdated, lastUpdatedBy) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3, @lastUpdated3, @lastUpdatedBy3)", sc);
         sendMessage.Parameters.AddWithValue("@hostID3", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID3", Convert.ToString(DropDownList1.SelectedValue));
         sendMessage.Parameters.AddWithValue("@msg3", Convert.ToString(txtBoxMessage.Text));
