@@ -37,7 +37,15 @@ public partial class TenantMessageCenter : System.Web.UI.Page
         txtBoxReply.Visible = false;
         btnSendRepy.Visible = false;
 
+        
+        DisplayConversationPreview();
+        
+        
+    } // END PAGE LOAD 
 
+
+    protected void DisplayConversationPreview()
+    {
         // Get Message History grouped by contact
         SqlCommand selectMessages = new SqlCommand("SELECT m.tenantID, m.hostID, m.messageText, m.dateSent, concat(t.firstName, ' ', t.lastName), concat(h.firstName, ' ', h.lastName), m.sender FROM tenant t "
                                                     + "INNER JOIN MessageCenter m on t.tenantID = m.tenantID "
@@ -61,7 +69,7 @@ public partial class TenantMessageCenter : System.Web.UI.Page
 
             var divOne = new HtmlGenericControl("div")
             {
-               
+
             };
             divOne.Style.Add("border-bottom", "solid");
             divOne.Style.Add("border-bottom-width", "1px");
@@ -81,7 +89,6 @@ public partial class TenantMessageCenter : System.Web.UI.Page
             viewConvo.Attributes.Add("type", "button");
             viewConvo.Attributes.Add("class", "btn btn-sm float-right");
             viewConvo.Attributes.Add("runat", "server");
-            viewConvo.Attributes.Add("OnClientClick", "ViewConversation_Click");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
             viewConvo.Click += new EventHandler(ViewConversation_Click);
@@ -110,11 +117,7 @@ public partial class TenantMessageCenter : System.Web.UI.Page
         }
         reader.Close();
         sc.Close();
-
-
-
-
-    } // END PAGE LOAD 
+    }
 
 
     protected Boolean CheckExistingContacts(String tenantID)
@@ -136,8 +139,15 @@ public partial class TenantMessageCenter : System.Web.UI.Page
         Button btn = (Button)sender;
         ViewState["hostID"] = Convert.ToString(btn.ID);
 
+        DisplayConversation();
+
+        
+
+    }
 
 
+    protected void DisplayConversation()
+    {
         //Get message history with particular host
         SqlCommand selectConversation = new SqlCommand("SELECT m.tenantID, m.dateSent, m.messageText, m.sender, h.firstName FROM MessageCenter m "
                                                         + "INNER JOIN host h on m.hostID = h.hostID "
@@ -203,23 +213,25 @@ public partial class TenantMessageCenter : System.Web.UI.Page
         // Make reply box and send message button visible 
         txtBoxReply.Visible = true;
         btnSendRepy.Visible = true;
-
     }
-
 
     protected void Send_Click(object sender, EventArgs e)
     {
 
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2)", sc);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2, @lastUpdated2, @lastUpdatedBy2)", sc);
         sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID2", Convert.ToString(ViewState["tenantID"]));
         sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
         sendMessage.Parameters.AddWithValue("@date2", DateTime.Now);
         sendMessage.Parameters.AddWithValue("@sender2", "T");
+        sendMessage.Parameters.AddWithValue("@lastUpdated2", DateTime.Now);
+        sendMessage.Parameters.AddWithValue("@lastUpdatedBy2", "Joe Muia");
         sc.Open();
         sendMessage.ExecuteNonQuery();
         sc.Close();
+        DisplayConversation();
 
+        txtBoxReply.Text = "";
 
     }
 
@@ -232,16 +244,19 @@ public partial class TenantMessageCenter : System.Web.UI.Page
 
     protected void SendNewMessage_Click(object sender, EventArgs e)
     {
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3)", sc);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID3, @tenantID3, @msg3, @date3, @sender3, @lastUpdated3, @lastUpdatedBy3)", sc);
         sendMessage.Parameters.AddWithValue("@hostID3", Convert.ToString(DropDownList1.SelectedValue));
         sendMessage.Parameters.AddWithValue("@tenantID3", Convert.ToString(ViewState["tenantID"]));
         sendMessage.Parameters.AddWithValue("@msg3", Convert.ToString(txtBoxMessage.Text));
         sendMessage.Parameters.AddWithValue("@date3", DateTime.Now);
         sendMessage.Parameters.AddWithValue("@sender3", "T");
+        sendMessage.Parameters.AddWithValue("@lastUpdated3", DateTime.Now);
+        sendMessage.Parameters.AddWithValue("@lastUpdatedBy3", "Joe Muia");
         sc.Open();
         sendMessage.ExecuteNonQuery();
         sc.Close();
-        ScriptManager.RegisterStartupScript(this, GetType(), "Close Modal Popup", "ClosePopup();", true);
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#composeMessageModal').modal('hide');", true);
+        Response.Redirect("TenantMessageCenter.aspx");
     }
 
 
