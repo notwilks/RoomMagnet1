@@ -106,8 +106,6 @@ public partial class HostDashboard : System.Web.UI.Page
                 reader.Close();
             }
 
-            //HostPrimaryImage.ImageUrl = Convert.ToString(select.ExecuteScalar());
-
             //select host bio
             select.CommandText = "Select biography from Host where hostID = " + Convert.ToString(ViewState["hostID"]);
             HostBio.Text = Convert.ToString(select.ExecuteScalar());
@@ -129,11 +127,6 @@ public partial class HostDashboard : System.Web.UI.Page
             select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email2", Convert.ToString(Session["userEmail"])));
             PropertyInfo.Text = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
-            //Header.Text = "Host Dashboard.";
-            //select.CommandText = "Select (firstName + ' ' + lastName) from host where email = @email1";
-            //select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email1", Session["userEmail"]));
-            //String hostName = Convert.ToString(select.ExecuteScalar());
-            //ProfileHeader.Text = "Welcome " + hostName;
 
             select.CommandText = "Select bathroom, entrance, storage, pets, furnished, smoker, wifi, parking, kitchen, laundry, cable, allowPets from AccommodationAmmenity WHERE accommodationID in (select accommodationID from Accommodation where hostID in " +
             "(select hostID from Host where email = @email3))";
@@ -224,9 +217,11 @@ public partial class HostDashboard : System.Web.UI.Page
             rental.CommandText = "select hostID from Host where email = '" + Session["userEmail"] + "';";
             int hostID = Convert.ToInt32(rental.ExecuteScalar());
 
-            rental.CommandText = "Select t.tenantID, t.FirstName, t.biography from RentalAgreement ra " +
+            rental.CommandText = "Select t.tenantID, t.FirstName, t.biography, a.accommodationID from RentalAgreement ra " +
                 "inner join tenant t on ra.tenantID = t.tenantID " +
-                "where hostID = " + hostID;
+                "inner join host h on ra.hostID = h.hostID " +
+                "inner join accommodation a on a.hostID = h.hostID " +
+                "where ra.hostID = " + hostID + " and a.hostID = " + hostID;
 
             SqlDataReader readerRental = rental.ExecuteReader();
             while (readerRental.Read())
@@ -256,14 +251,14 @@ public partial class HostDashboard : System.Web.UI.Page
                 propDescAgreement.InnerText = readerRental.GetString(2);
                 divRental.Controls.Add(propDescAgreement);
 
-                //Button viewPropAgreement = new Button();
-                //viewPropAgreement.Text = "View Property";
-                //viewPropAgreement.Style.Add("display", "inline-block");
-                //viewPropAgreement.Style.Add("margin-left", "3rem");
-                //viewPropAgreement.ID = Convert.ToString(readerRental.GetInt32(3)) + "R";
-                //viewPropAgreement.Click += new EventHandler(ViewLeaseProp);
-                //viewPropAgreement.Attributes.Add("class", "btn");
-                //propDescAgreement.Controls.Add(viewPropAgreement);
+                Button viewPropAgreement = new Button();
+                viewPropAgreement.Text = "View Rental Agreement";
+                viewPropAgreement.Style.Add("display", "inline-block");
+                viewPropAgreement.Style.Add("margin-left", "3rem");
+                viewPropAgreement.ID = Convert.ToString(readerRental.GetInt32(3)) + "R";
+                viewPropAgreement.Click += new EventHandler(ViewLeaseProp);
+                viewPropAgreement.Attributes.Add("class", "btn");
+                propDescAgreement.Controls.Add(viewPropAgreement);
             }
             sc.Close();
             readerRental.Close();
@@ -409,6 +404,13 @@ public partial class HostDashboard : System.Web.UI.Page
         Response.Redirect("HostMessageCenter.aspx");
         
     }
- 
-    
+
+    protected void ViewLeaseProp(object sender, EventArgs e)
+    {
+        Button b = sender as Button;
+        String ID = b.ID.Substring(0, b.ID.Length - 1);
+        Session["propertyID"] = ID;
+        Response.Redirect("PropertyInfo.aspx");
+    }
+
 }

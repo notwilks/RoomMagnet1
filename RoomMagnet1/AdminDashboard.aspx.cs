@@ -344,45 +344,14 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.CommandText = "select email from Host where hostID = " + ViewState["hostDeleteID"];
         String hostEmail = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
 
-        try
-        {
-            delete.CommandText = "Delete from AccommodationImages where accommodationID = " + accomID;
-            delete.ExecuteNonQuery();
-        }
-        catch
-        {}
-
-        try
-        {
-            delete.CommandText = "Delete from AccommodationAmmenity where accommodationID = " + accomID;
-            delete.ExecuteNonQuery();
-        }
-        catch
-        {}
-
-        try
-        {
-            delete.CommandText = "Delete from FavoriteProperty where accommodationID = " + accomID;
-            delete.ExecuteNonQuery();
-        }
-        catch
-        { }
-
-        delete.CommandText = "Delete from HostImages where hostID = " + ViewState["hostDeleteID"];
+        delete.CommandText = "EXEC DeleteHost " + accomID + ", " + ViewState["hostDeleteID"];
         delete.ExecuteNonQuery();
 
-        delete.CommandText = "Delete from MessageCenter where hostID = " + ViewState["hostDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from RentalAgreement where hostID = " + ViewState["hostDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from Host where hostID = " + ViewState["hostDeleteID"];
-        delete.ExecuteNonQuery();
 
         delete.CommandText = "Delete from Passwords where email = '" + hostEmail + "'";
         delete.ExecuteNonQuery();
 
+        SearchButton_Click(sender, e);
     }
 
     protected void YesDeleteTenant(object sender, EventArgs e)

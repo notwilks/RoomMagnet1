@@ -166,7 +166,7 @@
    <div style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-top: 1rem; padding: 1rem; margin-bottom: 1rem;">
         <div class="row " style="margin-top: 1rem;">
             <div class="col-md-12"  >
-                <h2>Your Rental Agreements</h2>
+                <h2>Pending Rental Agreements</h2>
               </div>
         </div><!-- end div big row -->  
     
