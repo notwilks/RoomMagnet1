@@ -409,8 +409,8 @@ public partial class HostDashboard : System.Web.UI.Page
     {
         Button b = sender as Button;
         String ID = b.ID.Substring(0, b.ID.Length - 1);
-        Session["propertyID"] = ID;
-        Response.Redirect("PropertyInfo.aspx");
+        Session["RAaccomID"] = ID;
+        Response.Redirect("IntentToLease.aspx");
     }
 
 }
