@@ -233,7 +233,6 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
         dobBox.Text = "01/01/2019";
         bioBox.Text = "This is an example biography.";
         phoneNumberBox.Text = "540-111-1111";
-
     }
 
     protected void TenantTypeBox_SelectedIndexChanged(object sender, EventArgs e)

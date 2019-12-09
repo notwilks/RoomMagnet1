@@ -58,6 +58,11 @@ public partial class LoginPage : System.Web.UI.Page
                         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email3", EmailBox.Text));
                         Session["userEmail"] = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
 
+                        //Create a cookie so we can check if browser session is still alive baby. 
+                        HttpCookie httpCookie = new HttpCookie("Session");
+                        httpCookie["loggedin"] = "true";
+                        Response.Cookies.Add(httpCookie);
+
                         if(Convert.ToString(Session["userType"]) == "T")
                         {
                             Response.Redirect("TenantDashboard.aspx");

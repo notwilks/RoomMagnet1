@@ -83,15 +83,19 @@ public partial class EditProperty : System.Web.UI.Page
 
                 try
                 {
-                    updateImages.CommandText = "INSERT INTO AccommodationImages (AccommodationID, mainImage) VALUES (" + accomID + ", @imageName)";
+                    updateImages.CommandText = "INSERT INTO AccommodationImages (AccommodationID, mainImage, lastUpdated, lastUpdatedBy) VALUES (" + accomID + ", @imageName, @lastUpdated, @lastUpdatedBy)";
                     updateImages.Parameters.Add(new SqlParameter("@imageName", name));
+                    updateImages.Parameters.Add(new SqlParameter("@lastUpdated", DateTime.Now));
+                    updateImages.Parameters.Add(new SqlParameter("@lastUpdatedBy", "Joe Muia"));
 
                     updateImages.ExecuteNonQuery();
                 }
                 catch
                 {
-                    updateImages.CommandText = "update AccommodationImages set mainImage = @image where accommodationID = " + accomID;
+                    updateImages.CommandText = "update AccommodationImages set mainImage = @image, lastUpdated = @lastu, lastUpdatedBy = @lastub where accommodationID = " + accomID;
                     updateImages.Parameters.Add(new SqlParameter("@image", name));
+                    updateImages.Parameters.Add(new SqlParameter("@lastu", DateTime.Now));
+                    updateImages.Parameters.Add(new SqlParameter("@lastub", "Joe Muia"));
 
                     updateImages.ExecuteNonQuery();
                 }
@@ -110,8 +114,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image2.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image2 = @image2 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image2 = @image2, lastUpdated = @lu, lastUpdatedBy = @lub where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image2", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -127,8 +133,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image3.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image3 = @image3 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image3 = @image3, lastUpdated = @lu2, lastUpdatedBy = @lub2 bwhere accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image3", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu2", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub2", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -144,8 +152,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image4.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image4 = @image4 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image4 = @image4, lastUpdated = @lu3, lastUpdatedBy = @lub3 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image4", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu3", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub3", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -161,8 +171,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image5.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image5 = @image5 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image5 = @image5, lastUpdated = @lu4, lastUpdatedBy = @lub4 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image5", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu4", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub4", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -178,8 +190,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image6.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image6 = @image6 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image6 = @image6, lastUpdated = @lu5, lastUpdatedBy = @lub5 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image6", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu5", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub5", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -195,8 +209,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image7.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image7 = @image7 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image7 = @image7, lastUpdated = @lu6, lastUpdatedBy = @lub6 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image7", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu6", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub6", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -212,8 +228,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image8.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image8 = @image8 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image8 = @image8, lastUpdated = @lu7, lastUpdatedBy = @lub7 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image8", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu7", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub7", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -229,8 +247,10 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image9.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image9 = @image9 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image9 = @image9, lastUpdated = @lu8, lastUpdatedBy = @lub8 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image9", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu8", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub8", "Joe Muia"));
 
                 updateImages.ExecuteNonQuery();
             }
@@ -246,8 +266,11 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image10.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image10 = @image10 where accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image10 = @image10, lastUpdated = @lu9, lastUpdatedBy = @lub9 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image10", name));
+                updateImages.Parameters.Add(new SqlParameter("@lu9", DateTime.Now));
+                updateImages.Parameters.Add(new SqlParameter("@lub9", "Joe Muia"));
+
 
                 updateImages.ExecuteNonQuery();
             }
