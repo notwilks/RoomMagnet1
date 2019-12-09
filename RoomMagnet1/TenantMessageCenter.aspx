@@ -21,11 +21,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+<html>
+    <body>
 
     <form runat="server">
 
-        <div class="container" runat="server">
-        <div class="row" style="margin-top: 7rem; margin-left: 1rem; margin-right: 1rem; margin-bottom: 3rem;">
+        <div class="container" runat="server" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-bottom: 5rem; margin-top: 8rem;">
+        <div class="row" style="margin-top: 2rem; margin-left: 1rem; margin-right: 1rem; margin-bottom: 3rem;">
             <div class="col" style="">
                 <h1>Message Center</h1>
             </div>
@@ -150,7 +152,37 @@
 
     </form>
 
+           <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
+           <div class="row" style="padding-left: 3rem;">
+            <div class="col-md-4" style="padding-left: 3rem;">   
+            <h3 class="din">Room Magnet</h3>
+            <p>Support:<br>
+            540-123-4567<br>
+            <a href="mailto:help@roommagnet.com">help@roommagnet.com</a></p>
+            </div>
+       
+            <div class="col-md-4" style="padding-left: 3rem;">   
+            <h4 class="din">Site Map</h4>
+                <p><a href="#">Home-Owners</a><br>
+                <a href="#">Tenants</a><br>
+                <a href="#">Safety</a><br>
+                <a href="#">FAQ</a><br>
+                <a href="#">Contact Us</a>
+            </p>
+            </div>
+    
+            <div class="col-md-4" style="padding-left: 3rem;">   
+            <h4 class="din">Stay Connected</h4>
+            <p>
+            <a href="#"><img src="images/social-icons-02.png" class="img-fluid" style="max-width: 180px;"></a></p>
+            </div>
+       
+            </div>
+        </footer><!-- end footer! -->
 
+
+    </body>
+</html>
 
 
 </asp:Content>
