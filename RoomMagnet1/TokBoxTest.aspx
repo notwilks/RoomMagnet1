@@ -42,8 +42,8 @@
             </style>
             <script type="text/javascript">
                 var apiKey = "46464112";
-                var sessionId = "1_MX40NjQ2NDExMn5-MTU3NDMwNzc1OTIyMX5oeUJWOWdiUEVxUnBDV0JFbU0wWDBRaHR-UH4";
-                var token = "T1==cGFydG5lcl9pZD00NjQ2NDExMiZzaWc9NjM5Zjg5YTdhZDFlZjQxZmZiNzViZDcwODc4NWU1OWRiNDlhMDY4ZjpzZXNzaW9uX2lkPTFfTVg0ME5qUTJOREV4TW41LU1UVTNORE13TnpjMU9USXlNWDVvZVVKV09XZGlVRVZ4VW5CRFYwSkZiVTB3V0RCUmFIUi1VSDQmY3JlYXRlX3RpbWU9MTU3NDMwNzc3MyZub25jZT0wLjYwMjIyMDc5MzYxNzQwMiZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTc0OTEyNTczJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
+                var sessionId = "1_MX40NjQ2NDExMn5-MTU3NTkzNDc3NTg3MH5BclgrRXpObkhCZjBTNnZSWjliMnVhLzB-UH4";
+                var token = "T1==cGFydG5lcl9pZD00NjQ2NDExMiZzaWc9NDQ3OGZhYTFmZTk0ZjUxMGM2MmYwMjE4NzVmNjUyNDcxYjFkNzkyYTpzZXNzaW9uX2lkPTFfTVg0ME5qUTJOREV4TW41LU1UVTNOVGt6TkRjM05UZzNNSDVCY2xnclJYcE9ia2hDWmpCVE5uWlNXamxpTW5WaEx6Qi1VSDQmY3JlYXRlX3RpbWU9MTU3NTkzNDgxMyZub25jZT0wLjQ1NDY5MjUxOTY4NTQxMSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTc2NTM5NjEyJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
 
                 // Handling all of our errors here by alerting them
                 function handleError(error) {

@@ -60,10 +60,10 @@ public partial class IntentToLease : System.Web.UI.Page
             while (reader.Read())
             {
                 DateBox.Text = Convert.ToString(DateTime.Now.ToString("MM/dd/yyyy"));
-                tenantName.Text = reader.GetString(1);
-                landlordName.Text = reader.GetString(2);
-                TenantSignature.Text = reader.GetString(5);
-                HostSignature.Text = reader.GetString(6);
+                tenantName.Text = HttpUtility.HtmlEncode(reader.GetString(1));
+                landlordName.Text = HttpUtility.HtmlEncode(reader.GetString(2));
+                TenantSignature.Text = HttpUtility.HtmlEncode(reader.GetString(5));
+                HostSignature.Text = HttpUtility.HtmlEncode(reader.GetString(6));
                 accomID = reader.GetInt32(7);
             }
             reader.Close();
@@ -121,16 +121,18 @@ public partial class IntentToLease : System.Web.UI.Page
 
         sc.Open();
 
-        save.CommandText = "Insert into RentalAgreement (hostID, tenantID, date, tenantName, hostName, tenantCleared, hostCleared, streetAddress, city, state, rentalLength, " +
+        if (Convert.ToString(Session["userType"]) == "H")
+        {
+            save.CommandText = "Insert into RentalAgreement (hostID, tenantID, date, tenantName, hostName, tenantCleared, hostCleared, streetAddress, city, state, rentalLength, " +
             "startDate, price, tSignature, hSignature) " +
             "VALUES (@hostID, @tenantID, isnull(@date, '01/01/2019'), @tenantName, @hostName, @tenantCleared, @hostCleared, @streetAddress, " +
             "@city, @state, @rentalLength, @startDate, @price, @tSignature, @hSignature) ";
 
-        save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostID", Convert.ToInt32(Session["hostIDLease"])));
-        save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantID", Convert.ToInt32(Session["tenantIDLease"])));
-        save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@date", DateBox.Text));
-        save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantName", tenantName.Text));
-        save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostName", landlordName.Text));
+            save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostID", Convert.ToInt32(Session["hostIDLease"])));
+            save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantID", Convert.ToInt32(Session["tenantIDLease"])));
+            save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@date", DateBox.Text));
+            save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantName", tenantName.Text));
+            save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostName", landlordName.Text));
 
             if (tenantYes.Checked)
             {

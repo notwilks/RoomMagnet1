@@ -10,7 +10,6 @@ using Google.Cloud.Translation.V2;
 using System.Web.UI.HtmlControls;
 using System.Data;
 
-
 public partial class HostMessageCenter : System.Web.UI.Page
 {
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
@@ -36,6 +35,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
         // Reply box and send button not visible until a conversation is selected
         txtBoxReply.Visible = false;
         btnSendRepy.Visible = false;
+        videoCall.Visible = false;
 
         
             DisplayConversationPreview();
@@ -88,8 +88,6 @@ public partial class HostMessageCenter : System.Web.UI.Page
         DisplayConversation();
         
         txtBoxReply.Text = "";
-
-        
     }
 
 
@@ -286,7 +284,12 @@ public partial class HostMessageCenter : System.Web.UI.Page
         // Make reply box and send message button visible 
         txtBoxReply.Visible = true;
         btnSendRepy.Visible = true;
+        videoCall.Visible = true;
     }
-    
-    
+
+
+    protected void videoCall_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TokBoxTest.aspx");
+    }
 }
