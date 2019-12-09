@@ -395,22 +395,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.CommandText = "select email from Tenant where tenantID = " + ViewState["tenantDeleteID"];
         String tenantEmail = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
 
-        delete.CommandText = "Delete from TenantImages where tenantID = " + ViewState["tenantDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from TenantBadge where tenantID = " + ViewState["tenantDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "delete from RentalAgreement where tenantID = " + ViewState["tenantDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "delete from FavoriteProperty where tenantID = " + ViewState["tenantDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "delete from MessageCenter where tenantID = " + ViewState["tenantDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from Tenant where tenantID = " + ViewState["tenantDeleteID"];
+        delete.CommandText = "EXEC DeleteTenant " + ViewState["tenantDeleteID"];
         delete.ExecuteNonQuery();
 
         delete.CommandText = "Delete from Passwords where email = '" + tenantEmail + "'";
