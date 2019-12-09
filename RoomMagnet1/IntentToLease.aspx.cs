@@ -71,15 +71,17 @@ public partial class IntentToLease : System.Web.UI.Page
         sc.Open();
 
         save.CommandText = "Insert into RentalAgreement (hostID, tenantID, date, tenantName, hostName, tenantCleared, hostCleared, streetAddress, city, state, rentalLength, " +
-            "startDate, price, tSignature, hSignature) " +
+            "startDate, price, tSignature, hSignature, lastUpdated, lastUpdatedBy) " +
             "VALUES (@hostID, @tenantID, isnull(@date, '01/01/2019'), @tenantName, @hostName, @tenantCleared, @hostCleared, @streetAddress, " +
-            "@city, @state, @rentalLength, @startDate, @price, @tSignature, @hSignature) ";
+            "@city, @state, @rentalLength, @startDate, @price, @tSignature, @hSignature, @lU, @lUB) ";
 
         save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostID", Convert.ToInt32(Session["hostIDLease"])));
         save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantID", Convert.ToInt32(Session["tenantIDLease"])));
         save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@date", DateBox.Text));
         save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantName", tenantName.Text));
         save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostName", landlordName.Text));
+        save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lU", DateTime.Now));
+        save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lUB", "Joe Muia"));
 
         if(tenantYes.Checked)
         {

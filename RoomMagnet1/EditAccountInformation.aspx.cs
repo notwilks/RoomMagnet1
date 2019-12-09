@@ -177,7 +177,7 @@ public partial class EditAccountInformation : System.Web.UI.Page
         update.Parameters.Add(new SqlParameter("@bday", HttpUtility.HtmlEncode(dobBox.Text)));
         update.Parameters.Add(new SqlParameter("@sex", DropDownList1.SelectedItem.Value));
         update.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
-        update.Parameters.Add(new SqlParameter("@lUB", Environment.UserName));
+        update.Parameters.Add(new SqlParameter("@lUB", "Joe Muia"));
         update.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
         update.Parameters.Add(new SqlParameter("@bio", BioBox.Text));
 

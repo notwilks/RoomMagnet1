@@ -4,7 +4,6 @@
     <!DOCTYPE html>
 
 <html>
-
     <title>RoomMagnet - Login</title>
     <style type="text/css">
         .auto-style1 {
