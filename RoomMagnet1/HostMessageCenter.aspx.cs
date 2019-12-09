@@ -37,7 +37,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
         btnSendRepy.Visible = false;
 
         
-            DisplayConversationPreview();
+        DisplayConversationPreview();
         
 
     }  // END PAGE LOAD
