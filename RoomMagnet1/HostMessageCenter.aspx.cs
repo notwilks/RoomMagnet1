@@ -10,6 +10,7 @@ using Google.Cloud.Translation.V2;
 using System.Web.UI.HtmlControls;
 using System.Data;
 
+
 public partial class HostMessageCenter : System.Web.UI.Page
 {
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
@@ -87,6 +88,8 @@ public partial class HostMessageCenter : System.Web.UI.Page
         DisplayConversation();
         
         txtBoxReply.Text = "";
+
+        
     }
 
 
@@ -284,5 +287,6 @@ public partial class HostMessageCenter : System.Web.UI.Page
         txtBoxReply.Visible = true;
         btnSendRepy.Visible = true;
     }
+    
     
 }
