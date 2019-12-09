@@ -36,10 +36,9 @@ public partial class HostMessageCenter : System.Web.UI.Page
         txtBoxReply.Visible = false;
         btnSendRepy.Visible = false;
 
-        if (!IsPostBack)
-        {
+        
             DisplayConversationPreview();
-        }
+        
 
     }  // END PAGE LOAD
 
