@@ -27,11 +27,12 @@
     <form runat="server">
         <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" EnablePartialRendering="true" runat="server" />
 
+        <div class="container">
         <div class="row" style="margin-top: 7rem; margin-left: 1rem; margin-right: 1rem">
-            <div class="col-md-12" style="border-bottom-style: solid; border-bottom-color: #D0D0D0;">
+            <div class="col" style="border-bottom-style: solid; border-bottom-color: #D0D0D0;">
                 <h1>Message Center</h1>
             </div>
-            <div class="col-md-9" style="padding-bottom: 15px; margin-top: 1rem;">
+            <div class="col" style="padding-bottom: 15px; margin-top: 1rem;">
                 <asp:Button ID="btnComposeNew" CssClass="btn float-left" runat="server" Text="Compose New Message" OnClick="ComposeNew_Click" />
 
 
@@ -46,20 +47,20 @@
         </div>
         <!--end row-->
         <div class="row" runat="server">
-            <div class="col-md-12" runat="server">
+            <div class="col" runat="server">
                 <div class="row" style="margin-left: 1rem;" runat="server">
 
 
-                    <div class="col-md-2" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
+                    <div class="col-md-4" id="leftDiv" runat="server" style="border-right-style: solid; border-right-color: #D0D0D0;">
                         <div class="row" runat="server" style="border-bottom-style: solid; border-bottom-color: #D0D0D0; margin-bottom: 1rem;">
                             <h4>Your Conversations</h4>
                         </div>
                     </div>
 
 
-                    <div class="col-md-10" id="rightDiv" runat="server">
+                    <div class="col-md-8" id="rightDiv" runat="server">
                         <div class="row">
-                            <div class="col-md-8" runat="server">
+                            <div class="col" runat="server">
                                 <div class="row" id="conversationDiv" runat="server" style="margin-top: 1rem; margin-bottom: 1rem; min-height: 50px; max-height: 300px; overflow: auto;">
 
                                     <!-- conversation goes here -->
