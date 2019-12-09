@@ -218,7 +218,7 @@ public partial class TenantMessageCenter : System.Web.UI.Page
     protected void Send_Click(object sender, EventArgs e)
     {
 
-        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2, @lastUpdated2, @lastUpdatedBy2)", sc);
+        SqlCommand sendMessage = new SqlCommand("INSERT INTO MessageCenter(hostID, tenantID, messageText, dateSent, sender, lastUpdated, lastUpdatedBy) VALUES(@hostID2, @tenantID2, @msg2, @date2, @sender2, @lastUpdated2, @lastUpdatedBy2)", sc);
         sendMessage.Parameters.AddWithValue("@hostID2", Convert.ToString(ViewState["hostID"]));
         sendMessage.Parameters.AddWithValue("@tenantID2", Convert.ToString(ViewState["tenantID"]));
         sendMessage.Parameters.AddWithValue("@msg2", txtBoxReply.Text);
