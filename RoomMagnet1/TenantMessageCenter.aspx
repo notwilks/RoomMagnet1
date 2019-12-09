@@ -26,7 +26,7 @@
 
     <form runat="server">
 
-        <div class="container" runat="server" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-bottom: 5rem; margin-top: 8rem;">
+        <div class="container" runat="server" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-bottom: 5rem; margin-top: 8rem; padding: 1rem;">
         <div class="row" style="margin-top: 2rem; margin-left: 1rem; margin-right: 1rem; margin-bottom: 3rem;">
             <div class="col" style="">
                 <h1>Message Center</h1>
@@ -71,8 +71,10 @@
                         </div>
                         <div class="col" runat="server">
                             <p>
-                                <asp:Button ID="btnSendRepy" CssClass="btn float-left" runat="server" Text="Send" OnClick="Send_Click" /></p>
-
+                                <asp:Button ID="btnSendRepy" CssClass="btn float-left" runat="server" Text="Send" OnClick="Send_Click" />
+                                <asp:Button ID="videoCall" runat="server" Text="Video Chat" onclick="videoCall_Click" style="margin-left: 1rem;" CssClass="btn btn-dark"/>
+                            </p>
+                                
                         </div>
 
                     </div>

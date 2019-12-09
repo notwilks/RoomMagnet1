@@ -36,8 +36,8 @@ public partial class TenantMessageCenter : System.Web.UI.Page
         // Reply box and send button not visible until a conversation is selected
         txtBoxReply.Visible = false;
         btnSendRepy.Visible = false;
+        videoCall.Visible = false;
 
-        
         DisplayConversationPreview();
         
         
@@ -213,6 +213,7 @@ public partial class TenantMessageCenter : System.Web.UI.Page
         // Make reply box and send message button visible 
         txtBoxReply.Visible = true;
         btnSendRepy.Visible = true;
+        videoCall.Visible = true;
     }
 
     protected void Send_Click(object sender, EventArgs e)
@@ -292,4 +293,9 @@ public partial class TenantMessageCenter : System.Web.UI.Page
 
 
 
+
+    protected void videoCall_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TokBoxTest.aspx");
+    }
 }

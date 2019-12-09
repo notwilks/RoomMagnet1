@@ -30,7 +30,7 @@
     <form runat="server">
         <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" EnablePartialRendering="true" runat="server" />
 
-        <div class="container" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-bottom: 5rem; margin-top: 8rem;">
+        <div class="container" style="border: solid; border-color: black; background-color: #ebebeb; border-width: 1px; border-radius: 20px; margin-bottom: 5rem; margin-top: 8rem; padding: 1rem;">
         <div class="row" style="margin-top: 2rem; margin-left: 1rem; margin-right: 1rem">
             <div class="col" style="border-bottom-style: solid; border-bottom-color: #D0D0D0;">
                 <h1>Message Center</h1>
@@ -78,6 +78,7 @@
                         <div class="col-md-2" runat="server">
                             <p>
                                 <asp:Button ID="btnSendRepy" CssClass="btn float-left" runat="server" Text="Send" OnClick="Send_Click" AutoPostBack="True" />
+                                <asp:Button ID="videoCall" runat="server" Text="Video Chat" onclick="videoCall_Click" style="margin-left: 1rem;" CssClass="btn btn-dark"/>
                             </p>
 
                         </div>
