@@ -17,6 +17,14 @@ public partial class TenantMessageCenter : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
 
         // Retrieve TenantID to be used in queries
         SqlCommand selectTenantID = new SqlCommand("SELECT tenantID FROM Tenant WHERE email = @email", sc);

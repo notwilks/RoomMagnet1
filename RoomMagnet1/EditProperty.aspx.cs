@@ -13,6 +13,15 @@ public partial class EditProperty : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
+
         if (!IsPostBack)
         {
             sc.Open();

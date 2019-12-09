@@ -28,6 +28,15 @@ public partial class HostDashboard : System.Web.UI.Page
     String listing = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
+
         if (Convert.ToString(Session["userEmail"]).Equals(""))
         {
             Response.Redirect("HomePage.aspx");

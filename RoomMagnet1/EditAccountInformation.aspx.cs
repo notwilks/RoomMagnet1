@@ -10,12 +10,22 @@ using System.IO;
 
 public partial class EditAccountInformation : System.Web.UI.Page
 {
+
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     string table;
     String imageTable;
     String userTypeID;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
+
         //Grab userType to ensure the db query is selecting/updating the proper table.
         if (Convert.ToString(Session["userType"]).Equals("T"))
         {

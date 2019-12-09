@@ -15,6 +15,14 @@ public partial class HostMessageCenter : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
 
         // Retrieve HostID to be used in queries
         SqlCommand selectHostID = new SqlCommand("SELECT hostID FROM Host WHERE email = @email", sc);
@@ -29,18 +37,6 @@ public partial class HostMessageCenter : System.Web.UI.Page
         btnSendRepy.Visible = false;
 
         DisplayConversationPreview();
-        
-
-
-
-
-
-
-
-
-
-
-
 
     }  // END PAGE LOAD
 

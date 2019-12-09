@@ -13,6 +13,15 @@ public partial class IntentToLease : System.Web.UI.Page
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
+
         var dateAndTime = DateTime.Now;
         var date = dateAndTime.Date;
         DateBox.Text = Convert.ToString(DateTime.Now.ToString("MM/dd/yyyy"));

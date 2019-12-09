@@ -9,6 +9,14 @@ public partial class PaymentCenter : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         //StripeConfiguration.ApiKey = "sk_test_wNMtikQIT2150fUjCaDsMLEG00yag0mNiR";

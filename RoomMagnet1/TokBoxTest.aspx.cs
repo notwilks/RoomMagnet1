@@ -10,6 +10,15 @@ public partial class TokBoxTest : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Convert.ToString(Session["userType"]) == "" || Convert.ToString(Session["userEmail"]) == "")
+        {
+            Response.Redirect("HomePage.aspx");
+        }
+        else
+        {
+
+        }
+
         // Set the following constants with the API key and API secret
         int apiKey = 46464112;
         String secret = "e5f22b10715a9fda37245b80b9388714ce7d0bd1";
