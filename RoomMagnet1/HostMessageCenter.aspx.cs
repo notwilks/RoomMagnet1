@@ -36,7 +36,9 @@ public partial class HostMessageCenter : System.Web.UI.Page
         txtBoxReply.Visible = false;
         btnSendRepy.Visible = false;
 
+        
         DisplayConversationPreview();
+        
 
     }  // END PAGE LOAD
 
@@ -82,6 +84,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
         sc.Close();
 
         DisplayConversation();
+        
         txtBoxReply.Text = "";
     }
 
@@ -104,7 +107,9 @@ public partial class HostMessageCenter : System.Web.UI.Page
         sc.Open();
         sendMessage.ExecuteNonQuery();
         sc.Close();
-        ScriptManager.RegisterStartupScript(this, GetType(), "Close Modal Popup", "ClosePopup();", true);
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#composeMessageModal').modal('hide');", true);
+        Response.Redirect("HostMessageCenter.aspx");
+
     }
     protected void AddToDropdown()
     {
@@ -165,6 +170,7 @@ public partial class HostMessageCenter : System.Web.UI.Page
                 InnerText = tenantName
             };
             leftSenderHeader.Attributes.Add("style", "font-size: 17px");
+            leftSenderHeader.Attributes.Add("runat", "server");
             leftDiv.Controls.Add(leftSenderHeader);
 
             // View conversation button
@@ -174,11 +180,12 @@ public partial class HostMessageCenter : System.Web.UI.Page
             viewConvo.Attributes.Add("type", "button");
             viewConvo.Attributes.Add("class", "btn btn-sm float-right");
             viewConvo.Attributes.Add("runat", "server");
+            viewConvo.Attributes.Add("CausesValidation", "false");
             //view.Attributes.Add("data-toggle", "modal");
             //view.Attributes.Add("data-target", "#exampleModalCenter");
             viewConvo.Click += new EventHandler(ViewConversation_Click);
             leftSenderHeader.Controls.Add(viewConvo);
-
+           
             // Date 
             String date = reader.GetDateTime(3).ToShortDateString();
             var leftDateSent = new HtmlGenericControl("p")
