@@ -344,30 +344,9 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.CommandText = "select email from Host where hostID = " + ViewState["hostDeleteID"];
         String hostEmail = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
 
-
-        delete.CommandText = "Delete from FavoriteProperty where accommodationID = " + accomID;
+        delete.CommandText = "EXEC DeleteHost " + accomID + ", " + ViewState["hostDeleteID"];
         delete.ExecuteNonQuery();
 
-        delete.CommandText = "Delete from AccommodationImages where accommodationID = " + accomID;
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from AccommodationAmmenity where accommodationID = " + accomID;
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from Accommodation where accommodationID = " + accomID;
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from HostImages where hostID = " + ViewState["hostDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from MessageCenter where hostID = " + ViewState["hostDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from RentalAgreement where hostID = " + ViewState["hostDeleteID"];
-        delete.ExecuteNonQuery();
-
-        delete.CommandText = "Delete from Host where hostID = " + ViewState["hostDeleteID"];
-        delete.ExecuteNonQuery();
 
         delete.CommandText = "Delete from Passwords where email = '" + hostEmail + "'";
         delete.ExecuteNonQuery();
@@ -390,8 +369,6 @@ public partial class AdminDashboard : System.Web.UI.Page
 
         delete.CommandText = "Delete from Passwords where email = '" + tenantEmail + "'";
         delete.ExecuteNonQuery();
-
-        SearchButton_Click(sender, e);
 
     }
 }
