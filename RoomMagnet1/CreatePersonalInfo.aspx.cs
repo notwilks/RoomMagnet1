@@ -64,7 +64,12 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                             || phoneNumberBox.Text.Contains("K") || phoneNumberBox.Text.Contains("L") || phoneNumberBox.Text.Contains("M") || phoneNumberBox.Text.Contains("N") || phoneNumberBox.Text.Contains("O")
                             || phoneNumberBox.Text.Contains("P") || phoneNumberBox.Text.Contains("Q") || phoneNumberBox.Text.Contains("R") || phoneNumberBox.Text.Contains("S") || phoneNumberBox.Text.Contains("T")
                             || phoneNumberBox.Text.Contains("U") || phoneNumberBox.Text.Contains("V") || phoneNumberBox.Text.Contains("W") || phoneNumberBox.Text.Contains("X") || phoneNumberBox.Text.Contains("Y")
-                            || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
+                            || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("a") || phoneNumberBox.Text.Contains("b") || phoneNumberBox.Text.Contains("c") || phoneNumberBox.Text.Contains("d")
+                            || phoneNumberBox.Text.Contains("e") || phoneNumberBox.Text.Contains("f") || phoneNumberBox.Text.Contains("g") || phoneNumberBox.Text.Contains("h") || phoneNumberBox.Text.Contains("i")
+                            || phoneNumberBox.Text.Contains("j") || phoneNumberBox.Text.Contains("k") || phoneNumberBox.Text.Contains("l") || phoneNumberBox.Text.Contains("m") || phoneNumberBox.Text.Contains("n")
+                            || phoneNumberBox.Text.Contains("o") || phoneNumberBox.Text.Contains("p") || phoneNumberBox.Text.Contains("q") || phoneNumberBox.Text.Contains("r") || phoneNumberBox.Text.Contains("s")
+                            || phoneNumberBox.Text.Contains("t") || phoneNumberBox.Text.Contains("u") || phoneNumberBox.Text.Contains("v") || phoneNumberBox.Text.Contains("w") || phoneNumberBox.Text.Contains("x")
+                            || phoneNumberBox.Text.Contains("y") || phoneNumberBox.Text.Contains("z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
                             || phoneNumberBox.Text.Contains("%") || phoneNumberBox.Text.Contains("^") || phoneNumberBox.Text.Contains("&") || phoneNumberBox.Text.Contains("*") || phoneNumberBox.Text.Contains("(")
                             || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("=") || phoneNumberBox.Text.Length != 12)
                         {
