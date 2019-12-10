@@ -124,15 +124,17 @@ public partial class IntentToLease : System.Web.UI.Page
         if (Convert.ToString(Session["userType"]) == "H")
         {
             save.CommandText = "Insert into RentalAgreement (hostID, tenantID, date, tenantName, hostName, tenantCleared, hostCleared, streetAddress, city, state, rentalLength, " +
-            "startDate, price, tSignature, hSignature) " +
+            "startDate, price, tSignature, hSignature, lastUpdated, lastUpdatedBy) " +
             "VALUES (@hostID, @tenantID, isnull(@date, '01/01/2019'), @tenantName, @hostName, @tenantCleared, @hostCleared, @streetAddress, " +
-            "@city, @state, @rentalLength, @startDate, @price, @tSignature, @hSignature) ";
+            "@city, @state, @rentalLength, @startDate, @price, @tSignature, @hSignature, @lastUpdated1, @lastUpdatedBy1) ";
 
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostID", Convert.ToInt32(Session["hostIDLease"])));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantID", Convert.ToInt32(Session["tenantIDLease"])));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@date", DateBox.Text));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantName", tenantName.Text));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostName", landlordName.Text));
+            save.Parameters.AddWithValue("@lastUpdated2", DateTime.Now);
+            save.Parameters.AddWithValue("@lastUpdatedBy2", "Joe Muia");
 
             if (tenantYes.Checked)
             {
@@ -172,7 +174,7 @@ public partial class IntentToLease : System.Web.UI.Page
         else if (Convert.ToString(Session["userType"]) == "H")
         {
             save.CommandText = "update RentalAgreement set date = @date1, hostName = @hostName1, streetAddress = @streetAddress1, city = @city1, " +
-                "state = @state1, rentalLength = @rentalLength1, startDate = @startDate1, price = @price1, tSignature = @tSig1, hSignature = @hSig1 where accommodationID = " + accomID;
+                "state = @state1, rentalLength = @rentalLength1, startDate = @startDate1, price = @price1, tSignature = @tSig1, hSignature = @hSig1, lastUpdated = @lastUpdated3, lastUpdatedBy = @lastUpdatedBy3 where accommodationID = " + accomID;
 
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@date1", Convert.ToString(DateTime.Now.ToString("MM/dd/yyyy"))));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostName1", landlordName.Text));
@@ -184,6 +186,8 @@ public partial class IntentToLease : System.Web.UI.Page
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@price1", PriceBox.Text));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tSig1", TenantSignature.Text));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hSig1", HostSignature.Text));
+            save.Parameters.AddWithValue("@lastUpdated3", DateTime.Now);
+            save.Parameters.AddWithValue("@lastUpdatedBy3", "Joe Muia");
 
             save.ExecuteNonQuery();
 
