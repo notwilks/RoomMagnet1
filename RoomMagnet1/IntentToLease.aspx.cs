@@ -67,12 +67,13 @@ public partial class IntentToLease : System.Web.UI.Page
                 accomID = reader.GetInt32(7);
             }
             reader.Close();
-            sc.Close();
+            
         }
         catch
         {
 
         }
+        sc.Close();
 
         if (Convert.ToString(Session["userType"]) == "H")
         {
@@ -121,12 +122,12 @@ public partial class IntentToLease : System.Web.UI.Page
 
         sc.Open();
 
-        if (Convert.ToString(Session["userType"]) == "H")
+        if (Convert.ToString(Session["userType"]) == "T")
         {
             save.CommandText = "Insert into RentalAgreement (hostID, tenantID, date, tenantName, hostName, tenantCleared, hostCleared, streetAddress, city, state, rentalLength, " +
             "startDate, price, tSignature, hSignature, lastUpdated, lastUpdatedBy) " +
             "VALUES (@hostID, @tenantID, isnull(@date, '01/01/2019'), @tenantName, @hostName, @tenantCleared, @hostCleared, @streetAddress, " +
-            "@city, @state, @rentalLength, @startDate, @price, @tSignature, @hSignature, @lastUpdated1, @lastUpdatedBy1) ";
+            "@city, @state, @rentalLength, @startDate, @price, @tSignature, @hSignature, @lastUpdated2, @lastUpdatedBy2) ";
 
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@hostID", Convert.ToInt32(Session["hostIDLease"])));
             save.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenantID", Convert.ToInt32(Session["tenantIDLease"])));
@@ -166,8 +167,6 @@ public partial class IntentToLease : System.Web.UI.Page
 
             save.ExecuteNonQuery();
 
-            sc.Close();
-
             Response.Redirect("TenantDashboard.aspx");
         }
 
@@ -197,5 +196,6 @@ public partial class IntentToLease : System.Web.UI.Page
         {
 
         }
+        sc.Close();
     }
 }

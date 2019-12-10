@@ -177,7 +177,6 @@
         </div><!-- end div big row -->  
     </div>
     
-    <a href="TokBoxTest.aspx"><button type="button" class="btn btn-secondary" >Video Conference</button></a>
 </div> <!-- end div container! -->    
 <footer class="footer mt-auto py-3 footer-expand-lg"><!-- start footer! -->
    <div class="row" style="padding-left: 3rem;">
