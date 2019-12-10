@@ -75,9 +75,9 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-md-2" runat="server">
+                        <div class="col" runat="server">
                             <p>
-                                <asp:Button ID="btnSendRepy" CssClass="btn float-left" runat="server" Text="Send" OnClick="Send_Click" AutoPostBack="True" />
+                                <asp:Button ID="btnSendRepy" CssClass="btn float-left" runat="server" Text="Send" OnClick="Send_Click"/>
                                 <asp:Button ID="videoCall" runat="server" Text="Video Chat" onclick="videoCall_Click" style="margin-left: 1rem;" CssClass="btn btn-dark"/>
                             </p>
 
