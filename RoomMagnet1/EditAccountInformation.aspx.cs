@@ -94,109 +94,118 @@ public partial class EditAccountInformation : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        //Setup command/connnection with db.
-        sc.Open();
-        SqlCommand update = new SqlCommand();
-        update.Connection = sc;
-
-        //inserting images to profile
-        String path = Server.MapPath("Images2/");
-        SqlCommand updateImages = new SqlCommand();
-        updateImages.Connection = sc;
-
-        updateImages.CommandText = "Select " + userTypeID + " from " + table + " where email = @userEmail";
-        updateImages.Parameters.Add(new SqlParameter("@userEmail", Convert.ToString(Session["userEmail"])));
-
-        int userID = Convert.ToInt32(updateImages.ExecuteScalar());
-
-        if (mainImage.HasFile)
+        if (Convert.ToInt32(CalculateAge(Convert.ToDateTime(dobBox.Text))) > 17 && Convert.ToInt32(CalculateAge(Convert.ToDateTime(dobBox.Text))) < 150)
         {
-            String ext = Path.GetExtension(mainImage.FileName);
+            //Setup command/connnection with db.
+            sc.Open();
+            SqlCommand update = new SqlCommand();
+            update.Connection = sc;
 
-            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            //inserting images to profile
+            String path = Server.MapPath("Images2/");
+            SqlCommand updateImages = new SqlCommand();
+            updateImages.Connection = sc;
+
+            updateImages.CommandText = "Select " + userTypeID + " from " + table + " where email = @userEmail";
+            updateImages.Parameters.Add(new SqlParameter("@userEmail", Convert.ToString(Session["userEmail"])));
+
+            int userID = Convert.ToInt32(updateImages.ExecuteScalar());
+
+            if (mainImage.HasFile)
             {
-                mainImage.SaveAs(path + userID + mainImage.FileName);
+                String ext = Path.GetExtension(mainImage.FileName);
 
-                String name = "Images2/" + userID + mainImage.FileName;
+                if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+                {
+                    mainImage.SaveAs(path + userID + mainImage.FileName);
+
+                    String name = "Images2/" + userID + mainImage.FileName;
 
 
                     updateImages.CommandText = "update " + imageTable + " set mainImage = @image where " + userTypeID + " = " + userID;
                     updateImages.Parameters.Add(new SqlParameter("@image", name));
 
                     updateImages.ExecuteNonQuery();
+                }
             }
-        }
 
-        if (image2.HasFile)
-        {
-            String ext = Path.GetExtension(image2.FileName);
-
-            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            if (image2.HasFile)
             {
-                image2.SaveAs(path + userID + image2.FileName);
+                String ext = Path.GetExtension(image2.FileName);
 
-                String name = "Images2/" + userID + image2.FileName;
+                if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+                {
+                    image2.SaveAs(path + userID + image2.FileName);
 
-                updateImages.CommandText = "update " + imageTable + " set image2 = @image2 where " + userTypeID + " = " + userID;
-                updateImages.Parameters.Add(new SqlParameter("@image2", name));
+                    String name = "Images2/" + userID + image2.FileName;
 
-                updateImages.ExecuteNonQuery();
+                    updateImages.CommandText = "update " + imageTable + " set image2 = @image2 where " + userTypeID + " = " + userID;
+                    updateImages.Parameters.Add(new SqlParameter("@image2", name));
+
+                    updateImages.ExecuteNonQuery();
+                }
             }
-        }
 
-        if (image3.HasFile)
-        {
-            String ext = Path.GetExtension(image3.FileName);
-
-            if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+            if (image3.HasFile)
             {
-                image3.SaveAs(path + userID + image3.FileName);
+                String ext = Path.GetExtension(image3.FileName);
 
-                String name = "Images2/" + userID + image3.FileName;
+                if (ext == ".jpg" || ext == ".png" || ext == ".jpeg")
+                {
+                    image3.SaveAs(path + userID + image3.FileName);
 
-                updateImages.CommandText = "update " + imageTable + " set image3 = @image3 where " + userTypeID + " = " + userID;
-                updateImages.Parameters.Add(new SqlParameter("@image3", name));
+                    String name = "Images2/" + userID + image3.FileName;
 
-                updateImages.ExecuteNonQuery();
+                    updateImages.CommandText = "update " + imageTable + " set image3 = @image3 where " + userTypeID + " = " + userID;
+                    updateImages.Parameters.Add(new SqlParameter("@image3", name));
+
+                    updateImages.ExecuteNonQuery();
+                }
             }
-        }
 
-        //Create and execute query
-        update.CommandText = "UPDATE " + table + " SET firstName = @f, lastName = @l, phoneNumber = @phone, birthDate = @bday, gender = @sex, lastUpdated = @lU, lastUpdatedBy = @lUB, biography = @bio WHERE email = @email";
-        update.Parameters.Add(new SqlParameter("@f", HttpUtility.HtmlEncode(FirstNameBox.Text)));
-        update.Parameters.Add(new SqlParameter("@l", HttpUtility.HtmlEncode(LastNameBox.Text)));
-        if (phoneNumberBox.Text.Length == 0)
-        {
-            update.Parameters.Add(new SqlParameter("@phone", DBNull.Value));
+            //Create and execute query
+            update.CommandText = "UPDATE " + table + " SET firstName = @f, lastName = @l, phoneNumber = @phone, birthDate = @bday, gender = @sex, lastUpdated = @lU, lastUpdatedBy = @lUB, biography = @bio WHERE email = @email";
+            update.Parameters.Add(new SqlParameter("@f", HttpUtility.HtmlEncode(FirstNameBox.Text)));
+            update.Parameters.Add(new SqlParameter("@l", HttpUtility.HtmlEncode(LastNameBox.Text)));
+            if (phoneNumberBox.Text.Length == 0)
+            {
+                update.Parameters.Add(new SqlParameter("@phone", DBNull.Value));
+            }
+            else
+            {
+                update.Parameters.Add(new SqlParameter("@phone", HttpUtility.HtmlEncode(phoneNumberBox.Text)));
+
+            }
+            update.Parameters.Add(new SqlParameter("@bday", HttpUtility.HtmlEncode(dobBox.Text)));
+            update.Parameters.Add(new SqlParameter("@sex", DropDownList1.SelectedItem.Value));
+            update.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
+            update.Parameters.Add(new SqlParameter("@lUB", "Joe Muia"));
+            update.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
+            update.Parameters.Add(new SqlParameter("@bio", BioBox.Text));
+
+            update.ExecuteNonQuery();
+            sc.Close();
+
+            //clear data fields after update
+            FirstNameBox.Text = "";
+            LastNameBox.Text = "";
+            phoneNumberBox.Text = "";
+            dobBox.Text = "";
+
+            if (Session["userType"].Equals("T"))
+            {
+                Response.Redirect("TenantDashboard.aspx");
+            }
+            else if (Session["userType"].Equals("H"))
+            {
+                Response.Redirect("HostDashboard.aspx");
+            }
         }
         else
         {
-            update.Parameters.Add(new SqlParameter("@phone", HttpUtility.HtmlEncode(phoneNumberBox.Text)));
-            
+            dobErrorLbl.Text = "Error, Invalid Age.";
         }
-        update.Parameters.Add(new SqlParameter("@bday", HttpUtility.HtmlEncode(dobBox.Text)));
-        update.Parameters.Add(new SqlParameter("@sex", DropDownList1.SelectedItem.Value));
-        update.Parameters.Add(new SqlParameter("@email", Session["userEmail"]));
-        update.Parameters.Add(new SqlParameter("@lUB", "Joe Muia"));
-        update.Parameters.Add(new SqlParameter("@lU", DateTime.Now));
-        update.Parameters.Add(new SqlParameter("@bio", BioBox.Text));
 
-        update.ExecuteNonQuery();
-        sc.Close();
-
-       //clear data fields after update
-        FirstNameBox.Text = "";
-        LastNameBox.Text = "";
-        phoneNumberBox.Text = "";
-        dobBox.Text = "";
-
-        if (Session["userType"].Equals("T"))
-        {
-            Response.Redirect("TenantDashboard.aspx");
-        }else if (Session["userType"].Equals("H")) {
-            Response.Redirect("HostDashboard.aspx");
-        }
-             
     }
 
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,5 +220,19 @@ public partial class EditAccountInformation : System.Web.UI.Page
             OtherGenderLbl.Visible = false;
             OtherGenderBox.Visible = false;
         }
+    }
+    
+    public string CalculateAge(DateTime DOB)
+    {
+        DateTime dob = Convert.ToDateTime(DOB);
+        DateTime today = DateTime.Today;
+        int age = today.Year - dob.Year;
+
+        if ((today.Month < dob.Month) || ((today.Month == dob.Month) && (today.Day < dob.Day)))
+        {
+            age--;
+        }
+
+        return age.ToString();
     }
 }
