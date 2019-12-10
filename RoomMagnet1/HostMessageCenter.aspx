@@ -13,6 +13,7 @@
             $('#composeMessageModal').modal('hide');
             location.reload();
         }
+       
 
 
     </script>
