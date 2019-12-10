@@ -8,6 +8,9 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 public partial class LoginPage : System.Web.UI.Page
 {
+    String tenantActive;
+    String hostActive;
+
     SqlConnection sc = new SqlConnection(WebConfigurationManager.ConnectionStrings["RoomMagnetAWS"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -16,15 +19,36 @@ public partial class LoginPage : System.Web.UI.Page
 
     protected void NextButton_Click(object sender, EventArgs e)
     {
+
         try
         {
+
+
             sc.Open();
             System.Data.SqlClient.SqlCommand findPass = new System.Data.SqlClient.SqlCommand();
             findPass.Connection = sc;
 
             System.Data.SqlClient.SqlCommand select = new System.Data.SqlClient.SqlCommand();
             select.Connection = sc;
+
             // SELECT PASSWORD STRING WHERE THE ENTERED USERNAME MATCHES
+            select.CommandText = "select userType from Passwords where email = @email0";
+            select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email0", HttpUtility.HtmlEncode(EmailBox.Text)));
+            String userType = Convert.ToString(select.ExecuteScalar());
+
+            if (userType == "T")
+            {
+                select.CommandText = "Select active from tenant where email = @email11";
+                select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email11", HttpUtility.HtmlEncode(EmailBox.Text)));
+                tenantActive = Convert.ToString(select.ExecuteScalar());
+            }
+            else if(userType == "H")
+            {
+                select.CommandText = "Select active from host where email = @email12";
+                select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email12", HttpUtility.HtmlEncode(EmailBox.Text)));
+                hostActive = Convert.ToString(select.ExecuteScalar());
+            }
+
             findPass.CommandText = "select password from Passwords where email = @email";
             findPass.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", HttpUtility.HtmlEncode(EmailBox.Text)));
 
@@ -65,11 +89,29 @@ public partial class LoginPage : System.Web.UI.Page
 
                         if(Convert.ToString(Session["userType"]) == "T")
                         {
-                            Response.Redirect("TenantDashboard.aspx");
+                            if (tenantActive == "F")
+                            {
+                                OutputLabel.Text = "Your account has been deactivated. Please contact an administrator for more information.";
+                                break;
+                            }
+                            else
+                            {
+                                Response.Redirect("TenantDashboard.aspx");
+                            }
+                            
                         }
                         else if (Convert.ToString(Session["userType"]) == "H")
                         {
-                            Response.Redirect("HostDashboard.aspx");
+                            if (hostActive == "F")
+                            {
+                                OutputLabel.Text = "Your account has been deactivated. Please contact an administrator for more information.";
+                                break;
+                            }
+                            else
+                            {
+                                Response.Redirect("HostDashboard.aspx");
+                            }
+                            
                         }
                         else if (Convert.ToString(Session["userType"]) == "A")
                         {

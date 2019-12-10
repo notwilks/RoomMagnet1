@@ -138,7 +138,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">This account will be permanently deleted. Would you like to continue?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure you would like to deactivate this account?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -147,7 +147,7 @@
               
           </div>
           <div class="modal-footer">
-            <asp:Button ID="yesDelete" runat="server" Text="Yes, Delete" CssClass="btn" OnClick="YesDeleteHost"/>
+            <asp:Button ID="yesDelete" runat="server" Text="Yes, Deactivate" CssClass="btn" OnClick="YesDeleteHost"/>
             <asp:Button ID="noDelete" runat="server" Text="Cancel"/>
           </div>
         </div>
@@ -159,7 +159,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tenantModalLabel">This account will be permanently deleted. Would you like to continue?</h5>
+            <h5 class="modal-title" id="tenantModalLabel">Are you sure you would like to deactivate this account?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -168,7 +168,7 @@
               
           </div>
           <div class="modal-footer">
-            <asp:Button ID="Button1" runat="server" Text="Yes, Delete" CssClass="btn" OnClick="YesDeleteTenant"/>
+            <asp:Button ID="Button1" runat="server" Text="Yes, Deactivate" CssClass="btn" OnClick="YesDeleteTenant"/>
             <asp:Button ID="Button2" runat="server" Text="Cancel" CssClass="btn btn-secondary"/>
           </div>
         </div>

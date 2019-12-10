@@ -33,7 +33,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         SqlCommand select = new SqlCommand();
         select.Connection = sc;
 
-        select.CommandText = "select ISNULL(hostID, 0), ISNULL((lastName + ', ' + firstName), ''), isnull(email, ''), isnull(cleared, 'F') from Host where lastName = @lastName";
+        select.CommandText = "select ISNULL(hostID, 0), ISNULL((lastName + ', ' + firstName), ''), isnull(email, ''), isnull(cleared, 'F'), active from Host where lastName = @lastName";
         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName", lastNameSearchBox.Text));
 
         SqlDataReader reader = select.ExecuteReader();
@@ -126,9 +126,18 @@ public partial class AdminDashboard : System.Web.UI.Page
             delete.ID = HttpUtility.HtmlEncode(Convert.ToString(reader.GetInt32(0) + "D"));
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
-            delete.Attributes.Add("class", "btn btn-danger btn-sm");
             delete.Style.Add("float", "right");
-            delete.Text = "Delete Account";
+
+            if (reader.GetString(4) == "T")
+            {
+                delete.Attributes.Add("class", "btn btn-danger btn-sm");
+                delete.Text = "Deactivate Account";
+            }
+            else
+            {
+                delete.Text = "Re-activate Account";
+                delete.Attributes.Add("class", "btn btn-dark btn-sm");
+            }
 
             delete.Click += new EventHandler(DeleteHostButton_Click);
             butDiv.Controls.Add(delete);
@@ -140,7 +149,7 @@ public partial class AdminDashboard : System.Web.UI.Page
         SqlCommand selectT = new SqlCommand();
         select.Connection = sc;
 
-        select.CommandText = "select isnull(tenantID, 0), isnull((lastName + ', ' + firstName), ''), isnull(email, ''), ISNULL(cleared, 'F') from Tenant where lastName = @lastName1";
+        select.CommandText = "select isnull(tenantID, 0), isnull((lastName + ', ' + firstName), ''), isnull(email, ''), ISNULL(cleared, 'F'), active from Tenant where lastName = @lastName1";
         select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastName1", lastNameSearchBox.Text));
 
         SqlDataReader readerT = select.ExecuteReader();
@@ -229,9 +238,19 @@ public partial class AdminDashboard : System.Web.UI.Page
             delete.ID = HttpUtility.HtmlEncode(Convert.ToString(readerT.GetInt32(0) + "T"));
             delete.Style.Add("margin-bottom", "1rem;");
             delete.Attributes.Add("runat", "server");
-            delete.Attributes.Add("class", "btn btn-danger btn-sm");
             delete.Style.Add("float", "right");
-            delete.Text = "Delete Account";
+
+            if(readerT.GetString(4) == "T")
+            {
+                delete.Attributes.Add("class", "btn btn-danger btn-sm");
+                delete.Text = "Deactivate Account";
+            }
+            else
+            {
+                delete.Text = "Re-activate Account";
+                delete.Attributes.Add("class", "btn btn-dark btn-sm");
+            }
+            
             delete.Click += new EventHandler(DeleteTenantButton_Click);
             butDiv.Controls.Add(delete);
         }
@@ -305,13 +324,34 @@ public partial class AdminDashboard : System.Web.UI.Page
         select.Connection = sc;
 
         String ID = b.ID.Substring(0, b.ID.Length - 1);
-        select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from Host where hostID = " + ID;
 
-        String hostLFModal = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+        if (b.Text == "Re-activate Account")
+        {
+            SqlCommand delete = new SqlCommand();
+            delete.Connection = sc;
 
-        ViewState["hostDeleteID"] = ID;
-        
-        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup('" + hostLFModal + "');", true);
+            delete.CommandText = "select accommodationID from Accommodation where hostID = " + ID;
+            String accomID = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
+
+            delete.CommandText = "update host set active = '" + "T" + "' where hostID = " + ID;
+            delete.ExecuteNonQuery();
+
+            delete.CommandText = "update accommodation set listed = '" + "T" + "' where hostID = " + ID;
+            delete.ExecuteNonQuery();
+
+            b.Text = "Deactivate Account";
+            b.Attributes.Add("class", "btn btn-danger btn-sm");
+        }
+        else
+        {
+            select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from Host where hostID = " + ID;
+
+            String hostLFModal = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+
+            ViewState["hostDeleteID"] = ID;
+
+            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup('" + hostLFModal + "');", true);
+        }
     }
 
     protected void DeleteTenantButton_Click(object sender, EventArgs e)
@@ -322,13 +362,28 @@ public partial class AdminDashboard : System.Web.UI.Page
         select.Connection = sc;
 
         String ID = b.ID.Substring(0, b.ID.Length - 1);
-        select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from tenant where tenantID = " + ID;
 
-        String tenantLFModal = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+        if (b.Text == "Re-activate Account")
+        {
+            SqlCommand delete = new SqlCommand();
+            delete.Connection = sc;
 
-        ViewState["tenantDeleteID"] = ID;
+            delete.CommandText = "update tenant set active = '" + "T" + "' where tenantID = " + ID;
+            delete.ExecuteNonQuery();
 
-        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopupTenant('" + tenantLFModal + "');", true);
+            b.Text = "Deactivate Account";
+            b.Attributes.Add("class", "btn btn-danger btn-sm");
+        }
+        else
+        {
+            select.CommandText = "select (lastName + ', ' + firstName + ': ' + email) from tenant where tenantID = " + ID;
+
+            String tenantLFModal = HttpUtility.HtmlEncode(Convert.ToString(select.ExecuteScalar()));
+
+            ViewState["tenantDeleteID"] = ID;
+
+            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopupTenant('" + tenantLFModal + "');", true);
+        }
     }
 
     protected void YesDeleteHost(object sender, EventArgs e)
@@ -341,17 +396,16 @@ public partial class AdminDashboard : System.Web.UI.Page
         delete.CommandText = "select accommodationID from Accommodation where hostID = " + ViewState["hostDeleteID"];
         String accomID = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
 
-        delete.CommandText = "select email from Host where hostID = " + ViewState["hostDeleteID"];
-        String hostEmail = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
-
-        delete.CommandText = "EXEC DeleteHost " + accomID + ", " + ViewState["hostDeleteID"];
+        delete.CommandText = "update host set active = 'F' where hostID = " + ViewState["hostDeleteID"];
         delete.ExecuteNonQuery();
 
-
-        delete.CommandText = "Delete from Passwords where email = '" + hostEmail + "'";
+        delete.CommandText = "update accommodation set listed = 'F' where hostID = " + ViewState["hostDeleteID"];
         delete.ExecuteNonQuery();
 
-        SearchButton_Click(sender, e);
+        b.Text = "Re-activate Account";
+        b.Attributes.Add("class", "btn btn-dark btn-sm");
+
+        Response.Redirect("AdminDashboard.aspx");
     }
 
     protected void YesDeleteTenant(object sender, EventArgs e)
@@ -361,14 +415,12 @@ public partial class AdminDashboard : System.Web.UI.Page
         SqlCommand delete = new SqlCommand();
         delete.Connection = sc;
 
-        delete.CommandText = "select email from Tenant where tenantID = " + ViewState["tenantDeleteID"];
-        String tenantEmail = HttpUtility.HtmlEncode(Convert.ToString(delete.ExecuteScalar()));
-
-        delete.CommandText = "EXEC DeleteTenant " + ViewState["tenantDeleteID"];
+        delete.CommandText = "update tenant set active = 'F' where tenantID = " + ViewState["tenantDeleteID"];
         delete.ExecuteNonQuery();
 
-        delete.CommandText = "Delete from Passwords where email = '" + tenantEmail + "'";
-        delete.ExecuteNonQuery();
+        b.Text = "Re-activate Account";
+        b.Attributes.Add("class", "btn btn-dark btn-sm");
 
+        Response.Redirect("AdminDashboard.aspx");
     }
 }
