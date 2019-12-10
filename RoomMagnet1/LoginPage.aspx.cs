@@ -92,6 +92,8 @@ public partial class LoginPage : System.Web.UI.Page
                             if (tenantActive == "F")
                             {
                                 OutputLabel.Text = "Your account has been deactivated. Please contact an administrator for more information.";
+                                Session["userType"] = "";
+                                Session["userEmail"] = "";
                                 break;
                             }
                             else
@@ -105,6 +107,8 @@ public partial class LoginPage : System.Web.UI.Page
                             if (hostActive == "F")
                             {
                                 OutputLabel.Text = "Your account has been deactivated. Please contact an administrator for more information.";
+                                Session["userType"] = "";
+                                Session["userEmail"] = "";
                                 break;
                             }
                             else
