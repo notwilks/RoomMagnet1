@@ -25,6 +25,8 @@ public partial class SearchResultPage : System.Web.UI.Page
                 SearchButton_Click(sender, e);
             }
 
+            
+
             if (IsPostBack)
             {
                 Session["CitySearch"] = HttpUtility.HtmlEncode(CitySearchBox.Text);
@@ -32,21 +34,34 @@ public partial class SearchResultPage : System.Web.UI.Page
                 ViewState["AccommodationID"] = "";
             }
 
-            SqlCommand insert = new SqlCommand();
-            insert.Connection = sc;
+            if (Convert.ToString(Session["userType"]) == "T")
+            {
 
-            sc.Open();
+                SqlCommand insert = new SqlCommand();
+                insert.Connection = sc;
 
-            insert.CommandText = "Insert into Search(searchDate, lastUpdated, lastUpdatedBy, state, city) VALUES (@searchDate, @lastUp, @lastUpBy, @stateIN, @cityIN)";
-            insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@searchDate", DateTime.Now));
-            insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUp", DateTime.Now));
-            insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpBy", "Joe Muia"));
-            insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@stateIN", Convert.ToString(Session["StateSearch"])));
-            insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@cityIN", Convert.ToString(Session["CitySearch"])));
+                sc.Open();
 
-            insert.ExecuteNonQuery();
+                insert.CommandText = "Select tenantID from Tenant where email = '" + Convert.ToString(Session["userEmail"]) + "'";
+                int tenID = Convert.ToInt32(insert.ExecuteScalar());
 
-            sc.Close();
+                insert.CommandText = "Insert into Search(searchDate, lastUpdated, lastUpdatedBy, state, city, tenantID) VALUES (@searchDate, @lastUp, @lastUpBy, @stateIN, @cityIN, @tenID)";
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@searchDate", DateTime.Now));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUp", DateTime.Now));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@lastUpBy", "Joe Muia"));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@stateIN", Convert.ToString(Session["StateSearch"])));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@cityIN", Convert.ToString(Session["CitySearch"])));
+                insert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@tenID", tenID));
+
+                insert.ExecuteNonQuery();
+
+                sc.Close();
+
+            }
+            else
+            {
+
+            }
 
             String bathroom = "%";
             String bathroomBadge = "images/private-bath.png";

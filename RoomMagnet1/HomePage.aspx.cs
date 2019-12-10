@@ -40,8 +40,16 @@ public partial class HomePage : System.Web.UI.Page
                 && CitySearchBox.Text.Contains("^") || CitySearchBox.Text.Contains("&") || CitySearchBox.Text.Contains("*") || CitySearchBox.Text.Contains("(") || CitySearchBox.Text.Contains(")")
                 && CitySearchBox.Text.Contains("-") || CitySearchBox.Text.Contains("_") || CitySearchBox.Text.Contains("+") || CitySearchBox.Text.Contains("="))
             {
+                Session["CitySearch"] = CitySearchBox.Text;
                 Session["StateSearch"] = stateBox.SelectedValue;
                 Response.Redirect("SearchResultPage.aspx");
+            }
+                else
+                {
+                    Session["CitySearch"] = CitySearchBox.Text;
+                    Session["StateSearch"] = stateBox.SelectedValue;
+                    Response.Redirect("SearchResultPage.aspx");
+                }
             }
             else
             {
@@ -49,12 +57,6 @@ public partial class HomePage : System.Web.UI.Page
                 Session["StateSearch"] = stateBox.SelectedValue;
                 Response.Redirect("SearchResultPage.aspx");
             }
-        }
-        else
-        {
-            Session["StateSearch"] = stateBox.SelectedValue;
-            Response.Redirect("SearchResultPage.aspx");
-        }
     }
 
     protected void RentMyRoomBtn_Clicked(object sender, EventArgs e)
