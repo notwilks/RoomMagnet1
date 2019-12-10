@@ -241,7 +241,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
     {
         FirstNameBox.Text = "John";
         LastNameBox.Text = "Doe";
-        dobBox.Text = "01/01/2019";
+        dobBox.Text = "12/10/2001";
         bioBox.Text = "This is an example biography.";
         phoneNumberBox.Text = "540-111-1111";
     }

@@ -133,7 +133,7 @@ public partial class EditProperty : System.Web.UI.Page
 
                 String name = "Images2/" + accomID + image3.FileName;
 
-                updateImages.CommandText = "update AccommodationImages set image3 = @image3, lastUpdated = @lu2, lastUpdatedBy = @lub2 bwhere accommodationID = " + accomID;
+                updateImages.CommandText = "update AccommodationImages set image3 = @image3, lastUpdated = @lu2, lastUpdatedBy = @lub2 where accommodationID = " + accomID;
                 updateImages.Parameters.Add(new SqlParameter("@image3", name));
                 updateImages.Parameters.Add(new SqlParameter("@lu2", DateTime.Now));
                 updateImages.Parameters.Add(new SqlParameter("@lub2", "Joe Muia"));
