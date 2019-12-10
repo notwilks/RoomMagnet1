@@ -106,7 +106,6 @@ public partial class TenantDashboard : System.Web.UI.Page
 
         while (reader.Read())
         {
-            BioLabel.Text += reader.GetString(0);
             TenantPrimaryImage.ImageUrl = reader.GetString(0);
             TenantImage2.ImageUrl = reader.GetString(1);
             TenantImage3.ImageUrl = reader.GetString(2);
