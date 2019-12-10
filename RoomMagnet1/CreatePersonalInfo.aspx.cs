@@ -170,7 +170,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                     if (Convert.ToInt32(CalculateAge(Convert.ToDateTime(dobBox.Text))) > 17 && Convert.ToInt32(CalculateAge(Convert.ToDateTime(dobBox.Text))) < 150)
                     {
                         tempHost.SetBirthDate(Convert.ToDateTime(dobBox.Text));
-
+                        dobErrorLbl.Text = "";
                         pNumBoxErrorLbl.Text = "";
 
                         if (phoneNumberBox.Text.Contains("A") || phoneNumberBox.Text.Contains("B") || phoneNumberBox.Text.Contains("C") || phoneNumberBox.Text.Contains("D") || phoneNumberBox.Text.Contains("E")
@@ -180,7 +180,7 @@ public partial class CreatePersonalInfo : System.Web.UI.Page
                             || phoneNumberBox.Text.Contains("U") || phoneNumberBox.Text.Contains("V") || phoneNumberBox.Text.Contains("W") || phoneNumberBox.Text.Contains("X") || phoneNumberBox.Text.Contains("Y")
                             || phoneNumberBox.Text.Contains("Z") || phoneNumberBox.Text.Contains("!") || phoneNumberBox.Text.Contains("@") || phoneNumberBox.Text.Contains("#") || phoneNumberBox.Text.Contains("$")
                             || phoneNumberBox.Text.Contains("%") || phoneNumberBox.Text.Contains("^") || phoneNumberBox.Text.Contains("&") || phoneNumberBox.Text.Contains("*") || phoneNumberBox.Text.Contains("(")
-                            || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("="))
+                            || phoneNumberBox.Text.Contains(")") || phoneNumberBox.Text.Contains("_") || phoneNumberBox.Text.Contains("+") || phoneNumberBox.Text.Contains("=") || phoneNumberBox.Text.Length != 12)
                         {
                             pNumBoxErrorLbl.Text = "Please enter a phone number in '###-###-####' format.";
                         }
