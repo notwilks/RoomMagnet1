@@ -36,4 +36,16 @@ public partial class TokBoxTest : System.Web.UI.Page
 
         
     }
+
+    protected void backToDash_Click(object sender, EventArgs e)
+    {
+        if (Convert.ToString(Session["userType"]) == "T")
+        {
+            Response.Redirect("TenantMessageCenter.aspx");
+        }
+        else if (Convert.ToString(Session["userType"]) == "H")
+        {
+            Response.Redirect("HostMessageCenter.aspx");
+        }
+    }
 }

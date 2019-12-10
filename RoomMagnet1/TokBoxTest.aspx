@@ -91,17 +91,21 @@
         </head>
         <body style="margin: 20rem;">
             <form runat="server">
-                <div style="margin-top: 8rem;">
+                <div style="margin-top: 1rem;">
+                        <asp:Button ID="backToDash" runat="server" Text="Back to Message Center" cssclass="btn" OnClick="backToDash_Click"/>
+                </div>
+                
 
-                    <div id="videos">
+                    <div id="videos" style="margin: 2rem;">
                         <div id="subscriber"></div>
                         <div id="publisher"></div>
                     </div>
-
+                    
                     <script type="text/javascript"></script>
 
                     <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
-                </div>
+              
+                
             </form>
         </body>
     </html>
